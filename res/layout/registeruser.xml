@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+
+
+
+    <LinearLayout
+        android:id="@+id/actionbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#999999"
+        android:orientation="vertical"
+        android:padding="10dp" >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="회원가입"
+            android:textSize="24dp"
+            android:layout_gravity="center" />
+        
+    </LinearLayout>
+
+    <ScrollView
+        android:id="@+id/scrollView1"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+		    <TextView
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:text="필수입력"
+		        android:textSize="18dp"
+		        android:padding="10dp"
+		        android:layout_margin="10dp"
+		        android:background="#DDDDDD" />
+		    
+		    <LinearLayout
+		        android:layout_width="match_parent"
+		        android:layout_height="wrap_content"
+		        android:padding="10dp" >
+		        <TextView
+		            android:layout_width="wrap_content"
+		            android:layout_height="wrap_content"
+			        android:textSize="18dp"
+			        android:layout_marginRight="10dp"
+		            android:text="ID" />
+		        <EditText
+		            android:id="@+id/id"
+		            android:layout_width="0dp"
+		            android:layout_height="wrap_content"
+		            android:layout_weight="1"
+		            android:inputType="textEmailAddress"
+		            android:ems="10" />
+		    </LinearLayout>
+		
+		    <LinearLayout
+		        android:layout_width="match_parent"
+		        android:layout_height="wrap_content"
+		        android:padding="10dp" >
+		        <TextView
+		            android:layout_width="wrap_content"
+		            android:layout_height="wrap_content"
+			        android:textSize="18dp"
+			        android:layout_marginRight="10dp"
+		            android:text="NickName" />
+		        <EditText
+		            android:id="@+id/nickname"
+		            android:layout_width="0dp"
+		            android:layout_height="wrap_content"
+		            android:layout_weight="1"
+		            android:inputType="textPersonName"
+		            android:ems="10" />
+		    </LinearLayout>
+		
+		    <LinearLayout
+		        android:layout_width="match_parent"
+		        android:layout_height="wrap_content"
+		        android:padding="10dp" >
+		        <TextView
+		            android:layout_width="wrap_content"
+		            android:layout_height="wrap_content"
+			        android:textSize="18dp"
+			        android:layout_marginRight="10dp"
+		            android:text="Password" />
+		        <EditText
+		            android:id="@+id/password"
+		            android:layout_width="0dp"
+		            android:layout_height="wrap_content"
+		            android:layout_weight="1"
+		            android:inputType="textPassword"
+		            android:ems="10" />
+		    </LinearLayout>
+		
+		    <TextView
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:text="선택입력"
+		        android:textSize="18dp"
+		        android:padding="10dp"
+		        android:layout_margin="10dp"
+		        android:background="#DDDDDD" />
+		                
+		    <LinearLayout
+		        android:layout_width="match_parent"
+		        android:layout_height="wrap_content"
+		        android:padding="10dp" >
+		        <TextView
+		            android:layout_width="wrap_content"
+		            android:layout_height="wrap_content"
+			        android:textSize="18dp"
+			        android:layout_marginRight="10dp"
+		            android:text="Region" />
+		        <TextView
+		            android:id="@+id/regiontxt"
+		            android:layout_width="wrap_content"
+		            android:layout_height="wrap_content"
+			        android:layout_marginRight="10dp"
+			        android:text="없음"
+			        android:textSize="18dp" />
+		        <Button
+		            android:id="@+id/region"
+		            android:layout_width="wrap_content"
+		            android:layout_height="wrap_content"
+		            android:text="변경" />	
+		    </LinearLayout>
+		    
+		    <LinearLayout
+		        android:layout_width="match_parent"
+		        android:layout_height="wrap_content"
+		        android:padding="10dp" >
+		        <TextView
+		            android:layout_width="wrap_content"
+		            android:layout_height="wrap_content"
+			        android:textSize="18dp"
+			        android:layout_marginRight="10dp"
+		            android:text="Univ" />
+		        <TextView
+		            android:id="@+id/univtxt"
+		            android:layout_width="wrap_content"
+		            android:layout_height="wrap_content"
+			        android:layout_marginRight="10dp"
+			        android:text="없음"
+			        android:textSize="18dp" />
+		        <Button
+		            android:id="@+id/univ"
+		            android:layout_width="wrap_content"
+		            android:layout_height="wrap_content"
+		            android:text="변경" />	
+		    </LinearLayout>
+		    
+		    <LinearLayout
+		        android:layout_width="match_parent"
+		        android:layout_height="wrap_content"
+		        android:padding="10dp" >
+		        <TextView
+		            android:layout_width="wrap_content"
+		            android:layout_height="wrap_content"
+			        android:textSize="18dp"
+			        android:layout_marginRight="10dp"
+		            android:text="College" />
+		        <TextView
+		            android:id="@+id/collegetxt"
+		            android:layout_width="wrap_content"
+		            android:layout_height="wrap_content"
+			        android:layout_marginRight="10dp"
+			        android:text="없음"
+			        android:textSize="18dp" />
+		        <Button
+		            android:id="@+id/college"
+		            android:layout_width="wrap_content"
+		            android:layout_height="wrap_content"
+		            android:text="변경" />	
+		    </LinearLayout>
+		    		    
+		    <LinearLayout
+		        android:layout_width="match_parent"
+		        android:layout_height="wrap_content"
+		        android:padding="10dp" >
+		        <TextView
+		            android:layout_width="wrap_content"
+		            android:layout_height="wrap_content"
+			        android:textSize="18dp"
+			        android:layout_marginRight="10dp"
+		            android:text="Major" />
+		        <TextView
+		            android:id="@+id/majortxt"
+		            android:layout_width="wrap_content"
+		            android:layout_height="wrap_content"
+			        android:layout_marginRight="10dp"
+			        android:text="없음"
+			        android:textSize="18dp" />
+		        <Button
+		            android:id="@+id/major"
+		            android:layout_width="wrap_content"
+		            android:layout_height="wrap_content"
+		            android:text="변경" />	
+		    </LinearLayout>
+		    
+		</LinearLayout>
+    </ScrollView>
+    
+
+    <Button
+        android:id="@+id/apply"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="결정" />
+
+</LinearLayout>

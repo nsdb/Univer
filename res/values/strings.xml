@@ -1,0 +1,19 @@
+<resources>
+
+    <string name="app_name">Univer</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="menu_settings">Settings</string>
+    <string name="title_activity_main">MainActivity</string>
+
+    <string name="base_url">http://1.234.23.142/~ypunval</string>
+
+    <string name="get_url">feeds</string>    
+    <string name="book_url">books</string>
+    
+    <string name="login_url">login</string>
+    <string name="registeruser_url">register</string>
+    <string name="bookinfogetter_url">http://openapi.naver.com/search</string>
+    <string name="bookinfogetter_key">159707e8f9723afcda699c6c3e6af7cf</string>
+    
+    
+</resources>

@@ -1,0 +1,347 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" >
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:padding="10dp"
+                android:orientation="horizontal" >
+
+                <ImageView
+                    android:id="@+id/image"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:src="@drawable/ic_launcher"
+                    android:layout_marginRight="10dp"
+                    android:layout_gravity="center" />
+
+                <RadioGroup
+                    android:id="@+id/sale"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center" >
+
+                    <RadioButton
+                        android:id="@+id/sell"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:checked="true"
+                        android:text="팝니다" />
+
+                    <RadioButton
+                        android:id="@+id/buy"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="삽니다" />
+
+                </RadioGroup>
+
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/barcode"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_margin="10dp"
+                android:text="바코드로 등록" />
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:background="#888888"
+                android:padding="10dp"
+                android:text="카테고리"
+                android:textColor="#ffffff" />
+
+		    <LinearLayout
+		        android:layout_width="match_parent"
+		        android:layout_height="wrap_content"
+		        android:padding="5dp" >
+		        <TextView
+		            android:layout_width="wrap_content"
+		            android:layout_height="wrap_content"
+			        android:layout_marginRight="10dp"
+			        android:textSize="18dp"
+		            android:text="Region" />
+		        <TextView
+		            android:id="@+id/regiontxt"
+		            android:layout_width="wrap_content"
+		            android:layout_height="wrap_content"
+			        android:layout_marginRight="10dp"
+			        android:text="없음"
+			        android:textSize="18dp" />
+		        <Button
+		            android:id="@+id/region"
+		            android:layout_width="wrap_content"
+		            android:layout_height="wrap_content"
+		            android:text="변경" />	
+		    </LinearLayout>
+		    
+		    <LinearLayout
+		        android:layout_width="match_parent"
+		        android:layout_height="wrap_content"
+		        android:padding="5dp" >
+		        <TextView
+		            android:layout_width="wrap_content"
+		            android:layout_height="wrap_content"
+			        android:layout_marginRight="10dp"
+			        android:textSize="18dp"
+		            android:text="Univ" />
+		        <TextView
+		            android:id="@+id/univtxt"
+		            android:layout_width="wrap_content"
+		            android:layout_height="wrap_content"
+			        android:layout_marginRight="10dp"
+			        android:text="없음"
+			        android:textSize="18dp" />
+		        <Button
+		            android:id="@+id/univ"
+		            android:layout_width="wrap_content"
+		            android:layout_height="wrap_content"
+		            android:text="변경" />	
+		    </LinearLayout>
+		    
+		    <LinearLayout
+		        android:layout_width="match_parent"
+		        android:layout_height="wrap_content"
+		        android:padding="5dp" >
+		        <TextView
+		            android:layout_width="wrap_content"
+		            android:layout_height="wrap_content"
+			        android:layout_marginRight="10dp"
+			        android:textSize="18dp"
+		            android:text="College" />
+		        <TextView
+		            android:id="@+id/collegetxt"
+		            android:layout_width="wrap_content"
+		            android:layout_height="wrap_content"
+			        android:layout_marginRight="10dp"
+			        android:text="없음"
+			        android:textSize="18dp" />
+		        <Button
+		            android:id="@+id/college"
+		            android:layout_width="wrap_content"
+		            android:layout_height="wrap_content"
+		            android:text="변경" />	
+		    </LinearLayout>
+		    		    
+		    <LinearLayout
+		        android:layout_width="match_parent"
+		        android:layout_height="wrap_content"
+		        android:padding="5dp" >
+		        <TextView
+		            android:layout_width="wrap_content"
+		            android:layout_height="wrap_content"
+			        android:layout_marginRight="10dp"
+			        android:textSize="18dp"
+		            android:text="Major" />
+		        <TextView
+		            android:id="@+id/majortxt"
+		            android:layout_width="wrap_content"
+		            android:layout_height="wrap_content"
+			        android:layout_marginRight="10dp"
+			        android:text="없음"
+			        android:textSize="18dp" />
+		        <Button
+		            android:id="@+id/major"
+		            android:layout_width="wrap_content"
+		            android:layout_height="wrap_content"
+		            android:text="변경" />	
+		    </LinearLayout>
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:background="#888888"
+                android:padding="10dp"
+                android:text="도서정보"
+                android:textColor="#ffffff" />
+
+		    <LinearLayout
+		        android:layout_width="match_parent"
+		        android:layout_height="wrap_content"
+		        android:padding="5dp" >
+		        <TextView
+		            android:layout_width="wrap_content"
+		            android:layout_height="wrap_content"
+			        android:layout_marginRight="10dp"
+			        android:textSize="18dp"
+		            android:text="Title" />
+                <EditText
+                    android:id="@+id/title"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:inputType="text" />
+		    </LinearLayout>
+
+		    <LinearLayout
+		        android:layout_width="match_parent"
+		        android:layout_height="wrap_content"
+		        android:padding="5dp" >
+		        <TextView
+		            android:layout_width="wrap_content"
+		            android:layout_height="wrap_content"
+			        android:layout_marginRight="10dp"
+			        android:textSize="18dp"
+		            android:text="Publisher" />
+                <EditText
+                    android:id="@+id/publisher"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:inputType="text" />
+		    </LinearLayout>
+
+		    <LinearLayout
+		        android:layout_width="match_parent"
+		        android:layout_height="wrap_content"
+		        android:padding="5dp" >
+		        <TextView
+		            android:layout_width="wrap_content"
+		            android:layout_height="wrap_content"
+			        android:layout_marginRight="10dp"
+			        android:textSize="18dp"
+		            android:text="Author" />
+                <EditText
+                    android:id="@+id/author"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:inputType="text" />
+		    </LinearLayout>
+
+		    <LinearLayout
+		        android:layout_width="match_parent"
+		        android:layout_height="wrap_content"
+		        android:padding="5dp" >
+		        <TextView
+		            android:layout_width="wrap_content"
+		            android:layout_height="wrap_content"
+			        android:layout_marginRight="10dp"
+			        android:textSize="18dp"
+		            android:text="Publish Date" />
+                <EditText
+                    android:id="@+id/pubdate"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:inputType="text" />
+		    </LinearLayout>
+
+		    <LinearLayout
+		        android:layout_width="match_parent"
+		        android:layout_height="wrap_content"
+		        android:padding="5dp" >
+		        <TextView
+		            android:layout_width="wrap_content"
+		            android:layout_height="wrap_content"
+			        android:layout_marginRight="10dp"
+			        android:textSize="18dp"
+		            android:text="Edition" />
+                <EditText
+                    android:id="@+id/edition"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:inputType="text" />
+		    </LinearLayout>
+
+		    <LinearLayout
+		        android:layout_width="match_parent"
+		        android:layout_height="wrap_content"
+		        android:padding="5dp" >
+		        <TextView
+		            android:layout_width="wrap_content"
+		            android:layout_height="wrap_content"
+			        android:layout_marginRight="10dp"
+			        android:textSize="18dp"
+		            android:text="Original Price" />
+                <EditText
+                    android:id="@+id/original_price"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:inputType="text" />
+		    </LinearLayout>
+
+		    <LinearLayout
+		        android:layout_width="match_parent"
+		        android:layout_height="wrap_content"
+		        android:padding="5dp" >
+		        <TextView
+		            android:layout_width="wrap_content"
+		            android:layout_height="wrap_content"
+			        android:layout_marginRight="10dp"
+			        android:textSize="18dp"
+		            android:text="Discount Price" />
+                <EditText
+                    android:id="@+id/discount_price"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:inputType="text" />
+		    </LinearLayout>
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:background="#888888"
+                android:padding="10dp"
+                android:text="상세설명"
+                android:textColor="#ffffff" />
+
+
+            <EditText
+                android:id="@+id/discription"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:ems="10"
+                android:inputType="textMultiLine"
+                android:lines="4" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:orientation="horizontal" >
+                
+                <CheckBox
+	                android:id="@+id/parcel"
+	                android:layout_width="wrap_content"
+	                android:layout_height="wrap_content"
+	                android:layout_marginRight="10dp"
+	                android:text="택배" />
+
+                <CheckBox
+	                android:id="@+id/meet"
+	                android:layout_width="wrap_content"
+	                android:layout_height="wrap_content"
+	                android:text="직거래" />
+                
+            </LinearLayout>
+
+		    <Button
+		        android:id="@+id/apply"
+		        android:layout_width="match_parent"
+		        android:layout_height="wrap_content"
+		        android:text="결정" />
+
+		</LinearLayout>
+    </ScrollView>
+</LinearLayout>

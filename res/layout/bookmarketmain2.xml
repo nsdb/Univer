@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:id="@+id/actionbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#999999" >
+
+    <Button
+        android:id="@+id/category"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="C" />
+
+    <LinearLayout
+        android:id="@+id/titlelayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:layout_gravity="center"
+        android:orientation="vertical" >
+
+  	    <TextView
+	        android:id="@+id/title"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_gravity="center"
+	        android:textSize="24dp"
+	        android:text="Title" />
+    
+    </LinearLayout>
+
+
+    <Button
+        android:id="@+id/search"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="S" />
+
+    <EditText
+        android:id="@+id/searchtxt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:visibility="gone"
+        android:ems="10" />
+
+    <Button
+        android:id="@+id/register"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="R" />
+        
+    </LinearLayout>
+    
+	<com.makeramen.segmented.SegmentedRadioGroup
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:orientation="horizontal"
+		android:id="@+id/segmentedradio"
+		android:layout_gravity="center"
+		android:checkedButton="@+id/sell">
+    
+		<RadioButton android:id="@+id/sell"
+		    android:minWidth="100dp"
+			android:text="Sell"
+			android:textSize="20dp"
+			android:padding="5dp"
+			android:button="@null"
+			android:gravity="center" />
+		<RadioButton android:id="@+id/buy"
+		    android:minWidth="100dp"
+			android:text="Buy"
+			android:textSize="20dp"
+			android:padding="5dp"
+			android:button="@null"
+			android:gravity="center" />
+		<RadioButton android:id="@+id/mine"
+		    android:minWidth="100dp"
+			android:text="Mine"
+			android:textSize="20dp"
+			android:padding="5dp"
+			android:button="@null"
+			android:gravity="center" />
+		
+	</com.makeramen.segmented.SegmentedRadioGroup>
+    	
+    <ListView
+        android:id="@+id/booklist"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+    </ListView>
+	
+
+</LinearLayout>
