@@ -43,7 +43,7 @@ public class RegisterBook extends Activity implements OnClickListener, OnChecked
 
 	ImageView image;
 	RadioGroup sale;
-	int salemode;
+	int saleMode;
 	Button barcode;
 	private final static int REQUESTCODE_BARCODE=1;
 	String isbn;
@@ -68,7 +68,7 @@ public class RegisterBook extends Activity implements OnClickListener, OnChecked
         // first linear
         image=(ImageView)findViewById(R.id.image);
         sale=(RadioGroup)findViewById(R.id.sale);
-        salemode=BookData.SALEMODE_SELL;
+        saleMode=BookData.SALEMODE_SELL;
         sale.setOnCheckedChangeListener(this);
         barcode=(Button)findViewById(R.id.barcode);
         barcode.setOnClickListener(new OnClickMover(this,"com.google.zxing.client.android.SCAN","",REQUESTCODE_BARCODE));
@@ -146,8 +146,8 @@ public class RegisterBook extends Activity implements OnClickListener, OnChecked
 
 	public void onCheckedChanged(RadioGroup group, int checkedId) {
 		switch(checkedId) {
-		case R.id.sell: salemode=BookData.SALEMODE_SELL; break;
-		case R.id.buy: salemode=BookData.SALEMODE_BUY; break;
+		case R.id.sell: saleMode=BookData.SALEMODE_SELL; break;
+		case R.id.buy: saleMode=BookData.SALEMODE_BUY; break;
 		}
 	}
 
@@ -288,7 +288,7 @@ public class RegisterBook extends Activity implements OnClickListener, OnChecked
 				postdata.add(new BasicNameValuePair("parce", (parcel.isChecked())? "1":"0"));
 				postdata.add(new BasicNameValuePair("meet", (meet.isChecked())? "1":"0"));
 				postdata.add(new BasicNameValuePair("country", "1"));
-				postdata.add(new BasicNameValuePair("sell", ""+salemode));
+				postdata.add(new BasicNameValuePair("sell", ""+saleMode));
 				UrlEncodedFormEntity ent = new UrlEncodedFormEntity(postdata,HTTP.UTF_8);
 				request.setEntity(ent);
 

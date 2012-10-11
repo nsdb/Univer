@@ -23,8 +23,7 @@ import android.widget.ListView;
 public class BookMarketMain3A extends Activity implements OnItemClickListener, OnClickListener {
 	
 	Button category;
-	int categorymode;
-	int salemode;
+	int saleMode;
 	
 	Button search;	
 	EditText searchtxt;
@@ -33,6 +32,7 @@ public class BookMarketMain3A extends Activity implements OnItemClickListener, O
 	private final static int REQUESTCODE_REGISTERBOOK=1;
 	
 	Button region, univ, college, major;
+	int rangeMode;
 	private final static int REQUESTCODE_RANGE=2;
 
 	ArrayList<BookData> data;
@@ -46,8 +46,7 @@ public class BookMarketMain3A extends Activity implements OnItemClickListener, O
         
         // actionbar - category
         category=(Button)findViewById(R.id.category);
-        categorymode=BookDataAdapter.getDefaultCategoryMode();
-        salemode=BookData.SALEMODE_SELL;
+        saleMode=BookData.SALEMODE_SELL;
         category.setOnClickListener(this);
         
         // actionbar - search
@@ -67,6 +66,7 @@ public class BookMarketMain3A extends Activity implements OnItemClickListener, O
     	univ.setOnClickListener(new OnClickMover(this,"RangeSetting","univ",REQUESTCODE_RANGE));
     	college.setOnClickListener(new OnClickMover(this,"RangeSetting","college",REQUESTCODE_RANGE));
     	major.setOnClickListener(new OnClickMover(this,"RangeSetting","major",REQUESTCODE_RANGE));
+        rangeMode=BookDataAdapter.getDefaultRangeMode();
     	// Not yet
     	major.setEnabled(false);
 
@@ -87,14 +87,14 @@ public class BookMarketMain3A extends Activity implements OnItemClickListener, O
 			switch(requestCode) {
 
 			case REQUESTCODE_REGISTERBOOK:
-				if(categorymode != BookDataAdapter.CATEGORYMODE_MINE)
-					categorymode=BookDataAdapter.getDefaultCategoryMode();
+				if(rangeMode != BookDataAdapter.RANGEMODE_MINE)
+					rangeMode=BookDataAdapter.getDefaultRangeMode();
 				updateView();
 				break;
 				
 			case REQUESTCODE_RANGE:
-				if(categorymode != BookDataAdapter.CATEGORYMODE_MINE) {
-					categorymode=BookDataAdapter.getDefaultCategoryMode();
+				if(rangeMode != BookDataAdapter.RANGEMODE_MINE) {
+					rangeMode=BookDataAdapter.getDefaultRangeMode();
 					updateView();
 				} break;
 
@@ -119,16 +119,16 @@ public class BookMarketMain3A extends Activity implements OnItemClickListener, O
 
 					switch(whichButton) {
 					case 0:
-						salemode=BookData.SALEMODE_SELL;
-						categorymode=BookDataAdapter.getDefaultCategoryMode();
+						saleMode=BookData.SALEMODE_SELL;
+						rangeMode=BookDataAdapter.getDefaultRangeMode();
 						break;
 					case 1:
-						salemode=BookData.SALEMODE_BUY;
-						categorymode=BookDataAdapter.getDefaultCategoryMode();
+						saleMode=BookData.SALEMODE_BUY;
+						rangeMode=BookDataAdapter.getDefaultRangeMode();
 						break;
 					case 2:
-						salemode=BookData.SALEMODE_ALL;
-						categorymode=BookDataAdapter.CATEGORYMODE_MINE;
+						saleMode=BookData.SALEMODE_ALL;
+						rangeMode=BookDataAdapter.RANGEMODE_MINE;
 						break;
 					}
 					updateView();
@@ -178,7 +178,7 @@ public class BookMarketMain3A extends Activity implements OnItemClickListener, O
     	major.setText( temp );
 
     	// list
-    	adapter.updateData("",categorymode,salemode,1);
+    	adapter.updateData("",rangeMode,saleMode,1);
 	}
 
 }

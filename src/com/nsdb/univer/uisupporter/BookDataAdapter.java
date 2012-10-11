@@ -30,33 +30,33 @@ import com.nsdb.univer.ui.R;
 public class BookDataAdapter extends ArrayAdapter<BookData> {
 
 	Activity activity;
-	ArrayList<BookData> data_visible;
-	ArrayList<BookData> data_original;
+	ArrayList<BookData> dataVisible;
+	ArrayList<BookData> dataOriginal;
 	
 	String title;
-	int categorymode;
-	int salemode;
-	int pagenum;
+	int rangeMode;
+	int saleMode;
+	int pageNum;
 	int sellerId;
 	
 	BookDataGetter getter;
 		
-	public final static int CATEGORYMODE_ALL=0;
-	public final static int CATEGORYMODE_REGION=1;
-	public final static int CATEGORYMODE_UNIV=2;
-	public final static int CATEGORYMODE_COLLEGE=3;
-	public final static int CATEGORYMODE_MAJOR=4;
-	public final static int CATEGORYMODE_MINE=5;
-	public final static int CATEGORYMODE_OTHER=6;
+	public final static int RANGEMODE_ALL=0;
+	public final static int RANGEMODE_REGION=1;
+	public final static int RANGEMODE_UNIV=2;
+	public final static int RANGEMODE_COLLEGE=3;
+	public final static int RANGEMODE_MAJOR=4;
+	public final static int RANGEMODE_MINE=5;
+	public final static int RANGEMODE_OTHER=6;
 
 	public BookDataAdapter(Activity activity, ArrayList<BookData> data) {
 		super(activity,R.layout.bookdata, data);
 		this.activity=activity;
-		this.data_visible=data;
-		this.data_original=new ArrayList<BookData>();
-		categorymode=-1;
-		salemode=-1;
-		pagenum=1;
+		this.dataVisible=data;
+		this.dataOriginal=new ArrayList<BookData>();
+		rangeMode=-1;
+		saleMode=-1;
+		pageNum=1;
 		sellerId=-1;
 		getter=null;
 	}
@@ -64,9 +64,9 @@ public class BookDataAdapter extends ArrayAdapter<BookData> {
 	
 	public void updateData(String title, int categorymode, int salemode, int pagenum) {
 		this.title=title;
-		this.categorymode=categorymode;
-		this.salemode=salemode;
-		this.pagenum=pagenum;
+		this.rangeMode=categorymode;
+		this.saleMode=salemode;
+		this.pageNum=pagenum;
 
 		if(getter != null)
 			getter.cancel(true);
@@ -78,21 +78,21 @@ public class BookDataAdapter extends ArrayAdapter<BookData> {
 		updateData(title,categorymode,salemode,pagenum);
 	}
 	public void updateData(String title, int salemode, int pagenum) {
-		updateData(title,getDefaultCategoryMode(),salemode,pagenum);
+		updateData(title,getDefaultRangeMode(),salemode,pagenum);
 	}
 	
 	public void updateView() {
 		
-		System.out.println("Original Data : "+data_original.size());
-		System.out.println("Visible Data : "+data_visible.size());
+		System.out.println("Original Data : "+dataOriginal.size());
+		System.out.println("Visible Data : "+dataVisible.size());
 		System.out.println("Filter Title : "+title);
-		System.out.println("Filter SellBuy : "+salemode);
-		System.out.println("Filter PageNum : "+pagenum);
+		System.out.println("Filter SellBuy : "+saleMode);
+		System.out.println("Filter PageNum : "+pageNum);
 
-		if(data_original.size()!=0) {	
-			data_visible.clear();
-			for(int i=0;i<data_original.size();i++) {
-				data_visible.add(data_original.get(i));
+		if(dataOriginal.size()!=0) {	
+			dataVisible.clear();
+			for(int i=0;i<dataOriginal.size();i++) {
+				dataVisible.add(dataOriginal.get(i));
 			}
 		}
 		
@@ -110,7 +110,7 @@ public class BookDataAdapter extends ArrayAdapter<BookData> {
 		TextView dp=(TextView)v.findViewById(R.id.discount_price);
 		TextView op=(TextView)v.findViewById(R.id.original_price);
 
-		if( position >= data_visible.size() ) {
+		if( position >= dataVisible.size() ) {
 			t.setText("Invalid");
 			w.clearView();
 			dp.setText("");
@@ -118,28 +118,28 @@ public class BookDataAdapter extends ArrayAdapter<BookData> {
 		} else {
 			
 			// title
-			t.setText( data_visible.get(position).title );
+			t.setText( dataVisible.get(position).title );
 			
 			// webview
 			w.setFocusable(false);
-			if(data_visible.get(position).thumbnail.compareTo("")!=0) {
-				System.out.println("thumbnail : "+data_visible.get(position).thumbnail.substring(1));
+			if(dataVisible.get(position).thumbnail.compareTo("")!=0) {
+				System.out.println("thumbnail : "+dataVisible.get(position).thumbnail.substring(1));
 				w.loadUrl( activity.getResources().getString(R.string.base_url)
-						+data_visible.get(position).thumbnail.substring(1) );
+						+dataVisible.get(position).thumbnail.substring(1) );
 			} else {
 				w.clearView();
 			}
 			
 			// discount price
-			if(data_visible.get(position).discount_price!=-1) {
-				dp.setText( ""+data_visible.get(position).discount_price );
+			if(dataVisible.get(position).discount_price!=-1) {
+				dp.setText( ""+dataVisible.get(position).discount_price );
 			} else {
 				dp.setText( "" );
 			}
 			
 			// original price
-			if(data_visible.get(position).original_price!=-1) {
-				op.setText( ""+data_visible.get(position).original_price );			
+			if(dataVisible.get(position).original_price!=-1) {
+				op.setText( ""+dataVisible.get(position).original_price );			
 			} else {
 				op.setText( "" );
 			}
@@ -154,8 +154,8 @@ public class BookDataAdapter extends ArrayAdapter<BookData> {
 
 		@Override
 		protected void onPreExecute() {
-			data_visible.clear();
-			data_visible.add(new BookData("불러오는 중..."));
+			dataVisible.clear();
+			dataVisible.add(new BookData("불러오는 중..."));
 			notifyDataSetChanged();
 			super.onPreExecute();
 		}
@@ -170,18 +170,18 @@ public class BookDataAdapter extends ArrayAdapter<BookData> {
 					+activity.getResources().getString(R.string.book_url)+'/';
 			ArrayList<String> getData=new ArrayList<String>();
 			getData.add("search="+0);
-			getData.add("sale="+salemode);
-			getData.add("category="+categorymode);	
-			switch(categorymode) {
-			case CATEGORYMODE_ALL: getData.add("id="+0); break;
-			case CATEGORYMODE_REGION: getData.add("id="+AppPref.getRangeData("region").id); break;
-			case CATEGORYMODE_UNIV: getData.add("id="+AppPref.getRangeData("univ").id); break;
-			case CATEGORYMODE_COLLEGE: getData.add("id="+AppPref.getRangeData("college").id); break;
-			case CATEGORYMODE_MAJOR: getData.add("id="+AppPref.getRangeData("major").id); break;
-			case CATEGORYMODE_MINE: getData.add("id="+0); break;
-			case CATEGORYMODE_OTHER: getData.add("id="+sellerId); break;
+			getData.add("sale="+saleMode);
+			getData.add("category="+rangeMode);	
+			switch(rangeMode) {
+			case RANGEMODE_ALL: getData.add("id="+0); break;
+			case RANGEMODE_REGION: getData.add("id="+AppPref.getRangeData("region").id); break;
+			case RANGEMODE_UNIV: getData.add("id="+AppPref.getRangeData("univ").id); break;
+			case RANGEMODE_COLLEGE: getData.add("id="+AppPref.getRangeData("college").id); break;
+			case RANGEMODE_MAJOR: getData.add("id="+AppPref.getRangeData("major").id); break;
+			case RANGEMODE_MINE: getData.add("id="+0); break;
+			case RANGEMODE_OTHER: getData.add("id="+sellerId); break;
 			}
-			getData.add("page="+pagenum);
+			getData.add("page="+pageNum);
 			for(int i=0;i<getData.size();i++) {
 				url=url+getData.get(i);
 				if(i != getData.size()-1) url=url+'&';
@@ -200,8 +200,8 @@ public class BookDataAdapter extends ArrayAdapter<BookData> {
 				InputStreamReader isr=new InputStreamReader(is,"utf-8");
 				
 				// clear data
-				data_visible.clear();
-				data_original.clear();
+				dataVisible.clear();
+				dataOriginal.clear();
 				
 				// get bookdata from xml through JDOM
 				SAXBuilder sax=new SAXBuilder();
@@ -210,7 +210,7 @@ public class BookDataAdapter extends ArrayAdapter<BookData> {
 				Element channel=rss.getChild("channel");
 				List<Element> items=channel.getChildren("item");
 				for(Element item : items) {
-					data_original.add( new BookData( item.getChild("title").getText(),
+					dataOriginal.add( new BookData( item.getChild("title").getText(),
 														Integer.parseInt(item.getChild("original_price").getText()),
 														Integer.parseInt(item.getChild("discount_price").getText()),
 							  				            item.getChild("thumbnail").getText(),
@@ -219,8 +219,8 @@ public class BookDataAdapter extends ArrayAdapter<BookData> {
 				
 			} catch(Exception e) {
 				e.printStackTrace();
-				data_visible.add(new BookData("읽기 실패"));
-				data_visible.add(new BookData("서버에 연결할 수 없습니다"));
+				dataVisible.add(new BookData("읽기 실패"));
+				dataVisible.add(new BookData("서버에 연결할 수 없습니다"));
 			}
 			
 			return null;
@@ -232,17 +232,17 @@ public class BookDataAdapter extends ArrayAdapter<BookData> {
 		}
 	}
 	
-	public static int getDefaultCategoryMode() {
+	public static int getDefaultRangeMode() {
 		if(AppPref.getRangeData("region").title.compareTo("")==0) {
-			return CATEGORYMODE_ALL;
+			return RANGEMODE_ALL;
 		} else if(AppPref.getRangeData("univ").title.compareTo("")==0) {
-			return CATEGORYMODE_REGION;
+			return RANGEMODE_REGION;
 		} else if(AppPref.getRangeData("college").title.compareTo("")==0) {
-			return CATEGORYMODE_UNIV;
+			return RANGEMODE_UNIV;
 		} else if(AppPref.getRangeData("major").title.compareTo("")==0) {
-			return CATEGORYMODE_COLLEGE;
+			return RANGEMODE_COLLEGE;
 		} else {
-			return CATEGORYMODE_MAJOR;
+			return RANGEMODE_MAJOR;
 		}
 	}
 
