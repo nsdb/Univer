@@ -92,7 +92,7 @@
 	</HorizontalScrollView>
     	
     <ListView
-        android:id="@+id/booklist"
+        android:id="@+id/professorlist"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" >
     </ListView>

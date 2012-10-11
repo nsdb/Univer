@@ -9,6 +9,7 @@
 
     <string name="get_url">feeds</string>    
     <string name="book_url">books</string>
+    <string name="professor_url">professors</string>
     
     <string name="login_url">login</string>
     <string name="registeruser_url">register</string>
