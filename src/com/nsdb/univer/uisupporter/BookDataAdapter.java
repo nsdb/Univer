@@ -210,11 +210,7 @@ public class BookDataAdapter extends ArrayAdapter<BookData> {
 				Element channel=rss.getChild("channel");
 				List<Element> items=channel.getChildren("item");
 				for(Element item : items) {
-					dataOriginal.add( new BookData( item.getChild("title").getText(),
-														Integer.parseInt(item.getChild("original_price").getText()),
-														Integer.parseInt(item.getChild("discount_price").getText()),
-							  				            item.getChild("thumbnail").getText(),
-							  			                Integer.parseInt(item.getChild("id").getText()) ) );
+					dataOriginal.add( new BookData(item) );
 				}
 				
 			} catch(Exception e) {
