@@ -173,8 +173,7 @@ public class ProfessorDataAdapter extends ArrayAdapter<ProfessorData> {
 				Element channel=rss.getChild("channel");
 				List<Element> items=channel.getChildren("item");
 				for(Element item : items) {
-					dataOriginal.add( new ProfessorData( item.getChild("title").getText(),
-							  			                Integer.parseInt(item.getChild("id").getText()) ) );
+					dataOriginal.add( new ProfessorData(item) );
 				}
 				
 			} catch(Exception e) {
