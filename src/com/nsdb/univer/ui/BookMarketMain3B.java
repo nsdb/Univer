@@ -151,6 +151,12 @@ public class BookMarketMain3B extends ActiveFragment implements OnItemClickListe
 	
 	public void updateView() {
 		
+		System.out.println("Range Button Update");
+		System.out.println("Region : "+AppPref.getRangeData("region").nick);
+		System.out.println("Univ : "+AppPref.getRangeData("univ").nick);
+		System.out.println("College : "+AppPref.getRangeData("college").nick);
+		System.out.println("Major : "+AppPref.getRangeData("major").nick);
+		
     	// region
     	String temp=AppPref.getRangeData("region").nick;
     	if(temp.compareTo("")==0) {

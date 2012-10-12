@@ -125,7 +125,7 @@ public class BookDataAdapter extends ArrayAdapter<BookData> {
 			if(dataVisible.get(position).thumbnail.compareTo("")!=0) {
 				System.out.println("thumbnail : "+dataVisible.get(position).thumbnail.substring(1));
 				w.loadUrl( activity.getResources().getString(R.string.base_url)
-						+dataVisible.get(position).thumbnail.substring(1) );
+						+dataVisible.get(position).thumbnail );
 			} else {
 				w.clearView();
 			}
