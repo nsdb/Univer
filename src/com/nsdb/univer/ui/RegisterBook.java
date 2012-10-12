@@ -41,17 +41,17 @@ import android.widget.Toast;
 
 public class RegisterBook extends Activity implements OnClickListener, OnCheckedChangeListener {
 
-	ImageView image;
+	
 	RadioGroup sale;
 	int saleMode;
-	Button barcode;
-	private final static int REQUESTCODE_BARCODE=1;
-	String isbn;
-	
 	TextView regiontxt,univtxt,collegetxt,majortxt;
 	Button region,univ,college,major;
 	
+	Button barcode;
+	String isbn;
+	ImageView image;
 	EditText title,publisher,author,pubdate,edition,original_price,discount_price;
+	private final static int REQUESTCODE_BARCODE=1;
 	
 	EditText discription;
 	CheckBox parcel,meet;
@@ -66,15 +66,9 @@ public class RegisterBook extends Activity implements OnClickListener, OnChecked
         setContentView(R.layout.registerbook);
         
         // first linear
-        image=(ImageView)findViewById(R.id.image);
         sale=(RadioGroup)findViewById(R.id.sale);
         saleMode=BookData.SALEMODE_SELL;
         sale.setOnCheckedChangeListener(this);
-        barcode=(Button)findViewById(R.id.barcode);
-        barcode.setOnClickListener(new OnClickMover(this,"com.google.zxing.client.android.SCAN","",REQUESTCODE_BARCODE));
-        isbn="1";
-        
-        // second linear
         regiontxt=(TextView)findViewById(R.id.regiontxt);
         univtxt=(TextView)findViewById(R.id.univtxt);
         collegetxt=(TextView)findViewById(R.id.collegetxt);
@@ -88,7 +82,11 @@ public class RegisterBook extends Activity implements OnClickListener, OnChecked
         college.setOnClickListener(new OnClickMover(this,"RangeSetting","college"));
         major.setOnClickListener(new OnClickMover(this,"RangeSetting","major"));
         
-        // third linear
+        // second linear
+        image=(ImageView)findViewById(R.id.image);
+        barcode=(Button)findViewById(R.id.barcode);
+        barcode.setOnClickListener(new OnClickMover(this,"com.google.zxing.client.android.SCAN","",REQUESTCODE_BARCODE));
+        isbn="1";
         title=(EditText)findViewById(R.id.title);
         publisher=(EditText)findViewById(R.id.publisher);
         author=(EditText)findViewById(R.id.author);
@@ -98,7 +96,7 @@ public class RegisterBook extends Activity implements OnClickListener, OnChecked
         discount_price=(EditText)findViewById(R.id.discount_price);
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
         
-        // fourth linear
+        // third linear
         discription=(EditText)findViewById(R.id.discription);
         parcel=(CheckBox)findViewById(R.id.parcel);
         meet=(CheckBox)findViewById(R.id.meet);

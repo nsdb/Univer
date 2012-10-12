@@ -49,7 +49,7 @@ public final class R {
         public static final int actionbar=0x7f080008;
         public static final int apply=0x7f080023;
         public static final int author=0x7f08002c;
-        public static final int barcode=0x7f080026;
+        public static final int barcode=0x7f080029;
         public static final int booklist=0x7f080007;
         public static final int bookmarkettab=0x7f080036;
         public static final int button3=0x7f080038;
@@ -63,17 +63,17 @@ public final class R {
         public static final int category=0x7f080009;
         public static final int clear=0x7f080022;
         public static final int college=0x7f080006;
-        public static final int collegetxt=0x7f080029;
+        public static final int collegetxt=0x7f080027;
         public static final int discount_price=0x7f080002;
         public static final int discription=0x7f08002f;
         public static final int edition=0x7f08002e;
         public static final int horizontalScrollView1=0x7f080012;
         public static final int id=0x7f080014;
-        public static final int image=0x7f080024;
+        public static final int image=0x7f08002a;
         public static final int list=0x7f080021;
         public static final int login=0x7f080016;
         public static final int major=0x7f080013;
-        public static final int majortxt=0x7f08002a;
+        public static final int majortxt=0x7f080028;
         public static final int meet=0x7f080031;
         public static final int menu_settings=0x7f080039;
         public static final int mine=0x7f080011;
@@ -86,9 +86,9 @@ public final class R {
         public static final int pubdate=0x7f08002d;
         public static final int publisher=0x7f08002b;
         public static final int region=0x7f080004;
-        public static final int regiontxt=0x7f080027;
+        public static final int regiontxt=0x7f080025;
         public static final int register=0x7f08000d;
-        public static final int sale=0x7f080025;
+        public static final int sale=0x7f080024;
         public static final int screen=0x7f080035;
         public static final int scrollView1=0x7f080032;
         public static final int search=0x7f08000b;
@@ -103,7 +103,7 @@ public final class R {
         public static final int title=0x7f080001;
         public static final int titlelayout=0x7f08000a;
         public static final int univ=0x7f080005;
-        public static final int univtxt=0x7f080028;
+        public static final int univtxt=0x7f080026;
     }
     public static final class layout {
         public static final int bookdata=0x7f030000;
