@@ -83,6 +83,13 @@
             </intent-filter>
         </activity>
         
+        <activity android:name="BookDetail">
+            <intent-filter>
+                <action android:name="BookDetail" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        
     </application>
 
     <uses-permission android:name="android.permission.INTERNET"></uses-permission>

@@ -8,6 +8,7 @@ public class AppPref {
 	private static RangeData major;
 	private static String id;
 	private static String password;
+	private static BookData lastBookData;
 
 	public static void init() {
 		region=new RangeData();
@@ -16,6 +17,7 @@ public class AppPref {
 		major=new RangeData();
 		id="";
 		password="";
+		lastBookData=null;
 	}
 	
 	public static void setRangeData(String filter,RangeData data) {
@@ -60,5 +62,12 @@ public class AppPref {
 		} else {
 			return null;
 		}
+	}
+	
+	public static void setLastBookData(BookData data) {
+		lastBookData=data;
+	}
+	public static BookData getLastBookData() {
+		return lastBookData;
 	}
 }

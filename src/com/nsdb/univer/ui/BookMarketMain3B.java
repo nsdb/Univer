@@ -113,7 +113,10 @@ public class BookMarketMain3B extends ActiveFragment implements OnItemClickListe
 	
 
 	public void onItemClick(AdapterView<?> parent, View view, int position, long l_position) {
-		
+		if(data.get(position).id != -1) {
+			AppPref.setLastBookData(data.get(position));
+			OnClickMover.moveActivity(THIS,"BookDetail","");
+		}
 	}
 
 	// for category button

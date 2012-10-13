@@ -53,7 +53,7 @@ public class RegisterBook extends Activity implements OnClickListener, OnChecked
 	EditText title,publisher,author,pubdate,edition,original_price,discount_price;
 	private final static int REQUESTCODE_BARCODE=1;
 	
-	EditText discription;
+	EditText description;
 	CheckBox parcel,meet;
 	
 	Button apply;	
@@ -97,7 +97,7 @@ public class RegisterBook extends Activity implements OnClickListener, OnChecked
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
         
         // third linear
-        discription=(EditText)findViewById(R.id.discription);
+        description=(EditText)findViewById(R.id.description);
         parcel=(CheckBox)findViewById(R.id.parcel);
         meet=(CheckBox)findViewById(R.id.meet);
         
@@ -278,7 +278,7 @@ public class RegisterBook extends Activity implements OnClickListener, OnChecked
 				postdata.add(new BasicNameValuePair("edition", edition.getText().toString()));
 				postdata.add(new BasicNameValuePair("publisher", publisher.getText().toString()));
 				postdata.add(new BasicNameValuePair("book_author", author.getText().toString()));
-				postdata.add(new BasicNameValuePair("content", discription.getText().toString()));
+				postdata.add(new BasicNameValuePair("content", description.getText().toString()));
 				postdata.add(new BasicNameValuePair("university", ""+AppPref.getRangeData("univ").id));
 				postdata.add(new BasicNameValuePair("college", ""+AppPref.getRangeData("college").id));
 				postdata.add(new BasicNameValuePair("major", ""+AppPref.getRangeData("major").id));

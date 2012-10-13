@@ -1,9 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" >
-
+    
     <ScrollView
         android:layout_width="fill_parent"
         android:layout_height="wrap_content" >
@@ -12,167 +12,14 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical" >
-
-
-            <TextView
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:background="#888888"
-                android:padding="10dp"
-                android:text="카테고리"
-                android:textColor="#ffffff" />
-
-		    <LinearLayout
-		        android:layout_width="match_parent"
-		        android:layout_height="wrap_content"
-		        android:padding="5dp" >
-		        <TextView
-		            android:layout_width="wrap_content"
-		            android:layout_height="wrap_content"
-			        android:layout_marginRight="10dp"
-			        android:layout_gravity="center"
-			        android:textSize="18dp"
-		            android:text="SaleMode" />
-		        
-        	    <com.makeramen.segmented.SegmentedRadioGroup
-                    android:id="@+id/sale"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-					android:orientation="horizontal"
-                    android:layout_gravity="center" >
-
-                    <RadioButton
-                        android:id="@+id/sell"
-                        android:layout_width="80dp"
-                        android:layout_height="wrap_content"
-                        android:checked="true"
-						android:button="@null"
-						android:gravity="center"
-                        android:text="팝니다" />
-
-                    <RadioButton
-                        android:id="@+id/buy"
-                        android:layout_width="80dp"
-                        android:layout_height="wrap_content"
-						android:button="@null"
-						android:gravity="center"
-                        android:text="삽니다" />
-
-                </com.makeramen.segmented.SegmentedRadioGroup>
-		        
-		    </LinearLayout>
-		    
-		    <LinearLayout
-		        android:layout_width="match_parent"
-		        android:layout_height="wrap_content"
-		        android:padding="5dp" >
-		        <TextView
-		            android:layout_width="wrap_content"
-		            android:layout_height="wrap_content"
-			        android:layout_marginRight="10dp"
-			        android:textSize="18dp"
-		            android:text="Region" />
-		        <TextView
-		            android:id="@+id/regiontxt"
-		            android:layout_width="wrap_content"
-		            android:layout_height="wrap_content"
-			        android:layout_marginRight="10dp"
-			        android:text="없음"
-			        android:textSize="18dp" />
-		        <Button
-		            android:id="@+id/region"
-		            android:layout_width="wrap_content"
-		            android:layout_height="wrap_content"
-		            android:text="변경" />	
-		    </LinearLayout>
-		    
-		    <LinearLayout
-		        android:layout_width="match_parent"
-		        android:layout_height="wrap_content"
-		        android:padding="5dp" >
-		        <TextView
-		            android:layout_width="wrap_content"
-		            android:layout_height="wrap_content"
-			        android:layout_marginRight="10dp"
-			        android:textSize="18dp"
-		            android:text="Univ" />
-		        <TextView
-		            android:id="@+id/univtxt"
-		            android:layout_width="wrap_content"
-		            android:layout_height="wrap_content"
-			        android:layout_marginRight="10dp"
-			        android:text="없음"
-			        android:textSize="18dp" />
-		        <Button
-		            android:id="@+id/univ"
-		            android:layout_width="wrap_content"
-		            android:layout_height="wrap_content"
-		            android:text="변경" />	
-		    </LinearLayout>
-		    
-		    <LinearLayout
-		        android:layout_width="match_parent"
-		        android:layout_height="wrap_content"
-		        android:padding="5dp" >
-		        <TextView
-		            android:layout_width="wrap_content"
-		            android:layout_height="wrap_content"
-			        android:layout_marginRight="10dp"
-			        android:textSize="18dp"
-		            android:text="College" />
-		        <TextView
-		            android:id="@+id/collegetxt"
-		            android:layout_width="wrap_content"
-		            android:layout_height="wrap_content"
-			        android:layout_marginRight="10dp"
-			        android:text="없음"
-			        android:textSize="18dp" />
-		        <Button
-		            android:id="@+id/college"
-		            android:layout_width="wrap_content"
-		            android:layout_height="wrap_content"
-		            android:text="변경" />	
-		    </LinearLayout>
-		    		    
-		    <LinearLayout
-		        android:layout_width="match_parent"
-		        android:layout_height="wrap_content"
-		        android:padding="5dp" >
-		        <TextView
-		            android:layout_width="wrap_content"
-		            android:layout_height="wrap_content"
-			        android:layout_marginRight="10dp"
-			        android:textSize="18dp"
-		            android:text="Major" />
-		        <TextView
-		            android:id="@+id/majortxt"
-		            android:layout_width="wrap_content"
-		            android:layout_height="wrap_content"
-			        android:layout_marginRight="10dp"
-			        android:text="없음"
-			        android:textSize="18dp" />
-		        <Button
-		            android:id="@+id/major"
-		            android:layout_width="wrap_content"
-		            android:layout_height="wrap_content"
-		            android:text="변경" />	
-		    </LinearLayout>
-
-            <TextView
+            
+    		<TextView
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:background="#888888"
                 android:padding="10dp"
                 android:text="도서정보"
                 android:textColor="#ffffff" />
-
-            <Button
-                android:id="@+id/barcode"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_margin="10dp"
-                android:text="바코드로 등록" />
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -186,12 +33,11 @@
 			        android:layout_marginRight="10dp"
 			        android:textSize="18dp"
 		            android:text="Image" />
-                <ImageView
-                    android:id="@+id/image"
-                    android:layout_width="80dp"
-                    android:layout_height="80dp"
-                    android:src="@drawable/ic_launcher"
-                    android:layout_gravity="center" />
+			    <WebView
+			        android:id="@+id/image"
+			        android:layout_width="wrap_content"
+			        android:layout_height="wrap_content"
+			        android:layout_margin="10dp" />
 
             </LinearLayout>
             
@@ -210,6 +56,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:enabled="false"
                     android:inputType="text" />
 		    </LinearLayout>
 
@@ -228,6 +75,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:enabled="false"
                     android:inputType="text" />
 		    </LinearLayout>
 
@@ -246,6 +94,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:enabled="false"
                     android:inputType="text" />
 		    </LinearLayout>
 
@@ -264,6 +113,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:enabled="false"
                     android:inputType="text" />
 		    </LinearLayout>
 
@@ -282,6 +132,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:enabled="false"
                     android:inputType="text" />
 		    </LinearLayout>
 
@@ -300,6 +151,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:enabled="false"
                     android:inputType="text" />
 		    </LinearLayout>
 
@@ -318,6 +170,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:enabled="false"
                     android:inputType="text" />
 		    </LinearLayout>
 
@@ -337,6 +190,7 @@
                 android:layout_margin="10dp"
                 android:ems="10"
                 android:inputType="textMultiLine"
+                android:enabled="false"
                 android:lines="4" />
 
             <LinearLayout
@@ -350,22 +204,18 @@
 	                android:layout_width="wrap_content"
 	                android:layout_height="wrap_content"
 	                android:layout_marginRight="10dp"
+	                android:enabled="false"
 	                android:text="택배" />
 
                 <CheckBox
 	                android:id="@+id/meet"
 	                android:layout_width="wrap_content"
 	                android:layout_height="wrap_content"
+	                android:enabled="false"
 	                android:text="직거래" />
                 
             </LinearLayout>
-
-		    <Button
-		        android:id="@+id/apply"
-		        android:layout_width="match_parent"
-		        android:layout_height="wrap_content"
-		        android:text="결정" />
-
-		</LinearLayout>
+        </LinearLayout>
     </ScrollView>
+    
 </LinearLayout>
