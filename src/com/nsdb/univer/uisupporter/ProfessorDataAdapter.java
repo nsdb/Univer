@@ -21,6 +21,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebView;
 import android.widget.ArrayAdapter;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.nsdb.univer.data.AppPref;
@@ -91,6 +92,9 @@ public class ProfessorDataAdapter extends ArrayAdapter<ProfessorData> {
 			.inflate(R.layout.professordata,null);
 
 		TextView t=(TextView)v.findViewById(R.id.title);
+		WebView w=(WebView)v.findViewById(R.id.thumbnail);
+		TextView rt=(TextView)v.findViewById(R.id.totaltxt);
+		RatingBar r=(RatingBar)v.findViewById(R.id.total);
 		
 		if( position >= dataVisible.size() ) {
 			t.setText("Invalid");
@@ -100,14 +104,25 @@ public class ProfessorDataAdapter extends ArrayAdapter<ProfessorData> {
 			t.setText( dataVisible.get(position).title );
 			
 			// webview
-			//w.setFocusable(false);
-			//if(dataVisible.get(position).thumbnail.compareTo("")!=0) {
-			//	System.out.println("thumbnail : "+dataVisible.get(position).thumbnail.substring(1));
-			//	w.loadUrl( activity.getResources().getString(R.string.base_url)
-			//			+dataVisible.get(position).thumbnail.substring(1) );
-			//} else {
-			//	w.clearView();
-			//}
+			w.setFocusable(false);
+			if(dataVisible.get(position).thumbnail.compareTo("")!=0) {
+				System.out.println("thumbnail : "+dataVisible.get(position).thumbnail.substring(1));
+				w.loadUrl( activity.getResources().getString(R.string.base_url)
+						+dataVisible.get(position).thumbnail );
+			} else {
+				w.clearView();
+			}
+			
+			// ratingbar
+			if(dataVisible.get(position).count > 0) {
+				double d=dataVisible.get(position).total/(dataVisible.get(position).count*5);
+				d=Math.round(d*100)/100;
+				rt.setText(""+d);
+				r.setRating( (float)d/2 );
+			} else {
+				rt.setText("0.0");
+				r.setRating(0.0f);				
+			}
 			
 		}
 		
