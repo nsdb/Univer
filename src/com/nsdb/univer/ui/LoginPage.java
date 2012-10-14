@@ -18,6 +18,7 @@ import com.nsdb.univer.uisupporter.OnClickMover;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
@@ -33,6 +34,7 @@ public class LoginPage extends Activity implements OnClickListener {
 	Button login;
 	Button signup;
 	ProgressDialog pdl;
+	private final static int REQUESTCODE_LOGIN=1;
 	
 	public final static int LOGIN_SUCCESS=200;
 	public final static int LOGIN_FAIL=101;
@@ -43,14 +45,16 @@ public class LoginPage extends Activity implements OnClickListener {
         setContentView(R.layout.login);
         
         // Initializing
-        AppPref.init();
+        AppPref.load(this);
         
         id=(EditText)findViewById(R.id.id);
         password=(EditText)findViewById(R.id.password);
         login=(Button)findViewById(R.id.login);
         signup=(Button)findViewById(R.id.signup);
+        id.setText(AppPref.getString("id"));
         login.setOnClickListener(this);
         signup.setOnClickListener(new OnClickMover(this,"RegisterUser",""));
+        
     }
 
     // for login button
@@ -102,10 +106,10 @@ public class LoginPage extends Activity implements OnClickListener {
 				String result="";
 				String temp=br.readLine();
 				while(temp!=null) {
-					result=result+temp;
+					result=temp;
+					System.out.println("Result : "+result);
 					temp=br.readLine();
 				}
-				System.out.println("Result : "+result);
 				
 				return Integer.parseInt(result);
 				
@@ -136,7 +140,16 @@ public class LoginPage extends Activity implements OnClickListener {
 				break;					
 			}
 
-			OnClickMover.moveActivity(LoginPage.this,"TabMain","");
+			OnClickMover.moveActivityForResult(LoginPage.this,"TabMain","",REQUESTCODE_LOGIN);
+		}
+	}
+
+	@Override
+	public void onActivityResult(int requestCode, int resultCode, Intent data)
+	{
+		super.onActivityResult(requestCode, resultCode, data);
+		if(requestCode==REQUESTCODE_LOGIN) {
+			AppPref.save(this);
 			finish();
 		}
 	}

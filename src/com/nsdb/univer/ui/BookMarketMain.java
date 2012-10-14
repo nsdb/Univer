@@ -30,9 +30,6 @@ public class BookMarketMain extends Activity implements OnItemClickListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.bookmarketmain);
     	
-        // RangeData
-        AppPref.init();
-        
         // Button
     	region=(Button)findViewById(R.id.region);
     	univ=(Button)findViewById(R.id.univ);

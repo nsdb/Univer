@@ -279,14 +279,16 @@ public class RegisterBook extends Activity implements OnClickListener, OnChecked
 				postdata.add(new BasicNameValuePair("publisher", publisher.getText().toString()));
 				postdata.add(new BasicNameValuePair("book_author", author.getText().toString()));
 				postdata.add(new BasicNameValuePair("content", description.getText().toString()));
+				postdata.add(new BasicNameValuePair("region", ""+AppPref.getRangeData("region").id));
 				postdata.add(new BasicNameValuePair("university", ""+AppPref.getRangeData("univ").id));
 				postdata.add(new BasicNameValuePair("college", ""+AppPref.getRangeData("college").id));
 				postdata.add(new BasicNameValuePair("major", ""+AppPref.getRangeData("major").id));
 				postdata.add(new BasicNameValuePair("sale", ""+BookData.SALESTATE_ABLE));
-				postdata.add(new BasicNameValuePair("parce", (parcel.isChecked())? "1":"0"));
+				postdata.add(new BasicNameValuePair("parcel", (parcel.isChecked())? "1":"0"));
 				postdata.add(new BasicNameValuePair("meet", (meet.isChecked())? "1":"0"));
 				postdata.add(new BasicNameValuePair("country", "1"));
 				postdata.add(new BasicNameValuePair("sell", ""+saleMode));
+				postdata.add(new BasicNameValuePair("isbn", ""+isbn));
 				UrlEncodedFormEntity ent = new UrlEncodedFormEntity(postdata,HTTP.UTF_8);
 				request.setEntity(ent);
 
@@ -299,10 +301,10 @@ public class RegisterBook extends Activity implements OnClickListener, OnChecked
 				String result="";
 				String temp=br.readLine();
 				while(temp!=null) {
-					result=result+temp;
+					result=temp;
+					System.out.println("Result : "+result);
 					temp=br.readLine();
 				}
-				System.out.println("Result : "+result);
 				
 				return Integer.parseInt(result);
 				

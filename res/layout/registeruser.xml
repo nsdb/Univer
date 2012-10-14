@@ -34,14 +34,13 @@
             android:layout_height="wrap_content"
             android:orientation="vertical" >
 
-		    <TextView
-		        android:layout_width="wrap_content"
-		        android:layout_height="wrap_content"
-		        android:text="필수입력"
-		        android:textSize="18dp"
-		        android:padding="10dp"
-		        android:layout_margin="10dp"
-		        android:background="#DDDDDD" />
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:background="#888888"
+                android:padding="10dp"
+                android:text="기본정보"
+                android:textColor="#ffffff" />
 		    
 		    <LinearLayout
 		        android:layout_width="match_parent"
@@ -100,14 +99,13 @@
 		            android:ems="10" />
 		    </LinearLayout>
 		
-		    <TextView
-		        android:layout_width="wrap_content"
-		        android:layout_height="wrap_content"
-		        android:text="선택입력"
-		        android:textSize="18dp"
-		        android:padding="10dp"
-		        android:layout_margin="10dp"
-		        android:background="#DDDDDD" />
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:background="#888888"
+                android:padding="10dp"
+                android:text="대학정보"
+                android:textColor="#ffffff" />
 		                
 		    <LinearLayout
 		        android:layout_width="match_parent"

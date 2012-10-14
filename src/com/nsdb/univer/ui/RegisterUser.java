@@ -108,12 +108,13 @@ public class RegisterUser extends Activity implements OnClickListener {
     // for apply button
 	public void onClick(View v) {
 		
-		if(id.getText().toString().compareTo("")==0) {
-			Toast.makeText(this, "ID를 입력하세요.",Toast.LENGTH_SHORT).show();
-		} else if(nickname.getText().toString().compareTo("")==0) {
-			Toast.makeText(this, "닉네임를 입력하세요.",Toast.LENGTH_SHORT).show();				
-		} else if(password.getText().toString().compareTo("")==0) {
-			Toast.makeText(this, "비밀번호를 입력하세요.",Toast.LENGTH_SHORT).show();				
+		if(id.getText().toString().compareTo("")==0 ||
+			nickname.getText().toString().compareTo("")==0 ||
+			password.getText().toString().compareTo("")==0 ||
+			AppPref.getRangeData("region").id==-1 ||
+			AppPref.getRangeData("univ").id==-1 ||
+			AppPref.getRangeData("college").id==-1 ) {
+			Toast.makeText(this, "모든 데이터를 입력하여야 합니다",Toast.LENGTH_SHORT).show();				
 		} else {
 			System.out.println("ID : "+id.getText().toString());
 			System.out.println("NickName : "+nickname.getText().toString());
@@ -169,10 +170,10 @@ public class RegisterUser extends Activity implements OnClickListener {
 				String result="";
 				String temp=br.readLine();
 				while(temp!=null) {
-					result=result+temp;
+					result=temp;
+					System.out.println("Result : "+result);
 					temp=br.readLine();
 				}
-				System.out.println("Result : "+result);
 				
 				return Integer.parseInt(result);
 				
