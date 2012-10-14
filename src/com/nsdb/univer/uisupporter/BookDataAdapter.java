@@ -162,7 +162,7 @@ public class BookDataAdapter extends ArrayAdapter<BookData> {
 		protected void onPreExecute() {
 			dataVisible.clear();
 			dataVisible.add(new BookData("불러오는 중..."));
-			notifyDataSetChanged();
+			updateView();
 			super.onPreExecute();
 		}
 

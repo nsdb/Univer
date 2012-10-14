@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import com.nsdb.univer.data.AppPref;
 import com.nsdb.univer.data.ProfessorData;
 import com.nsdb.univer.uisupporter.ActiveFragment;
+import com.nsdb.univer.uisupporter.BookDataAdapter;
 import com.nsdb.univer.uisupporter.OnClickMover;
 import com.nsdb.univer.uisupporter.ProfessorDataAdapter;
 
@@ -82,23 +83,16 @@ public class ProfessorMain extends ActiveFragment implements OnItemClickListener
 		super.onActivityResult(requestCode, resultCode, data);
 		
 		if(resultCode==Activity.RESULT_OK) {
-			switch(requestCode) {
-
-			case REQUESTCODE_REGISTERPROFESSOR:
-				updateView();
-				break;
-				
-			case REQUESTCODE_RANGE:
-				updateView();
-				break;
-
-			}
+			updateView();
 		}
 	}
 	
 
 	public void onItemClick(AdapterView<?> parent, View view, int position, long l_position) {
-		
+		if(data.get(position).id != -1) {
+			AppPref.setLastProfessorData(data.get(position));
+			OnClickMover.moveActivity(THIS,"ProfessorDetail","");
+		}		
 	}
 	
 	public void updateView() {
@@ -138,7 +132,10 @@ public class ProfessorMain extends ActiveFragment implements OnItemClickListener
     	if(temp.compareTo("")==0) temp="학과";
     	major.setText( temp );
 
-    	// list
+    	// rangemode
+		rangeMode=BookDataAdapter.getDefaultRangeMode();
+
+		// list
     	adapter.updateData("",rangeMode,1);
 	}
 

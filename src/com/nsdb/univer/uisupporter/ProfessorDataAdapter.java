@@ -143,7 +143,7 @@ public class ProfessorDataAdapter extends ArrayAdapter<ProfessorData> {
 		protected void onPreExecute() {
 			dataVisible.clear();
 			dataVisible.add(new ProfessorData("불러오는 중..."));
-			notifyDataSetChanged();
+			updateView();
 			super.onPreExecute();
 		}
 

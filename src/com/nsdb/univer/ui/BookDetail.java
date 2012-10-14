@@ -20,7 +20,7 @@ import android.widget.ListView;
 
 public class BookDetail extends Activity implements OnItemClickListener {
 
-	BookData data;
+	BookData lastdata;
 	
 	WebView image;
 	EditText title,publisher,author,pubdate,edition,original_price,discount_price;
@@ -28,7 +28,7 @@ public class BookDetail extends Activity implements OnItemClickListener {
 	EditText description;
 	CheckBox parcel,meet;
 	
-	ArrayList<BookData> datalist;
+	ArrayList<BookData> data;
 	BookDataAdapter adapter;
 	ListView lv;
 	
@@ -38,7 +38,7 @@ public class BookDetail extends Activity implements OnItemClickListener {
         setContentView(R.layout.bookdetail);
         
         // data
-        data=AppPref.getLastBookData();
+        lastdata=AppPref.getLastBookData();
         
         // second linear
         image=(WebView)findViewById(R.id.image);
@@ -50,39 +50,39 @@ public class BookDetail extends Activity implements OnItemClickListener {
         original_price=(EditText)findViewById(R.id.original_price);
         discount_price=(EditText)findViewById(R.id.discount_price);
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
-        if(data.image.compareTo("")!=0)
-        	image.loadUrl( getResources().getString(R.string.base_url)+data.image );
-        title.setText(data.title);
-        publisher.setText(data.publisher);
-        author.setText(data.author);
-        pubdate.setText(data.pubdate);
-        edition.setText(""+data.edition);
-        original_price.setText(""+data.original_price);
-        discount_price.setText(""+data.discount_price);
+        if(lastdata.image.compareTo("")!=0)
+        	image.loadUrl( getResources().getString(R.string.base_url)+lastdata.image );
+        title.setText(lastdata.title);
+        publisher.setText(lastdata.publisher);
+        author.setText(lastdata.author);
+        pubdate.setText(lastdata.pubdate);
+        edition.setText(""+lastdata.edition);
+        original_price.setText(""+lastdata.original_price);
+        discount_price.setText(""+lastdata.discount_price);
         
         // third linear
         description=(EditText)findViewById(R.id.description);
         parcel=(CheckBox)findViewById(R.id.parcel);
         meet=(CheckBox)findViewById(R.id.meet);
-        description.setText(data.description);
-        if(data.parcel==1)
+        description.setText(lastdata.description);
+        if(lastdata.parcel==1)
         	parcel.setChecked(true);
-        if(data.meet==1)
+        if(lastdata.meet==1)
         	meet.setChecked(true);
         
         // ListView
     	lv=(ListView)findViewById(R.id.booklist);
-    	datalist=new ArrayList<BookData>();
-    	adapter=new BookDataAdapter(this,datalist,lv);
+    	data=new ArrayList<BookData>();
+    	adapter=new BookDataAdapter(this,data,lv);
     	lv.setAdapter(adapter);
     	lv.setOnItemClickListener(this);
-    	adapter.updateData("",BookDataAdapter.RANGEMODE_OTHER,BookData.SALEMODE_ALL,1,data.seller_id);
+    	adapter.updateData("",BookDataAdapter.RANGEMODE_OTHER,BookData.SALEMODE_ALL,1,lastdata.seller_id);
 
     }
 
 	public void onItemClick(AdapterView<?> parent, View view, int position, long l_position) {
-		if(datalist.get(position).id != -1) {
-			AppPref.setLastBookData(datalist.get(position));
+		if(data.get(position).id != -1) {
+			AppPref.setLastBookData(data.get(position));
 			OnClickMover.moveActivity(this,"BookDetail","");
 			finish();
 		}

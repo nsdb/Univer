@@ -93,21 +93,7 @@ public class BookMarketMain3B extends ActiveFragment implements OnItemClickListe
 		super.onActivityResult(requestCode, resultCode, data);
 		
 		if(resultCode==Activity.RESULT_OK) {
-			switch(requestCode) {
-
-			case REQUESTCODE_REGISTERBOOK:
-				if(rangeMode != BookDataAdapter.RANGEMODE_MINE)
-					rangeMode=BookDataAdapter.getDefaultRangeMode();
-				updateView();
-				break;
-				
-			case REQUESTCODE_RANGE:
-				if(rangeMode != BookDataAdapter.RANGEMODE_MINE) {
-					rangeMode=BookDataAdapter.getDefaultRangeMode();
-					updateView();
-				} break;
-
-			}
+			updateView();
 		}
 	}
 	
@@ -195,6 +181,10 @@ public class BookMarketMain3B extends ActiveFragment implements OnItemClickListe
     	if(temp.compareTo("")==0) temp="학과";
     	major.setText( temp );
 
+    	// rangemode
+		if(rangeMode != BookDataAdapter.RANGEMODE_MINE)
+			rangeMode=BookDataAdapter.getDefaultRangeMode();
+		
     	// list
     	adapter.updateData("",rangeMode,saleMode,1);
 	}

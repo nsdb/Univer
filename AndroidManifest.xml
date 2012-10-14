@@ -35,40 +35,6 @@
             </intent-filter>
         </activity>
         
-        <!--
-        <activity android:name="BookMarketMain">
-            <intent-filter>
-                <action android:name="BookMarketMain" />
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </activity>
-        -->
-        
-        <!--
-        <activity android:name="BookMarketMai2">
-            <intent-filter>
-                <action android:name="BookMarketMain" />
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </activity>
-        -->
-
-        <activity android:name=".BookMarketMain3A">
-            <intent-filter>
-                <action android:name="BookMarketMain" />
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </activity>
-
-        <!--
-        <activity android:name="RangeSetting2">
-            <intent-filter>
-                <action android:name="RangeSetting" />
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </activity>
-        -->
-        
         <activity android:name="RangeSettingA">
             <intent-filter>
                 <action android:name="RangeSetting" />
@@ -86,6 +52,13 @@
         <activity android:name="BookDetail">
             <intent-filter>
                 <action android:name="BookDetail" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        
+        <activity android:name="ProfessorDetail">
+            <intent-filter>
+                <action android:name="ProfessorDetail" />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>

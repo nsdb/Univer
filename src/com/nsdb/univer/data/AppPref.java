@@ -12,6 +12,7 @@ public class AppPref {
 	private static String id;
 	private static String password;
 	private static BookData lastBookData;
+	private static ProfessorData lastProfessorData;
 
 	public static void load(Activity activity) {
 		System.out.println("AppPref Loaded");
@@ -23,6 +24,7 @@ public class AppPref {
 		id=pref.getString("id","");
 		password="";
 		lastBookData=null;
+		lastProfessorData=null;
 	}
 	
 	public static void save(Activity activity) {
@@ -94,5 +96,12 @@ public class AppPref {
 	}
 	public static BookData getLastBookData() {
 		return lastBookData;
+	}
+
+	public static void setLastProfessorData(ProfessorData data) {
+		lastProfessorData=data;
+	}
+	public static ProfessorData getLastProfessorData() {
+		return lastProfessorData;
 	}
 }

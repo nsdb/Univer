@@ -148,6 +148,8 @@ public class LoginPage extends Activity implements OnClickListener {
 	public void onActivityResult(int requestCode, int resultCode, Intent data)
 	{
 		super.onActivityResult(requestCode, resultCode, data);
+		
+		// Saving
 		if(requestCode==REQUESTCODE_LOGIN) {
 			AppPref.save(this);
 			finish();
