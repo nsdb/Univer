@@ -77,9 +77,9 @@ public class BookMarketMain3B extends ActiveFragment implements OnItemClickListe
     	major.setEnabled(false);
 
         // ListView
-    	data=new ArrayList<BookData>();
-    	adapter=new BookDataAdapter(THIS,data);
     	lv=(ListView)v.findViewById(R.id.booklist);
+    	data=new ArrayList<BookData>();
+    	adapter=new BookDataAdapter(THIS,data,lv);
     	lv.setAdapter(adapter);
     	lv.setOnItemClickListener(this);
     	updateView();

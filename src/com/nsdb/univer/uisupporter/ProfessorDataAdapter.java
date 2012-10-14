@@ -19,8 +19,10 @@ import android.os.AsyncTask;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewGroup.LayoutParams;
 import android.webkit.WebView;
 import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
@@ -33,6 +35,7 @@ public class ProfessorDataAdapter extends ArrayAdapter<ProfessorData> {
 	Activity activity;
 	ArrayList<ProfessorData> dataVisible;
 	ArrayList<ProfessorData> dataOriginal;
+	ListView view;
 	
 	String title;
 	int rangeMode;
@@ -46,11 +49,12 @@ public class ProfessorDataAdapter extends ArrayAdapter<ProfessorData> {
 	public final static int RANGEMODE_COLLEGE=3;
 	public final static int RANGEMODE_MAJOR=4;
 
-	public ProfessorDataAdapter(Activity activity, ArrayList<ProfessorData> data) {
+	public ProfessorDataAdapter(Activity activity, ArrayList<ProfessorData> data, ListView view) {
 		super(activity,R.layout.bookdata, data);
 		this.activity=activity;
 		this.dataVisible=data;
 		this.dataOriginal=new ArrayList<ProfessorData>();
+		this.view=view;
 		rangeMode=-1;
 		pageNum=1;
 		getter=null;
@@ -83,6 +87,9 @@ public class ProfessorDataAdapter extends ArrayAdapter<ProfessorData> {
 		}
 		
 		notifyDataSetChanged();
+		LayoutParams lp=view.getLayoutParams();
+		lp.height=activity.getResources().getDimensionPixelSize(R.dimen.professordata_height)*dataVisible.size();
+		view.setLayoutParams(lp);
 	}
 
 	@Override

@@ -66,9 +66,9 @@ public class ProfessorMain extends ActiveFragment implements OnItemClickListener
     	major.setEnabled(false);
 
         // ListView
-    	data=new ArrayList<ProfessorData>();
-    	adapter=new ProfessorDataAdapter(THIS,data);
     	lv=(ListView)v.findViewById(R.id.professorlist);
+    	data=new ArrayList<ProfessorData>();
+    	adapter=new ProfessorDataAdapter(THIS,data,lv);
     	lv.setAdapter(adapter);
     	lv.setOnItemClickListener(this);
     	updateView();

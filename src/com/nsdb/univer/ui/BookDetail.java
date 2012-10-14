@@ -1,18 +1,24 @@
 package com.nsdb.univer.ui;
 
+import java.util.ArrayList;
+
 import com.nsdb.univer.data.AppPref;
 import com.nsdb.univer.data.BookData;
+import com.nsdb.univer.uisupporter.BookDataAdapter;
+import com.nsdb.univer.uisupporter.OnClickMover;
 
 import android.app.Activity;
-import android.net.Uri;
 import android.os.Bundle;
+import android.view.View;
 import android.view.WindowManager;
 import android.webkit.WebView;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.ImageView;
+import android.widget.ListView;
 
-public class BookDetail extends Activity {
+public class BookDetail extends Activity implements OnItemClickListener {
 
 	BookData data;
 	
@@ -21,6 +27,10 @@ public class BookDetail extends Activity {
 
 	EditText description;
 	CheckBox parcel,meet;
+	
+	ArrayList<BookData> datalist;
+	BookDataAdapter adapter;
+	ListView lv;
 	
 	@Override
     public void onCreate(Bundle savedInstanceState) {
@@ -40,7 +50,8 @@ public class BookDetail extends Activity {
         original_price=(EditText)findViewById(R.id.original_price);
         discount_price=(EditText)findViewById(R.id.discount_price);
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
-        image.loadUrl( getResources().getString(R.string.base_url)+data.image );
+        if(data.image.compareTo("")!=0)
+        	image.loadUrl( getResources().getString(R.string.base_url)+data.image );
         title.setText(data.title);
         publisher.setText(data.publisher);
         author.setText(data.author);
@@ -59,6 +70,21 @@ public class BookDetail extends Activity {
         if(data.meet==1)
         	meet.setChecked(true);
         
+        // ListView
+    	lv=(ListView)findViewById(R.id.booklist);
+    	datalist=new ArrayList<BookData>();
+    	adapter=new BookDataAdapter(this,datalist,lv);
+    	lv.setAdapter(adapter);
+    	lv.setOnItemClickListener(this);
+    	adapter.updateData("",BookDataAdapter.RANGEMODE_OTHER,BookData.SALEMODE_ALL,1,data.seller_id);
 
     }
+
+	public void onItemClick(AdapterView<?> parent, View view, int position, long l_position) {
+		if(datalist.get(position).id != -1) {
+			AppPref.setLastBookData(datalist.get(position));
+			OnClickMover.moveActivity(this,"BookDetail","");
+			finish();
+		}
+	}
 }

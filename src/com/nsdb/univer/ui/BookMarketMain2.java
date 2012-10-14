@@ -49,7 +49,7 @@ public class BookMarketMain2 extends Activity implements OnItemClickListener, On
 
         // ListView
     	data=new ArrayList<BookData>();
-    	adapter=new BookDataAdapter(this,data);
+    	adapter=new BookDataAdapter(this,data,lv);
     	lv=(ListView)findViewById(R.id.booklist);
     	lv.setAdapter(adapter);
     	lv.setOnItemClickListener(this);

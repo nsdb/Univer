@@ -35,8 +35,10 @@
 		            android:text="Image" />
 			    <WebView
 			        android:id="@+id/image"
-			        android:layout_width="wrap_content"
+			        android:layout_width="0dp"
+			        android:layout_weight="1"
 			        android:layout_height="wrap_content"
+			        android:scrollbars="none"
 			        android:layout_margin="10dp" />
 
             </LinearLayout>
@@ -215,6 +217,21 @@
 	                android:text="직거래" />
                 
             </LinearLayout>
+            
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:background="#888888"
+                android:padding="10dp"
+                android:text="판매자의 다른 책"
+                android:textColor="#ffffff" />
+            <ListView
+                android:id="@+id/booklist"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                />
+            
+            
         </LinearLayout>
     </ScrollView>
     

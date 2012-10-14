@@ -19,8 +19,10 @@ import android.os.AsyncTask;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewGroup.LayoutParams;
 import android.webkit.WebView;
 import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.nsdb.univer.data.AppPref;
@@ -32,6 +34,7 @@ public class BookDataAdapter extends ArrayAdapter<BookData> {
 	Activity activity;
 	ArrayList<BookData> dataVisible;
 	ArrayList<BookData> dataOriginal;
+	ListView view;
 	
 	String title;
 	int rangeMode;
@@ -49,11 +52,12 @@ public class BookDataAdapter extends ArrayAdapter<BookData> {
 	public final static int RANGEMODE_MINE=5;
 	public final static int RANGEMODE_OTHER=6;
 
-	public BookDataAdapter(Activity activity, ArrayList<BookData> data) {
+	public BookDataAdapter(Activity activity, ArrayList<BookData> data, ListView view) {
 		super(activity,R.layout.bookdata, data);
 		this.activity=activity;
 		this.dataVisible=data;
 		this.dataOriginal=new ArrayList<BookData>();
+		this.view=view;
 		rangeMode=-1;
 		saleMode=-1;
 		pageNum=1;
@@ -97,6 +101,9 @@ public class BookDataAdapter extends ArrayAdapter<BookData> {
 		}
 		
 		notifyDataSetChanged();
+		LayoutParams lp=view.getLayoutParams();
+		lp.height=activity.getResources().getDimensionPixelSize(R.dimen.bookdata_height)*dataVisible.size();
+		view.setLayoutParams(lp);
 	}
 
 	@Override
