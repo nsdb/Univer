@@ -11,6 +11,10 @@ public class AppPref {
 	private static RangeData major;
 	private static String id;
 	private static String password;
+	private static String cookieName;
+	private static String cookieValue;
+	private static String cookieDomain;
+	private static String cookiePath;
 	private static BookData lastBookData;
 	private static ProfessorData lastProfessorData;
 
@@ -23,6 +27,10 @@ public class AppPref {
 		major=new RangeData( pref.getString("major_title",""),pref.getString("major_nick",""),pref.getInt("major_id",-1) );
 		id=pref.getString("id","");
 		password="";
+		cookieName="";
+		cookieValue="";
+		cookieDomain="";
+		cookiePath="";
 		lastBookData=null;
 		lastProfessorData=null;
 	}
@@ -78,6 +86,14 @@ public class AppPref {
 			id=value;
 		} else if(filter.compareTo("password")==0) {
 			password=value;
+		} else if(filter.compareTo("cookieName")==0) {
+			cookieName=value;
+		} else if(filter.compareTo("cookieValue")==0) {
+			cookieValue=value;
+		} else if(filter.compareTo("cookieDomain")==0) {
+			cookieDomain=value;
+		} else if(filter.compareTo("cookiePath")==0) {
+			cookiePath=value;
 		}
 	}
 
@@ -86,6 +102,14 @@ public class AppPref {
 			return id;
 		} else if(filter.compareTo("password")==0) {
 			return password;
+		} else if(filter.compareTo("cookieName")==0) {
+			return cookieName;
+		} else if(filter.compareTo("cookieValue")==0) {
+			return cookieValue;
+		} else if(filter.compareTo("cookieDomain")==0) {
+			return cookieDomain;
+		} else if(filter.compareTo("cookiePath")==0) {
+			return cookiePath;
 		} else {
 			return null;
 		}

@@ -3,20 +3,20 @@ package com.nsdb.univer.data;
 public class CommentData {
 	public String title;
 	public String description;
-	public String pubdate;
+	public String pubDate;
 	public CommentData(String title,String description,String pubdate) {
 		this.title=title;
 		this.description=description;
-		this.pubdate=pubdate;
+		this.pubDate=pubdate;
 	}
 	public CommentData() {
 		title="";
 		description="";
-		pubdate="";
+		pubDate="";
 	}
 	public CommentData(String title) {
 		this.title=title;
 		description="";
-		pubdate="";
+		pubDate="";
 	}
 }

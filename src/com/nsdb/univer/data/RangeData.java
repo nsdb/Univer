@@ -8,6 +8,7 @@ public class RangeData {
 		this.title=title;
 		this.nick=nick;
 		this.id=id;
+		if(nick.compareTo("")==0) this.nick=this.title;
 	}
 	public RangeData() {
 		title="";
@@ -18,12 +19,12 @@ public class RangeData {
 		title=data.title;
 		nick=data.nick;
 		id=data.id;
-		if(nick.compareTo("")==0) nick=title;
+		if(nick.compareTo("")==0) this.nick=this.title;
 	}
 	public RangeData(String title) {
 		this.title=title;
 		nick="";
 		id=-1;
-		if(nick.compareTo("")==0) nick=title;
+		if(nick.compareTo("")==0) this.nick=this.title;
 	}
 }

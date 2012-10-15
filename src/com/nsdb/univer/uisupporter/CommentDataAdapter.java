@@ -86,10 +86,10 @@ public class CommentDataAdapter extends ArrayAdapter<CommentData> {
 		
 		TextView t=(TextView)v.findViewById(R.id.title);
 		TextView d=(TextView)v.findViewById(R.id.description);
-		TextView p=(TextView)v.findViewById(R.id.pubdate);
+		//TextView p=(TextView)v.findViewById(R.id.pubdate);
 		t.setText(dataVisible.get(position).title);
 		d.setText(dataVisible.get(position).description);
-		p.setText(dataVisible.get(position).pubdate);
+		//p.setText(dataVisible.get(position).pubDate);
 		return v;
 		
 	}
@@ -115,7 +115,7 @@ public class CommentDataAdapter extends ArrayAdapter<CommentData> {
 					+activity.getResources().getString(R.string.comment_url)+'/'
 					+activity.getResources().getString(R.string.professor_url)+'/';
 			ArrayList<String> getData=new ArrayList<String>();
-			getData.add("professor_id"+professor_id);
+			getData.add("professor_id="+professor_id);
 			getData.add("page="+pageNum);
 			for(int i=0;i<getData.size();i++) {
 				url=url+getData.get(i);
@@ -145,7 +145,7 @@ public class CommentDataAdapter extends ArrayAdapter<CommentData> {
 				for(Element item : items) {
 					dataOriginal.add( new CommentData( item.getChild("title").getText(),
 							  				          item.getChild("description").getText(),
-							  			              item.getChild("pubdate").getText() ) );
+							  			              item.getChild("pubDate").getText() ) );
 				}
 				
 			} catch(Exception e) {

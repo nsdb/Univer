@@ -6,9 +6,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.http.HttpResponse;
+import org.apache.http.client.CookieStore;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
+import org.apache.http.cookie.Cookie;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.impl.cookie.BasicClientCookie;
 import org.jdom2.Document;
 import org.jdom2.Element;
 import org.jdom2.input.SAXBuilder;
@@ -198,18 +201,32 @@ public class BookDataAdapter extends ArrayAdapter<BookData> {
 
 			
 			try {
-				// get xml stream from server
+				// create http get for sending
 				HttpGet request=new HttpGet(url);
+				
+				// cookie load
 				HttpClient client=new DefaultHttpClient();
-				HttpResponse response=client.execute(request);
-				InputStream is=response.getEntity().getContent();
-				InputStreamReader isr=new InputStreamReader(is,"utf-8");
+				CookieStore cookieStore=((DefaultHttpClient)client).getCookieStore();
+				List<Cookie> cookieList=cookieStore.getCookies();
+				String cookieName=AppPref.getString("cookieName");
+				if(cookieList.size()==0 && cookieName.compareTo("")!=0) {
+					String cookieValue=AppPref.getString("cookieValue");
+					String cookieDomain=AppPref.getString("cookieDomain");
+					String cookiePath=AppPref.getString("cookiePath");
+					BasicClientCookie cookie=new BasicClientCookie( cookieName,cookieValue );
+					cookie.setDomain(cookieDomain);
+					cookie.setPath(cookiePath);
+					cookieStore.addCookie(cookie);
+				}
 				
 				// clear data
 				dataVisible.clear();
 				dataOriginal.clear();
 				
 				// get bookdata from xml through JDOM
+				HttpResponse response=client.execute(request);
+				InputStream is=response.getEntity().getContent();
+				InputStreamReader isr=new InputStreamReader(is,"utf-8");
 				SAXBuilder sax=new SAXBuilder();
 				Document doc=sax.build(isr);
 				Element rss=doc.getRootElement();
@@ -219,6 +236,12 @@ public class BookDataAdapter extends ArrayAdapter<BookData> {
 					dataOriginal.add( new BookData(item) );
 				}
 				
+				// cookie save
+				AppPref.setString("cookieName",cookieList.get(0).getName());
+				AppPref.setString("cookieValue",cookieList.get(0).getValue());
+				AppPref.setString("cookieDomain",cookieList.get(0).getDomain());
+				AppPref.setString("cookiePath",cookieList.get(0).getPath());
+
 			} catch(Exception e) {
 				e.printStackTrace();
 				dataVisible.add(new BookData("읽기 실패"));
