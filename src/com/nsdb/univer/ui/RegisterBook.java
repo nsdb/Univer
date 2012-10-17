@@ -1,8 +1,13 @@
 package com.nsdb.univer.ui;
 
+import java.io.BufferedInputStream;
 import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,7 +29,6 @@ import org.jdom2.input.SAXBuilder;
 
 import com.nsdb.univer.data.AppPref;
 import com.nsdb.univer.data.BookData;
-import com.nsdb.univer.uisupporter.BookDataAdapter;
 import com.nsdb.univer.uisupporter.OnClickMover;
 
 import android.app.Activity;
@@ -32,15 +36,18 @@ import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.net.Uri;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.provider.MediaStore.Images;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RadioGroup;
 import android.widget.RadioGroup.OnCheckedChangeListener;
@@ -57,8 +64,10 @@ public class RegisterBook extends Activity implements OnClickListener, OnChecked
 	
 	Button barcode;
 	String isbn;
-	Button imagesearch;
+	ImageButton imagesearch;
 	ImageView image;
+	private final static int REQUESTCODE_CAPTUREIMAGE=2;
+	private final static int REQUESTCODE_GETIMAGE=3;
 	EditText title,publisher,author,pubdate,edition,original_price,discount_price;
 	private final static int REQUESTCODE_BARCODE=1;
 	
@@ -94,7 +103,7 @@ public class RegisterBook extends Activity implements OnClickListener, OnChecked
         // second linear
         barcode=(Button)findViewById(R.id.barcode);
         isbn="1";
-        imagesearch=(Button)findViewById(R.id.imagesearch);
+        imagesearch=(ImageButton)findViewById(R.id.imagesearch);
         image=(ImageView)findViewById(R.id.image);
         title=(EditText)findViewById(R.id.title);
         publisher=(EditText)findViewById(R.id.publisher);
@@ -160,17 +169,6 @@ public class RegisterBook extends Activity implements OnClickListener, OnChecked
 		}
 	}
 
-	@Override
-	public void onActivityResult(int requestCode, int resultCode, Intent data)
-	{
-		super.onActivityResult(requestCode, resultCode, data);
-		
-		if(resultCode==RESULT_OK) {
-			isbn=data.getStringExtra("SCAN_RESULT");
-			new BookInfoGetter().execute();
-		}
-	}
-	
 	private class BookInfoGetter extends AsyncTask<Void,Void,String[]> {
 
 		@Override
@@ -233,7 +231,17 @@ public class RegisterBook extends Activity implements OnClickListener, OnChecked
 		@Override
 		protected void onPostExecute(String[] result) {
 			
-			image.setImageURI(Uri.parse(result[0]));
+			try {
+				URL imageURL = new URL(result[0]);
+				HttpURLConnection conn = (HttpURLConnection)imageURL.openConnection();             
+				BufferedInputStream bis = new BufferedInputStream(conn.getInputStream(), 10240);
+				Bitmap bm = BitmapFactory.decodeStream(bis);
+				image.setImageBitmap(bm);
+				bis.close();
+			} catch(Exception e) {
+				Toast.makeText(RegisterBook.this,"Exception",Toast.LENGTH_SHORT).show();
+				e.printStackTrace();				
+			}
 			title.setText(result[1]);
 			publisher.setText(result[2]);
 			author.setText(result[3]);
@@ -263,7 +271,8 @@ public class RegisterBook extends Activity implements OnClickListener, OnChecked
 												REQUESTCODE_CAPTUREIMAGE );
 						break;
 					case 1:
-						startActivityForResult( new Intent(Intent.ACTION_GET_CONTENT).setType("image/-"),
+						startActivityForResult( new Intent(Intent.ACTION_PICK)
+													.setType(android.provider.MediaStore.Images.Media.CONTENT_TYPE),
 												REQUESTCODE_GETIMAGE );
 						break;
 					}
@@ -289,6 +298,35 @@ public class RegisterBook extends Activity implements OnClickListener, OnChecked
 		}
 	}
     
+	@Override
+	public void onActivityResult(int requestCode, int resultCode, Intent data)
+	{
+		super.onActivityResult(requestCode, resultCode, data);
+		
+		if(resultCode==RESULT_OK) {
+			switch(requestCode) {
+			case REQUESTCODE_BARCODE:
+				isbn=data.getStringExtra("SCAN_RESULT");
+				new BookInfoGetter().execute();
+				break;
+			case REQUESTCODE_CAPTUREIMAGE:
+				image.setImageBitmap( (Bitmap)data.getExtras().get("data") );			
+				break;
+			case REQUESTCODE_GETIMAGE:
+				try {
+					image.setImageBitmap( Images.Media.getBitmap( getContentResolver(),data.getData() ) );
+				} catch (FileNotFoundException e) {
+					Toast.makeText(this,"FileNotFoundException",Toast.LENGTH_SHORT).show();
+					e.printStackTrace();
+				} catch (IOException e) {
+					Toast.makeText(this,"IOException",Toast.LENGTH_SHORT).show();
+					e.printStackTrace();
+				}
+				break;
+			}
+		}
+	}
+	
 	private class RegisterBookHelper extends AsyncTask<Void,Void,Integer> {
 
 		@Override
