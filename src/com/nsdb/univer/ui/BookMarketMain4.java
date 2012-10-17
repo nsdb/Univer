@@ -173,4 +173,13 @@ public class BookMarketMain4 extends ActiveFragment implements OnItemClickListen
     	// list
     	adapter.updateData("",rangeMode,saleMode,1);
 	}
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putInt("region",AppPref.getRangeData("region").id);
+        outState.putInt("univ",AppPref.getRangeData("univ").id);
+        outState.putInt("college",AppPref.getRangeData("college").id);
+        outState.putInt("major",AppPref.getRangeData("major").id);
+    }
 }

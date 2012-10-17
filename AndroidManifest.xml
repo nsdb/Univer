@@ -42,7 +42,7 @@
             </intent-filter>
         </activity>
         
-        <activity android:name="TabMain">
+        <activity android:name="TabMain2">
             <intent-filter>
                 <action android:name="TabMain" />
                 <category android:name="android.intent.category.DEFAULT" />

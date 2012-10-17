@@ -155,6 +155,7 @@ public class CommentDataAdapter extends ArrayAdapter<CommentData> {
 		
 		@Override
 		protected void onPostExecute(Boolean result) {
+			dataVisible.clear();
 			if(result==true && dataOriginal.size()==0) {
 				dataVisible.add(new CommentData("데이터 없음"));
 			} else if(result==false) {

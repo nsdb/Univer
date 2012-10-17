@@ -204,6 +204,7 @@ public class ProfessorDataAdapter extends ArrayAdapter<ProfessorData> {
 		
 		@Override
 		protected void onPostExecute(Boolean result) {
+			dataVisible.clear();
 			if(result==true && dataOriginal.size()==0) {
 				dataVisible.add(new ProfessorData("데이터 없음"));
 			} else if(result==false) {

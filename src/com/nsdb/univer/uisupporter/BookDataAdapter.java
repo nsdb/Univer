@@ -249,6 +249,7 @@ public class BookDataAdapter extends ArrayAdapter<BookData> {
 		
 		@Override
 		protected void onPostExecute(Boolean result) {
+			dataVisible.clear();
 			if(result==true && dataOriginal.size()==0) {
 				dataVisible.add(new BookData("데이터 없음"));
 			} else if(result==false) {
