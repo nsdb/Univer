@@ -173,5 +173,4 @@ public class BookMarketMain4 extends ActiveFragment implements OnItemClickListen
     	// list
     	adapter.updateData("",rangeMode,saleMode,1);
 	}
-
 }
