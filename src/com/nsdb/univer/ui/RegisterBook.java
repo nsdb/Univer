@@ -24,10 +24,13 @@ import org.jdom2.input.SAXBuilder;
 
 import com.nsdb.univer.data.AppPref;
 import com.nsdb.univer.data.BookData;
+import com.nsdb.univer.uisupporter.BookDataAdapter;
 import com.nsdb.univer.uisupporter.OnClickMover;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -54,6 +57,7 @@ public class RegisterBook extends Activity implements OnClickListener, OnChecked
 	
 	Button barcode;
 	String isbn;
+	Button imagesearch;
 	ImageView image;
 	EditText title,publisher,author,pubdate,edition,original_price,discount_price;
 	private final static int REQUESTCODE_BARCODE=1;
@@ -88,10 +92,10 @@ public class RegisterBook extends Activity implements OnClickListener, OnChecked
         major.setOnClickListener(new OnClickMover(this,"RangeSetting","major"));
         
         // second linear
-        image=(ImageView)findViewById(R.id.image);
         barcode=(Button)findViewById(R.id.barcode);
-        barcode.setOnClickListener(new OnClickMover(this,"com.google.zxing.client.android.SCAN","",REQUESTCODE_BARCODE));
         isbn="1";
+        imagesearch=(Button)findViewById(R.id.imagesearch);
+        image=(ImageView)findViewById(R.id.image);
         title=(EditText)findViewById(R.id.title);
         publisher=(EditText)findViewById(R.id.publisher);
         author=(EditText)findViewById(R.id.author);
@@ -100,6 +104,8 @@ public class RegisterBook extends Activity implements OnClickListener, OnChecked
         original_price=(EditText)findViewById(R.id.original_price);
         discount_price=(EditText)findViewById(R.id.discount_price);
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+        barcode.setOnClickListener(new OnClickMover(this,"com.google.zxing.client.android.SCAN","",REQUESTCODE_BARCODE));
+        imagesearch.setOnClickListener(this);
         
         // third linear
         description=(EditText)findViewById(R.id.description);
@@ -239,10 +245,37 @@ public class RegisterBook extends Activity implements OnClickListener, OnChecked
 		}
 	}
 
-	// for apply button
+	// for imagesearch, apply button
 	public void onClick(View v) {
 
-		if(title.getText().toString().compareTo("")==0 ||
+		switch(v.getId()) {
+		
+		case R.id.imagesearch: {
+			final String items[] = { "직접 찍기", "앨범에서 가져오기" };
+			AlertDialog.Builder ab = new AlertDialog.Builder(this);
+			ab.setTitle("이미지");
+			ab.setItems(items, new DialogInterface.OnClickListener() {
+				public void onClick(DialogInterface dialog, int whichButton) {
+
+					switch(whichButton) {
+					case 0:
+						startActivityForResult( new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE),
+												REQUESTCODE_CAPTUREIMAGE );
+						break;
+					case 1:
+						startActivityForResult( new Intent(Intent.ACTION_GET_CONTENT).setType("image/-"),
+												REQUESTCODE_GETIMAGE );
+						break;
+					}
+					dialog.cancel();
+				}
+			});
+			ab.show();			
+			} break;
+			
+
+		case R.id.apply:
+			if(title.getText().toString().compareTo("")==0 ||
 			publisher.getText().toString().compareTo("")==0 ||
 			author.getText().toString().compareTo("")==0 ||
 			pubdate.getText().toString().compareTo("")==0 ||
@@ -250,8 +283,9 @@ public class RegisterBook extends Activity implements OnClickListener, OnChecked
 			original_price.getText().toString().compareTo("")==0 ||
 			discount_price.getText().toString().compareTo("")==0 ) {
 			Toast.makeText(this, "도서정보의 모든 데이터를 입력하여야 합니다.",Toast.LENGTH_SHORT).show();
-		} else {
-			new RegisterBookHelper().execute();
+			} else {
+				new RegisterBookHelper().execute();
+			} break;
 		}
 	}
     
