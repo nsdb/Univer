@@ -159,18 +159,19 @@ public class BookDataAdapter extends ArrayAdapter<BookData> {
 	}
 	
 	
-	private class BookDataGetter extends AsyncTask<Void,Void,Void> {
+	private class BookDataGetter extends AsyncTask<Void,Void,Boolean> {
 
 		@Override
 		protected void onPreExecute() {
 			dataVisible.clear();
+			dataOriginal.clear();
 			dataVisible.add(new BookData("불러오는 중..."));
 			updateView();
 			super.onPreExecute();
 		}
 
 		@Override
-		protected Void doInBackground(Void... params) {
+		protected Boolean doInBackground(Void... params) {
 			
 			// create url
 			// {base_url}/feeds/books?search=<search>&sale=<sale>&category=<category>&id=<id>&page=<page>/
@@ -219,10 +220,6 @@ public class BookDataAdapter extends ArrayAdapter<BookData> {
 					cookieStore.addCookie(cookie);
 				}
 				
-				// clear data
-				dataVisible.clear();
-				dataOriginal.clear();
-				
 				// get bookdata from xml through JDOM
 				HttpResponse response=client.execute(request);
 				InputStream is=response.getEntity().getContent();
@@ -244,15 +241,20 @@ public class BookDataAdapter extends ArrayAdapter<BookData> {
 
 			} catch(Exception e) {
 				e.printStackTrace();
-				dataVisible.add(new BookData("읽기 실패"));
-				dataVisible.add(new BookData("서버에 연결할 수 없습니다"));
+				return false;
 			}
 			
-			return null;
+			return true;
 		}
 		
 		@Override
-		protected void onPostExecute(Void result) {
+		protected void onPostExecute(Boolean result) {
+			if(result==true && dataOriginal.size()==0) {
+				dataVisible.add(new BookData("데이터 없음"));
+			} else if(result==false) {
+				dataVisible.add(new BookData("읽기 실패"));
+				dataVisible.add(new BookData("서버에 연결할 수 없습니다"));				
+			}
 			updateView();
 		}
 	}

@@ -14,6 +14,7 @@ import org.jdom2.Element;
 import org.jdom2.input.SAXBuilder;
 
 import com.nsdb.univer.data.AppPref;
+import com.nsdb.univer.data.ProfessorData;
 import com.nsdb.univer.data.RangeData;
 import com.nsdb.univer.ui.R;
 
@@ -91,18 +92,19 @@ public class RangeDataAdapter extends ArrayAdapter<RangeData> {
 	}
 	
 	
-	private class RangeDataGetter extends AsyncTask<Void,Void,Void> {
+	private class RangeDataGetter extends AsyncTask<Void,Void,Boolean> {
 
 		@Override
 		protected void onPreExecute() {
 			dataVisible.clear();
+			dataOriginal.clear();
 			dataVisible.add(new RangeData("불러오는 중..."));
 			updateView("");
 			super.onPreExecute();
 		}
 
 		@Override
-		protected Void doInBackground(Void... params) {
+		protected Boolean doInBackground(Void... params) {
 			
 			// create url
 			// region : 1.234.23.142/~ypunval/feeds/region/
@@ -128,10 +130,6 @@ public class RangeDataAdapter extends ArrayAdapter<RangeData> {
 				InputStream is=response.getEntity().getContent();
 				InputStreamReader isr=new InputStreamReader(is,"utf-8");
 				
-				// clear data
-				dataVisible.clear();
-				dataOriginal.clear();
-				
 				// get rangedata from xml through JDOM
 				SAXBuilder sax=new SAXBuilder();
 				Document doc=sax.build(isr);
@@ -146,15 +144,20 @@ public class RangeDataAdapter extends ArrayAdapter<RangeData> {
 				
 			} catch(Exception e) {
 				e.printStackTrace();
-				dataVisible.add(new RangeData("읽기 실패"));
-				dataVisible.add(new RangeData("서버에 연결할 수 없습니다"));
+				return false;
 			}
 			
-			return null;
+			return true;
 		}
 		
 		@Override
-		protected void onPostExecute(Void result) {
+		protected void onPostExecute(Boolean result) {
+			if(result==true && dataOriginal.size()==0) {
+				dataVisible.add(new RangeData("데이터 없음"));
+			} else if(result==false) {
+				dataVisible.add(new RangeData("읽기 실패"));
+				dataVisible.add(new RangeData("서버에 연결할 수 없습니다"));				
+			}
 			updateView("");
 		}
 	}

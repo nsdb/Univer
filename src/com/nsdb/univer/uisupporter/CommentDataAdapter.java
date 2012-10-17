@@ -13,6 +13,7 @@ import org.jdom2.Document;
 import org.jdom2.Element;
 import org.jdom2.input.SAXBuilder;
 
+import com.nsdb.univer.data.BookData;
 import com.nsdb.univer.data.CommentData;
 import com.nsdb.univer.ui.R;
 
@@ -95,18 +96,19 @@ public class CommentDataAdapter extends ArrayAdapter<CommentData> {
 	}
 	
 	
-	private class CommentDataGetter extends AsyncTask<Void,Void,Void> {
+	private class CommentDataGetter extends AsyncTask<Void,Void,Boolean> {
 
 		@Override
 		protected void onPreExecute() {
 			dataVisible.clear();
+			dataOriginal.clear();
 			dataVisible.add(new CommentData("불러오는 중..."));
 			updateView();
 			super.onPreExecute();
 		}
 
 		@Override
-		protected Void doInBackground(Void... params) {
+		protected Boolean doInBackground(Void... params) {
 			
 			// create url
 			// {base_url}/feeds/comments/professors/professor_id=<professor_id>&page=<page>/
@@ -132,10 +134,6 @@ public class CommentDataAdapter extends ArrayAdapter<CommentData> {
 				InputStream is=response.getEntity().getContent();
 				InputStreamReader isr=new InputStreamReader(is,"utf-8");
 				
-				// clear data
-				dataVisible.clear();
-				dataOriginal.clear();
-				
 				// get rangedata from xml through JDOM
 				SAXBuilder sax=new SAXBuilder();
 				Document doc=sax.build(isr);
@@ -150,15 +148,20 @@ public class CommentDataAdapter extends ArrayAdapter<CommentData> {
 				
 			} catch(Exception e) {
 				e.printStackTrace();
-				dataVisible.add(new CommentData("읽기 실패"));
-				dataVisible.add(new CommentData("서버에 연결할 수 없습니다"));
+				return false;
 			}
 			
-			return null;
+			return true;
 		}
 		
 		@Override
-		protected void onPostExecute(Void result) {
+		protected void onPostExecute(Boolean result) {
+			if(result==true && dataOriginal.size()==0) {
+				dataVisible.add(new CommentData("데이터 없음"));
+			} else if(result==false) {
+				dataVisible.add(new CommentData("읽기 실패"));
+				dataVisible.add(new CommentData("서버에 연결할 수 없습니다"));				
+			}
 			updateView();
 		}
 	}

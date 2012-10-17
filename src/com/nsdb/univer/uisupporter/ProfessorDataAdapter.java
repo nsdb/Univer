@@ -27,6 +27,7 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.nsdb.univer.data.AppPref;
+import com.nsdb.univer.data.BookData;
 import com.nsdb.univer.data.ProfessorData;
 import com.nsdb.univer.ui.R;
 
@@ -137,18 +138,19 @@ public class ProfessorDataAdapter extends ArrayAdapter<ProfessorData> {
 	}
 	
 	
-	private class ProfessorDataGetter extends AsyncTask<Void,Void,Void> {
+	private class ProfessorDataGetter extends AsyncTask<Void,Void,Boolean> {
 
 		@Override
 		protected void onPreExecute() {
 			dataVisible.clear();
+			dataOriginal.clear();
 			dataVisible.add(new ProfessorData("불러오는 중..."));
 			updateView();
 			super.onPreExecute();
 		}
 
 		@Override
-		protected Void doInBackground(Void... params) {
+		protected Boolean doInBackground(Void... params) {
 			
 			// create url
 			// {base_url}/feeds/professors/search=<search>&category=<category>&id=<id>&page=<page>/
@@ -183,10 +185,6 @@ public class ProfessorDataAdapter extends ArrayAdapter<ProfessorData> {
 				InputStream is=response.getEntity().getContent();
 				InputStreamReader isr=new InputStreamReader(is,"utf-8");
 				
-				// clear data
-				dataVisible.clear();
-				dataOriginal.clear();
-				
 				// get professordata from xml through JDOM
 				SAXBuilder sax=new SAXBuilder();
 				Document doc=sax.build(isr);
@@ -199,15 +197,20 @@ public class ProfessorDataAdapter extends ArrayAdapter<ProfessorData> {
 				
 			} catch(Exception e) {
 				e.printStackTrace();
-				dataVisible.add(new ProfessorData("읽기 실패"));
-				dataVisible.add(new ProfessorData("서버에 연결할 수 없습니다"));
+				return false;
 			}
 			
-			return null;
+			return true;
 		}
 		
 		@Override
-		protected void onPostExecute(Void result) {
+		protected void onPostExecute(Boolean result) {
+			if(result==true && dataOriginal.size()==0) {
+				dataVisible.add(new ProfessorData("데이터 없음"));
+			} else if(result==false) {
+				dataVisible.add(new ProfessorData("읽기 실패"));
+				dataVisible.add(new ProfessorData("서버에 연결할 수 없습니다"));				
+			}
 			updateView();
 		}
 	}
