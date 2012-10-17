@@ -22,6 +22,7 @@ import android.os.AsyncTask;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.View.MeasureSpec;
 import android.view.ViewGroup.LayoutParams;
 import android.webkit.WebView;
 import android.widget.ArrayAdapter;
@@ -104,9 +105,20 @@ public class BookDataAdapter extends ArrayAdapter<BookData> {
 		}
 		
 		notifyDataSetChanged();
-		LayoutParams lp=view.getLayoutParams();
-		lp.height=activity.getResources().getDimensionPixelSize(R.dimen.bookdata_height)*dataVisible.size();
-		view.setLayoutParams(lp);
+
+		// resizing height of listview
+		int totalHeight=0;
+		int desiredWidth=MeasureSpec.makeMeasureSpec(view.getWidth(),MeasureSpec.AT_MOST);
+		for(int i=0;i<getCount();i++) {
+			View item=getView(i,null,view);
+			item.measure(desiredWidth,MeasureSpec.UNSPECIFIED);
+			totalHeight+=item.getMeasuredHeight();
+			System.out.println(""+i+" "+item.getMeasuredHeight()+" "+totalHeight);
+		}
+		ViewGroup.LayoutParams params=view.getLayoutParams();
+		params.height=totalHeight+(view.getDividerHeight()*(getCount()-1));
+		view.setLayoutParams(params);
+		view.requestLayout();
 	}
 
 	@Override
