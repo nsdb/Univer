@@ -27,7 +27,6 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.nsdb.univer.data.AppPref;
-import com.nsdb.univer.data.BookData;
 import com.nsdb.univer.data.ProfessorData;
 import com.nsdb.univer.ui.R;
 

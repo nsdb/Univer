@@ -51,7 +51,7 @@ public class ProfessorMain extends ActiveFragment implements OnItemClickListener
         
         // actionbar - register
         register=(Button)v.findViewById(R.id.register);
-        register.setOnClickListener(new OnClickMover(THIS,"RegisterProfessor",""));
+        register.setOnClickListener(new OnClickMover(THIS,"RegisterProfessor","",REQUESTCODE_REGISTERPROFESSOR));
         
         // range setting
     	region=(Button)v.findViewById(R.id.region);

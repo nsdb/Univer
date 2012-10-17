@@ -14,7 +14,6 @@ import org.jdom2.Element;
 import org.jdom2.input.SAXBuilder;
 
 import com.nsdb.univer.data.AppPref;
-import com.nsdb.univer.data.ProfessorData;
 import com.nsdb.univer.data.RangeData;
 import com.nsdb.univer.ui.R;
 

@@ -61,7 +61,7 @@ public class BookMarketMain3B extends ActiveFragment implements OnItemClickListe
         
         // actionbar - register
         register=(Button)v.findViewById(R.id.register);
-        register.setOnClickListener(new OnClickMover(THIS,"RegisterBook",""));
+        register.setOnClickListener(new OnClickMover(THIS,"RegisterBook","",REQUESTCODE_REGISTERBOOK));
         
         // range setting
     	region=(Button)v.findViewById(R.id.region);
