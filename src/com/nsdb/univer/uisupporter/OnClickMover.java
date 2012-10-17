@@ -9,40 +9,25 @@ public class OnClickMover implements OnClickListener
 {
 		
 	Activity activity;
-	String action;
-	String filter;
+	Intent intent;
 	int requestCode;
 	
-	public OnClickMover(Activity activity, String action, String filter) {
+	public OnClickMover(Activity activity, Intent intent) {
 		this.activity=activity;
-		this.action=action;
-		this.filter=filter;
+		this.intent=intent;
 		this.requestCode=-1;
 	}
-	public OnClickMover(Activity activity, String action, String filter, int requestCode) {
+	public OnClickMover(Activity activity, Intent intent, int requestCode) {
 		this.activity=activity;
-		this.action=action;
-		this.filter=filter;
+		this.intent=intent;
 		this.requestCode=requestCode;
 	}
 
 	public void onClick(View v) {
 		if(requestCode==-1)
-			moveActivity(activity,action,filter);
+			activity.startActivity(intent);
 		else
-			moveActivityForResult(activity,action,filter,requestCode);
+			activity.startActivityForResult(intent,requestCode);
 	}		
 	
-	public static void moveActivity(Activity activity,String action,String filter) {
-		Intent i=new Intent();
-		i.setAction(action);
-		i.putExtra("filter",filter);
-		activity.startActivity(i);		
-	}
-	public static void moveActivityForResult(Activity activity,String action,String filter,int requestCode) {
-		Intent i=new Intent();
-		i.setAction(action);
-		i.putExtra("filter",filter);
-		activity.startActivityForResult(i,requestCode);		
-	}
 }

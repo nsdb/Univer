@@ -55,17 +55,17 @@ public class BookMarketMain3A extends Activity implements OnItemClickListener, O
         
         // actionbar - register
         register=(Button)findViewById(R.id.register);
-        register.setOnClickListener(new OnClickMover(this,"RegisterBook",""));
+        register.setOnClickListener(new OnClickMover(this,new Intent("RegisterBook")));
         
         // range setting
     	region=(Button)findViewById(R.id.region);
     	univ=(Button)findViewById(R.id.univ);
     	college=(Button)findViewById(R.id.college);
     	major=(Button)findViewById(R.id.major);
-    	region.setOnClickListener(new OnClickMover(this,"RangeSetting","region",REQUESTCODE_RANGE));
-    	univ.setOnClickListener(new OnClickMover(this,"RangeSetting","univ",REQUESTCODE_RANGE));
-    	college.setOnClickListener(new OnClickMover(this,"RangeSetting","college",REQUESTCODE_RANGE));
-    	major.setOnClickListener(new OnClickMover(this,"RangeSetting","major",REQUESTCODE_RANGE));
+    	region.setOnClickListener(new OnClickMover(this,new Intent("RangeSetting").putExtra("filter","region"),REQUESTCODE_RANGE));
+    	univ.setOnClickListener(new OnClickMover(this,new Intent("RangeSetting").putExtra("filter","univ"),REQUESTCODE_RANGE));
+    	college.setOnClickListener(new OnClickMover(this,new Intent("RangeSetting").putExtra("filter","univ"),REQUESTCODE_RANGE));
+    	major.setOnClickListener(new OnClickMover(this,new Intent("RangeSetting").putExtra("filter","major"),REQUESTCODE_RANGE));
         rangeMode=BookDataAdapter.getDefaultRangeMode();
     	// Not yet
     	major.setEnabled(false);

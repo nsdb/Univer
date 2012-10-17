@@ -8,6 +8,7 @@ import com.nsdb.univer.uisupporter.BookDataAdapter;
 import com.nsdb.univer.uisupporter.OnClickMover;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -38,9 +39,9 @@ public class BookMarketMain extends Activity implements OnItemClickListener {
     	//sell=(Button)findViewById(R.id.sell);
     	//buy=(Button)findViewById(R.id.buy);
     	//mine=(Button)findViewById(R.id.mine);
-    	region.setOnClickListener(new OnClickMover(this,"RangeSetting","region"));
-    	univ.setOnClickListener(new OnClickMover(this,"RangeSetting","univ"));
-    	college.setOnClickListener(new OnClickMover(this,"RangeSetting","college"));
+    	region.setOnClickListener(new OnClickMover(this,new Intent("RangeSetting").putExtra("filter","region")));
+    	univ.setOnClickListener(new OnClickMover(this,new Intent("RangeSetting").putExtra("filter","univ")));
+    	college.setOnClickListener(new OnClickMover(this,new Intent("RangeSetting").putExtra("filter","univ")));
     	
     	// ListView
     	data=new ArrayList<BookData>();

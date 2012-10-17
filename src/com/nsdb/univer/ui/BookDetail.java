@@ -5,9 +5,8 @@ import java.util.ArrayList;
 import com.nsdb.univer.data.AppPref;
 import com.nsdb.univer.data.BookData;
 import com.nsdb.univer.uisupporter.BookDataAdapter;
-import com.nsdb.univer.uisupporter.OnClickMover;
-
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.WindowManager;
@@ -83,7 +82,7 @@ public class BookDetail extends Activity implements OnItemClickListener {
 	public void onItemClick(AdapterView<?> parent, View view, int position, long l_position) {
 		if(data.get(position).id != -1) {
 			AppPref.setLastBookData(data.get(position));
-			OnClickMover.moveActivity(this,"BookDetail","");
+			startActivity( new Intent("BookDetail") );
 			finish();
 		}
 	}

@@ -23,6 +23,7 @@ import com.nsdb.univer.uisupporter.OnClickMover;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
@@ -63,10 +64,10 @@ public class RegisterUser extends Activity implements OnClickListener {
         univ=(Button)findViewById(R.id.univ);
         college=(Button)findViewById(R.id.college);
         major=(Button)findViewById(R.id.major);
-        region.setOnClickListener(new OnClickMover(this,"RangeSetting","region"));
-        univ.setOnClickListener(new OnClickMover(this,"RangeSetting","univ"));
-        college.setOnClickListener(new OnClickMover(this,"RangeSetting","college"));
-        major.setOnClickListener(new OnClickMover(this,"RangeSetting","major"));
+    	region.setOnClickListener(new OnClickMover(this,new Intent("RangeSetting").putExtra("filter","region")));
+    	univ.setOnClickListener(new OnClickMover(this,new Intent("RangeSetting").putExtra("filter","univ")));
+    	college.setOnClickListener(new OnClickMover(this,new Intent("RangeSetting").putExtra("filter","univ")));
+    	major.setOnClickListener(new OnClickMover(this,new Intent("RangeSetting").putExtra("filter","major")));
         
         apply=(Button)findViewById(R.id.apply);
         apply.setOnClickListener(this);
@@ -217,7 +218,7 @@ public class RegisterUser extends Activity implements OnClickListener {
 				Toast.makeText(RegisterUser.this,"가입 성공",Toast.LENGTH_SHORT).show();
 				AppPref.setString("id",id.getText().toString());
 				AppPref.setString("password",password.getText().toString());
-				OnClickMover.moveActivity(RegisterUser.this,"TabMain","");
+				startActivity( new Intent("TabMain") );
 				finish();
 				break;
 			case REGISTERUSER_DUPLICATEEMAIL:

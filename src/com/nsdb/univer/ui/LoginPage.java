@@ -58,7 +58,7 @@ public class LoginPage extends Activity implements OnClickListener {
         signup=(Button)findViewById(R.id.signup);
         id.setText(AppPref.getString("id"));
         login.setOnClickListener(this);
-        signup.setOnClickListener(new OnClickMover(this,"RegisterUser",""));
+        signup.setOnClickListener(new OnClickMover(this,new Intent("RegisterUser")));
         
     }
 
@@ -165,7 +165,7 @@ public class LoginPage extends Activity implements OnClickListener {
 				break;					
 			}
 
-			OnClickMover.moveActivityForResult(LoginPage.this,"TabMain","",REQUESTCODE_LOGIN);
+			startActivityForResult( new Intent("TabMain"),REQUESTCODE_LOGIN );
 		}
 	}
 

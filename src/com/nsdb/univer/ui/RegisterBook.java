@@ -86,10 +86,10 @@ public class RegisterBook extends Activity implements OnClickListener, OnChecked
         univ=(Button)findViewById(R.id.univ);
         college=(Button)findViewById(R.id.college);
         major=(Button)findViewById(R.id.major);
-        region.setOnClickListener(new OnClickMover(this,"RangeSetting","region"));
-        univ.setOnClickListener(new OnClickMover(this,"RangeSetting","univ"));
-        college.setOnClickListener(new OnClickMover(this,"RangeSetting","college"));
-        major.setOnClickListener(new OnClickMover(this,"RangeSetting","major"));
+    	region.setOnClickListener(new OnClickMover(this,new Intent("RangeSetting").putExtra("filter","region")));
+    	univ.setOnClickListener(new OnClickMover(this,new Intent("RangeSetting").putExtra("filter","univ")));
+    	college.setOnClickListener(new OnClickMover(this,new Intent("RangeSetting").putExtra("filter","univ")));
+    	major.setOnClickListener(new OnClickMover(this,new Intent("RangeSetting").putExtra("filter","major")));
         
         // second linear
         barcode=(Button)findViewById(R.id.barcode);
@@ -104,7 +104,7 @@ public class RegisterBook extends Activity implements OnClickListener, OnChecked
         original_price=(EditText)findViewById(R.id.original_price);
         discount_price=(EditText)findViewById(R.id.discount_price);
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
-        barcode.setOnClickListener(new OnClickMover(this,"com.google.zxing.client.android.SCAN","",REQUESTCODE_BARCODE));
+        barcode.setOnClickListener(new OnClickMover(this,new Intent("com.google.zxing.client.android.SCAN"),REQUESTCODE_BARCODE));
         imagesearch.setOnClickListener(this);
         
         // third linear

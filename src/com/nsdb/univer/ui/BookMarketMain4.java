@@ -61,17 +61,17 @@ public class BookMarketMain4 extends ActiveFragment implements OnItemClickListen
         
         // actionbar - register
         register=(Button)v.findViewById(R.id.register);
-        register.setOnClickListener(new OnClickMover(THIS,"RegisterBook","",REQUESTCODE_REGISTERBOOK));
+        register.setOnClickListener(new OnClickMover(THIS,new Intent("RegisterBook"),REQUESTCODE_REGISTERBOOK));
         
         // range setting
     	region=(Button)v.findViewById(R.id.region);
     	univ=(Button)v.findViewById(R.id.univ);
     	college=(Button)v.findViewById(R.id.college);
     	major=(Button)v.findViewById(R.id.major);
-    	region.setOnClickListener(new OnClickMover(THIS,"RangeSetting","region",REQUESTCODE_RANGE));
-    	univ.setOnClickListener(new OnClickMover(THIS,"RangeSetting","univ",REQUESTCODE_RANGE));
-    	college.setOnClickListener(new OnClickMover(THIS,"RangeSetting","college",REQUESTCODE_RANGE));
-    	major.setOnClickListener(new OnClickMover(THIS,"RangeSetting","major",REQUESTCODE_RANGE));
+    	region.setOnClickListener(new OnClickMover(THIS,new Intent("RangeSetting").putExtra("filter","region"),REQUESTCODE_RANGE));
+    	univ.setOnClickListener(new OnClickMover(THIS,new Intent("RangeSetting").putExtra("filter","univ"),REQUESTCODE_RANGE));
+    	college.setOnClickListener(new OnClickMover(THIS,new Intent("RangeSetting").putExtra("filter","univ"),REQUESTCODE_RANGE));
+    	major.setOnClickListener(new OnClickMover(THIS,new Intent("RangeSetting").putExtra("filter","major"),REQUESTCODE_RANGE));
         rangeMode=BookDataAdapter.getDefaultRangeMode();
     	// Not yet
     	major.setEnabled(false);
@@ -101,7 +101,7 @@ public class BookMarketMain4 extends ActiveFragment implements OnItemClickListen
 	public void onItemClick(AdapterView<?> parent, View view, int position, long l_position) {
 		if(data.get(position).id != -1) {
 			AppPref.setLastBookData(data.get(position));
-			OnClickMover.moveActivity(THIS,"BookDetail","");
+			THIS.startActivity(new Intent("BookDetail"));
 		}
 	}
 

@@ -8,6 +8,7 @@ import com.nsdb.univer.uisupporter.BookDataAdapter;
 import com.nsdb.univer.uisupporter.OnClickMover;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -40,7 +41,7 @@ public class BookMarketMain2 extends Activity implements OnItemClickListener, On
         search=(Button)findViewById(R.id.search);
         register=(Button)findViewById(R.id.register);
         searchtxt=(EditText)findViewById(R.id.searchtxt);
-        category.setOnClickListener(new OnClickMover(this,"RangeSetting",""));
+        category.setOnClickListener(new OnClickMover(this,new Intent("RangeSetting")));
         
         // radio
         srg=(SegmentedRadioGroup)findViewById(R.id.segmentedradio);
