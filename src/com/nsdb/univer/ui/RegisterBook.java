@@ -1,13 +1,10 @@
 package com.nsdb.univer.ui;
 
-import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,6 +27,7 @@ import org.jdom2.input.SAXBuilder;
 import com.nsdb.univer.data.AppPref;
 import com.nsdb.univer.data.BookData;
 import com.nsdb.univer.uisupporter.OnClickMover;
+import com.nsdb.univer.uisupporter.SetImageViewFromURL;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -37,7 +35,6 @@ import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.provider.MediaStore.Images;
@@ -97,7 +94,7 @@ public class RegisterBook extends Activity implements OnClickListener, OnChecked
         major=(Button)findViewById(R.id.major);
     	region.setOnClickListener(new OnClickMover(this,new Intent("RangeSetting").putExtra("filter","region")));
     	univ.setOnClickListener(new OnClickMover(this,new Intent("RangeSetting").putExtra("filter","univ")));
-    	college.setOnClickListener(new OnClickMover(this,new Intent("RangeSetting").putExtra("filter","univ")));
+    	college.setOnClickListener(new OnClickMover(this,new Intent("RangeSetting").putExtra("filter","college")));
     	major.setOnClickListener(new OnClickMover(this,new Intent("RangeSetting").putExtra("filter","major")));
         
         // second linear
@@ -231,17 +228,14 @@ public class RegisterBook extends Activity implements OnClickListener, OnChecked
 		@Override
 		protected void onPostExecute(String[] result) {
 			
-			try {
-				URL imageURL = new URL(result[0]);
-				HttpURLConnection conn = (HttpURLConnection)imageURL.openConnection();             
-				BufferedInputStream bis = new BufferedInputStream(conn.getInputStream(), 10240);
-				Bitmap bm = BitmapFactory.decodeStream(bis);
-				image.setImageBitmap(bm);
-				bis.close();
-			} catch(Exception e) {
-				Toast.makeText(RegisterBook.this,"Exception",Toast.LENGTH_SHORT).show();
-				e.printStackTrace();				
+			pdl.dismiss();
+			if(result==null) {
+				Toast.makeText(RegisterBook.this,"일치하는 책을 찾지 못했습니다. 다시 시도해보세요.",Toast.LENGTH_SHORT).show();				
+				return;
 			}
+
+			System.out.println("Image URL : "+result[0]);
+			new SetImageViewFromURL(image,result[0]).execute();
 			title.setText(result[1]);
 			publisher.setText(result[2]);
 			author.setText(result[3]);
@@ -284,14 +278,17 @@ public class RegisterBook extends Activity implements OnClickListener, OnChecked
 			
 
 		case R.id.apply:
-			if(title.getText().toString().compareTo("")==0 ||
+			if(AppPref.getRangeData("region").id==-1 ||
+			AppPref.getRangeData("univ").id==-1 ||
+			AppPref.getRangeData("college").id==-1 ||
+			title.getText().toString().compareTo("")==0 ||
 			publisher.getText().toString().compareTo("")==0 ||
 			author.getText().toString().compareTo("")==0 ||
 			pubdate.getText().toString().compareTo("")==0 ||
 			edition.getText().toString().compareTo("")==0 ||
 			original_price.getText().toString().compareTo("")==0 ||
 			discount_price.getText().toString().compareTo("")==0 ) {
-			Toast.makeText(this, "도서정보의 모든 데이터를 입력하여야 합니다.",Toast.LENGTH_SHORT).show();
+			Toast.makeText(this, "모든 데이터를 입력하여야 합니다.",Toast.LENGTH_SHORT).show();
 			} else {
 				new RegisterBookHelper().execute();
 			} break;

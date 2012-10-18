@@ -66,7 +66,7 @@ public class RegisterUser extends Activity implements OnClickListener {
         major=(Button)findViewById(R.id.major);
     	region.setOnClickListener(new OnClickMover(this,new Intent("RangeSetting").putExtra("filter","region")));
     	univ.setOnClickListener(new OnClickMover(this,new Intent("RangeSetting").putExtra("filter","univ")));
-    	college.setOnClickListener(new OnClickMover(this,new Intent("RangeSetting").putExtra("filter","univ")));
+    	college.setOnClickListener(new OnClickMover(this,new Intent("RangeSetting").putExtra("filter","college")));
     	major.setOnClickListener(new OnClickMover(this,new Intent("RangeSetting").putExtra("filter","major")));
         
         apply=(Button)findViewById(R.id.apply);
