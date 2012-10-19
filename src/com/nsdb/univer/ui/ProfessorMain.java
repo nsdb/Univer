@@ -6,8 +6,8 @@ import com.nsdb.univer.data.AppPref;
 import com.nsdb.univer.data.ProfessorData;
 import com.nsdb.univer.dataadapter.BookDataAdapter;
 import com.nsdb.univer.dataadapter.ProfessorDataAdapter;
-import com.nsdb.univer.uicommon.OnClickMover;
-import com.nsdb.univer.uiparent.ActiveFragment;
+import com.nsdb.univer.ui.common.ActiveFragment;
+import com.nsdb.univer.ui.common.OnClickMover;
 
 import android.app.Activity;
 import android.content.Intent;

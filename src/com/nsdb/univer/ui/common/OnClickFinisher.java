@@ -1,4 +1,4 @@
-package com.nsdb.univer.uicommon;
+package com.nsdb.univer.ui.common;
 
 import android.app.Activity;
 import android.view.View;

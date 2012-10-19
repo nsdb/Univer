@@ -19,7 +19,7 @@ import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.protocol.HTTP;
 
 import com.nsdb.univer.data.AppPref;
-import com.nsdb.univer.uicommon.OnClickMover;
+import com.nsdb.univer.ui.common.OnClickMover;
 
 import android.app.Activity;
 import android.app.ProgressDialog;

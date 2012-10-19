@@ -1,4 +1,4 @@
-package com.nsdb.univer.uiparent;
+package com.nsdb.univer.ui.common;
 
 import android.app.Activity;
 import android.os.Bundle;

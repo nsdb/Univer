@@ -26,8 +26,8 @@ import org.jdom2.input.SAXBuilder;
 
 import com.nsdb.univer.data.AppPref;
 import com.nsdb.univer.data.BookData;
-import com.nsdb.univer.uicommon.OnClickMover;
-import com.nsdb.univer.uicommon.SetImageViewFromURL;
+import com.nsdb.univer.ui.common.OnClickMover;
+import com.nsdb.univer.ui.common.SetImageViewFromURL;
 
 import android.app.Activity;
 import android.app.AlertDialog;
