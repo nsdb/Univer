@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import com.nsdb.univer.data.AppPref;
 import com.nsdb.univer.data.CommentData;
 import com.nsdb.univer.data.ProfessorData;
-import com.nsdb.univer.uisupporter.CommentDataAdapter;
+import com.nsdb.univer.dataadapter.CommentDataAdapter;
 
 import android.app.Activity;
 import android.os.Bundle;

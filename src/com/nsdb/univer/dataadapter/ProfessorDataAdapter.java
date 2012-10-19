@@ -1,4 +1,4 @@
-package com.nsdb.univer.uisupporter;
+package com.nsdb.univer.dataadapter;
 
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -6,12 +6,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.http.HttpResponse;
-import org.apache.http.client.CookieStore;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
-import org.apache.http.cookie.Cookie;
 import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.impl.cookie.BasicClientCookie;
 import org.jdom2.Document;
 import org.jdom2.Element;
 import org.jdom2.input.SAXBuilder;
@@ -26,74 +23,60 @@ import android.view.View.MeasureSpec;
 import android.webkit.WebView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.nsdb.univer.data.AppPref;
-import com.nsdb.univer.data.BookData;
+import com.nsdb.univer.data.ProfessorData;
 import com.nsdb.univer.ui.R;
 
-public class BookDataAdapter extends ArrayAdapter<BookData> {
+public class ProfessorDataAdapter extends ArrayAdapter<ProfessorData> {
 
 	Activity activity;
-	ArrayList<BookData> dataVisible;
-	ArrayList<BookData> dataOriginal;
+	ArrayList<ProfessorData> dataVisible;
+	ArrayList<ProfessorData> dataOriginal;
 	ListView view;
 	
 	String title;
 	int rangeMode;
-	int saleMode;
 	int pageNum;
-	int sellerId;
 	
-	BookDataGetter getter;
+	ProfessorDataGetter getter;
 		
 	public final static int RANGEMODE_ALL=0;
 	public final static int RANGEMODE_REGION=1;
 	public final static int RANGEMODE_UNIV=2;
 	public final static int RANGEMODE_COLLEGE=3;
 	public final static int RANGEMODE_MAJOR=4;
-	public final static int RANGEMODE_MINE=5;
-	public final static int RANGEMODE_OTHER=6;
 
-	public BookDataAdapter(Activity activity, ArrayList<BookData> data, ListView view) {
+	public ProfessorDataAdapter(Activity activity, ArrayList<ProfessorData> data, ListView view) {
 		super(activity,R.layout.bookdata, data);
 		this.activity=activity;
 		this.dataVisible=data;
-		this.dataOriginal=new ArrayList<BookData>();
+		this.dataOriginal=new ArrayList<ProfessorData>();
 		this.view=view;
 		rangeMode=-1;
-		saleMode=-1;
 		pageNum=1;
-		sellerId=-1;
 		getter=null;
 	}
 
 	
-	public void updateData(String title, int categorymode, int salemode, int pagenum) {
+	public void updateData(String title, int categorymode, int pagenum) {
 		this.title=title;
 		this.rangeMode=categorymode;
-		this.saleMode=salemode;
 		this.pageNum=pagenum;
 
 		if(getter != null)
 			getter.cancel(true);
-		getter=new BookDataGetter();
+		getter=new ProfessorDataGetter();
 		getter.execute();
 	}	
-	public void updateData(String title, int categorymode, int salemode, int pagenum, int sellerId) {
-		this.sellerId=sellerId;
-		updateData(title,categorymode,salemode,pagenum);
-	}
-	public void updateData(String title, int salemode, int pagenum) {
-		updateData(title,getDefaultRangeMode(),salemode,pagenum);
-	}
 	
 	public void updateView() {
 		
 		System.out.println("Original Data : "+dataOriginal.size());
 		System.out.println("Visible Data : "+dataVisible.size());
 		System.out.println("Filter Title : "+title);
-		System.out.println("Filter SellBuy : "+saleMode);
 		System.out.println("Filter PageNum : "+pageNum);
 
 		if(dataOriginal.size()!=0) {	
@@ -104,7 +87,7 @@ public class BookDataAdapter extends ArrayAdapter<BookData> {
 		}
 		
 		notifyDataSetChanged();
-
+		
 		// resizing height of listview
 		int totalHeight=0;
 		int desiredWidth=MeasureSpec.makeMeasureSpec(view.getWidth(),MeasureSpec.AT_MOST);
@@ -124,18 +107,15 @@ public class BookDataAdapter extends ArrayAdapter<BookData> {
 	public View getView(int position,View v,ViewGroup Parent) {
 		if(v==null)
 			v=((LayoutInflater)(activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE)))
-			.inflate(R.layout.bookdata,null);
-		
+			.inflate(R.layout.professordata,null);
+
 		TextView t=(TextView)v.findViewById(R.id.title);
 		WebView w=(WebView)v.findViewById(R.id.thumbnail);
-		TextView dp=(TextView)v.findViewById(R.id.discount_price);
-		TextView op=(TextView)v.findViewById(R.id.original_price);
-
+		TextView rt=(TextView)v.findViewById(R.id.totaltxt);
+		RatingBar r=(RatingBar)v.findViewById(R.id.total);
+		
 		if( position >= dataVisible.size() ) {
 			t.setText("Invalid");
-			w.clearView();
-			dp.setText("");
-			op.setText("");
 		} else {
 			
 			// title
@@ -150,33 +130,31 @@ public class BookDataAdapter extends ArrayAdapter<BookData> {
 				w.clearView();
 			}
 			
-			// discount price
-			if(dataVisible.get(position).discount_price!=-1) {
-				dp.setText( ""+dataVisible.get(position).discount_price );
+			// ratingbar
+			if(dataVisible.get(position).count > 0) {
+				double d=dataVisible.get(position).total/(dataVisible.get(position).count*5);
+				d=Math.round(d*100)/100;
+				rt.setText(""+d);
+				r.setRating( (float)d/2 );
 			} else {
-				dp.setText( "" );
+				rt.setText("0.0");
+				r.setRating(0.0f);				
 			}
 			
-			// original price
-			if(dataVisible.get(position).original_price!=-1) {
-				op.setText( ""+dataVisible.get(position).original_price );			
-			} else {
-				op.setText( "" );
-			}
 		}
-
+		
 		return v;
 		
 	}
 	
 	
-	private class BookDataGetter extends AsyncTask<Void,Void,Boolean> {
+	private class ProfessorDataGetter extends AsyncTask<Void,Void,Boolean> {
 
 		@Override
 		protected void onPreExecute() {
 			dataVisible.clear();
 			dataOriginal.clear();
-			dataVisible.add(new BookData("불러오는 중..."));
+			dataVisible.add(new ProfessorData("불러오는 중..."));
 			updateView();
 			super.onPreExecute();
 		}
@@ -185,13 +163,12 @@ public class BookDataAdapter extends ArrayAdapter<BookData> {
 		protected Boolean doInBackground(Void... params) {
 			
 			// create url
-			// {base_url}/feeds/books?search=<search>&sale=<sale>&category=<category>&id=<id>&page=<page>/
+			// {base_url}/feeds/professors/search=<search>&category=<category>&id=<id>&page=<page>/
 			String url=activity.getResources().getString(R.string.base_url)+'/'
 					+activity.getResources().getString(R.string.get_url)+'/'
-					+activity.getResources().getString(R.string.book_url)+'/';
+					+activity.getResources().getString(R.string.professor_url)+'/';
 			ArrayList<String> getData=new ArrayList<String>();
 			getData.add("search="+0);
-			getData.add("sale="+saleMode);
 			getData.add("category="+rangeMode);	
 			switch(rangeMode) {
 			case RANGEMODE_ALL: getData.add("id="+0); break;
@@ -199,8 +176,6 @@ public class BookDataAdapter extends ArrayAdapter<BookData> {
 			case RANGEMODE_UNIV: getData.add("id="+AppPref.getRangeData("univ").id); break;
 			case RANGEMODE_COLLEGE: getData.add("id="+AppPref.getRangeData("college").id); break;
 			case RANGEMODE_MAJOR: getData.add("id="+AppPref.getRangeData("major").id); break;
-			case RANGEMODE_MINE: getData.add("id="+0); break;
-			case RANGEMODE_OTHER: getData.add("id="+sellerId); break;
 			}
 			getData.add("page="+pageNum);
 			for(int i=0;i<getData.size();i++) {
@@ -213,43 +188,23 @@ public class BookDataAdapter extends ArrayAdapter<BookData> {
 
 			
 			try {
-				// create http get for sending
+				// get xml stream from server
 				HttpGet request=new HttpGet(url);
-				
-				// cookie load
 				HttpClient client=new DefaultHttpClient();
-				CookieStore cookieStore=((DefaultHttpClient)client).getCookieStore();
-				List<Cookie> cookieList=cookieStore.getCookies();
-				String cookieName=AppPref.getString("cookieName");
-				if(cookieList.size()==0 && cookieName.compareTo("")!=0) {
-					String cookieValue=AppPref.getString("cookieValue");
-					String cookieDomain=AppPref.getString("cookieDomain");
-					String cookiePath=AppPref.getString("cookiePath");
-					BasicClientCookie cookie=new BasicClientCookie( cookieName,cookieValue );
-					cookie.setDomain(cookieDomain);
-					cookie.setPath(cookiePath);
-					cookieStore.addCookie(cookie);
-				}
-				
-				// get bookdata from xml through JDOM
 				HttpResponse response=client.execute(request);
 				InputStream is=response.getEntity().getContent();
 				InputStreamReader isr=new InputStreamReader(is,"utf-8");
+				
+				// get professordata from xml through JDOM
 				SAXBuilder sax=new SAXBuilder();
 				Document doc=sax.build(isr);
 				Element rss=doc.getRootElement();
 				Element channel=rss.getChild("channel");
 				List<Element> items=channel.getChildren("item");
 				for(Element item : items) {
-					dataOriginal.add( new BookData(item) );
+					dataOriginal.add( new ProfessorData(item) );
 				}
 				
-				// cookie save
-				AppPref.setString("cookieName",cookieList.get(0).getName());
-				AppPref.setString("cookieValue",cookieList.get(0).getValue());
-				AppPref.setString("cookieDomain",cookieList.get(0).getDomain());
-				AppPref.setString("cookiePath",cookieList.get(0).getPath());
-
 			} catch(Exception e) {
 				e.printStackTrace();
 				return false;
@@ -262,10 +217,10 @@ public class BookDataAdapter extends ArrayAdapter<BookData> {
 		protected void onPostExecute(Boolean result) {
 			dataVisible.clear();
 			if(result==true && dataOriginal.size()==0) {
-				dataVisible.add(new BookData("데이터 없음"));
+				dataVisible.add(new ProfessorData("데이터 없음"));
 			} else if(result==false) {
-				dataVisible.add(new BookData("읽기 실패"));
-				dataVisible.add(new BookData("서버에 연결할 수 없습니다"));				
+				dataVisible.add(new ProfessorData("읽기 실패"));
+				dataVisible.add(new ProfessorData("서버에 연결할 수 없습니다"));				
 			}
 			updateView();
 		}

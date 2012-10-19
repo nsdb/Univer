@@ -5,9 +5,9 @@ import java.util.ArrayList;
 import com.makeramen.segmented.SegmentedRadioGroup;
 import com.nsdb.univer.data.AppPref;
 import com.nsdb.univer.data.BookData;
-import com.nsdb.univer.uisupporter.ActiveFragment;
-import com.nsdb.univer.uisupporter.BookDataAdapter;
-import com.nsdb.univer.uisupporter.OnClickMover;
+import com.nsdb.univer.dataadapter.BookDataAdapter;
+import com.nsdb.univer.uicommon.OnClickMover;
+import com.nsdb.univer.uiparent.ActiveFragment;
 
 import android.app.Activity;
 import android.content.Intent;

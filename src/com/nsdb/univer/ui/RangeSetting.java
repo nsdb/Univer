@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import com.nsdb.univer.data.AppPref;
 import com.nsdb.univer.data.RangeData;
-import com.nsdb.univer.uisupporter.RangeDataAdapter;
+import com.nsdb.univer.dataadapter.RangeDataAdapter;
 
 import android.app.Activity;
 import android.os.Bundle;
