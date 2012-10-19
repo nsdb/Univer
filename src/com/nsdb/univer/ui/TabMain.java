@@ -12,7 +12,7 @@ public class TabMain extends ActiveFragmentHost {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.tabmain2);
+        setContentView(R.layout.tabmain);
 
         addFragment(new BookMarketMain(this),"BookMarketMain",R.id.screen1);
         addFragment(new ProfessorMain(this),"ProfessorMain",R.id.screen2);

@@ -43,7 +43,7 @@ public class BookMarketMain extends ActiveFragment implements OnItemClickListene
 	ListView lv;
 	
 	BookMarketMain(Activity activity) {
-		super(activity,R.layout.bookmarketmain4);
+		super(activity,R.layout.bookmarketmain);
 	}
 
 	@Override

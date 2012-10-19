@@ -35,7 +35,7 @@ public class RangeSetting extends Activity implements OnItemClickListener, OnCli
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.rangesetting_a);
+        setContentView(R.layout.rangesetting);
                 
         // title
         filter=getIntent().getStringExtra("filter");
