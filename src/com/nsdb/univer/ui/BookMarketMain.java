@@ -23,7 +23,7 @@ import android.widget.ListView;
 import android.widget.RadioGroup;
 import android.widget.RadioGroup.OnCheckedChangeListener;
 
-public class BookMarketMain4 extends ActiveFragment implements OnItemClickListener, OnCheckedChangeListener {
+public class BookMarketMain extends ActiveFragment implements OnItemClickListener, OnCheckedChangeListener {
 	
 	Button search;	
 	EditText searchtxt;
@@ -42,7 +42,7 @@ public class BookMarketMain4 extends ActiveFragment implements OnItemClickListen
 	BookDataAdapter adapter;
 	ListView lv;
 	
-	BookMarketMain4(Activity activity) {
+	BookMarketMain(Activity activity) {
 		super(activity,R.layout.bookmarketmain4);
 	}
 

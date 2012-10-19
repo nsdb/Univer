@@ -20,7 +20,7 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 
-public class RangeSettingA extends Activity implements OnItemClickListener, OnClickListener {
+public class RangeSetting extends Activity implements OnItemClickListener, OnClickListener {
 	
 	String filter;
 	TextView title;

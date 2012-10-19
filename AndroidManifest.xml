@@ -35,14 +35,14 @@
             </intent-filter>
         </activity>
         
-        <activity android:name="RangeSettingA">
+        <activity android:name="RangeSetting">
             <intent-filter>
                 <action android:name="RangeSetting" />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
         
-        <activity android:name="TabMain2">
+        <activity android:name="TabMain">
             <intent-filter>
                 <action android:name="TabMain" />
                 <category android:name="android.intent.category.DEFAULT" />

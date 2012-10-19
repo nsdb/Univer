@@ -1,11 +1,11 @@
 package com.nsdb.univer.ui;
 
-import com.nsdb.univer.uisupporter.ActiveFragmentHost2;
+import com.nsdb.univer.uisupporter.ActiveFragmentHost;
 
 import android.os.Bundle;
 import android.widget.Button;
 
-public class TabMain2 extends ActiveFragmentHost2 {
+public class TabMain extends ActiveFragmentHost {
 	
 	Button bookmarkettab,professortab;
 	
@@ -14,7 +14,7 @@ public class TabMain2 extends ActiveFragmentHost2 {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.tabmain2);
 
-        addFragment(new BookMarketMain4(this),"BookMarketMain",R.id.screen1);
+        addFragment(new BookMarketMain(this),"BookMarketMain",R.id.screen1);
         addFragment(new ProfessorMain(this),"ProfessorMain",R.id.screen2);
         bookmarkettab=(Button)findViewById(R.id.bookmarkettab);
         professortab=(Button)findViewById(R.id.professortab);

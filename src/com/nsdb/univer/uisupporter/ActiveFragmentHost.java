@@ -10,14 +10,14 @@ import android.support.v4.app.FragmentTransaction;
 import android.view.View;
 import android.view.View.OnClickListener;
 
-public class ActiveFragmentHost2 extends FragmentActivity {
+public class ActiveFragmentHost extends FragmentActivity {
 	
 	private ArrayList<Fragment> fragmentList;
 	private ArrayList<String> tagList;
 	private ArrayList<Integer> idList;
 	private int cPosition;
 	
-	public ActiveFragmentHost2() {
+	public ActiveFragmentHost() {
 		fragmentList=new ArrayList<Fragment>();
 		tagList=new ArrayList<String>();
 		idList=new ArrayList<Integer>();

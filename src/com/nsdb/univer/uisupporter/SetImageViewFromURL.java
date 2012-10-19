@@ -1,6 +1,5 @@
 package com.nsdb.univer.uisupporter;
 
-import java.net.MalformedURLException;
 import java.net.URL;
 
 import android.graphics.Bitmap;
