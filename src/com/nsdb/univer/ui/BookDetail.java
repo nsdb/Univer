@@ -1,7 +1,5 @@
 package com.nsdb.univer.ui;
 
-import java.util.ArrayList;
-
 import com.nsdb.univer.data.AppPref;
 import com.nsdb.univer.data.BookData;
 import com.nsdb.univer.dataadapter.BookDataAdapter;
@@ -28,9 +26,8 @@ public class BookDetail extends Activity implements OnItemClickListener {
 	EditText description;
 	CheckBox parcel,meet;
 	
-	ArrayList<BookData> data;
-	BookDataAdapter adapter;
 	ListView lv;
+	BookDataAdapter adapter;
 	
 	@Override
     public void onCreate(Bundle savedInstanceState) {
@@ -72,17 +69,14 @@ public class BookDetail extends Activity implements OnItemClickListener {
         
         // ListView
     	lv=(ListView)findViewById(R.id.booklist);
-    	data=new ArrayList<BookData>();
-    	adapter=new BookDataAdapter(this,data,lv);
-    	lv.setAdapter(adapter);
+    	adapter=new BookDataAdapter(this,lv,true);
     	lv.setOnItemClickListener(this);
     	adapter.updateData("",BookDataAdapter.RANGEMODE_OTHER,BookData.SALEMODE_ALL,1,lastdata.seller_id);
-
     }
 
 	public void onItemClick(AdapterView<?> parent, View view, int position, long l_position) {
-		if(data.get(position).id != -1) {
-			AppPref.setLastBookData(data.get(position));
+		if(adapter.get(position).id != -1) {
+			AppPref.setLastBookData(adapter.get(position));
 			startActivity( new Intent("BookDetail") );
 			finish();
 		}

@@ -1,10 +1,6 @@
 package com.nsdb.univer.ui;
 
-import java.util.ArrayList;
-
 import com.nsdb.univer.data.AppPref;
-import com.nsdb.univer.data.ProfessorData;
-import com.nsdb.univer.dataadapter.BookDataAdapter;
 import com.nsdb.univer.dataadapter.ProfessorDataAdapter;
 import com.nsdb.univer.ui.common.ActiveFragment;
 import com.nsdb.univer.ui.common.OnClickMover;
@@ -30,12 +26,10 @@ public class ProfessorMain extends ActiveFragment implements OnItemClickListener
 	private final static int REQUESTCODE_REGISTERPROFESSOR=1;
 	
 	Button region, univ, college, major;
-	int rangeMode;
 	private final static int REQUESTCODE_RANGE=2;
 
-	ArrayList<ProfessorData> data;
-	ProfessorDataAdapter adapter;
 	ListView lv;
+	ProfessorDataAdapter adapter;
 	
 	ProfessorMain(Activity activity) {
 		super(activity,R.layout.professormain);
@@ -62,15 +56,12 @@ public class ProfessorMain extends ActiveFragment implements OnItemClickListener
     	univ.setOnClickListener(new OnClickMover(THIS,new Intent("RangeSetting").putExtra("filter","univ"),REQUESTCODE_RANGE));
     	college.setOnClickListener(new OnClickMover(THIS,new Intent("RangeSetting").putExtra("filter","college"),REQUESTCODE_RANGE));
     	major.setOnClickListener(new OnClickMover(THIS,new Intent("RangeSetting").putExtra("filter","major"),REQUESTCODE_RANGE));
-        rangeMode=ProfessorDataAdapter.getDefaultRangeMode();
     	// Not yet
     	major.setEnabled(false);
 
         // ListView
     	lv=(ListView)v.findViewById(R.id.professorlist);
-    	data=new ArrayList<ProfessorData>();
-    	adapter=new ProfessorDataAdapter(THIS,data,lv);
-    	lv.setAdapter(adapter);
+    	adapter=new ProfessorDataAdapter(THIS,lv,false);
     	lv.setOnItemClickListener(this);
     	updateView();
     	
@@ -89,8 +80,8 @@ public class ProfessorMain extends ActiveFragment implements OnItemClickListener
 	
 
 	public void onItemClick(AdapterView<?> parent, View view, int position, long l_position) {
-		if(data.get(position).id != -1) {
-			AppPref.setLastProfessorData(data.get(position));
+		if(adapter.get(position).id != -1) {
+			AppPref.setLastProfessorData(adapter.get(position));
 			THIS.startActivity( new Intent("ProfessorDetail") );
 		}		
 	}
@@ -132,11 +123,8 @@ public class ProfessorMain extends ActiveFragment implements OnItemClickListener
     	if(temp.compareTo("")==0) temp="학과";
     	major.setText( temp );
 
-    	// rangemode
-		rangeMode=BookDataAdapter.getDefaultRangeMode();
-
 		// list
-    	adapter.updateData("",rangeMode,1);
+    	adapter.updateData("",1);
 	}
 
 }

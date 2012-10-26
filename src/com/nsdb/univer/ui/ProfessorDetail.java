@@ -1,9 +1,6 @@
 package com.nsdb.univer.ui;
 
-import java.util.ArrayList;
-
 import com.nsdb.univer.data.AppPref;
-import com.nsdb.univer.data.CommentData;
 import com.nsdb.univer.data.ProfessorData;
 import com.nsdb.univer.dataadapter.CommentDataAdapter;
 
@@ -23,9 +20,8 @@ public class ProfessorDetail extends Activity {
 	RatingBar quality,report,grade,attendance,personality,total;
 	TextView qualitytxt,reporttxt,gradetxt,attendancetxt,personalitytxt,totaltxt;
 	
-	ArrayList<CommentData> data;
-	CommentDataAdapter adapter;
 	ListView lv;
+	CommentDataAdapter adapter;
 	
 	@Override
     public void onCreate(Bundle savedInstanceState) {
@@ -83,9 +79,7 @@ public class ProfessorDetail extends Activity {
         
         // ListView
     	lv=(ListView)findViewById(R.id.commentlist);
-    	data=new ArrayList<CommentData>();
-    	adapter=new CommentDataAdapter(this,data,lv);
-    	lv.setAdapter(adapter);
+    	adapter=new CommentDataAdapter(this,lv,true);
     	adapter.updateData(lastdata.id,1);
     }
 

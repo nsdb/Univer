@@ -1,7 +1,5 @@
 package com.nsdb.univer.ui;
 
-import java.util.ArrayList;
-
 import com.makeramen.segmented.SegmentedRadioGroup;
 import com.nsdb.univer.data.AppPref;
 import com.nsdb.univer.data.BookData;
@@ -38,9 +36,8 @@ public class BookMarketMain extends ActiveFragment implements OnItemClickListene
 	int rangeMode;
 	private final static int REQUESTCODE_RANGE=2;
 
-	ArrayList<BookData> data;
-	BookDataAdapter adapter;
 	ListView lv;
+	BookDataAdapter adapter;
 	
 	BookMarketMain(Activity activity) {
 		super(activity,R.layout.bookmarketmain);
@@ -78,9 +75,7 @@ public class BookMarketMain extends ActiveFragment implements OnItemClickListene
 
         // ListView
     	lv=(ListView)v.findViewById(R.id.booklist);
-    	data=new ArrayList<BookData>();
-    	adapter=new BookDataAdapter(THIS,data,lv);
-    	lv.setAdapter(adapter);
+    	adapter=new BookDataAdapter(THIS,lv,false);
     	lv.setOnItemClickListener(this);
     	updateView();
     	
@@ -99,8 +94,8 @@ public class BookMarketMain extends ActiveFragment implements OnItemClickListene
 	
 
 	public void onItemClick(AdapterView<?> parent, View view, int position, long l_position) {
-		if(data.get(position).id != -1) {
-			AppPref.setLastBookData(data.get(position));
+		if(adapter.get(position).id != -1) {
+			AppPref.setLastBookData(adapter.get(position));
 			THIS.startActivity(new Intent("BookDetail"));
 		}
 	}
@@ -174,12 +169,4 @@ public class BookMarketMain extends ActiveFragment implements OnItemClickListene
     	adapter.updateData("",rangeMode,saleMode,1);
 	}
 
-    @Override
-    public void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-        outState.putInt("region",AppPref.getRangeData("region").id);
-        outState.putInt("univ",AppPref.getRangeData("univ").id);
-        outState.putInt("college",AppPref.getRangeData("college").id);
-        outState.putInt("major",AppPref.getRangeData("major").id);
-    }
 }

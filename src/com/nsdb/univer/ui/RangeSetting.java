@@ -1,11 +1,8 @@
 package com.nsdb.univer.ui;
 
-import java.util.ArrayList;
-
 import com.nsdb.univer.data.AppPref;
 import com.nsdb.univer.data.RangeData;
 import com.nsdb.univer.dataadapter.RangeDataAdapter;
-
 import android.app.Activity;
 import android.os.Bundle;
 import android.text.Editable;
@@ -26,9 +23,8 @@ public class RangeSetting extends Activity implements OnItemClickListener, OnCli
 	TextView title;
 	EditText edit;
 
-	ArrayList<RangeData> data;
-	RangeDataAdapter adapter;
 	ListView list;
+	RangeDataAdapter adapter;
 	
 	Button clear;
 
@@ -66,10 +62,8 @@ public class RangeSetting extends Activity implements OnItemClickListener, OnCli
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
         	
         // listview
-        data=new ArrayList<RangeData>();
-        adapter=new RangeDataAdapter(this,data);
         list=(ListView)findViewById(R.id.list);
-        list.setAdapter(adapter);
+        adapter=new RangeDataAdapter(this,list,false);
         list.setOnItemClickListener(this);
     	adapter.updateData(filter);
     	
@@ -80,8 +74,8 @@ public class RangeSetting extends Activity implements OnItemClickListener, OnCli
     
 	public void onItemClick(AdapterView<?> parent, View view, int position, long l_position) {
 		
-		if(data.get(position).id != -1) {
-			AppPref.setRangeData(filter,data.get(position));
+		if(adapter.get(position).id != -1) {
+			AppPref.setRangeData(filter,adapter.get(position));
 			if(filter.compareTo("region")==0) {
 				AppPref.setRangeData("univ",new RangeData());
 				AppPref.setRangeData("college",new RangeData());
