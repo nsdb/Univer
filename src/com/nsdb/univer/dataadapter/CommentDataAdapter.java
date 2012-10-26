@@ -9,7 +9,7 @@ import android.view.View;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.nsdb.univer.data.CommentData;
+import com.nsdb.univer.common.CommentData;
 import com.nsdb.univer.ui.R;
 
 public class CommentDataAdapter extends BaseDataAdapter<CommentData> {
@@ -49,7 +49,7 @@ public class CommentDataAdapter extends BaseDataAdapter<CommentData> {
 	}
 
 	@Override
-	protected String createHttpUrl() {
+	protected String getXmlUrl() {
 
 		// {base_url}/feeds/comments/professors/professor_id=<professor_id>&page=<page>/
 		String url=activity.getResources().getString(R.string.base_url)+'/'

@@ -1,25 +1,14 @@
 package com.nsdb.univer.dataadapter;
 
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.http.HttpResponse;
-import org.apache.http.client.CookieStore;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.cookie.Cookie;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.impl.cookie.BasicClientCookie;
-import org.jdom2.Document;
 import org.jdom2.Element;
-import org.jdom2.input.SAXBuilder;
 
-import com.nsdb.univer.data.AppPref;
+import com.nsdb.univer.common.BaseXmlItemGetter;
+
 import android.app.Activity;
 import android.content.Context;
-import android.os.AsyncTask;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -38,7 +27,7 @@ public abstract class BaseDataAdapter<T> {
 	private boolean inScrollView; // For ListView in ScrollView
 
 	// Data getting
-	private HttpGETGetter getter;
+	private DataGetter getter;
 	private ArrayList<T> dataOriginal;
 	protected final static int RESULT_SUCCESS=1;
 	protected final static int RESULT_EMPTY=2;
@@ -61,17 +50,14 @@ public abstract class BaseDataAdapter<T> {
 	
 	
 	// 1. get data from server
-	// Activity only can use it.
 	public final void updateData() {
 		if(getter != null)
 			getter.cancel(true);
-		getter=new HttpGETGetter();
+		getter=new DataGetter();
 		getter.execute();
 	}
-	private final class HttpGETGetter extends AsyncTask<Void,Void,Integer> {
+	private final class DataGetter extends BaseXmlItemGetter {
 
-		private String url;
-		
 		@Override
 		protected void onPreExecute() {
 			
@@ -83,78 +69,38 @@ public abstract class BaseDataAdapter<T> {
 			// clear last data
 			dataOriginal.clear();
 
-			// create server url
-			url=createHttpUrl();
-			
 			super.onPreExecute();
 		}
 
 		@Override
-		protected Integer doInBackground(Void... params) {
-			
-			try {
-				
-				// create http get for sending
-				HttpGet request=new HttpGet(url);
-				
-				// cookie load
-				HttpClient client=new DefaultHttpClient();
-				CookieStore cookieStore=((DefaultHttpClient)client).getCookieStore();
-				List<Cookie> cookieList=cookieStore.getCookies();
-				String cookieName=AppPref.getString("cookieName");
-				if(cookieList.size()==0 && cookieName.compareTo("")!=0) {
-					String cookieValue=AppPref.getString("cookieValue");
-					String cookieDomain=AppPref.getString("cookieDomain");
-					String cookiePath=AppPref.getString("cookiePath");
-					BasicClientCookie cookie=new BasicClientCookie( cookieName,cookieValue );
-					cookie.setDomain(cookieDomain);
-					cookie.setPath(cookiePath);
-					cookieStore.addCookie(cookie);
-				}
-				
-				// get data from xml through JDOM
-				HttpResponse response=client.execute(request);
-				InputStream is=response.getEntity().getContent();
-				InputStreamReader isr=new InputStreamReader(is,"utf-8");
-				SAXBuilder sax=new SAXBuilder();
-				Document doc=sax.build(isr);
-				Element rss=doc.getRootElement();
-				Element channel=rss.getChild("channel");
-				List<Element> items=channel.getChildren("item");
-				for(Element item : items) {
-					dataOriginal.add(convertElement(item));
-				}
-				
-				// cookie save
-				AppPref.setString("cookieName",cookieList.get(0).getName());
-				AppPref.setString("cookieValue",cookieList.get(0).getValue());
-				AppPref.setString("cookieDomain",cookieList.get(0).getDomain());
-				AppPref.setString("cookiePath",cookieList.get(0).getPath());
-
-			} catch(Exception e) {
-				e.printStackTrace();
-				return RESULT_ERROR;
-			}
-
-			if(dataOriginal.size()==0)
-				return RESULT_EMPTY;
-			else
-				return RESULT_SUCCESS;
-		}
-
-		@Override
-		protected void onPostExecute(Integer result) {
+		protected void onPostExecute(Boolean result) {
 			
 			// notify end
 			dataVisible.clear();
-			setEndData(result);
+			if(result==false)
+				setEndData(RESULT_ERROR);
+			if(dataOriginal.size()==0 && result==true)
+				setEndData(RESULT_EMPTY);
+			else
+				setEndData(RESULT_SUCCESS);
 			//adapter.notifyDataSetChanged();  already in updateView()
 			updateView();
 		}
+
+		@Override
+		protected String getXmlUrl() {
+			return BaseDataAdapter.this.getXmlUrl();
+		}
+
+		@Override
+		protected void processElement(Element item) {
+			add(convertElement(item));
+		}
+
 	}
 	protected abstract void setReadyData();
 	protected abstract void setEndData(int result);
-	protected abstract String createHttpUrl();
+	protected abstract String getXmlUrl();
 	protected abstract T convertElement(Element item);
 	
 	

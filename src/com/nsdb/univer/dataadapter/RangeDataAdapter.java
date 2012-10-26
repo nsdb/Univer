@@ -7,8 +7,8 @@ import android.view.View;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.nsdb.univer.data.AppPref;
-import com.nsdb.univer.data.RangeData;
+import com.nsdb.univer.common.AppPref;
+import com.nsdb.univer.common.RangeData;
 import com.nsdb.univer.ui.R;
 
 public class RangeDataAdapter extends BaseDataAdapter<RangeData> {
@@ -52,7 +52,7 @@ public class RangeDataAdapter extends BaseDataAdapter<RangeData> {
 	}
 
 	@Override
-	protected String createHttpUrl() {
+	protected String getXmlUrl() {
 
 		// region : 1.234.23.142/~ypunval/feeds/region/
 		// univ : 1.234.23.142/~ypunval/feeds/univ/(region_id)/

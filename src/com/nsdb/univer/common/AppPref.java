@@ -1,4 +1,5 @@
-package com.nsdb.univer.data;
+package com.nsdb.univer.common;
+
 
 import android.app.Activity;
 import android.content.SharedPreferences;

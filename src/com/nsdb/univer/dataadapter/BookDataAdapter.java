@@ -10,8 +10,8 @@ import android.webkit.WebView;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.nsdb.univer.data.AppPref;
-import com.nsdb.univer.data.BookData;
+import com.nsdb.univer.common.AppPref;
+import com.nsdb.univer.common.BookData;
 import com.nsdb.univer.ui.R;
 
 public class BookDataAdapter extends BaseDataAdapter<BookData> {
@@ -71,7 +71,7 @@ public class BookDataAdapter extends BaseDataAdapter<BookData> {
 	}
 
 	@Override
-	protected String createHttpUrl() {
+	protected String getXmlUrl() {
 		
 		// {base_url}/feeds/books?search=<search>&sale=<sale>&category=<category>&id=<id>&page=<page>/
 		String url=activity.getResources().getString(R.string.base_url)+'/'

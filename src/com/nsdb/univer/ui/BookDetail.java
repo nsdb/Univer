@@ -1,7 +1,7 @@
 package com.nsdb.univer.ui;
 
-import com.nsdb.univer.data.AppPref;
-import com.nsdb.univer.data.BookData;
+import com.nsdb.univer.common.AppPref;
+import com.nsdb.univer.common.BookData;
 import com.nsdb.univer.dataadapter.BookDataAdapter;
 
 import android.app.Activity;

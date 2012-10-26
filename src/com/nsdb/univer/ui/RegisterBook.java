@@ -24,8 +24,9 @@ import org.jdom2.Document;
 import org.jdom2.Element;
 import org.jdom2.input.SAXBuilder;
 
-import com.nsdb.univer.data.AppPref;
-import com.nsdb.univer.data.BookData;
+import com.nsdb.univer.common.AppPref;
+import com.nsdb.univer.common.BaseXmlItemGetter;
+import com.nsdb.univer.common.BookData;
 import com.nsdb.univer.ui.common.OnClickMover;
 import com.nsdb.univer.ui.common.SetImageViewFromURL;
 
@@ -56,8 +57,8 @@ public class RegisterBook extends Activity implements OnClickListener, OnChecked
 	
 	RadioGroup sale;
 	int saleMode;
-	TextView regiontxt,univtxt,collegetxt,majortxt;
-	Button region,univ,college,major;
+	TextView region,univ,college,major;
+	Button regionbtn,univbtn,collegebtn,majorbtn;
 	
 	Button barcode;
 	String isbn;
@@ -84,18 +85,18 @@ public class RegisterBook extends Activity implements OnClickListener, OnChecked
         sale=(RadioGroup)findViewById(R.id.sale);
         saleMode=BookData.SALEMODE_SELL;
         sale.setOnCheckedChangeListener(this);
-        regiontxt=(TextView)findViewById(R.id.regiontxt);
-        univtxt=(TextView)findViewById(R.id.univtxt);
-        collegetxt=(TextView)findViewById(R.id.collegetxt);
-        majortxt=(TextView)findViewById(R.id.majortxt);
-        region=(Button)findViewById(R.id.region);
-        univ=(Button)findViewById(R.id.univ);
-        college=(Button)findViewById(R.id.college);
-        major=(Button)findViewById(R.id.major);
-    	region.setOnClickListener(new OnClickMover(this,new Intent("RangeSetting").putExtra("filter","region")));
-    	univ.setOnClickListener(new OnClickMover(this,new Intent("RangeSetting").putExtra("filter","univ")));
-    	college.setOnClickListener(new OnClickMover(this,new Intent("RangeSetting").putExtra("filter","college")));
-    	major.setOnClickListener(new OnClickMover(this,new Intent("RangeSetting").putExtra("filter","major")));
+        region=(TextView)findViewById(R.id.region);
+        univ=(TextView)findViewById(R.id.univ);
+        college=(TextView)findViewById(R.id.college);
+        major=(TextView)findViewById(R.id.major);
+        regionbtn=(Button)findViewById(R.id.regionbtn);
+        univbtn=(Button)findViewById(R.id.univbtn);
+        collegebtn=(Button)findViewById(R.id.collegebtn);
+        majorbtn=(Button)findViewById(R.id.majorbtn);
+    	regionbtn.setOnClickListener(new OnClickMover(this,new Intent("RangeSetting").putExtra("filter","region")));
+    	univbtn.setOnClickListener(new OnClickMover(this,new Intent("RangeSetting").putExtra("filter","univ")));
+    	collegebtn.setOnClickListener(new OnClickMover(this,new Intent("RangeSetting").putExtra("filter","college")));
+    	majorbtn.setOnClickListener(new OnClickMover(this,new Intent("RangeSetting").putExtra("filter","major")));
         
         // second linear
         barcode=(Button)findViewById(R.id.barcode);
@@ -129,34 +130,34 @@ public class RegisterBook extends Activity implements OnClickListener, OnChecked
     	super.onResume();
 
     	// refresh position
-    	regiontxt.setText(AppPref.getRangeData("region").title);
-    	if(regiontxt.getText().length()==0) {
-    		regiontxt.setText("없음");
-    		univ.setEnabled(false);
+    	region.setText(AppPref.getRangeData("region").title);
+    	if(region.getText().length()==0) {
+    		region.setText("없음");
+    		univbtn.setEnabled(false);
     	} else {
-    		univ.setEnabled(true);    		
+    		univbtn.setEnabled(true);    		
     	}
-    	univtxt.setText(AppPref.getRangeData("univ").title);
-    	if(univtxt.getText().length()==0) {
-    		univtxt.setText("없음");
-			college.setEnabled(false);
+    	univ.setText(AppPref.getRangeData("univ").title);
+    	if(univ.getText().length()==0) {
+    		univ.setText("없음");
+			collegebtn.setEnabled(false);
 		} else {
-			college.setEnabled(true);    		
+			collegebtn.setEnabled(true);    		
 		}
-    	collegetxt.setText(AppPref.getRangeData("college").title);
-    	if(collegetxt.getText().length()==0) {
-    		collegetxt.setText("없음");
-			major.setEnabled(false);
+    	college.setText(AppPref.getRangeData("college").title);
+    	if(college.getText().length()==0) {
+    		college.setText("없음");
+			majorbtn.setEnabled(false);
 		} else {
-			major.setEnabled(true);    		
+			majorbtn.setEnabled(true);
 		}
-    	majortxt.setText(AppPref.getRangeData("major").title);
-    	if(majortxt.getText().length()==0)
-    		majortxt.setText("없음");
+    	major.setText(AppPref.getRangeData("major").title);
+    	if(major.getText().length()==0)
+    		major.setText("없음");
     	////
 
     	// Not yet
-    	major.setEnabled(false);
+    	majorbtn.setEnabled(false);
     }
 
 	public void onCheckedChanged(RadioGroup group, int checkedId) {
@@ -166,17 +167,49 @@ public class RegisterBook extends Activity implements OnClickListener, OnChecked
 		}
 	}
 
-	private class BookInfoGetter extends AsyncTask<Void,Void,String[]> {
+	private class BookInfoGetter extends BaseXmlItemGetter {
+		
+		private class BookInfo {
+			public String image;
+			public String title;
+			public String publisher;
+			public String author;
+			public String pubdate;
+			public String edition;
+			public String price;
+		}
+		private BookInfo data;
 
 		@Override
 		protected void onPreExecute() {
 			pdl=ProgressDialog.show(RegisterBook.this,"Loading","Loading...",true,false);
+			data=null;
 			super.onPreExecute();
 		}
 
 		@Override
-		protected String[] doInBackground(Void... params) {
+		protected void onPostExecute(Boolean result) {
 			
+			pdl.dismiss();
+			if(result==false) {
+				Toast.makeText(RegisterBook.this,"일치하는 책을 찾지 못했습니다. 다시 시도해보세요.",Toast.LENGTH_SHORT).show();				
+				return;
+			}
+
+			System.out.println("Image URL : "+data.image);
+			new SetImageViewFromURL(image,data.image).execute();
+			title.setText(data.title);
+			publisher.setText(data.publisher);
+			author.setText(data.author);
+			pubdate.setText(data.pubdate);
+			edition.setText(data.edition);
+			original_price.setText(data.price);
+			discount_price.requestFocus();
+			
+		}
+
+		@Override
+		protected String getXmlUrl() {
 			String url=getResources().getString(R.string.bookinfogetter_url);
 			ArrayList<String> getData=new ArrayList<String>();
 			getData.add("key="+getResources().getString(R.string.bookinfogetter_key));
@@ -192,58 +225,20 @@ public class RegisterBook extends Activity implements OnClickListener, OnChecked
 				else url=url+'/';
 			}
 			System.out.println("XML URL : "+url);
-			
-			try {
-				// get xml stream from server
-				HttpGet request=new HttpGet(url);
-				HttpClient client=new DefaultHttpClient();
-				HttpResponse response=client.execute(request);
-				InputStream is=response.getEntity().getContent();
-				InputStreamReader isr=new InputStreamReader(is,"utf-8");
-
-				// get bookdata from xml through JDOM
-				SAXBuilder sax=new SAXBuilder();
-				Document doc=sax.build(isr);
-				Element rss=doc.getRootElement();
-				Element channel=rss.getChild("channel");
-				Element item=channel.getChild("item");
-				String[] result=new String[7];
-				//image_url,title,publisher,author,pubdate,edition,original_price
-				result[0]=item.getChildText("image");
-				result[1]=item.getChildText("title");
-				result[2]=item.getChildText("publisher");
-				result[3]=item.getChildText("author");
-				result[4]=item.getChildText("pubdate");
-				result[5]=""+1;
-				result[6]=item.getChildText("price");				
-				return result;
-				
-			} catch(Exception e) {
-				e.printStackTrace();
-				return null;
-			}	
-			
+			return url;
 		}
-		
-		@Override
-		protected void onPostExecute(String[] result) {
-			
-			pdl.dismiss();
-			if(result==null) {
-				Toast.makeText(RegisterBook.this,"일치하는 책을 찾지 못했습니다. 다시 시도해보세요.",Toast.LENGTH_SHORT).show();				
-				return;
-			}
 
-			System.out.println("Image URL : "+result[0]);
-			new SetImageViewFromURL(image,result[0]).execute();
-			title.setText(result[1]);
-			publisher.setText(result[2]);
-			author.setText(result[3]);
-			pubdate.setText(result[4]);
-			edition.setText(result[5]);
-			original_price.setText(result[6]);
-			discount_price.requestFocus();
-			
+		@Override
+		protected void processElement(Element item) {
+			if(data!=null) return;
+			data=new BookInfo();
+			data.image=item.getChildText("image");
+			data.title=item.getChildText("title");
+			data.publisher=item.getChildText("publisher");
+			data.author=item.getChildText("author");
+			data.pubdate=item.getChildText("pubdate");
+			data.edition=""+1;
+			data.price=item.getChildText("price");			
 		}
 	}
 

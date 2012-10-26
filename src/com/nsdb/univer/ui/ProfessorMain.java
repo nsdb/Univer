@@ -1,6 +1,6 @@
 package com.nsdb.univer.ui;
 
-import com.nsdb.univer.data.AppPref;
+import com.nsdb.univer.common.AppPref;
 import com.nsdb.univer.dataadapter.ProfessorDataAdapter;
 import com.nsdb.univer.ui.common.ActiveFragment;
 import com.nsdb.univer.ui.common.OnClickMover;

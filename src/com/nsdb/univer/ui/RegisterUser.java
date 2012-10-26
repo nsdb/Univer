@@ -18,7 +18,7 @@ import org.apache.http.impl.cookie.BasicClientCookie;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.protocol.HTTP;
 
-import com.nsdb.univer.data.AppPref;
+import com.nsdb.univer.common.AppPref;
 import com.nsdb.univer.ui.common.OnClickMover;
 
 import android.app.Activity;
@@ -37,8 +37,8 @@ public class RegisterUser extends Activity implements OnClickListener {
 	
 	EditText id,nickname,password;
 
-	TextView regiontxt,univtxt,collegetxt,majortxt;
-	Button region,univ,college,major;
+	TextView region,univ,college,major;
+	Button regionbtn,univbtn,collegebtn,majorbtn;
 	
 	Button apply;	
 	ProgressDialog pdl;	
@@ -56,18 +56,18 @@ public class RegisterUser extends Activity implements OnClickListener {
         nickname=(EditText)findViewById(R.id.nickname);
         password=(EditText)findViewById(R.id.password);
         
-        regiontxt=(TextView)findViewById(R.id.regiontxt);
-        univtxt=(TextView)findViewById(R.id.univtxt);
-        collegetxt=(TextView)findViewById(R.id.collegetxt);
-        majortxt=(TextView)findViewById(R.id.majortxt);
-        region=(Button)findViewById(R.id.region);
-        univ=(Button)findViewById(R.id.univ);
-        college=(Button)findViewById(R.id.college);
-        major=(Button)findViewById(R.id.major);
-    	region.setOnClickListener(new OnClickMover(this,new Intent("RangeSetting").putExtra("filter","region")));
-    	univ.setOnClickListener(new OnClickMover(this,new Intent("RangeSetting").putExtra("filter","univ")));
-    	college.setOnClickListener(new OnClickMover(this,new Intent("RangeSetting").putExtra("filter","college")));
-    	major.setOnClickListener(new OnClickMover(this,new Intent("RangeSetting").putExtra("filter","major")));
+        region=(TextView)findViewById(R.id.region);
+        univ=(TextView)findViewById(R.id.univ);
+        college=(TextView)findViewById(R.id.college);
+        major=(TextView)findViewById(R.id.major);
+        regionbtn=(Button)findViewById(R.id.regionbtn);
+        univbtn=(Button)findViewById(R.id.univbtn);
+        collegebtn=(Button)findViewById(R.id.collegebtn);
+        majorbtn=(Button)findViewById(R.id.majorbtn);
+    	regionbtn.setOnClickListener(new OnClickMover(this,new Intent("RangeSetting").putExtra("filter","region")));
+    	univbtn.setOnClickListener(new OnClickMover(this,new Intent("RangeSetting").putExtra("filter","univ")));
+    	collegebtn.setOnClickListener(new OnClickMover(this,new Intent("RangeSetting").putExtra("filter","college")));
+    	majorbtn.setOnClickListener(new OnClickMover(this,new Intent("RangeSetting").putExtra("filter","major")));
         
         apply=(Button)findViewById(R.id.apply);
         apply.setOnClickListener(this);
@@ -80,34 +80,34 @@ public class RegisterUser extends Activity implements OnClickListener {
     	super.onResume();
 
     	// refresh position
-    	regiontxt.setText(AppPref.getRangeData("region").title);
-    	if(regiontxt.getText().length()==0) {
-    		regiontxt.setText("없음");
-    		univ.setEnabled(false);
+    	region.setText(AppPref.getRangeData("region").title);
+    	if(region.getText().length()==0) {
+    		region.setText("없음");
+    		univbtn.setEnabled(false);
     	} else {
-    		univ.setEnabled(true);    		
+    		univbtn.setEnabled(true);    		
     	}
-    	univtxt.setText(AppPref.getRangeData("univ").title);
-    	if(univtxt.getText().length()==0) {
-    		univtxt.setText("없음");
-			college.setEnabled(false);
+    	univ.setText(AppPref.getRangeData("univ").title);
+    	if(univ.getText().length()==0) {
+    		univ.setText("없음");
+			collegebtn.setEnabled(false);
 		} else {
-			college.setEnabled(true);    		
+			collegebtn.setEnabled(true);    		
 		}
-    	collegetxt.setText(AppPref.getRangeData("college").title);
-    	if(collegetxt.getText().length()==0) {
-    		collegetxt.setText("없음");
-			major.setEnabled(false);
+    	college.setText(AppPref.getRangeData("college").title);
+    	if(college.getText().length()==0) {
+    		college.setText("없음");
+			majorbtn.setEnabled(false);
 		} else {
-			major.setEnabled(true);    		
+			majorbtn.setEnabled(true);    		
 		}
-    	majortxt.setText(AppPref.getRangeData("major").title);
-    	if(majortxt.getText().length()==0)
-    		majortxt.setText("없음");
+    	major.setText(AppPref.getRangeData("major").title);
+    	if(major.getText().length()==0)
+    		major.setText("없음");
     	////
 
     	// Not yet
-    	major.setEnabled(false);
+    	majorbtn.setEnabled(false);
     }
 
     // for apply button

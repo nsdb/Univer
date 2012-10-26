@@ -1,4 +1,4 @@
-package com.nsdb.univer.data;
+package com.nsdb.univer.common;
 
 public class CommentData {
 	public String title;

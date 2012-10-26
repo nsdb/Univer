@@ -1,8 +1,9 @@
 package com.nsdb.univer.ui;
 
-import com.nsdb.univer.data.AppPref;
-import com.nsdb.univer.data.RangeData;
+import com.nsdb.univer.common.AppPref;
+import com.nsdb.univer.common.RangeData;
 import com.nsdb.univer.dataadapter.RangeDataAdapter;
+
 import android.app.Activity;
 import android.os.Bundle;
 import android.text.Editable;

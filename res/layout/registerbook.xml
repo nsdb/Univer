@@ -73,14 +73,14 @@
 			        android:textSize="18dp"
 		            android:text="Region" />
 		        <TextView
-		            android:id="@+id/regiontxt"
+		            android:id="@+id/region"
 		            android:layout_width="wrap_content"
 		            android:layout_height="wrap_content"
 			        android:layout_marginRight="10dp"
 			        android:text="없음"
 			        android:textSize="18dp" />
 		        <Button
-		            android:id="@+id/region"
+		            android:id="@+id/regionbtn"
 		            android:layout_width="wrap_content"
 		            android:layout_height="wrap_content"
 		            android:text="변경" />	
@@ -97,14 +97,14 @@
 			        android:textSize="18dp"
 		            android:text="Univ" />
 		        <TextView
-		            android:id="@+id/univtxt"
+		            android:id="@+id/univ"
 		            android:layout_width="wrap_content"
 		            android:layout_height="wrap_content"
 			        android:layout_marginRight="10dp"
 			        android:text="없음"
 			        android:textSize="18dp" />
 		        <Button
-		            android:id="@+id/univ"
+		            android:id="@+id/univbtn"
 		            android:layout_width="wrap_content"
 		            android:layout_height="wrap_content"
 		            android:text="변경" />	
@@ -121,14 +121,14 @@
 			        android:textSize="18dp"
 		            android:text="College" />
 		        <TextView
-		            android:id="@+id/collegetxt"
+		            android:id="@+id/college"
 		            android:layout_width="wrap_content"
 		            android:layout_height="wrap_content"
 			        android:layout_marginRight="10dp"
 			        android:text="없음"
 			        android:textSize="18dp" />
 		        <Button
-		            android:id="@+id/college"
+		            android:id="@+id/collegebtn"
 		            android:layout_width="wrap_content"
 		            android:layout_height="wrap_content"
 		            android:text="변경" />	
@@ -145,14 +145,14 @@
 			        android:textSize="18dp"
 		            android:text="Major" />
 		        <TextView
-		            android:id="@+id/majortxt"
+		            android:id="@+id/major"
 		            android:layout_width="wrap_content"
 		            android:layout_height="wrap_content"
 			        android:layout_marginRight="10dp"
 			        android:text="없음"
 			        android:textSize="18dp" />
 		        <Button
-		            android:id="@+id/major"
+		            android:id="@+id/majorbtn"
 		            android:layout_width="wrap_content"
 		            android:layout_height="wrap_content"
 		            android:text="변경" />	

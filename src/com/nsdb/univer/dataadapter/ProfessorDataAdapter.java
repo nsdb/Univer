@@ -11,8 +11,8 @@ import android.widget.ListView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
-import com.nsdb.univer.data.AppPref;
-import com.nsdb.univer.data.ProfessorData;
+import com.nsdb.univer.common.AppPref;
+import com.nsdb.univer.common.ProfessorData;
 import com.nsdb.univer.ui.R;
 
 public class ProfessorDataAdapter extends BaseDataAdapter<ProfessorData> {
@@ -63,7 +63,7 @@ public class ProfessorDataAdapter extends BaseDataAdapter<ProfessorData> {
 	}
 
 	@Override
-	protected String createHttpUrl() {
+	protected String getXmlUrl() {
 
 		// {base_url}/feeds/professors/search=<search>&category=<category>&id=<id>&page=<page>/
 		String url=activity.getResources().getString(R.string.base_url)+'/'

@@ -18,7 +18,7 @@ import org.apache.http.impl.cookie.BasicClientCookie;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.protocol.HTTP;
 
-import com.nsdb.univer.data.AppPref;
+import com.nsdb.univer.common.AppPref;
 import com.nsdb.univer.ui.common.OnClickMover;
 
 import android.app.Activity;
