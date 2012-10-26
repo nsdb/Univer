@@ -1,4 +1,4 @@
-package com.nsdb.univer.ui.common;
+package com.nsdb.univer.common.ui;
 
 import java.net.URL;
 

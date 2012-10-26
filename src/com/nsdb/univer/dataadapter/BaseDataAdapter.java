@@ -1,14 +1,17 @@
 package com.nsdb.univer.dataadapter;
 
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.http.client.methods.HttpGet;
 import org.jdom2.Element;
 
-import com.nsdb.univer.common.BaseXmlItemGetter;
+import com.nsdb.univer.common.NetworkSupporter;
 
 import android.app.Activity;
 import android.content.Context;
+import android.os.AsyncTask;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -56,7 +59,7 @@ public abstract class BaseDataAdapter<T> {
 		getter=new DataGetter();
 		getter.execute();
 	}
-	private final class DataGetter extends BaseXmlItemGetter {
+	private final class DataGetter extends AsyncTask<Void,Void,Integer> {
 
 		@Override
 		protected void onPreExecute() {
@@ -73,28 +76,41 @@ public abstract class BaseDataAdapter<T> {
 		}
 
 		@Override
-		protected void onPostExecute(Boolean result) {
+		protected Integer doInBackground(Void... params) {
+			
+			try {
+				
+				// create request for sending
+				HttpGet request=new HttpGet(getXmlUrl());
+				
+				// get result
+				InputStreamReader isr=NetworkSupporter.getStreamFromRequest(request);
+				List<Element> items=NetworkSupporter.getXmlElementsFromStream(isr);
+				for(Element item : items) {
+					dataOriginal.add(convertElement(item));
+				}
+				isr.close();
+				
+				if(dataOriginal.size()==0)
+					return RESULT_EMPTY;
+				else
+					return RESULT_SUCCESS;
+
+			} catch(Exception e) {
+				e.printStackTrace();
+				return RESULT_ERROR;
+			}
+			
+		}
+
+		@Override
+		protected void onPostExecute(Integer result) {
 			
 			// notify end
 			dataVisible.clear();
-			if(result==false)
-				setEndData(RESULT_ERROR);
-			if(dataOriginal.size()==0 && result==true)
-				setEndData(RESULT_EMPTY);
-			else
-				setEndData(RESULT_SUCCESS);
+			setEndData(result);
 			//adapter.notifyDataSetChanged();  already in updateView()
 			updateView();
-		}
-
-		@Override
-		protected String getXmlUrl() {
-			return BaseDataAdapter.this.getXmlUrl();
-		}
-
-		@Override
-		protected void processElement(Element item) {
-			add(convertElement(item));
 		}
 
 	}

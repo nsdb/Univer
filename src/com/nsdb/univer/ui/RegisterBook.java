@@ -1,34 +1,21 @@
 package com.nsdb.univer.ui;
 
-import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
-import java.util.List;
-
-import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
-import org.apache.http.client.CookieStore;
-import org.apache.http.client.HttpClient;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
-import org.apache.http.cookie.Cookie;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.impl.cookie.BasicClientCookie;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.protocol.HTTP;
-import org.jdom2.Document;
 import org.jdom2.Element;
-import org.jdom2.input.SAXBuilder;
-
 import com.nsdb.univer.common.AppPref;
-import com.nsdb.univer.common.BaseXmlItemGetter;
 import com.nsdb.univer.common.BookData;
-import com.nsdb.univer.ui.common.OnClickMover;
-import com.nsdb.univer.ui.common.SetImageViewFromURL;
+import com.nsdb.univer.common.NetworkSupporter;
+import com.nsdb.univer.common.ui.OnClickMover;
+import com.nsdb.univer.common.ui.SetImageViewFromURL;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -167,7 +154,7 @@ public class RegisterBook extends Activity implements OnClickListener, OnChecked
 		}
 	}
 
-	private class BookInfoGetter extends BaseXmlItemGetter {
+	private class BookInfoGetter extends AsyncTask<Void,Void,Boolean> {
 		
 		private class BookInfo {
 			public String image;
@@ -185,6 +172,49 @@ public class RegisterBook extends Activity implements OnClickListener, OnChecked
 			pdl=ProgressDialog.show(RegisterBook.this,"Loading","Loading...",true,false);
 			data=null;
 			super.onPreExecute();
+		}
+
+		@Override
+		protected Boolean doInBackground(Void... params) {
+			
+			try {
+				
+				// create url
+				String url=getResources().getString(R.string.bookinfogetter_url);
+				ArrayList<String> getData=new ArrayList<String>();
+				getData.add("key="+getResources().getString(R.string.bookinfogetter_key));
+				getData.add("query=art");
+				getData.add("display=10");	
+				getData.add("start=1");	
+				getData.add("target=book_adv");	
+				getData.add("d_isbn="+isbn);	
+				url=url+'?';
+				for(int i=0;i<getData.size();i++) {
+					url=url+getData.get(i);
+					if(i != getData.size()-1) url=url+'&';
+					else url=url+'/';
+				}
+				System.out.println("XML URL : "+url);
+
+				HttpGet request=new HttpGet(url);
+				InputStreamReader isr=NetworkSupporter.getStreamFromRequest(request);
+				Element item=NetworkSupporter.getXmlElementsFromStream(isr).get(0);
+				data=new BookInfo();
+				data.image=item.getChildText("image");
+				data.title=item.getChildText("title");
+				data.publisher=item.getChildText("publisher");
+				data.author=item.getChildText("author");
+				data.pubdate=item.getChildText("pubdate");
+				data.edition=""+1;
+				data.price=item.getChildText("price");
+				isr.close();
+				
+				return true;
+				
+			} catch(Exception e) {
+				e.printStackTrace();
+				return false;
+			}
 		}
 
 		@Override
@@ -208,38 +238,6 @@ public class RegisterBook extends Activity implements OnClickListener, OnChecked
 			
 		}
 
-		@Override
-		protected String getXmlUrl() {
-			String url=getResources().getString(R.string.bookinfogetter_url);
-			ArrayList<String> getData=new ArrayList<String>();
-			getData.add("key="+getResources().getString(R.string.bookinfogetter_key));
-			getData.add("query=art");
-			getData.add("display=10");	
-			getData.add("start=1");	
-			getData.add("target=book_adv");	
-			getData.add("d_isbn="+isbn);	
-			url=url+'?';
-			for(int i=0;i<getData.size();i++) {
-				url=url+getData.get(i);
-				if(i != getData.size()-1) url=url+'&';
-				else url=url+'/';
-			}
-			System.out.println("XML URL : "+url);
-			return url;
-		}
-
-		@Override
-		protected void processElement(Element item) {
-			if(data!=null) return;
-			data=new BookInfo();
-			data.image=item.getChildText("image");
-			data.title=item.getChildText("title");
-			data.publisher=item.getChildText("publisher");
-			data.author=item.getChildText("author");
-			data.pubdate=item.getChildText("pubdate");
-			data.edition=""+1;
-			data.price=item.getChildText("price");			
-		}
 	}
 
 	// for imagesearch, apply button
@@ -361,40 +359,10 @@ public class RegisterBook extends Activity implements OnClickListener, OnChecked
 				UrlEncodedFormEntity ent = new UrlEncodedFormEntity(postdata,HTTP.UTF_8);
 				request.setEntity(ent);
 
-				// cookie load
-				HttpClient client=new DefaultHttpClient();
-				CookieStore cookieStore=((DefaultHttpClient)client).getCookieStore();
-				List<Cookie> cookieList=cookieStore.getCookies();
-				String cookieName=AppPref.getString("cookieName");
-				if(cookieList.size()==0 && cookieName.compareTo("")!=0) {
-					String cookieValue=AppPref.getString("cookieValue");
-					String cookieDomain=AppPref.getString("cookieDomain");
-					String cookiePath=AppPref.getString("cookiePath");
-					BasicClientCookie cookie=new BasicClientCookie( cookieName,cookieValue );
-					cookie.setDomain(cookieDomain);
-					cookie.setPath(cookiePath);
-					cookieStore.addCookie(cookie);
-				}
-
-				// get data from server
-				HttpResponse response=client.execute(request);
-				InputStream is=response.getEntity().getContent();
-				InputStreamReader isr=new InputStreamReader(is);
-				BufferedReader br=new BufferedReader(isr);
-				String result="";
-				String temp=br.readLine();
-				while(temp!=null) {
-					result=temp;
-					System.out.println("Result : "+result);
-					temp=br.readLine();
-				}
-				
-				// cookie save
-				AppPref.setString("cookieName",cookieList.get(0).getName());
-				AppPref.setString("cookieValue",cookieList.get(0).getValue());
-				AppPref.setString("cookieDomain",cookieList.get(0).getDomain());
-				AppPref.setString("cookiePath",cookieList.get(0).getPath());
-				
+				// get result
+				InputStreamReader isr=NetworkSupporter.getStreamFromRequest(request);
+				String result=NetworkSupporter.getStringFromStream(isr);
+				isr.close();
 				return Integer.parseInt(result);
 				
 			} catch(Exception e) {
