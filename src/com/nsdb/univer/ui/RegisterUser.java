@@ -33,10 +33,6 @@ public class RegisterUser extends Activity implements OnClickListener {
 	
 	Button apply;	
 	ProgressDialog pdl;	
-	private final static int REGISTERUSER_SUCCESS=200;
-	private final static int REGISTERUSER_DUPLICATEEMAIL=101;
-	private final static int REGISTERUSER_CUSTOMCHOICEERROR=102;
-	private final static int REGISTERUSER_UNKNOWNERROR=103;
 	
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -124,7 +120,7 @@ public class RegisterUser extends Activity implements OnClickListener {
 	}
 	
 	
-	private class RegisterUserHelper extends AsyncTask<Void,Void,Integer> {
+	private class RegisterUserHelper extends AsyncTask<Void,Void,String> {
 
 		@Override
 		protected void onPreExecute() {
@@ -133,7 +129,7 @@ public class RegisterUser extends Activity implements OnClickListener {
 		}
 
 		@Override
-		protected Integer doInBackground(Void... params) {
+		protected String doInBackground(Void... params) {
 			
 			// create url
 			// login : 1.234.23.142/~ypunval/register/
@@ -161,39 +157,28 @@ public class RegisterUser extends Activity implements OnClickListener {
 				InputStreamReader isr=NetworkSupporter.getStreamFromRequest(request);
 				String result=NetworkSupporter.getStringFromStream(isr);
 				isr.close();
-				return Integer.parseInt(result);
+				return result;
 				
 			} catch(Exception e) {
 				e.printStackTrace();
-				return -1;
+				return "알 수 없는 에러 발생";
 			}
 		}
 		
 		@Override
-		protected void onPostExecute(Integer result) {
+		protected void onPostExecute(String result) {
 			
 			pdl.dismiss();
 
-			switch(result) {
-			case REGISTERUSER_SUCCESS:
+			if(result.compareTo("200")==0) {
 				Toast.makeText(RegisterUser.this,"가입 성공",Toast.LENGTH_SHORT).show();
 				AppPref.setString("id",id.getText().toString());
 				AppPref.setString("password",password.getText().toString());
 				startActivity( new Intent("TabMain") );
+				setResult(RESULT_OK,getIntent());
 				finish();
-				break;
-			case REGISTERUSER_DUPLICATEEMAIL:
-				Toast.makeText(RegisterUser.this,"중복 이메일",Toast.LENGTH_SHORT).show();
-				break;
-			case REGISTERUSER_CUSTOMCHOICEERROR:
-				Toast.makeText(RegisterUser.this,"선택입력 에러",Toast.LENGTH_SHORT).show();
-				break;
-			case REGISTERUSER_UNKNOWNERROR:
-				Toast.makeText(RegisterUser.this,"알 수 없는 에러",Toast.LENGTH_SHORT).show();
-				break;
-			default:
-				Toast.makeText(RegisterUser.this,"알 수 없는 에러 (예외)",Toast.LENGTH_SHORT).show();
-				break;
+			} else {
+				Toast.makeText(RegisterUser.this,result,Toast.LENGTH_SHORT).show();				
 			}
 		}
 	}

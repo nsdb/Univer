@@ -61,7 +61,6 @@ public class RegisterBook extends Activity implements OnClickListener, OnChecked
 	
 	Button apply;	
 	ProgressDialog pdl;
-	private final static int REGISTERBOOK_SUCCESS=200;
 
 	@Override
     public void onCreate(Bundle savedInstanceState) {
@@ -317,7 +316,7 @@ public class RegisterBook extends Activity implements OnClickListener, OnChecked
 		}
 	}
 	
-	private class RegisterBookHelper extends AsyncTask<Void,Void,Integer> {
+	private class RegisterBookHelper extends AsyncTask<Void,Void,String> {
 
 		@Override
 		protected void onPreExecute() {
@@ -326,7 +325,7 @@ public class RegisterBook extends Activity implements OnClickListener, OnChecked
 		}
 
 		@Override
-		protected Integer doInBackground(Void... params) {
+		protected String doInBackground(Void... params) {
 			
 			// create url
 			// login : 1.234.23.142/~ypunval/books/
@@ -363,28 +362,25 @@ public class RegisterBook extends Activity implements OnClickListener, OnChecked
 				InputStreamReader isr=NetworkSupporter.getStreamFromRequest(request);
 				String result=NetworkSupporter.getStringFromStream(isr);
 				isr.close();
-				return Integer.parseInt(result);
+				return result;
 				
 			} catch(Exception e) {
 				e.printStackTrace();
-				return -1;
+				return "알 수 없는 에러 발생";
 			}
 		}
 		
 		@Override
-		protected void onPostExecute(Integer result) {
+		protected void onPostExecute(String result) {
 			
 			pdl.dismiss();
 
-			switch(result) {
-			case REGISTERBOOK_SUCCESS:
+			if(result.compareTo("200")==0) {
 				Toast.makeText(RegisterBook.this,"등록 성공",Toast.LENGTH_SHORT).show();
 				setResult(RESULT_OK,getIntent());
 				finish();
-				break;
-			default:
-				Toast.makeText(RegisterBook.this,"등록 실패",Toast.LENGTH_SHORT).show();
-				break;
+			} else {
+				Toast.makeText(RegisterBook.this,result,Toast.LENGTH_SHORT).show();				
 			}
 		}
 	}

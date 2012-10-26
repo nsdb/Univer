@@ -31,10 +31,8 @@ public class LoginPage extends Activity implements OnClickListener {
 	Button signup;
 	ProgressDialog pdl;
 	private final static int REQUESTCODE_LOGIN=1;
+	private final static int REQUESTCODE_REGISTER=2;
 	
-	public final static int LOGIN_SUCCESS=200;
-	public final static int LOGIN_FAIL=101;
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,7 +47,7 @@ public class LoginPage extends Activity implements OnClickListener {
         signup=(Button)findViewById(R.id.signup);
         id.setText(AppPref.getString("id"));
         login.setOnClickListener(this);
-        signup.setOnClickListener(new OnClickMover(this,new Intent("RegisterUser")));
+        signup.setOnClickListener(new OnClickMover(this,new Intent("RegisterUser"),REQUESTCODE_REGISTER));
         
     }
 
@@ -67,7 +65,7 @@ public class LoginPage extends Activity implements OnClickListener {
 		}
 	}
 
-	private class LoginHelper extends AsyncTask<Void,Void,Integer> {
+	private class LoginHelper extends AsyncTask<Void,Void,String> {
 
 		@Override
 		protected void onPreExecute() {
@@ -76,7 +74,7 @@ public class LoginPage extends Activity implements OnClickListener {
 		}
 
 		@Override
-		protected Integer doInBackground(Void... params) {
+		protected String doInBackground(Void... params) {
 			
 			// create url
 			// login : 1.234.23.142/~ypunval/login/
@@ -97,36 +95,28 @@ public class LoginPage extends Activity implements OnClickListener {
 				InputStreamReader isr=NetworkSupporter.getStreamFromRequest(request);
 				String result=NetworkSupporter.getStringFromStream(isr);
 				isr.close();
-				return Integer.parseInt(result);
+				return result;
 				
 			} catch(Exception e) {
 				e.printStackTrace();
-				return -1;
+				return "알 수 없는 에러 발생";
 			}
 		}
 		
 		@Override
-		protected void onPostExecute(Integer result) {
+		protected void onPostExecute(String result) {
 			
 			pdl.dismiss();
-
-			switch(result) {
-			case LOGIN_SUCCESS: 
+			
+			if(result.compareTo("200")==0) {
 				Toast.makeText(LoginPage.this,"로그인 성공",Toast.LENGTH_SHORT).show();
 				AppPref.setString("id",id.getText().toString());
 				AppPref.setString("password",password.getText().toString());
-				//OnClickMover.moveActivity(LoginPage.this,"BookMarketMain","");
-				//finish();
-				break;
-			case LOGIN_FAIL:
-				Toast.makeText(LoginPage.this,"로그인 실패",Toast.LENGTH_SHORT).show();
-				break;
-			default:
-				Toast.makeText(LoginPage.this,"알 수 없는 에러 발생",Toast.LENGTH_SHORT).show();
-				break;					
+				startActivityForResult( new Intent("TabMain"),REQUESTCODE_LOGIN );				
+			} else {
+				Toast.makeText(LoginPage.this,result,Toast.LENGTH_SHORT).show();				
 			}
 
-			startActivityForResult( new Intent("TabMain"),REQUESTCODE_LOGIN );
 		}
 	}
 
@@ -137,6 +127,9 @@ public class LoginPage extends Activity implements OnClickListener {
 		
 		// Saving
 		if(requestCode==REQUESTCODE_LOGIN) {
+			AppPref.save(this);
+			finish();
+		} else if(requestCode==REQUESTCODE_REGISTER && resultCode==RESULT_OK) {
 			AppPref.save(this);
 			finish();
 		}
