@@ -131,6 +131,9 @@ public abstract class BaseDataAdapter<T> {
 	
 	
 	// 2. update data view (after finish update data asynctask)
+	protected final void updateView() {
+		updateView(RESULT_SUCCESS);
+	}
 	protected final void updateView(int result) {
 		
 		// visible data update

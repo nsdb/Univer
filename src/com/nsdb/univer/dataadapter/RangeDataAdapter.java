@@ -29,7 +29,7 @@ public class RangeDataAdapter extends BaseDataAdapter<RangeData> {
 
 	public void updateView(String filterTitle) {
 		this.filterTitle=filterTitle;
-		super.updateView(RESULT_SUCCESS);
+		super.updateView();
 	}
 
 	@Override
