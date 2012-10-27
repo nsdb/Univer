@@ -14,6 +14,8 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
+import android.widget.AbsListView.OnScrollListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
@@ -22,7 +24,7 @@ import android.widget.ListView;
 import android.widget.RadioGroup;
 import android.widget.RadioGroup.OnCheckedChangeListener;
 
-public class BookMarketMain extends ActiveFragment implements OnItemClickListener, OnCheckedChangeListener {
+public class BookMarketMain extends ActiveFragment implements OnItemClickListener, OnCheckedChangeListener, OnScrollListener {
 	
 	Button search;	
 	EditText searchtxt;
@@ -39,6 +41,7 @@ public class BookMarketMain extends ActiveFragment implements OnItemClickListene
 
 	ListView lv;
 	BookDataAdapter adapter;
+	int pageNum;
 	
 	BookMarketMain(Activity activity) {
 		super(activity,R.layout.bookmarketmain);
@@ -78,6 +81,8 @@ public class BookMarketMain extends ActiveFragment implements OnItemClickListene
     	lv=(ListView)v.findViewById(R.id.booklist);
     	adapter=new BookDataAdapter(THIS,lv,false);
     	lv.setOnItemClickListener(this);
+    	lv.setOnScrollListener(this);
+    	pageNum=1;
     	updateView();
     	
     	return v;
@@ -97,11 +102,13 @@ public class BookMarketMain extends ActiveFragment implements OnItemClickListene
 			int id=data.getIntExtra("id",-1);
 			AppPref.getRangeSet().set(filter,new RangeData( title,nick,id ));
 			}
+			pageNum=1;
 			updateView();
 			break;
 			
 		case REQUESTCODE_REGISTERBOOK:
 			// RangeData is changed by RegisterBook activity
+			pageNum=1;
 			updateView();
 			break;
 		}
@@ -143,7 +150,16 @@ public class BookMarketMain extends ActiveFragment implements OnItemClickListene
 			rangeMode=BookDataAdapter.getDefaultRangeMode();
 		
     	// list
-    	adapter.updateData("",rangeMode,saleMode,1);
+    	adapter.updateData("",rangeMode,saleMode,pageNum);
 	}
+
+	public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+		if(firstVisibleItem+visibleItemCount==totalItemCount && totalItemCount%30==0) {
+			pageNum++;
+			updateView();
+		}
+	}
+
+	public void onScrollStateChanged(AbsListView view, int scrollState) {}
 
 }

@@ -34,30 +34,31 @@ public class ProfessorDataAdapter extends BaseDataAdapter<ProfessorData> {
 		this.pageNum=-1;
 	}
 
-	public void updateData(String title, int pagenum) {
+	public void updateData(String title, int pageNum) {
 		//this.title=title;
 		this.rangeMode=getDefaultRangeMode();
-		this.pageNum=pagenum;
-		super.updateData();
+		this.pageNum=pageNum;
+		super.updateData(pageNum==1);
 	}
 		
 		
 	@Override
-	protected void setReadyData() {
-		add(new ProfessorData("불러오는 중"));
+	protected ProfessorData getReadyData() {
+		return new ProfessorData("불러오는 중");
 	}
 
 	@Override
-	protected void setEndData(int result) {
+	protected ProfessorData getEndData(int result) {
 
 		switch(result) {
 		case RESULT_EMPTY:
-			add(new ProfessorData("데이터 없음"));
-			break;
+			return new ProfessorData("데이터 없음");
 		case RESULT_ERROR:
-			add(new ProfessorData("읽기 실패"));
-			add(new ProfessorData("서버에 연결할 수 없습니다"));
-			break;
+			return new ProfessorData("에러 발생. 읽기 실패");
+		case RESULT_SUCCESS:
+			return new ProfessorData("읽기 성공");
+		default:
+			return null;
 		}
 		
 	}

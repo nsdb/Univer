@@ -12,13 +12,15 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView.OnScrollListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.AbsListView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 
-public class ProfessorMain extends ActiveFragment implements OnItemClickListener {
+public class ProfessorMain extends ActiveFragment implements OnItemClickListener, OnScrollListener {
 	
 	Button search;	
 	EditText searchtxt;
@@ -31,6 +33,7 @@ public class ProfessorMain extends ActiveFragment implements OnItemClickListener
 
 	ListView lv;
 	ProfessorDataAdapter adapter;
+	int pageNum;
 	
 	ProfessorMain(Activity activity) {
 		super(activity,R.layout.professormain);
@@ -64,6 +67,8 @@ public class ProfessorMain extends ActiveFragment implements OnItemClickListener
     	lv=(ListView)v.findViewById(R.id.professorlist);
     	adapter=new ProfessorDataAdapter(THIS,lv,false);
     	lv.setOnItemClickListener(this);
+    	lv.setOnScrollListener(this);
+    	pageNum=1;
     	updateView();
     	
     	return v;
@@ -83,11 +88,13 @@ public class ProfessorMain extends ActiveFragment implements OnItemClickListener
 			int id=data.getIntExtra("id",-1);
 			AppPref.getRangeSet().set(filter,new RangeData( title,nick,id ));
 			}
+			pageNum=1;
 			updateView();
 			break;
 			
 		case REQUESTCODE_REGISTERPROFESSOR:
 			// RangeData is changed by RegisterProfessor activity
+			pageNum=1;
 			updateView();
 			break;
 		}
@@ -107,7 +114,15 @@ public class ProfessorMain extends ActiveFragment implements OnItemClickListener
 		AppPref.getRangeSet().applyDataToView(region, univ, college, major);
 
 		// list
-    	adapter.updateData("",1);
+    	adapter.updateData("",pageNum);
 	}
 
+	public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+		if(firstVisibleItem+visibleItemCount==totalItemCount && totalItemCount%30==0) {
+			pageNum++;
+			updateView();
+		}
+	}
+
+	public void onScrollStateChanged(AbsListView view, int scrollState) {}
 }

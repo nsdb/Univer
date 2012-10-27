@@ -24,7 +24,7 @@ public class RangeDataAdapter extends BaseDataAdapter<RangeData> {
 
 	public void updateData(String filterRange) {
 		this.filterRange=filterRange;
-		super.updateData();
+		super.updateData(true);
 	}
 
 	public void updateView(String filterTitle) {
@@ -33,21 +33,22 @@ public class RangeDataAdapter extends BaseDataAdapter<RangeData> {
 	}
 
 	@Override
-	protected void setReadyData() {
-		add(new RangeData("불러오는 중"));
+	protected RangeData getReadyData() {
+		return new RangeData("불러오는 중");
 	}
 
 	@Override
-	protected void setEndData(int result) {
+	protected RangeData getEndData(int result) {
 
 		switch(result) {
 		case RESULT_EMPTY:
-			add(new RangeData("데이터 없음"));
-			break;
+			return new RangeData("데이터 없음");
 		case RESULT_ERROR:
-			add(new RangeData("읽기 실패"));
-			add(new RangeData("서버에 연결할 수 없습니다"));
-			break;
+			return new RangeData("에러 발생. 읽기 실패");
+		case RESULT_SUCCESS:
+			return new RangeData("읽기 성공");
+		default:
+			return null;
 		}
 	}
 

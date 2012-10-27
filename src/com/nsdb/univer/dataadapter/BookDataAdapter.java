@@ -39,12 +39,12 @@ public class BookDataAdapter extends BaseDataAdapter<BookData> {
 		this.sellerId=-1;
 	}
 	
-	public void updateData(String title, int categorymode, int salemode, int pagenum) {
+	public void updateData(String title, int categorymode, int salemode, int pageNum) {
 		//this.title=title;
 		this.rangeMode=categorymode;
 		this.saleMode=salemode;
-		this.pageNum=pagenum;
-		super.updateData();
+		this.pageNum=pageNum;
+		super.updateData(pageNum==1);
 	}
 	public void updateData(String title, int categorymode, int salemode, int pagenum, int sellerId) {
 		this.sellerId=sellerId;
@@ -52,21 +52,22 @@ public class BookDataAdapter extends BaseDataAdapter<BookData> {
 	}
 
 	@Override
-	protected void setReadyData() {
-		add(new BookData("불러오는 중..."));
+	protected BookData getReadyData() {
+		return new BookData("불러오는 중...");
 	}
 
 	@Override
-	protected void setEndData(int result) {
+	protected BookData getEndData(int result) {
 		
 		switch(result) {
 		case RESULT_EMPTY:
-			add(new BookData("데이터 없음"));
-			break;
+			return new BookData("데이터 없음");
 		case RESULT_ERROR:
-			add(new BookData("읽기 실패"));
-			add(new BookData("서버에 연결할 수 없습니다"));
-			break;
+			return new BookData("에러 발생. 읽기 실패");
+		case RESULT_SUCCESS:
+			return new BookData("읽기 성공");
+		default:
+			return null;
 		}
 	}
 

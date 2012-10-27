@@ -53,25 +53,34 @@ public abstract class BaseDataAdapter<T> {
 	
 	
 	// 1. get data from server
-	public final void updateData() {
+	public final void updateData(boolean clearLastData) {
 		if(getter != null)
 			getter.cancel(true);
-		getter=new DataGetter();
+		getter=new DataGetter(clearLastData);
 		getter.execute();
 	}
 	private final class DataGetter extends AsyncTask<Void,Void,Integer> {
 
+		private boolean clearLastData;
+		
+		public DataGetter(boolean clearLastData) {
+			this.clearLastData=clearLastData;
+		}
+		
 		@Override
 		protected void onPreExecute() {
 			
-			// notify ready
-			dataVisible.clear();
-			setReadyData();
-			adapter.notifyDataSetChanged();
-			
 			// clear last data
-			dataOriginal.clear();
+			if(clearLastData) {
+				dataVisible.clear();
+				dataOriginal.clear();
+			}
 
+			// notify ready
+			dataVisible.add(getReadyData());
+			adapter.notifyDataSetChanged();
+			view.setSelection(dataVisible.size()-1);
+			
 			super.onPreExecute();
 		}
 
@@ -86,12 +95,13 @@ public abstract class BaseDataAdapter<T> {
 				// get result
 				InputStreamReader isr=NetworkSupporter.getStreamFromRequest(request);
 				List<Element> items=NetworkSupporter.getXmlElementsFromStream(isr);
-				for(Element item : items) {
-					dataOriginal.add(convertElement(item));
+				int count=0;
+				for(count=0 ; count<items.size() ; count++) {
+					dataOriginal.add( convertElement(items.get(count)) );
 				}
 				isr.close();
 				
-				if(dataOriginal.size()==0)
+				if(count==0) // dataOriginal is not always empty before.
 					return RESULT_EMPTY;
 				else
 					return RESULT_SUCCESS;
@@ -108,14 +118,14 @@ public abstract class BaseDataAdapter<T> {
 			
 			// notify end
 			dataVisible.clear();
-			setEndData(result);
+			dataVisible.add(getEndData(result));
 			//adapter.notifyDataSetChanged();  already in updateView()
 			updateView();
 		}
 
 	}
-	protected abstract void setReadyData();
-	protected abstract void setEndData(int result);
+	protected abstract T getReadyData();
+	protected abstract T getEndData(int result);
 	protected abstract String getXmlUrl();
 	protected abstract T convertElement(Element item);
 	
@@ -170,5 +180,4 @@ public abstract class BaseDataAdapter<T> {
 	
 	// 3. getter setter
 	public T get(int position) { return dataVisible.get(position); }
-	protected void add(T data) { dataVisible.add(data); }
 }

@@ -26,25 +26,26 @@ public class CommentDataAdapter extends BaseDataAdapter<CommentData> {
 	public void updateData(int professor_id,int pageNum) {
 		this.professor_id=professor_id;
 		this.pageNum=pageNum;
-		super.updateData();
+		super.updateData(pageNum==1);
 	}
 
 	@Override
-	protected void setReadyData() {
-		add(new CommentData("불러오는 중"));
+	protected CommentData getReadyData() {
+		return new CommentData("불러오는 중");
 	}
 
 	@Override
-	protected void setEndData(int result) {
+	protected CommentData getEndData(int result) {
 
 		switch(result) {
 		case RESULT_EMPTY:
-			add(new CommentData("데이터 없음"));
-			break;
+			return new CommentData("데이터 없음");
 		case RESULT_ERROR:
-			add(new CommentData("읽기 실패"));
-			add(new CommentData("서버에 연결할 수 없습니다"));
-			break;
+			return new CommentData("에러 발생. 읽기 실패");
+		case RESULT_SUCCESS:
+			return new CommentData("읽기 성공");
+		default:
+			return null;
 		}
 	}
 

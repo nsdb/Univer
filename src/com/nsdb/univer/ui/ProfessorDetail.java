@@ -7,11 +7,13 @@ import com.nsdb.univer.dataadapter.CommentDataAdapter;
 import android.app.Activity;
 import android.os.Bundle;
 import android.webkit.WebView;
+import android.widget.AbsListView.OnScrollListener;
+import android.widget.AbsListView;
 import android.widget.ListView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
-public class ProfessorDetail extends Activity {
+public class ProfessorDetail extends Activity implements OnScrollListener {
 
 	ProfessorData lastdata;
 	
@@ -22,6 +24,7 @@ public class ProfessorDetail extends Activity {
 	
 	ListView lv;
 	CommentDataAdapter adapter;
+	int pageNum;
 	
 	@Override
     public void onCreate(Bundle savedInstanceState) {
@@ -80,7 +83,17 @@ public class ProfessorDetail extends Activity {
         // ListView
     	lv=(ListView)findViewById(R.id.commentlist);
     	adapter=new CommentDataAdapter(this,lv,true);
-    	adapter.updateData(lastdata.id,1);
+    	pageNum=1;
+    	lv.setOnScrollListener(this);
+    	adapter.updateData(lastdata.id,pageNum);
     }
 
+	public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+		if(firstVisibleItem+visibleItemCount==totalItemCount && totalItemCount%30==0) {
+			pageNum++;
+	    	adapter.updateData(lastdata.id,pageNum);
+		}
+	}
+
+	public void onScrollStateChanged(AbsListView view, int scrollState) {}
 }
