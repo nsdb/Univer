@@ -1,6 +1,7 @@
 package com.nsdb.univer.ui;
 
 import com.nsdb.univer.common.AppPref;
+import com.nsdb.univer.common.RangeData;
 import com.nsdb.univer.common.ui.ActiveFragment;
 import com.nsdb.univer.common.ui.OnClickMover;
 import com.nsdb.univer.dataadapter.ProfessorDataAdapter;
@@ -72,9 +73,23 @@ public class ProfessorMain extends ActiveFragment implements OnItemClickListener
 	public void onActivityResult(int requestCode, int resultCode, Intent data)
 	{
 		super.onActivityResult(requestCode, resultCode, data);
+		if(resultCode != Activity.RESULT_OK) return;
 		
-		if(resultCode==Activity.RESULT_OK) {
+		switch(requestCode) {
+		case REQUESTCODE_RANGE: {
+			String filter=data.getStringExtra("filter");
+			String title=data.getStringExtra("title");
+			String nick=data.getStringExtra("nick");
+			int id=data.getIntExtra("id",-1);
+			AppPref.setRangeData(filter,new RangeData( title,nick,id ) );
+			}
 			updateView();
+			break;
+			
+		case REQUESTCODE_REGISTERPROFESSOR:
+			// RangeData is changed by RegisterProfessor activity
+			updateView();
+			break;
 		}
 	}
 	

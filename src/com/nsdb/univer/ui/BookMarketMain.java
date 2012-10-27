@@ -3,6 +3,7 @@ package com.nsdb.univer.ui;
 import com.makeramen.segmented.SegmentedRadioGroup;
 import com.nsdb.univer.common.AppPref;
 import com.nsdb.univer.common.BookData;
+import com.nsdb.univer.common.RangeData;
 import com.nsdb.univer.common.ui.ActiveFragment;
 import com.nsdb.univer.common.ui.OnClickMover;
 import com.nsdb.univer.dataadapter.BookDataAdapter;
@@ -86,9 +87,23 @@ public class BookMarketMain extends ActiveFragment implements OnItemClickListene
 	public void onActivityResult(int requestCode, int resultCode, Intent data)
 	{
 		super.onActivityResult(requestCode, resultCode, data);
+		if(resultCode != Activity.RESULT_OK) return;
 		
-		if(resultCode==Activity.RESULT_OK) {
+		switch(requestCode) {
+		case REQUESTCODE_RANGE: {
+			String filter=data.getStringExtra("filter");
+			String title=data.getStringExtra("title");
+			String nick=data.getStringExtra("nick");
+			int id=data.getIntExtra("id",-1);
+			AppPref.setRangeData(filter,new RangeData( title,nick,id ) );
+			}
 			updateView();
+			break;
+			
+		case REQUESTCODE_REGISTERBOOK:
+			// RangeData is changed by RegisterBook activity
+			updateView();
+			break;
 		}
 	}
 	

@@ -1,7 +1,5 @@
 package com.nsdb.univer.ui;
 
-import com.nsdb.univer.common.AppPref;
-import com.nsdb.univer.common.RangeData;
 import com.nsdb.univer.dataadapter.RangeDataAdapter;
 
 import android.app.Activity;
@@ -76,17 +74,10 @@ public class RangeSetting extends Activity implements OnItemClickListener, OnCli
 	public void onItemClick(AdapterView<?> parent, View view, int position, long l_position) {
 		
 		if(adapter.get(position).id != -1) {
-			AppPref.setRangeData(filter,adapter.get(position));
-			if(filter.compareTo("region")==0) {
-				AppPref.setRangeData("univ",new RangeData());
-				AppPref.setRangeData("college",new RangeData());
-				AppPref.setRangeData("major",new RangeData());
-			} else if(filter.compareTo("univ")==0) {
-				AppPref.setRangeData("college",new RangeData());				
-				AppPref.setRangeData("major",new RangeData());
-			} else if(filter.compareTo("college")==0) {
-				AppPref.setRangeData("major",new RangeData());
-			}
+			getIntent().putExtra("filter",filter);
+			getIntent().putExtra("title",adapter.get(position).title);
+			getIntent().putExtra("nick",adapter.get(position).nick);
+			getIntent().putExtra("id",adapter.get(position).id);
 			setResult(RESULT_OK,getIntent());
 			finish();
 		}
@@ -94,17 +85,10 @@ public class RangeSetting extends Activity implements OnItemClickListener, OnCli
 
 	public void onClick(View v) {
 		
-		AppPref.setRangeData(filter,new RangeData());
-		if(filter.compareTo("region")==0) {
-			AppPref.setRangeData("univ",new RangeData());
-			AppPref.setRangeData("college",new RangeData());
-			AppPref.setRangeData("major",new RangeData());
-		} else if(filter.compareTo("univ")==0) {
-			AppPref.setRangeData("college",new RangeData());				
-			AppPref.setRangeData("major",new RangeData());
-		} else if(filter.compareTo("college")==0) {
-			AppPref.setRangeData("major",new RangeData());
-		}
+		getIntent().putExtra("filter",filter);
+		getIntent().putExtra("title","");
+		getIntent().putExtra("nick","");
+		getIntent().putExtra("id",-1);
 		setResult(RESULT_OK,getIntent());
 		finish();
 	}

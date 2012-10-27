@@ -59,10 +59,16 @@ public class AppPref {
 	public static void setRangeData(String filter,RangeData data) {
 		if(filter.compareTo("region")==0) {
 			region=data;
+			setRangeData("univ",new RangeData());
+			setRangeData("college",new RangeData());
+			setRangeData("major",new RangeData());
 		} else if(filter.compareTo("univ")==0) {
 			univ=data;
+			setRangeData("college",new RangeData());
+			setRangeData("major",new RangeData());
 		} else if(filter.compareTo("college")==0) {
 			college=data;
+			setRangeData("major",new RangeData());
 		} else if(filter.compareTo("major")==0) {
 			major=data;
 		}
