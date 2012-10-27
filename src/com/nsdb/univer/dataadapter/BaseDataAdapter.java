@@ -120,7 +120,7 @@ public abstract class BaseDataAdapter<T> {
 			dataVisible.clear();
 			dataVisible.add(getEndData(result));
 			//adapter.notifyDataSetChanged();  already in updateView()
-			updateView();
+			updateView(result);
 		}
 
 	}
@@ -131,10 +131,10 @@ public abstract class BaseDataAdapter<T> {
 	
 	
 	// 2. update data view (after finish update data asynctask)
-	protected final void updateView() {
+	protected final void updateView(int result) {
 		
 		// visible data update
-		if(dataOriginal.size()!=0) {	// if got data is empty, message in dataVisible is kept.
+		if(result==RESULT_SUCCESS) {
 			dataVisible.clear();
 			for(int i=0;i<dataOriginal.size();i++)
 				if(filterOriginalData(dataOriginal.get(i))==true)
