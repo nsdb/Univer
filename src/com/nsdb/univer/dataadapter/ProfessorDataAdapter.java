@@ -14,6 +14,7 @@ import android.widget.TextView;
 import com.nsdb.univer.common.AppPref;
 import com.nsdb.univer.common.ProfessorData;
 import com.nsdb.univer.ui.R;
+import com.woozzu.android.widget.RefreshableListView;
 
 public class ProfessorDataAdapter extends BaseDataAdapter<ProfessorData> {
 
@@ -38,31 +39,10 @@ public class ProfessorDataAdapter extends BaseDataAdapter<ProfessorData> {
 		//this.title=title;
 		this.rangeMode=getDefaultRangeMode();
 		this.pageNum=pageNum;
-		super.updateData(pageNum==1);
+		if(pageNum==1) init();
+		super.updateData();
 	}
 		
-		
-	@Override
-	protected ProfessorData getReadyData() {
-		return new ProfessorData("불러오는 중");
-	}
-
-	@Override
-	protected ProfessorData getEndData(int result) {
-
-		switch(result) {
-		case RESULT_EMPTY:
-			return new ProfessorData("데이터 없음");
-		case RESULT_ERROR:
-			return new ProfessorData("에러 발생. 읽기 실패");
-		case RESULT_SUCCESS:
-			return new ProfessorData("읽기 성공");
-		default:
-			return null;
-		}
-		
-	}
-
 	@Override
 	protected String getXmlUrl() {
 
@@ -89,6 +69,12 @@ public class ProfessorDataAdapter extends BaseDataAdapter<ProfessorData> {
 		
 		System.out.println("XML URL : "+url);
 		return url;
+	}
+
+	@Override
+	protected void customPostGetAction(int result) {
+		RefreshableListView rlv=(RefreshableListView)getView();
+		rlv.completeRefreshing();
 	}
 
 	@Override

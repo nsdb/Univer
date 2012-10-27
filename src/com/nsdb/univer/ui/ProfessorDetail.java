@@ -89,7 +89,7 @@ public class ProfessorDetail extends Activity implements OnScrollListener {
     }
 
 	public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
-		if(firstVisibleItem+visibleItemCount==totalItemCount && totalItemCount%30==0) {
+		if(firstVisibleItem+visibleItemCount==totalItemCount && adapter.isLoadable()) {
 			pageNum++;
 	    	adapter.updateData(lastdata.id,pageNum);
 		}

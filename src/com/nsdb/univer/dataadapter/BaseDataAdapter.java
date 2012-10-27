@@ -8,6 +8,7 @@ import org.apache.http.client.methods.HttpGet;
 import org.jdom2.Element;
 
 import com.nsdb.univer.common.NetworkSupporter;
+import com.nsdb.univer.ui.R;
 
 import android.app.Activity;
 import android.content.Context;
@@ -18,12 +19,14 @@ import android.view.ViewGroup;
 import android.view.View.MeasureSpec;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 
 public abstract class BaseDataAdapter<T> {
 	
 	// View setting
 	protected Activity activity;
 	private int dataResourceId;
+	private View footerView;
 	private ArrayList<T> dataVisible;
 	private ArrayAdapter<T> adapter;
 	private ListView view;
@@ -32,6 +35,7 @@ public abstract class BaseDataAdapter<T> {
 	// Data getting
 	private DataGetter getter;
 	private ArrayList<T> dataOriginal;
+	private boolean loadable;
 	protected final static int RESULT_SUCCESS=1;
 	protected final static int RESULT_EMPTY=2;
 	protected final static int RESULT_ERROR=3;
@@ -41,46 +45,42 @@ public abstract class BaseDataAdapter<T> {
 	BaseDataAdapter(Activity activity,int dataResourceId,ListView view,boolean inScrollView) {
 		this.activity=activity;
 		this.dataResourceId=dataResourceId;
+		this.footerView=((LayoutInflater)(activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE)))
+				.inflate(R.layout.stringdata,null);
 		this.dataVisible=new ArrayList<T>();
 		this.adapter=new BaseArrayAdapter(activity,dataResourceId,dataVisible);
 		this.view=view;
 		this.inScrollView=inScrollView;
+		view.addFooterView(footerView);
 		view.setAdapter(adapter);
 				
 		this.dataOriginal=new ArrayList<T>();
-		this.getter=null;	
+		this.getter=null;
+		this.loadable=true;
 	}
 	
 	
 	// 1. get data from server
-	public final void updateData(boolean clearLastData) {
+	public final void updateData() {
+		if(loadable==false) return;		
 		if(getter != null)
 			getter.cancel(true);
-		getter=new DataGetter(clearLastData);
+		getter=new DataGetter();
 		getter.execute();
+		loadable=false;
 	}
 	private final class DataGetter extends AsyncTask<Void,Void,Integer> {
 
-		private boolean clearLastData;
-		
-		public DataGetter(boolean clearLastData) {
-			this.clearLastData=clearLastData;
-		}
-		
 		@Override
 		protected void onPreExecute() {
 			
-			// clear last data
-			if(clearLastData) {
-				dataVisible.clear();
-				dataOriginal.clear();
-			}
-
-			// notify ready
-			dataVisible.add(getReadyData());
+			// footerView
+			TextView t=(TextView)footerView.findViewById(R.id.text);
+			t.setText("불러오는 중...");
 			adapter.notifyDataSetChanged();
-			view.setSelection(dataVisible.size()-1);
+			view.setSelection(adapter.getCount()-1);
 			
+			customPreGetAction();
 			super.onPreExecute();
 		}
 
@@ -116,16 +116,41 @@ public abstract class BaseDataAdapter<T> {
 		@Override
 		protected void onPostExecute(Integer result) {
 			
-			// notify end
-			dataVisible.clear();
-			dataVisible.add(getEndData(result));
-			//adapter.notifyDataSetChanged();  already in updateView()
+			// loadable
+			if(result==RESULT_SUCCESS) {
+				loadable=true;
+			} else {
+				loadable=false;
+			}
+			
+			// footerView
+			TextView t=(TextView)footerView.findViewById(R.id.text);
+			switch(result) {
+			case RESULT_SUCCESS:
+				t.setText("불러오는 중...");
+				break;
+			case RESULT_EMPTY:
+				t.setText("데이터 없음");
+				break;
+			case RESULT_ERROR:
+				t.setText("에러 발생");
+				break;
+			}
+			adapter.notifyDataSetChanged();
+			
+			customPostGetAction(result);
 			updateView(result);
 		}
 
 	}
-	protected abstract T getReadyData();
-	protected abstract T getEndData(int result);
+	protected final void init() {
+		loadable=true;
+		dataVisible.clear();
+		dataOriginal.clear();
+		adapter.notifyDataSetChanged();
+	}
+	protected void customPreGetAction() {}
+	protected void customPostGetAction(int result) {}
 	protected abstract String getXmlUrl();
 	protected abstract T convertElement(Element item);
 	
@@ -136,14 +161,15 @@ public abstract class BaseDataAdapter<T> {
 	}
 	protected final void updateView(int result) {
 		
-		// visible data update
+		// visible data update if success
 		if(result==RESULT_SUCCESS) {
 			dataVisible.clear();
-			for(int i=0;i<dataOriginal.size();i++)
+			for(int i=0;i<dataOriginal.size();i++) {
 				if(filterOriginalData(dataOriginal.get(i))==true)
 					dataVisible.add(dataOriginal.get(i));
+			}
+			adapter.notifyDataSetChanged();
 		}
-		adapter.notifyDataSetChanged(); // It is on outside because onPostExecute() don't use it.
 
 		// resizing height of listview (For ListView in ScrollView)
 		if(inScrollView) {
@@ -173,9 +199,12 @@ public abstract class BaseDataAdapter<T> {
 				v=((LayoutInflater)(activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE)))
 				.inflate(dataResourceId,null);
 			
-			dataViewSetting(position,v);
+			if(position<dataVisible.size()) { // footerView Check
+				dataViewSetting(position,v);
+			}
 			
 			return v;
+			
 		}
 	}
 	protected boolean filterOriginalData(T data) { return true; }
@@ -183,4 +212,7 @@ public abstract class BaseDataAdapter<T> {
 	
 	// 3. getter setter
 	public T get(int position) { return dataVisible.get(position); }
+	public boolean isLoadable() { return loadable; }
+	public int getCount() { return dataVisible.size(); }
+	public ListView getView() { return view; }
 }

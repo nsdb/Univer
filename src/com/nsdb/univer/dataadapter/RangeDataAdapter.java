@@ -24,32 +24,12 @@ public class RangeDataAdapter extends BaseDataAdapter<RangeData> {
 
 	public void updateData(String filterRange) {
 		this.filterRange=filterRange;
-		super.updateData(true);
+		super.updateData();
 	}
 
 	public void updateView(String filterTitle) {
 		this.filterTitle=filterTitle;
 		super.updateView();
-	}
-
-	@Override
-	protected RangeData getReadyData() {
-		return new RangeData("불러오는 중");
-	}
-
-	@Override
-	protected RangeData getEndData(int result) {
-
-		switch(result) {
-		case RESULT_EMPTY:
-			return new RangeData("데이터 없음");
-		case RESULT_ERROR:
-			return new RangeData("에러 발생. 읽기 실패");
-		case RESULT_SUCCESS:
-			return new RangeData("읽기 성공");
-		default:
-			return null;
-		}
 	}
 
 	@Override

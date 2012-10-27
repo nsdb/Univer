@@ -13,6 +13,7 @@ import android.widget.TextView;
 import com.nsdb.univer.common.AppPref;
 import com.nsdb.univer.common.BookData;
 import com.nsdb.univer.ui.R;
+import com.woozzu.android.widget.RefreshableListView;
 
 public class BookDataAdapter extends BaseDataAdapter<BookData> {
 
@@ -44,31 +45,12 @@ public class BookDataAdapter extends BaseDataAdapter<BookData> {
 		this.rangeMode=categorymode;
 		this.saleMode=salemode;
 		this.pageNum=pageNum;
-		super.updateData(pageNum==1);
+		if(pageNum==1) init();
+		super.updateData();
 	}
 	public void updateData(String title, int categorymode, int salemode, int pagenum, int sellerId) {
 		this.sellerId=sellerId;
 		updateData(title,categorymode,salemode,pagenum);
-	}
-
-	@Override
-	protected BookData getReadyData() {
-		return new BookData("불러오는 중...");
-	}
-
-	@Override
-	protected BookData getEndData(int result) {
-		
-		switch(result) {
-		case RESULT_EMPTY:
-			return new BookData("데이터 없음");
-		case RESULT_ERROR:
-			return new BookData("에러 발생. 읽기 실패");
-		case RESULT_SUCCESS:
-			return new BookData("읽기 성공");
-		default:
-			return null;
-		}
 	}
 
 	@Override
@@ -100,6 +82,12 @@ public class BookDataAdapter extends BaseDataAdapter<BookData> {
 		
 		System.out.println("XML URL : "+url);
 		return url;
+	}
+	
+	@Override
+	protected void customPostGetAction(int result) {
+		RefreshableListView rlv=(RefreshableListView)getView();
+		rlv.completeRefreshing();
 	}
 
 	@Override
@@ -155,4 +143,5 @@ public class BookDataAdapter extends BaseDataAdapter<BookData> {
 			return RANGEMODE_MAJOR;
 		}
 	}
+	
 }

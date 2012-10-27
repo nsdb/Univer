@@ -90,11 +90,11 @@
 		</LinearLayout>
 	</HorizontalScrollView>
     	
-    <ListView
+	<com.woozzu.android.widget.RefreshableListView  
         android:id="@+id/professorlist"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" >
-    </ListView>
+    </com.woozzu.android.widget.RefreshableListView>
     	
 
 </LinearLayout>

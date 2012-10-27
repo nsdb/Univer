@@ -118,11 +118,11 @@
 	</HorizontalScrollView>
 
 	    	    
-    <ListView
+	<com.woozzu.android.widget.RefreshableListView  
         android:id="@+id/booklist"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" >
-    </ListView>
+    </com.woozzu.android.widget.RefreshableListView>
 	
 
 </LinearLayout>

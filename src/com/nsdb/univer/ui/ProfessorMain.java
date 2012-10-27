@@ -5,6 +5,8 @@ import com.nsdb.univer.common.RangeData;
 import com.nsdb.univer.common.ui.ActiveFragment;
 import com.nsdb.univer.common.ui.OnClickMover;
 import com.nsdb.univer.dataadapter.ProfessorDataAdapter;
+import com.woozzu.android.widget.RefreshableListView;
+import com.woozzu.android.widget.RefreshableListView.OnRefreshListener;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -18,9 +20,8 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AbsListView;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ListView;
 
-public class ProfessorMain extends ActiveFragment implements OnItemClickListener, OnScrollListener {
+public class ProfessorMain extends ActiveFragment implements OnItemClickListener, OnScrollListener, OnRefreshListener {
 	
 	Button search;	
 	EditText searchtxt;
@@ -31,7 +32,7 @@ public class ProfessorMain extends ActiveFragment implements OnItemClickListener
 	Button region, univ, college, major;
 	private final static int REQUESTCODE_RANGE=2;
 
-	ListView lv;
+	RefreshableListView lv;
 	ProfessorDataAdapter adapter;
 	int pageNum;
 	
@@ -64,10 +65,11 @@ public class ProfessorMain extends ActiveFragment implements OnItemClickListener
     	major.setEnabled(false);
 
         // ListView
-    	lv=(ListView)v.findViewById(R.id.professorlist);
+    	lv=(RefreshableListView)v.findViewById(R.id.professorlist);
     	adapter=new ProfessorDataAdapter(THIS,lv,false);
     	lv.setOnItemClickListener(this);
     	lv.setOnScrollListener(this);
+    	lv.setOnRefreshListener(this);
     	pageNum=1;
     	updateView();
     	
@@ -102,7 +104,7 @@ public class ProfessorMain extends ActiveFragment implements OnItemClickListener
 	
 
 	public void onItemClick(AdapterView<?> parent, View view, int position, long l_position) {
-		if(adapter.get(position).id != -1) {
+		if(position<adapter.getCount() && adapter.get(position).id != -1) {
 			AppPref.setLastProfessorData(adapter.get(position));
 			THIS.startActivity( new Intent("ProfessorDetail") );
 		}		
@@ -118,11 +120,16 @@ public class ProfessorMain extends ActiveFragment implements OnItemClickListener
 	}
 
 	public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
-		if(firstVisibleItem+visibleItemCount==totalItemCount && totalItemCount%30==0) {
+		if(firstVisibleItem+visibleItemCount==totalItemCount && adapter.isLoadable()) {
 			pageNum++;
 			updateView();
 		}
 	}
 
 	public void onScrollStateChanged(AbsListView view, int scrollState) {}
+
+	public void onRefresh(RefreshableListView listView) {
+		pageNum=1;
+		updateView();		
+	}
 }
