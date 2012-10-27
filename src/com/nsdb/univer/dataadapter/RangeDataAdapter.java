@@ -61,12 +61,12 @@ public class RangeDataAdapter extends BaseDataAdapter<RangeData> {
 		String url=activity.getResources().getString(R.string.base_url)+'/'
 				+activity.getResources().getString(R.string.get_url)+'/'
 				+filterRange+"/";
-		if(filterRange.compareTo("univ")==0 && AppPref.getRangeData("region").id != -1)
-			url=url+AppPref.getRangeData("region").id+"/";
-		else if(filterRange.compareTo("college")==0 && AppPref.getRangeData("univ").id != -1)
-			url=url+AppPref.getRangeData("univ").id+"/";
-		else if(filterRange.compareTo("major")==0 && AppPref.getRangeData("college").id != -1)
-			url=url+AppPref.getRangeData("college").id+"/";
+		if(filterRange.compareTo("univ")==0 && AppPref.getRangeSet().get("region").id != -1)
+			url=url+AppPref.getRangeSet().get("region").id+"/";
+		else if(filterRange.compareTo("college")==0 && AppPref.getRangeSet().get("univ").id != -1)
+			url=url+AppPref.getRangeSet().get("univ").id+"/";
+		else if(filterRange.compareTo("major")==0 && AppPref.getRangeSet().get("college").id != -1)
+			url=url+AppPref.getRangeSet().get("college").id+"/";
 
 		System.out.println("XML URL : "+url);
 		return url;

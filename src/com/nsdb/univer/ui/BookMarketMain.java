@@ -95,7 +95,7 @@ public class BookMarketMain extends ActiveFragment implements OnItemClickListene
 			String title=data.getStringExtra("title");
 			String nick=data.getStringExtra("nick");
 			int id=data.getIntExtra("id",-1);
-			AppPref.setRangeData(filter,new RangeData( title,nick,id ) );
+			AppPref.getRangeSet().set(filter,new RangeData( title,nick,id ));
 			}
 			updateView();
 			break;
@@ -134,47 +134,9 @@ public class BookMarketMain extends ActiveFragment implements OnItemClickListene
 	}
 
 	public void updateView() {
-		
-		System.out.println("Range Button Update");
-		System.out.println("Region : "+AppPref.getRangeData("region").nick);
-		System.out.println("Univ : "+AppPref.getRangeData("univ").nick);
-		System.out.println("College : "+AppPref.getRangeData("college").nick);
-		System.out.println("Major : "+AppPref.getRangeData("major").nick);
-		
-    	// region
-    	String temp=AppPref.getRangeData("region").nick;
-    	if(temp.compareTo("")==0) {
-    		temp="지역";
-    		univ.setEnabled(false);
-    	} else {
-    		univ.setEnabled(true);
-    	}
-    	region.setText( temp );
-
-    	// univ
-    	temp=AppPref.getRangeData("univ").nick;
-    	if(temp.compareTo("")==0) { 
-    		temp="대학교";
-    		college.setEnabled(false);
-    	} else {
-    		college.setEnabled(true);
-    	}
-    	univ.setText( temp );
-    	
-    	// college
-    	temp=AppPref.getRangeData("college").nick;
-    	if(temp.compareTo("")==0) { 
-    		temp="단과대";
-    		major.setEnabled(false);
-    	} else {
-    		major.setEnabled(true);
-    	}
-    	college.setText( temp );
-
-    	// major
-    	temp=AppPref.getRangeData("major").nick;
-    	if(temp.compareTo("")==0) temp="학과";
-    	major.setText( temp );
+				
+		// rangebutton
+		AppPref.getRangeSet().applyDataToView(region, univ, college, major);
 
     	// rangemode
 		if(rangeMode != BookDataAdapter.RANGEMODE_MINE)

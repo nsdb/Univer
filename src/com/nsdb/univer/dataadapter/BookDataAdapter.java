@@ -83,10 +83,10 @@ public class BookDataAdapter extends BaseDataAdapter<BookData> {
 		getData.add("category="+rangeMode);	
 		switch(rangeMode) {
 		case RANGEMODE_ALL: getData.add("id="+0); break;
-		case RANGEMODE_REGION: getData.add("id="+AppPref.getRangeData("region").id); break;
-		case RANGEMODE_UNIV: getData.add("id="+AppPref.getRangeData("univ").id); break;
-		case RANGEMODE_COLLEGE: getData.add("id="+AppPref.getRangeData("college").id); break;
-		case RANGEMODE_MAJOR: getData.add("id="+AppPref.getRangeData("major").id); break;
+		case RANGEMODE_REGION: getData.add("id="+AppPref.getRangeSet().get("region").id); break;
+		case RANGEMODE_UNIV: getData.add("id="+AppPref.getRangeSet().get("univ").id); break;
+		case RANGEMODE_COLLEGE: getData.add("id="+AppPref.getRangeSet().get("college").id); break;
+		case RANGEMODE_MAJOR: getData.add("id="+AppPref.getRangeSet().get("major").id); break;
 		case RANGEMODE_MINE: getData.add("id="+0); break;
 		case RANGEMODE_OTHER: getData.add("id="+sellerId); break;
 		}
@@ -142,13 +142,13 @@ public class BookDataAdapter extends BaseDataAdapter<BookData> {
 	}
 
 	public static int getDefaultRangeMode() {
-		if(AppPref.getRangeData("region").title.compareTo("")==0) {
+		if(AppPref.getRangeSet().get("region").title.compareTo("")==0) {
 			return RANGEMODE_ALL;
-		} else if(AppPref.getRangeData("univ").title.compareTo("")==0) {
+		} else if(AppPref.getRangeSet().get("univ").title.compareTo("")==0) {
 			return RANGEMODE_REGION;
-		} else if(AppPref.getRangeData("college").title.compareTo("")==0) {
+		} else if(AppPref.getRangeSet().get("college").title.compareTo("")==0) {
 			return RANGEMODE_UNIV;
-		} else if(AppPref.getRangeData("major").title.compareTo("")==0) {
+		} else if(AppPref.getRangeSet().get("major").title.compareTo("")==0) {
 			return RANGEMODE_COLLEGE;
 		} else {
 			return RANGEMODE_MAJOR;

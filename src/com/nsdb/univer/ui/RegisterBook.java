@@ -15,6 +15,7 @@ import com.nsdb.univer.common.AppPref;
 import com.nsdb.univer.common.BookData;
 import com.nsdb.univer.common.NetworkSupporter;
 import com.nsdb.univer.common.RangeData;
+import com.nsdb.univer.common.RangeSet;
 import com.nsdb.univer.common.ui.OnClickMover;
 import com.nsdb.univer.common.ui.SetImageViewFromURL;
 
@@ -47,7 +48,7 @@ public class RegisterBook extends Activity implements OnClickListener, OnChecked
 	int saleMode;
 	TextView region,univ,college,major;
 	Button regionbtn,univbtn,collegebtn,majorbtn;
-	RangeData regiondata,univdata,collegedata,majordata;
+	RangeSet rangeSet;
 	private final static int REQUESTCODE_RANGE=4;
 	
 	Button barcode;
@@ -82,14 +83,12 @@ public class RegisterBook extends Activity implements OnClickListener, OnChecked
         univbtn=(Button)findViewById(R.id.univbtn);
         collegebtn=(Button)findViewById(R.id.collegebtn);
         majorbtn=(Button)findViewById(R.id.majorbtn);
-        regiondata=AppPref.getRangeData("region");
-        univdata=AppPref.getRangeData("univ");
-        collegedata=AppPref.getRangeData("college");
-        majordata=AppPref.getRangeData("major");
+        rangeSet=new RangeSet(AppPref.getRangeSet());
     	regionbtn.setOnClickListener(new OnClickMover(this,new Intent("RangeSetting").putExtra("filter","region"),REQUESTCODE_RANGE));
     	univbtn.setOnClickListener(new OnClickMover(this,new Intent("RangeSetting").putExtra("filter","univ"),REQUESTCODE_RANGE));
     	collegebtn.setOnClickListener(new OnClickMover(this,new Intent("RangeSetting").putExtra("filter","college"),REQUESTCODE_RANGE));
     	majorbtn.setOnClickListener(new OnClickMover(this,new Intent("RangeSetting").putExtra("filter","major"),REQUESTCODE_RANGE));
+    	rangeSet.applyDataToView(region,univ,college,major,regionbtn,univbtn,collegebtn,majorbtn);
         
         // second linear
         barcode=(Button)findViewById(R.id.barcode);
@@ -118,41 +117,6 @@ public class RegisterBook extends Activity implements OnClickListener, OnChecked
 
     }
     
-    @Override
-    public void onResume() {
-    	super.onResume();
-
-    	// refresh position
-    	region.setText(regiondata.title);
-    	if(region.getText().length()==0) {
-    		region.setText("없음");
-    		univbtn.setEnabled(false);
-    	} else {
-    		univbtn.setEnabled(true);    		
-    	}
-    	univ.setText(univdata.title);
-    	if(univ.getText().length()==0) {
-    		univ.setText("없음");
-			collegebtn.setEnabled(false);
-		} else {
-			collegebtn.setEnabled(true);    		
-		}
-    	college.setText(collegedata.title);
-    	if(college.getText().length()==0) {
-    		college.setText("없음");
-			majorbtn.setEnabled(false);
-		} else {
-			majorbtn.setEnabled(true);
-		}
-    	major.setText(majordata.title);
-    	if(major.getText().length()==0)
-    		major.setText("없음");
-    	////
-
-    	// Not yet
-    	majorbtn.setEnabled(false);
-    }
-
 	public void onCheckedChanged(RadioGroup group, int checkedId) {
 		switch(checkedId) {
 		case R.id.sell: saleMode=BookData.SALEMODE_SELL; break;
@@ -277,9 +241,7 @@ public class RegisterBook extends Activity implements OnClickListener, OnChecked
 			
 
 		case R.id.apply:
-			if(regiondata.id==-1 ||
-			univdata.id==-1 ||
-			collegedata.id==-1 ||
+			if(rangeSet.isFilled()==false ||
 			title.getText().toString().compareTo("")==0 ||
 			publisher.getText().toString().compareTo("")==0 ||
 			author.getText().toString().compareTo("")==0 ||
@@ -306,21 +268,8 @@ public class RegisterBook extends Activity implements OnClickListener, OnChecked
 				String title=data.getStringExtra("title");
 				String nick=data.getStringExtra("nick");
 				int id=data.getIntExtra("id",-1);
-				if(filter.compareTo("region")==0) {
-					regiondata=new RangeData(title,nick,id);
-					univdata=new RangeData();
-					collegedata=new RangeData();
-					majordata=new RangeData();
-				} else if(filter.compareTo("univ")==0) {
-					univdata=new RangeData(title,nick,id);
-					collegedata=new RangeData();
-					majordata=new RangeData();
-				} else if(filter.compareTo("college")==0) {
-					collegedata=new RangeData(title,nick,id);
-					majordata=new RangeData();
-				} else if(filter.compareTo("major")==0) {
-					majordata=new RangeData();
-				}
+				rangeSet.set(filter,new RangeData(title,nick,id));
+		    	rangeSet.applyDataToView(region,univ,college,major,regionbtn,univbtn,collegebtn,majorbtn);
 				} break;
 			case REQUESTCODE_BARCODE:
 				isbn=data.getStringExtra("SCAN_RESULT");
@@ -373,10 +322,10 @@ public class RegisterBook extends Activity implements OnClickListener, OnChecked
 				postdata.add(new BasicNameValuePair("publisher", publisher.getText().toString()));
 				postdata.add(new BasicNameValuePair("book_author", author.getText().toString()));
 				postdata.add(new BasicNameValuePair("content", description.getText().toString()));
-				postdata.add(new BasicNameValuePair("region", ""+regiondata.id));
-				postdata.add(new BasicNameValuePair("university", ""+univdata.id));
-				postdata.add(new BasicNameValuePair("college", ""+collegedata.id));
-				postdata.add(new BasicNameValuePair("major", ""+majordata.id));
+				postdata.add(new BasicNameValuePair("region",""+rangeSet.get("region").id) );
+				postdata.add(new BasicNameValuePair("university",""+rangeSet.get("univ").id) );
+				postdata.add(new BasicNameValuePair("college",""+rangeSet.get("college").id) );
+				//postdata.add( new BasicNameValuePair("major",""+rangeSet.get("major").id) );
 				postdata.add(new BasicNameValuePair("sale", ""+BookData.SALESTATE_ABLE));
 				postdata.add(new BasicNameValuePair("parcel", (parcel.isChecked())? "1":"0"));
 				postdata.add(new BasicNameValuePair("meet", (meet.isChecked())? "1":"0"));
@@ -405,10 +354,7 @@ public class RegisterBook extends Activity implements OnClickListener, OnChecked
 
 			if(result.compareTo("200")==0) {
 				Toast.makeText(RegisterBook.this,"등록 성공",Toast.LENGTH_SHORT).show();
-				AppPref.setRangeData("region",regiondata);
-				AppPref.setRangeData("univ",univdata);
-				AppPref.setRangeData("college",collegedata);
-				AppPref.setRangeData("major",majordata);
+				AppPref.setRangeSet(rangeSet);
 				setResult(RESULT_OK,getIntent());
 				finish();
 			} else {
