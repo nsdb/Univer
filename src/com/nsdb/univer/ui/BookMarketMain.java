@@ -118,7 +118,7 @@ public class BookMarketMain extends ActiveFragment implements OnItemClickListene
 	
 
 	public void onItemClick(AdapterView<?> parent, View view, int position, long l_position) {
-		if(position<adapter.getCount() && adapter.get(position).id != -1) {
+		if(adapter.get(position)!=null) {
 			AppPref.setLastBookData(adapter.get(position));
 			THIS.startActivity(new Intent("BookDetail"));
 		}

@@ -104,7 +104,7 @@ public class ProfessorMain extends ActiveFragment implements OnItemClickListener
 	
 
 	public void onItemClick(AdapterView<?> parent, View view, int position, long l_position) {
-		if(position<adapter.getCount() && adapter.get(position).id != -1) {
+		if(adapter.get(position)!=null) {
 			AppPref.setLastProfessorData(adapter.get(position));
 			THIS.startActivity( new Intent("ProfessorDetail") );
 		}		

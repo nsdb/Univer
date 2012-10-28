@@ -211,7 +211,12 @@ public abstract class BaseDataAdapter<T> {
 	protected abstract void dataViewSetting(int position,View v);
 	
 	// 3. getter setter
-	public T get(int position) { return dataVisible.get(position); }
+	public T get(int position) {
+		if(position<dataVisible.size())
+			return dataVisible.get(position);
+		else
+			return null;
+	}
 	public boolean isLoadable() { return loadable; }
 	public int getCount() { return dataVisible.size(); }
 	public ListView getView() { return view; }
