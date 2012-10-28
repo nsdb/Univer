@@ -74,7 +74,8 @@ public class ProfessorDataAdapter extends BaseDataAdapter<ProfessorData> {
 	@Override
 	protected void customPostGetAction(int result) {
 		RefreshableListView rlv=(RefreshableListView)getView();
-		rlv.completeRefreshing();
+		if(rlv.isRefreshing())
+			rlv.completeRefreshing();
 	}
 
 	@Override

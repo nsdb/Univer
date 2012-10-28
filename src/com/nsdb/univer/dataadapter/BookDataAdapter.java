@@ -87,7 +87,8 @@ public class BookDataAdapter extends BaseDataAdapter<BookData> {
 	@Override
 	protected void customPostGetAction(int result) {
 		RefreshableListView rlv=(RefreshableListView)getView();
-		rlv.completeRefreshing();
+		if(rlv.isRefreshing())
+			rlv.completeRefreshing();
 	}
 
 	@Override
