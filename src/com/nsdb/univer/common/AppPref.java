@@ -27,7 +27,7 @@ public class AppPref {
 		rangeSet=new RangeSet(region,univ,college,major);
 
 		id=pref.getString("id","");
-		password="";
+		password=pref.getString("password","");
 		cookieName="";
 		cookieValue="";
 		cookieDomain="";
@@ -53,6 +53,7 @@ public class AppPref {
 		edit.putString("major_nick",rangeSet.get("major").nick);
 		edit.putInt("major_id",rangeSet.get("major").id);
 		edit.putString("id",id);
+		edit.putString("password",password);
 		edit.commit();
 	}
 	
