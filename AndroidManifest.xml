@@ -88,7 +88,6 @@
 
     <uses-permission android:name="android.permission.INTERNET"/>
     
-    
     <!-- Only For CaputreActivity! -->
     <uses-permission android:name="android.permission.CAMERA"/>
 	<uses-feature android:name="android.hardware.camera"/>
@@ -100,4 +99,8 @@
 	                  android:normalScreens="true"
 	                  android:smallScreens="true"
 	                  android:anyDensity="true"/>
+	
+	<!-- For LazyList -->
+	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+	
 </manifest>

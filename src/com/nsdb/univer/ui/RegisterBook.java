@@ -17,7 +17,7 @@ import com.nsdb.univer.common.NetworkSupporter;
 import com.nsdb.univer.common.RangeData;
 import com.nsdb.univer.common.RangeSet;
 import com.nsdb.univer.common.ui.OnClickMover;
-import com.nsdb.univer.common.ui.SetImageViewFromURL;
+import com.nsdb.univer.common.ui.ImageSetterNoCache;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -197,7 +197,7 @@ public class RegisterBook extends Activity implements OnClickListener, OnChecked
 			}
 
 			System.out.println("Image URL : "+data.image);
-			new SetImageViewFromURL(image,data.image).execute();
+			new ImageSetterNoCache(data.image,image).execute();
 			title.setText(data.title);
 			publisher.setText(data.publisher);
 			author.setText(data.author);

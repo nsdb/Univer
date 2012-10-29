@@ -6,16 +6,19 @@ import org.jdom2.Element;
 
 import android.app.Activity;
 import android.view.View;
-import android.webkit.WebView;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.fedorvlasov.lazylist.ImageLoader;
 import com.nsdb.univer.common.AppPref;
 import com.nsdb.univer.common.BookData;
 import com.nsdb.univer.ui.R;
 import com.woozzu.android.widget.RefreshableListView;
 
 public class BookDataAdapter extends BaseDataAdapter<BookData> {
+	
+	private ImageLoader loader;
 
 	//private String title;
 	private int rangeMode;
@@ -33,6 +36,7 @@ public class BookDataAdapter extends BaseDataAdapter<BookData> {
 
 	public BookDataAdapter(Activity activity,ListView view, boolean inScrollView) {
 		super(activity, R.layout.bookdata, view, inScrollView);
+		loader=new ImageLoader(activity);
 		//this.title="";
 		this.rangeMode=-1;
 		this.saleMode=-1;
@@ -100,20 +104,19 @@ public class BookDataAdapter extends BaseDataAdapter<BookData> {
 	protected void dataViewSetting(int position, View v) {
 
 		TextView t=(TextView)v.findViewById(R.id.title);
-		WebView w=(WebView)v.findViewById(R.id.thumbnail);
+		ImageView i=(ImageView)v.findViewById(R.id.thumbnail);
 		TextView dp=(TextView)v.findViewById(R.id.discount_price);
 		TextView op=(TextView)v.findViewById(R.id.original_price);
 
 		// title
 		t.setText( get(position).title );
 		
-		// webview
-		w.setFocusable(false);
+		// imageview
 		if(get(position).thumbnail.compareTo("")!=0) {
 			System.out.println("thumbnail : "+get(position).thumbnail.substring(1));
-			w.loadUrl( activity.getResources().getString(R.string.base_url)+get(position).thumbnail );
+			loader.DisplayImage(activity.getResources().getString(R.string.base_url)+get(position).thumbnail,i);
 		} else {
-			w.clearView();
+			i.setImageResource(R.drawable.ic_launcher);
 		}
 		
 		// discount price

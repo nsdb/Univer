@@ -34,12 +34,12 @@
 			        android:layout_marginRight="10dp"
 			        android:textSize="18dp"
 		            android:text="Image" />
-			    <WebView
+			    <ImageView
 			        android:id="@+id/image"
+			        android:src="@drawable/ic_launcher"
 			        android:layout_width="0dp"
 			        android:layout_weight="1"
 			        android:layout_height="wrap_content"
-			        android:scrollbars="none"
 			        android:layout_margin="10dp" />
 
             </LinearLayout>

@@ -6,12 +6,12 @@
     android:layout_height="@dimen/bookdata_height"
     android:orientation="horizontal" >
 
-    <WebView
+    <ImageView
         android:id="@+id/thumbnail"
+        android:src="@drawable/ic_launcher"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_gravity="center"
-        android:scrollbars="none"
         android:layout_margin="10dp" />
 
     <TextView

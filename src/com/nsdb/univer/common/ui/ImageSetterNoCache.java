@@ -1,34 +1,33 @@
 package com.nsdb.univer.common.ui;
 
 import java.net.URL;
-
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.widget.ImageView;
 
-public class SetImageViewFromURL extends AsyncTask<Void,Void,Bitmap> {
+public class ImageSetterNoCache extends AsyncTask<Void,Void,Bitmap> {
 	
-	public ImageView view;
-	public String urlPath;
+	private String url;
+	private ImageView view;
 	
-	public SetImageViewFromURL(ImageView v,String u) {
-		view=v;
-		urlPath=u;
+	public ImageSetterNoCache(String url,ImageView view) {
+		this.url=url;
+		this.view=view;
 	}
 	
 	@Override
 	protected Bitmap doInBackground(Void... params) {
 		
 		try {
-			URL url = new URL(urlPath);
+			URL url = new URL(this.url);
 			Bitmap bitmap = BitmapFactory.decodeStream(url.openStream());
 			return bitmap;
 		} catch (Exception e) {
 			e.printStackTrace();
+			return null;
 		}
 		
-		return null;
 	}
 
 	@Override

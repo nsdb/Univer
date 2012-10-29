@@ -1,14 +1,15 @@
 package com.nsdb.univer.ui;
 
+import com.fedorvlasov.lazylist.ImageLoader;
 import com.nsdb.univer.common.AppPref;
 import com.nsdb.univer.common.ProfessorData;
 import com.nsdb.univer.dataadapter.CommentDataAdapter;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.webkit.WebView;
 import android.widget.AbsListView.OnScrollListener;
 import android.widget.AbsListView;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RatingBar;
 import android.widget.TextView;
@@ -17,7 +18,7 @@ public class ProfessorDetail extends Activity implements OnScrollListener {
 
 	ProfessorData lastdata;
 	
-	WebView image;
+	ImageView image;
 	TextView title;
 	RatingBar quality,report,grade,attendance,personality,total;
 	TextView qualitytxt,reporttxt,gradetxt,attendancetxt,personalitytxt,totaltxt;
@@ -35,7 +36,7 @@ public class ProfessorDetail extends Activity implements OnScrollListener {
         lastdata=AppPref.getLastProfessorData();
         
         // first linear
-        image=(WebView)findViewById(R.id.image);
+        image=(ImageView)findViewById(R.id.image);
         title=(TextView)findViewById(R.id.title);
         quality=(RatingBar)findViewById(R.id.quality);
         report=(RatingBar)findViewById(R.id.report);
@@ -49,8 +50,10 @@ public class ProfessorDetail extends Activity implements OnScrollListener {
         attendancetxt=(TextView)findViewById(R.id.attendancetxt);
         personalitytxt=(TextView)findViewById(R.id.personalitytxt);
         totaltxt=(TextView)findViewById(R.id.totaltxt); 
-        if(lastdata.image.compareTo("")!=0)
-        	image.loadUrl( getResources().getString(R.string.base_url)+lastdata.image );
+        if(lastdata.image.compareTo("")!=0) {
+        	ImageLoader loader=new ImageLoader(this);
+        	loader.DisplayImage(lastdata.image,image);
+        }
         title.setText(lastdata.title);
 		if(lastdata.count > 0) {
 			double d;

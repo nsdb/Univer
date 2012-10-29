@@ -6,11 +6,12 @@ import org.jdom2.Element;
 
 import android.app.Activity;
 import android.view.View;
-import android.webkit.WebView;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
+import com.fedorvlasov.lazylist.ImageLoader;
 import com.nsdb.univer.common.AppPref;
 import com.nsdb.univer.common.ProfessorData;
 import com.nsdb.univer.ui.R;
@@ -18,6 +19,8 @@ import com.woozzu.android.widget.RefreshableListView;
 
 public class ProfessorDataAdapter extends BaseDataAdapter<ProfessorData> {
 
+	private ImageLoader loader;
+	
 	//private String title;
 	private int rangeMode;
 	private int pageNum;
@@ -30,6 +33,7 @@ public class ProfessorDataAdapter extends BaseDataAdapter<ProfessorData> {
 
 	public ProfessorDataAdapter(Activity activity, ListView view, boolean inScrollView) {
 		super(activity, R.layout.professordata, view, inScrollView);
+		loader=new ImageLoader(activity);
 		//this.title="";
 		this.rangeMode=-1;
 		this.pageNum=-1;
@@ -87,20 +91,19 @@ public class ProfessorDataAdapter extends BaseDataAdapter<ProfessorData> {
 	protected void dataViewSetting(int position, View v) {
 
 		TextView t=(TextView)v.findViewById(R.id.title);
-		WebView w=(WebView)v.findViewById(R.id.thumbnail);
+		ImageView i=(ImageView)v.findViewById(R.id.thumbnail);
 		TextView rt=(TextView)v.findViewById(R.id.totaltxt);
 		RatingBar r=(RatingBar)v.findViewById(R.id.total);
 		
 		// title
 		t.setText( get(position).title );
 		
-		// webview
-		w.setFocusable(false);
+		// imageview
 		if(get(position).thumbnail.compareTo("")!=0) {
 			System.out.println("thumbnail : "+get(position).thumbnail.substring(1));
-			w.loadUrl( activity.getResources().getString(R.string.base_url)+get(position).thumbnail );
+			loader.DisplayImage(activity.getResources().getString(R.string.base_url)+get(position).thumbnail,i);
 		} else {
-			w.clearView();
+			i.setImageResource(R.drawable.ic_launcher);
 		}
 		
 		// ratingbar
