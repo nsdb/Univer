@@ -24,7 +24,7 @@ public class ProfessorDetail extends Activity implements OnScrollListener {
 	TextView qualitytxt,reporttxt,gradetxt,attendancetxt,personalitytxt,totaltxt;
 	
 	ListView lv;
-	CommentDataLoader adapter;
+	CommentDataLoader loader;
 	int pageNum;
 	
 	@Override
@@ -85,16 +85,16 @@ public class ProfessorDetail extends Activity implements OnScrollListener {
         
         // ListView
     	lv=(ListView)findViewById(R.id.commentlist);
-    	adapter=new CommentDataLoader(this,lv,true);
+    	loader=new CommentDataLoader(this,lv,true);
     	pageNum=1;
     	lv.setOnScrollListener(this);
-    	adapter.updateData(lastdata.id,pageNum);
+    	loader.updateData(lastdata.id,pageNum);
     }
 
 	public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
-		if(firstVisibleItem+visibleItemCount==totalItemCount && adapter.isLoadable()) {
+		if(firstVisibleItem+visibleItemCount==totalItemCount && loader.isLoadable()) {
 			pageNum++;
-	    	adapter.updateData(lastdata.id,pageNum);
+	    	loader.updateData(lastdata.id,pageNum);
 		}
 	}
 

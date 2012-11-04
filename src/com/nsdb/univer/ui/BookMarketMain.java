@@ -41,7 +41,7 @@ public class BookMarketMain extends ActiveFragment implements OnItemClickListene
 	private final static int REQUESTCODE_RANGE=2;
 
 	RefreshableListView lv;
-	BookDataLoader adapter;
+	BookDataLoader loader;
 	int pageNum;
 	
 	BookMarketMain(Activity activity) {
@@ -80,7 +80,7 @@ public class BookMarketMain extends ActiveFragment implements OnItemClickListene
 
         // ListView
     	lv=(RefreshableListView)v.findViewById(R.id.booklist);
-    	adapter=new BookDataLoader(THIS,lv,false);
+    	loader=new BookDataLoader(THIS,lv,false);
     	lv.setOnItemClickListener(this);
     	lv.setOnScrollListener(this);
     	lv.setOnRefreshListener(this);
@@ -118,8 +118,8 @@ public class BookMarketMain extends ActiveFragment implements OnItemClickListene
 	
 
 	public void onItemClick(AdapterView<?> parent, View view, int position, long l_position) {
-		if(adapter.get(position)!=null) {
-			AppPref.setLastBookData(adapter.get(position));
+		if(loader.get(position)!=null) {
+			AppPref.setLastBookData(loader.get(position));
 			THIS.startActivity(new Intent("BookDetail"));
 		}
 	}
@@ -152,11 +152,11 @@ public class BookMarketMain extends ActiveFragment implements OnItemClickListene
 			rangeMode=BookDataLoader.getDefaultRangeMode();
 		
     	// list
-    	adapter.updateData("",rangeMode,saleMode,pageNum);
+    	loader.updateData("",rangeMode,saleMode,pageNum);
 	}
 
 	public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
-		if(firstVisibleItem+visibleItemCount==totalItemCount && adapter.isLoadable()) {
+		if(firstVisibleItem+visibleItemCount==totalItemCount && loader.isLoadable()) {
 			pageNum++;
 			updateView();
 		}

@@ -33,7 +33,7 @@ public class ProfessorMain extends ActiveFragment implements OnItemClickListener
 	private final static int REQUESTCODE_RANGE=2;
 
 	RefreshableListView lv;
-	ProfessorDataLoader adapter;
+	ProfessorDataLoader loader;
 	int pageNum;
 	
 	ProfessorMain(Activity activity) {
@@ -66,7 +66,7 @@ public class ProfessorMain extends ActiveFragment implements OnItemClickListener
 
         // ListView
     	lv=(RefreshableListView)v.findViewById(R.id.professorlist);
-    	adapter=new ProfessorDataLoader(THIS,lv,false);
+    	loader=new ProfessorDataLoader(THIS,lv,false);
     	lv.setOnItemClickListener(this);
     	lv.setOnScrollListener(this);
     	lv.setOnRefreshListener(this);
@@ -104,8 +104,8 @@ public class ProfessorMain extends ActiveFragment implements OnItemClickListener
 	
 
 	public void onItemClick(AdapterView<?> parent, View view, int position, long l_position) {
-		if(adapter.get(position)!=null) {
-			AppPref.setLastProfessorData(adapter.get(position));
+		if(loader.get(position)!=null) {
+			AppPref.setLastProfessorData(loader.get(position));
 			THIS.startActivity( new Intent("ProfessorDetail") );
 		}		
 	}
@@ -116,11 +116,11 @@ public class ProfessorMain extends ActiveFragment implements OnItemClickListener
 		AppPref.getRangeSet().applyDataToView(region, univ, college, major);
 
 		// list
-    	adapter.updateData("",pageNum);
+    	loader.updateData("",pageNum);
 	}
 
 	public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
-		if(firstVisibleItem+visibleItemCount==totalItemCount && adapter.isLoadable()) {
+		if(firstVisibleItem+visibleItemCount==totalItemCount && loader.isLoadable()) {
 			pageNum++;
 			updateView();
 		}

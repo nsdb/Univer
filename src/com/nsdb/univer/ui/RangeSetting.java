@@ -23,7 +23,7 @@ public class RangeSetting extends Activity implements OnItemClickListener, OnCli
 	EditText edit;
 
 	IndexableListView list;
-	RangeDataLoader adapter;
+	RangeDataLoader loader;
 	
 	Button clear;
 
@@ -55,16 +55,16 @@ public class RangeSetting extends Activity implements OnItemClickListener, OnCli
 			public void afterTextChanged(Editable arg0) {}
 			public void beforeTextChanged(CharSequence arg0, int arg1, int arg2, int arg3) {}
 			public void onTextChanged(CharSequence s, int start, int before, int count) {
-				adapter.updateView( s.toString() );
+				loader.updateView( s.toString() );
 			}
         });
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
         	
         // listview
         list=(IndexableListView)findViewById(R.id.list);
-        adapter=new RangeDataLoader(this,list,false);
+        loader=new RangeDataLoader(this,list,false);
         list.setOnItemClickListener(this);
-    	adapter.updateData(filter);
+    	loader.updateData(filter);
 
     	
     	// Button
@@ -74,11 +74,11 @@ public class RangeSetting extends Activity implements OnItemClickListener, OnCli
     
 	public void onItemClick(AdapterView<?> parent, View view, int position, long l_position) {
 		
-		if(adapter.get(position).id != -1) {
+		if(loader.get(position) != null) {
 			getIntent().putExtra("filter",filter);
-			getIntent().putExtra("title",adapter.get(position).title);
-			getIntent().putExtra("nick",adapter.get(position).nick);
-			getIntent().putExtra("id",adapter.get(position).id);
+			getIntent().putExtra("title",loader.get(position).title);
+			getIntent().putExtra("nick",loader.get(position).nick);
+			getIntent().putExtra("id",loader.get(position).id);
 			setResult(RESULT_OK,getIntent());
 			finish();
 		}

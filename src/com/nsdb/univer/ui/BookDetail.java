@@ -28,7 +28,7 @@ public class BookDetail extends Activity implements OnItemClickListener {
 	CheckBox parcel,meet;
 	
 	ListView lv;
-	BookDataLoader adapter;
+	BookDataLoader loader;
 	
 	@Override
     public void onCreate(Bundle savedInstanceState) {
@@ -72,14 +72,14 @@ public class BookDetail extends Activity implements OnItemClickListener {
         
         // ListView
     	lv=(ListView)findViewById(R.id.booklist);
-    	adapter=new BookDataLoader(this,lv,true);
+    	loader=new BookDataLoader(this,lv,true);
     	lv.setOnItemClickListener(this);
-    	adapter.updateData("",BookDataLoader.RANGEMODE_OTHER,BookData.SALEMODE_ALL,1,lastdata.seller_id);
+    	loader.updateData("",BookDataLoader.RANGEMODE_OTHER,BookData.SALEMODE_ALL,1,lastdata.seller_id);
     }
 
 	public void onItemClick(AdapterView<?> parent, View view, int position, long l_position) {
-		if(adapter.get(position).id != -1) {
-			AppPref.setLastBookData(adapter.get(position));
+		if(loader.get(position) != null) {
+			AppPref.setLastBookData(loader.get(position));
 			startActivity( new Intent("BookDetail") );
 			finish();
 		}

@@ -131,7 +131,7 @@ public abstract class BaseDataLoader<T> {
 			TextView t=(TextView)footerView.findViewById(R.id.text);
 			switch(result) {
 			case RESULT_SUCCESS:
-				t.setText("불러오는 중...");
+				t.setText("");
 				break;
 			case RESULT_EMPTY:
 				t.setText("데이터 없음");
