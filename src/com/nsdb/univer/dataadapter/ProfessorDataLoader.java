@@ -17,7 +17,7 @@ import com.nsdb.univer.common.ProfessorData;
 import com.nsdb.univer.ui.R;
 import com.woozzu.android.widget.RefreshableListView;
 
-public class ProfessorDataAdapter extends BaseDataAdapter<ProfessorData> {
+public class ProfessorDataLoader extends BaseDataLoader<ProfessorData> {
 
 	private ImageLoader loader;
 	
@@ -31,12 +31,19 @@ public class ProfessorDataAdapter extends BaseDataAdapter<ProfessorData> {
 	private final static int RANGEMODE_COLLEGE=3;
 	private final static int RANGEMODE_MAJOR=4;
 
-	public ProfessorDataAdapter(Activity activity, ListView view, boolean inScrollView) {
+	public ProfessorDataLoader(Activity activity, ListView view, boolean inScrollView) {
 		super(activity, R.layout.professordata, view, inScrollView);
-		loader=new ImageLoader(activity);
+		loader=new ImageLoader(getActivity());
 		//this.title="";
 		this.rangeMode=-1;
 		this.pageNum=-1;
+	}
+
+	@Override
+	protected BaseListAdapter<ProfessorData> createListAdapter(
+			Activity activity, int dataResourceId,
+			ArrayList<ProfessorData> dataVisible, ListView view) {
+		return new ProfessorListAdapter(activity,dataResourceId,dataVisible,view);
 	}
 
 	public void updateData(String title, int pageNum) {
@@ -51,9 +58,9 @@ public class ProfessorDataAdapter extends BaseDataAdapter<ProfessorData> {
 	protected String getXmlUrl() {
 
 		// {base_url}/feeds/professors/search=<search>&category=<category>&id=<id>&page=<page>/
-		String url=activity.getResources().getString(R.string.base_url)+'/'
-				+activity.getResources().getString(R.string.get_url)+'/'
-				+activity.getResources().getString(R.string.professor_url)+'/';
+		String url=getActivity().getResources().getString(R.string.base_url)+'/'
+				+getActivity().getResources().getString(R.string.get_url)+'/'
+				+getActivity().getResources().getString(R.string.professor_url)+'/';
 		ArrayList<String> getData=new ArrayList<String>();
 		getData.add("search="+0);
 		getData.add("category="+rangeMode);	
@@ -76,47 +83,56 @@ public class ProfessorDataAdapter extends BaseDataAdapter<ProfessorData> {
 	}
 
 	@Override
-	protected void customPostGetAction(int result) {
+	protected ProfessorData convertElement(Element item) {
+		return new ProfessorData(item);
+	}
+	
+	@Override
+	protected void updateView(int result) {
+		super.updateView(result);
 		RefreshableListView rlv=(RefreshableListView)getView();
 		if(rlv.isRefreshing())
 			rlv.completeRefreshing();
 	}
 
-	@Override
-	protected ProfessorData convertElement(Element item) {
-		return new ProfessorData(item);
-	}
+	private class ProfessorListAdapter extends BaseListAdapter<ProfessorData> {
 
-	@Override
-	protected void dataViewSetting(int position, View v) {
+		public ProfessorListAdapter(Activity activity, int dataResourceId,
+				ArrayList<ProfessorData> objects, ListView view) {
+			super(activity, dataResourceId, objects, view);
+		}
 
-		TextView t=(TextView)v.findViewById(R.id.title);
-		ImageView i=(ImageView)v.findViewById(R.id.thumbnail);
-		TextView rt=(TextView)v.findViewById(R.id.totaltxt);
-		RatingBar r=(RatingBar)v.findViewById(R.id.total);
-		
-		// title
-		t.setText( get(position).title );
-		
-		// imageview
-		if(get(position).thumbnail.compareTo("")!=0) {
-			System.out.println("thumbnail : "+get(position).thumbnail.substring(1));
-			loader.DisplayImage(activity.getResources().getString(R.string.base_url)+get(position).thumbnail,i);
-		} else {
-			i.setImageResource(R.drawable.ic_launcher);
+		@Override
+		protected void setView(int position, View v) {
+			
+			TextView t=(TextView)v.findViewById(R.id.title);
+			ImageView i=(ImageView)v.findViewById(R.id.thumbnail);
+			TextView rt=(TextView)v.findViewById(R.id.totaltxt);
+			RatingBar r=(RatingBar)v.findViewById(R.id.total);
+			
+			// title
+			t.setText( get(position).title );
+			
+			// imageview
+			if(get(position).thumbnail.compareTo("")!=0) {
+				System.out.println("thumbnail : "+get(position).thumbnail.substring(1));
+				loader.DisplayImage(getActivity().getResources().getString(R.string.base_url)+get(position).thumbnail,i);
+			} else {
+				i.setImageResource(R.drawable.ic_launcher);
+			}
+			
+			// ratingbar
+			if(get(position).count > 0) {
+				double d=get(position).total/(get(position).count*5);
+				d=Math.round(d*100)/100;
+				rt.setText(""+d);
+				r.setRating( (float)d/2 );
+			} else {
+				rt.setText("0.0");
+				r.setRating(0.0f);				
+			}
 		}
 		
-		// ratingbar
-		if(get(position).count > 0) {
-			double d=get(position).total/(get(position).count*5);
-			d=Math.round(d*100)/100;
-			rt.setText(""+d);
-			r.setRating( (float)d/2 );
-		} else {
-			rt.setText("0.0");
-			r.setRating(0.0f);				
-		}
-	
 	}
 
 	private int getDefaultRangeMode() {
@@ -132,4 +148,5 @@ public class ProfessorDataAdapter extends BaseDataAdapter<ProfessorData> {
 			return RANGEMODE_MAJOR;
 		}
 	}
+
 }

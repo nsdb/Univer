@@ -16,7 +16,7 @@ import com.nsdb.univer.common.BookData;
 import com.nsdb.univer.ui.R;
 import com.woozzu.android.widget.RefreshableListView;
 
-public class BookDataAdapter extends BaseDataAdapter<BookData> {
+public class BookDataLoader extends BaseDataLoader<BookData> {
 	
 	private ImageLoader loader;
 
@@ -34,7 +34,7 @@ public class BookDataAdapter extends BaseDataAdapter<BookData> {
 	public final static int RANGEMODE_MINE=5;
 	public final static int RANGEMODE_OTHER=6;
 
-	public BookDataAdapter(Activity activity,ListView view, boolean inScrollView) {
+	public BookDataLoader(Activity activity,ListView view, boolean inScrollView) {
 		super(activity, R.layout.bookdata, view, inScrollView);
 		loader=new ImageLoader(activity);
 		//this.title="";
@@ -44,6 +44,12 @@ public class BookDataAdapter extends BaseDataAdapter<BookData> {
 		this.sellerId=-1;
 	}
 	
+	@Override
+	protected BaseListAdapter<BookData> createListAdapter(Activity activity,
+			int dataResourceId, ArrayList<BookData> dataVisible, ListView view) {
+		return new BookListAdapter(activity,dataResourceId,dataVisible,view);
+	}
+
 	public void updateData(String title, int categorymode, int salemode, int pageNum) {
 		//this.title=title;
 		this.rangeMode=categorymode;
@@ -61,9 +67,9 @@ public class BookDataAdapter extends BaseDataAdapter<BookData> {
 	protected String getXmlUrl() {
 		
 		// {base_url}/feeds/books?search=<search>&sale=<sale>&category=<category>&id=<id>&page=<page>/
-		String url=activity.getResources().getString(R.string.base_url)+'/'
-				+activity.getResources().getString(R.string.get_url)+'/'
-				+activity.getResources().getString(R.string.book_url)+'/';
+		String url=getActivity().getResources().getString(R.string.base_url)+'/'
+				+getActivity().getResources().getString(R.string.get_url)+'/'
+				+getActivity().getResources().getString(R.string.book_url)+'/';
 		ArrayList<String> getData=new ArrayList<String>();
 		getData.add("search="+0);
 		getData.add("sale="+saleMode);
@@ -89,49 +95,59 @@ public class BookDataAdapter extends BaseDataAdapter<BookData> {
 	}
 	
 	@Override
-	protected void customPostGetAction(int result) {
+	protected BookData convertElement(Element item) {
+		return new BookData(item);
+	}
+	
+	@Override
+	protected void updateView(int result) {
+		super.updateView(result);		
 		RefreshableListView rlv=(RefreshableListView)getView();
 		if(rlv.isRefreshing())
 			rlv.completeRefreshing();
 	}
 
-	@Override
-	protected BookData convertElement(Element item) {
-		return new BookData(item);
-	}
+	private class BookListAdapter extends BaseListAdapter<BookData> {
 
-	@Override
-	protected void dataViewSetting(int position, View v) {
+		public BookListAdapter(Activity activity, int dataResourceId,
+				ArrayList<BookData> objects, ListView view) {
+			super(activity, dataResourceId, objects, view);
+		}
 
-		TextView t=(TextView)v.findViewById(R.id.title);
-		ImageView i=(ImageView)v.findViewById(R.id.thumbnail);
-		TextView dp=(TextView)v.findViewById(R.id.discount_price);
-		TextView op=(TextView)v.findViewById(R.id.original_price);
+		@Override
+		protected void setView(int position, View v) {
+			
+			TextView t=(TextView)v.findViewById(R.id.title);
+			ImageView i=(ImageView)v.findViewById(R.id.thumbnail);
+			TextView dp=(TextView)v.findViewById(R.id.discount_price);
+			TextView op=(TextView)v.findViewById(R.id.original_price);
 
-		// title
-		t.setText( get(position).title );
-		
-		// imageview
-		if(get(position).thumbnail.compareTo("")!=0) {
-			System.out.println("thumbnail : "+get(position).thumbnail.substring(1));
-			loader.DisplayImage(activity.getResources().getString(R.string.base_url)+get(position).thumbnail,i);
-		} else {
-			i.setImageResource(R.drawable.ic_launcher);
+			// title
+			t.setText( get(position).title );
+			
+			// imageview
+			if(get(position).thumbnail.compareTo("")!=0) {
+				System.out.println("thumbnail : "+get(position).thumbnail.substring(1));
+				loader.DisplayImage(getActivity().getResources().getString(R.string.base_url)+get(position).thumbnail,i);
+			} else {
+				i.setImageResource(R.drawable.ic_launcher);
+			}
+			
+			// discount price
+			if(get(position).discount_price!=-1) {
+				dp.setText( ""+get(position).discount_price );
+			} else {
+				dp.setText( "" );
+			}
+			
+			// original price
+			if(get(position).original_price!=-1) {
+				op.setText( ""+get(position).original_price );			
+			} else {
+				op.setText( "" );
+			}
 		}
 		
-		// discount price
-		if(get(position).discount_price!=-1) {
-			dp.setText( ""+get(position).discount_price );
-		} else {
-			dp.setText( "" );
-		}
-		
-		// original price
-		if(get(position).original_price!=-1) {
-			op.setText( ""+get(position).original_price );			
-		} else {
-			op.setText( "" );
-		}
 	}
 
 	public static int getDefaultRangeMode() {
@@ -147,5 +163,6 @@ public class BookDataAdapter extends BaseDataAdapter<BookData> {
 			return RANGEMODE_MAJOR;
 		}
 	}
+
 	
 }

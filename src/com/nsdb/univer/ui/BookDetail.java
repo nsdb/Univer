@@ -3,7 +3,7 @@ package com.nsdb.univer.ui;
 import com.fedorvlasov.lazylist.ImageLoader;
 import com.nsdb.univer.common.AppPref;
 import com.nsdb.univer.common.BookData;
-import com.nsdb.univer.dataadapter.BookDataAdapter;
+import com.nsdb.univer.dataadapter.BookDataLoader;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -28,7 +28,7 @@ public class BookDetail extends Activity implements OnItemClickListener {
 	CheckBox parcel,meet;
 	
 	ListView lv;
-	BookDataAdapter adapter;
+	BookDataLoader adapter;
 	
 	@Override
     public void onCreate(Bundle savedInstanceState) {
@@ -72,9 +72,9 @@ public class BookDetail extends Activity implements OnItemClickListener {
         
         // ListView
     	lv=(ListView)findViewById(R.id.booklist);
-    	adapter=new BookDataAdapter(this,lv,true);
+    	adapter=new BookDataLoader(this,lv,true);
     	lv.setOnItemClickListener(this);
-    	adapter.updateData("",BookDataAdapter.RANGEMODE_OTHER,BookData.SALEMODE_ALL,1,lastdata.seller_id);
+    	adapter.updateData("",BookDataLoader.RANGEMODE_OTHER,BookData.SALEMODE_ALL,1,lastdata.seller_id);
     }
 
 	public void onItemClick(AdapterView<?> parent, View view, int position, long l_position) {

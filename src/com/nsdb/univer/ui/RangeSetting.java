@@ -1,6 +1,7 @@
 package com.nsdb.univer.ui;
 
-import com.nsdb.univer.dataadapter.RangeDataAdapter;
+import com.nsdb.univer.dataadapter.RangeDataLoader;
+import com.woozzu.android.widget.IndexableListView;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -13,7 +14,6 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ListView;
 import android.widget.TextView;
 
 public class RangeSetting extends Activity implements OnItemClickListener, OnClickListener {
@@ -22,8 +22,8 @@ public class RangeSetting extends Activity implements OnItemClickListener, OnCli
 	TextView title;
 	EditText edit;
 
-	ListView list;
-	RangeDataAdapter adapter;
+	IndexableListView list;
+	RangeDataLoader adapter;
 	
 	Button clear;
 
@@ -61,10 +61,11 @@ public class RangeSetting extends Activity implements OnItemClickListener, OnCli
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
         	
         // listview
-        list=(ListView)findViewById(R.id.list);
-        adapter=new RangeDataAdapter(this,list,false);
+        list=(IndexableListView)findViewById(R.id.list);
+        adapter=new RangeDataLoader(this,list,false);
         list.setOnItemClickListener(this);
     	adapter.updateData(filter);
+
     	
     	// Button
     	clear=(Button)findViewById(R.id.clear);

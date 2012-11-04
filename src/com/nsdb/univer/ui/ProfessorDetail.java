@@ -3,7 +3,7 @@ package com.nsdb.univer.ui;
 import com.fedorvlasov.lazylist.ImageLoader;
 import com.nsdb.univer.common.AppPref;
 import com.nsdb.univer.common.ProfessorData;
-import com.nsdb.univer.dataadapter.CommentDataAdapter;
+import com.nsdb.univer.dataadapter.CommentDataLoader;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -24,7 +24,7 @@ public class ProfessorDetail extends Activity implements OnScrollListener {
 	TextView qualitytxt,reporttxt,gradetxt,attendancetxt,personalitytxt,totaltxt;
 	
 	ListView lv;
-	CommentDataAdapter adapter;
+	CommentDataLoader adapter;
 	int pageNum;
 	
 	@Override
@@ -85,7 +85,7 @@ public class ProfessorDetail extends Activity implements OnScrollListener {
         
         // ListView
     	lv=(ListView)findViewById(R.id.commentlist);
-    	adapter=new CommentDataAdapter(this,lv,true);
+    	adapter=new CommentDataLoader(this,lv,true);
     	pageNum=1;
     	lv.setOnScrollListener(this);
     	adapter.updateData(lastdata.id,pageNum);

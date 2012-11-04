@@ -6,7 +6,7 @@ import com.nsdb.univer.common.BookData;
 import com.nsdb.univer.common.RangeData;
 import com.nsdb.univer.common.ui.ActiveFragment;
 import com.nsdb.univer.common.ui.OnClickMover;
-import com.nsdb.univer.dataadapter.BookDataAdapter;
+import com.nsdb.univer.dataadapter.BookDataLoader;
 import com.woozzu.android.widget.RefreshableListView;
 import com.woozzu.android.widget.RefreshableListView.OnRefreshListener;
 
@@ -41,7 +41,7 @@ public class BookMarketMain extends ActiveFragment implements OnItemClickListene
 	private final static int REQUESTCODE_RANGE=2;
 
 	RefreshableListView lv;
-	BookDataAdapter adapter;
+	BookDataLoader adapter;
 	int pageNum;
 	
 	BookMarketMain(Activity activity) {
@@ -74,13 +74,13 @@ public class BookMarketMain extends ActiveFragment implements OnItemClickListene
     	univ.setOnClickListener(new OnClickMover(THIS,new Intent("RangeSetting").putExtra("filter","univ"),REQUESTCODE_RANGE));
     	college.setOnClickListener(new OnClickMover(THIS,new Intent("RangeSetting").putExtra("filter","college"),REQUESTCODE_RANGE));
     	major.setOnClickListener(new OnClickMover(THIS,new Intent("RangeSetting").putExtra("filter","major"),REQUESTCODE_RANGE));
-        rangeMode=BookDataAdapter.getDefaultRangeMode();
+        rangeMode=BookDataLoader.getDefaultRangeMode();
     	// Not yet
     	major.setEnabled(false);
 
         // ListView
     	lv=(RefreshableListView)v.findViewById(R.id.booklist);
-    	adapter=new BookDataAdapter(THIS,lv,false);
+    	adapter=new BookDataLoader(THIS,lv,false);
     	lv.setOnItemClickListener(this);
     	lv.setOnScrollListener(this);
     	lv.setOnRefreshListener(this);
@@ -128,15 +128,15 @@ public class BookMarketMain extends ActiveFragment implements OnItemClickListene
 		switch(checkedId) {
 		case R.id.sell:
 			saleMode=BookData.SALEMODE_SELL;
-			rangeMode=BookDataAdapter.getDefaultRangeMode();
+			rangeMode=BookDataLoader.getDefaultRangeMode();
 			break;
 		case R.id.buy:
 			saleMode=BookData.SALEMODE_BUY;
-			rangeMode=BookDataAdapter.getDefaultRangeMode();
+			rangeMode=BookDataLoader.getDefaultRangeMode();
 			break;
 		case R.id.mine:
 			saleMode=BookData.SALEMODE_ALL;
-			rangeMode=BookDataAdapter.RANGEMODE_MINE;
+			rangeMode=BookDataLoader.RANGEMODE_MINE;
 			break;
 		}
 		updateView();
@@ -148,8 +148,8 @@ public class BookMarketMain extends ActiveFragment implements OnItemClickListene
 		AppPref.getRangeSet().applyDataToView(region, univ, college, major);
 
     	// rangemode
-		if(rangeMode != BookDataAdapter.RANGEMODE_MINE)
-			rangeMode=BookDataAdapter.getDefaultRangeMode();
+		if(rangeMode != BookDataLoader.RANGEMODE_MINE)
+			rangeMode=BookDataLoader.getDefaultRangeMode();
 		
     	// list
     	adapter.updateData("",rangeMode,saleMode,pageNum);

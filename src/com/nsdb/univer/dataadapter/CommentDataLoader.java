@@ -12,15 +12,22 @@ import android.widget.TextView;
 import com.nsdb.univer.common.CommentData;
 import com.nsdb.univer.ui.R;
 
-public class CommentDataAdapter extends BaseDataAdapter<CommentData> {
+public class CommentDataLoader extends BaseDataLoader<CommentData> {
 
 	int professor_id;
 	int pageNum;
 
-	public CommentDataAdapter(Activity activity, ListView view, boolean inScrollView) {
+	public CommentDataLoader(Activity activity, ListView view, boolean inScrollView) {
 		super(activity, R.layout.commentdata, view, inScrollView);
 		this.professor_id=-1;
 		this.pageNum=-1;
+	}
+
+	@Override
+	protected BaseListAdapter<CommentData> createListAdapter(Activity activity,
+			int dataResourceId, ArrayList<CommentData> dataVisible,
+			ListView view) {		
+		return new CommentListAdapter(activity,dataResourceId,dataVisible,view);
 	}
 
 	public void updateData(int professor_id,int pageNum) {
@@ -34,10 +41,10 @@ public class CommentDataAdapter extends BaseDataAdapter<CommentData> {
 	protected String getXmlUrl() {
 
 		// {base_url}/feeds/comments/professors/professor_id=<professor_id>&page=<page>/
-		String url=activity.getResources().getString(R.string.base_url)+'/'
-				+activity.getResources().getString(R.string.get_url)+'/'
-				+activity.getResources().getString(R.string.comment_url)+'/'
-				+activity.getResources().getString(R.string.professor_url)+'/';
+		String url=getActivity().getResources().getString(R.string.base_url)+'/'
+				+getActivity().getResources().getString(R.string.get_url)+'/'
+				+getActivity().getResources().getString(R.string.comment_url)+'/'
+				+getActivity().getResources().getString(R.string.professor_url)+'/';
 		ArrayList<String> getData=new ArrayList<String>();
 		getData.add("professor_id="+professor_id);
 		getData.add("page="+pageNum);
@@ -58,17 +65,26 @@ public class CommentDataAdapter extends BaseDataAdapter<CommentData> {
 		          		item.getChild("description").getText(),
 		          		item.getChild("pubDate").getText() );
 	}
+	
+	private class CommentListAdapter extends BaseListAdapter<CommentData> {
 
-	@Override
-	protected void dataViewSetting(int position, View v) {
+		public CommentListAdapter(Activity activity, int dataResourceId,
+				ArrayList<CommentData> objects, ListView view) {
+			super(activity, dataResourceId, objects, view);
+		}
+
+		@Override
+		protected void setView(int position, View v) {
+			
+			TextView t=(TextView)v.findViewById(R.id.title);
+			TextView d=(TextView)v.findViewById(R.id.description);
+			//TextView p=(TextView)v.findViewById(R.id.pubdate);
+
+			t.setText(get(position).title);
+			d.setText(get(position).description);
+			//p.setText(dataVisible.get(position).pubDate);
+		}
 		
-		TextView t=(TextView)v.findViewById(R.id.title);
-		TextView d=(TextView)v.findViewById(R.id.description);
-		//TextView p=(TextView)v.findViewById(R.id.pubdate);
-
-		t.setText(get(position).title);
-		d.setText(get(position).description);
-		//p.setText(dataVisible.get(position).pubDate);
 	}
 
 }

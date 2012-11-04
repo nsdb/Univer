@@ -4,7 +4,7 @@ import com.nsdb.univer.common.AppPref;
 import com.nsdb.univer.common.RangeData;
 import com.nsdb.univer.common.ui.ActiveFragment;
 import com.nsdb.univer.common.ui.OnClickMover;
-import com.nsdb.univer.dataadapter.ProfessorDataAdapter;
+import com.nsdb.univer.dataadapter.ProfessorDataLoader;
 import com.woozzu.android.widget.RefreshableListView;
 import com.woozzu.android.widget.RefreshableListView.OnRefreshListener;
 
@@ -33,7 +33,7 @@ public class ProfessorMain extends ActiveFragment implements OnItemClickListener
 	private final static int REQUESTCODE_RANGE=2;
 
 	RefreshableListView lv;
-	ProfessorDataAdapter adapter;
+	ProfessorDataLoader adapter;
 	int pageNum;
 	
 	ProfessorMain(Activity activity) {
@@ -66,7 +66,7 @@ public class ProfessorMain extends ActiveFragment implements OnItemClickListener
 
         // ListView
     	lv=(RefreshableListView)v.findViewById(R.id.professorlist);
-    	adapter=new ProfessorDataAdapter(THIS,lv,false);
+    	adapter=new ProfessorDataLoader(THIS,lv,false);
     	lv.setOnItemClickListener(this);
     	lv.setOnScrollListener(this);
     	lv.setOnRefreshListener(this);
