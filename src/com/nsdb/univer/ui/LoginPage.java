@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.nsdb.univer.R;
 import com.nsdb.univer.common.AppPref;
 import com.nsdb.univer.common.LoginChecker;
 import com.nsdb.univer.common.ui.OnClickMover;

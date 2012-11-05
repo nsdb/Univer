@@ -14,7 +14,7 @@ import android.widget.TextView;
 import com.fedorvlasov.lazylist.ImageLoader;
 import com.nsdb.univer.common.AppPref;
 import com.nsdb.univer.common.ProfessorData;
-import com.nsdb.univer.ui.R;
+import com.nsdb.univer.R;
 import com.woozzu.android.widget.RefreshableListView;
 
 public class ProfessorDataLoader extends BaseDataLoader<ProfessorData> {

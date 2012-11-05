@@ -17,6 +17,7 @@ import org.apache.http.entity.mime.content.FileBody;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.protocol.HTTP;
 import org.jdom2.Element;
+import com.nsdb.univer.R;
 import com.nsdb.univer.common.AppPref;
 import com.nsdb.univer.common.BookData;
 import com.nsdb.univer.common.NetworkSupporter;

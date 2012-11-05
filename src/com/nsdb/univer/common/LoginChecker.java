@@ -13,7 +13,7 @@ import android.app.Activity;
 import android.os.AsyncTask;
 import android.widget.Toast;
 
-import com.nsdb.univer.ui.R;
+import com.nsdb.univer.R;
 
 public abstract class LoginChecker extends AsyncTask<Void, Void, Boolean> {
 	

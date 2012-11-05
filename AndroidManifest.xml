@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.nsdb.univer.ui"
+    package="com.nsdb.univer"
     android:versionCode="1"
     android:versionName="1.0" >
 
@@ -13,82 +13,97 @@
         android:theme="@style/MyTheme"
         >
 
-        <activity android:name="IntroPage">
+        <activity android:name=".ui.IntroPage">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         
-        <activity android:name="LoginPage">
+        <activity android:name=".ui.LoginPage">
             <intent-filter>
                 <action android:name="LoginPage" />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
         
-        <activity android:name="RegisterUser">
+        <activity android:name=".ui.RegisterUser">
             <intent-filter>
                 <action android:name="RegisterUser" />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
         
-        <activity android:name="RegisterBook">
+        <activity android:name=".ui.RegisterBook">
             <intent-filter>
                 <action android:name="RegisterBook" />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
         
-        <activity android:name="RangeSetting">
+        <activity android:name=".ui.RangeSetting">
             <intent-filter>
                 <action android:name="RangeSetting" />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
         
-        <activity android:name="TabMain">
+        <activity android:name=".ui.TabMain">
             <intent-filter>
                 <action android:name="TabMain" />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
         
-        <activity android:name="BookDetail">
+        <activity android:name=".ui.BookDetail">
             <intent-filter>
                 <action android:name="BookDetail" />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
         
-        <activity android:name="ProfessorDetail">
+        <activity android:name=".ui.ProfessorDetail">
             <intent-filter>
                 <action android:name="ProfessorDetail" />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
 
-    <activity android:name="com.google.zxing.client.android.CaptureActivity"
-              android:screenOrientation="landscape"
-              android:clearTaskOnLaunch="true"
-              android:stateNotNeeded="true"
-              android:configChanges="orientation|keyboardHidden"
-              android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
-              android:windowSoftInputMode="stateAlwaysHidden">
-      <intent-filter>
-        <action android:name="com.google.zxing.client.android.SCAN"/>
-        <category android:name="android.intent.category.DEFAULT"/>
-      </intent-filter>
-    </activity>
         
+        <!-- zxing Capture Activity -->
+	    <activity android:name="com.google.zxing.client.android.CaptureActivity"
+	              android:screenOrientation="landscape"
+	              android:clearTaskOnLaunch="true"
+	              android:stateNotNeeded="true"
+	              android:configChanges="orientation|keyboardHidden"
+	              android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
+	              android:windowSoftInputMode="stateAlwaysHidden">
+	      <intent-filter>
+	        <action android:name="com.google.zxing.client.android.SCAN"/>
+	        <category android:name="android.intent.category.DEFAULT"/>
+	      </intent-filter>
+	    </activity>
+
+	    <!-- GCM Receiver (already realized) -->
+		<receiver
+		   android:name="com.google.android.gcm.GCMBroadcastReceiver"
+		   android:permission="com.google.android.c2dm.permission.SEND" >
+		   <intent-filter>
+		      <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+		      <action android:name="com.google.android.c2dm.intent.REGISTRATION" />
+		      <category android:name="com.nsdb.univer" /> <!-- JellyBean don't have to write this -->
+		   </intent-filter>
+		</receiver>
+		
+		<!-- GCM Service, Do not change its name! -->
+		<service android:name=".GCMIntentService" />	    
         
         
     </application>
 
     <uses-permission android:name="android.permission.INTERNET"/>
     
-    <!-- Only For CaputreActivity! -->
+    <!-- For zxing Capture Activity -->
     <uses-permission android:name="android.permission.CAMERA"/>
 	<uses-feature android:name="android.hardware.camera"/>
 	<uses-feature android:name="android.hardware.camera.autofocus" android:required="false"/>
@@ -102,5 +117,12 @@
 	
 	<!-- For LazyList -->
 	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
-	
+
+	<!-- For GCM (Package name dependency) -->	
+	<permission android:name="com.nsdb.univer.permission.C2D_MESSAGE" android:protectionLevel="signature" />
+	<uses-permission android:name="com.nsdb.univer.permission.C2D_MESSAGE" /> 
+	<uses-permission android:name="com.google.android.c2dm.permission.RECEIVE" />
+	<uses-permission android:name="android.permission.GET_ACCOUNTS" />
+	<uses-permission android:name="android.permission.WAKE_LOCK" />
+
 </manifest>

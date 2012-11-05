@@ -11,7 +11,7 @@ import android.widget.TextView;
 
 import com.nsdb.univer.common.AppPref;
 import com.nsdb.univer.common.RangeData;
-import com.nsdb.univer.ui.R;
+import com.nsdb.univer.R;
 import com.woozzu.android.util.StringMatcher;
 
 public class RangeDataLoader extends BaseDataLoader<RangeData> {

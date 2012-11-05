@@ -1,6 +1,7 @@
 package com.nsdb.univer.ui;
 
 import com.fedorvlasov.lazylist.ImageLoader;
+import com.nsdb.univer.R;
 import com.nsdb.univer.common.AppPref;
 import com.nsdb.univer.common.ProfessorData;
 import com.nsdb.univer.dataadapter.CommentDataLoader;

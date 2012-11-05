@@ -1,5 +1,6 @@
 package com.nsdb.univer.ui;
 
+import com.nsdb.univer.R;
 import com.nsdb.univer.common.AppPref;
 import com.nsdb.univer.common.RangeData;
 import com.nsdb.univer.common.ui.ActiveFragment;

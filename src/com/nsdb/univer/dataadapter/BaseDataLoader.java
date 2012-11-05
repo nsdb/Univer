@@ -8,7 +8,7 @@ import org.apache.http.client.methods.HttpGet;
 import org.jdom2.Element;
 
 import com.nsdb.univer.common.NetworkSupporter;
-import com.nsdb.univer.ui.R;
+import com.nsdb.univer.R;
 
 import android.app.Activity;
 import android.content.Context;

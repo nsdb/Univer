@@ -1,5 +1,6 @@
 package com.nsdb.univer.ui;
 
+import com.nsdb.univer.R;
 import com.nsdb.univer.common.ui.ActiveFragmentHost;
 
 import android.os.Bundle;

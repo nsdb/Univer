@@ -1,6 +1,7 @@
 package com.nsdb.univer.ui;
 
 import com.makeramen.segmented.SegmentedRadioGroup;
+import com.nsdb.univer.R;
 import com.nsdb.univer.common.AppPref;
 import com.nsdb.univer.common.BookData;
 import com.nsdb.univer.common.RangeData;

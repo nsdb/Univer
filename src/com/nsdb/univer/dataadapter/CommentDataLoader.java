@@ -10,7 +10,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.nsdb.univer.common.CommentData;
-import com.nsdb.univer.ui.R;
+import com.nsdb.univer.R;
 
 public class CommentDataLoader extends BaseDataLoader<CommentData> {
 
