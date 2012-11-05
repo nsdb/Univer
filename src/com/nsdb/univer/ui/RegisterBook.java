@@ -1,6 +1,8 @@
 package com.nsdb.univer.ui;
 
+import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
@@ -8,6 +10,10 @@ import org.apache.http.NameValuePair;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.mime.HttpMultipartMode;
+import org.apache.http.entity.mime.MultipartEntity;
+import org.apache.http.entity.mime.content.ContentBody;
+import org.apache.http.entity.mime.content.FileBody;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.protocol.HTTP;
 import org.jdom2.Element;
@@ -294,11 +300,13 @@ public class RegisterBook extends Activity implements OnClickListener, OnChecked
 	}
 	
 	private class RegisterBookHelper extends AsyncTask<Void,Void,String> {
-
+		
 		@Override
 		protected void onPreExecute() {
 			pdl=ProgressDialog.show(RegisterBook.this,"Loading","Loading...",true,false);
 			super.onPreExecute();
+
+			image.setDrawingCacheEnabled(true);
 		}
 
 		@Override
@@ -313,6 +321,7 @@ public class RegisterBook extends Activity implements OnClickListener, OnChecked
 			try {				
 				// create http post for sending
 				HttpPost request=new HttpPost(url);
+				
 				ArrayList<NameValuePair> postdata=new ArrayList<NameValuePair>();
 				postdata.add(new BasicNameValuePair("title", title.getText().toString()));
 				postdata.add(new BasicNameValuePair("original_price", original_price.getText().toString()));
@@ -335,6 +344,28 @@ public class RegisterBook extends Activity implements OnClickListener, OnChecked
 				UrlEncodedFormEntity ent = new UrlEncodedFormEntity(postdata,HTTP.UTF_8);
 				request.setEntity(ent);
 
+
+				// image file body ....? something is wrong
+				/*
+				ContentBody bin=null;
+				Bitmap bit=image.getDrawingCache();
+				if(bit != null) {
+					// create temp image file
+					File file=new File("./temp.jpg");
+					if(file.exists()) file.delete();
+					file.createNewFile();
+					FileOutputStream out=new FileOutputStream(file);
+					bit.compress(Bitmap.CompressFormat.JPEG,85,out);
+					out.flush();
+					out.close();
+					
+					bin=new FileBody(file);					
+				}
+				MultipartEntity ment=new MultipartEntity(HttpMultipartMode.BROWSER_COMPATIBLE);
+				ment.addPart("image",bin);
+				request.setEntity(ment);
+				*/
+				
 				// get result
 				InputStreamReader isr=NetworkSupporter.getStreamFromRequest(request);
 				String result=NetworkSupporter.getStringFromStream(isr);
