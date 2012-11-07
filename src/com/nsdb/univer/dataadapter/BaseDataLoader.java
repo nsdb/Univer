@@ -42,16 +42,21 @@ public abstract class BaseDataLoader<T> {
 		this.activity=activity;
 		this.view=view;
 		this.adapter=createListAdapter(activity,dataResourceId,new ArrayList<T>(),view);
-		view.setAdapter(adapter);
 
 		this.footerView=((LayoutInflater)(activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE)))
 				.inflate(R.layout.stringdata,null);
-		view.addFooterView(footerView);
+		TextView t=(TextView)footerView.findViewById(R.id.text);
+		t.setText("FooterView");
 		this.inScrollView=inScrollView;
 				
 		this.dataOriginal=new ArrayList<T>();
 		this.getter=null;
 		this.loadable=true;
+
+		// must add footerview before set adapter!
+		view.addFooterView(footerView);
+		view.setAdapter(adapter);
+
 	}
 	
 	
@@ -83,7 +88,7 @@ public abstract class BaseDataLoader<T> {
 			// footerView
 			TextView t=(TextView)footerView.findViewById(R.id.text);
 			t.setText("불러오는 중...");
-			view.setSelection(adapter.getCount()-1);
+			if(inScrollView) adapter.tuneToScrollView();
 			
 			super.onPreExecute();
 		}

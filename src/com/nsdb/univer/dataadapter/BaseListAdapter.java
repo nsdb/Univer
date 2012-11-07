@@ -47,7 +47,7 @@ public abstract class BaseListAdapter<T> extends ArrayAdapter<T> {
 	public void tuneToScrollView() {
 		int totalHeight=0;
 		int desiredWidth=MeasureSpec.makeMeasureSpec(view.getWidth(),MeasureSpec.AT_MOST);
-		for(int i=0;i<getCount();i++) {
+		for(int i=0;i<getCount()+view.getHeaderViewsCount()+view.getFooterViewsCount();i++) {
 			View item=getView(i,null,view);
 			item.measure(desiredWidth,MeasureSpec.UNSPECIFIED);
 			totalHeight+=item.getMeasuredHeight();
@@ -61,7 +61,6 @@ public abstract class BaseListAdapter<T> extends ArrayAdapter<T> {
 
 	
 	public T get(int position) {
-		position-=view.getHeaderViewsCount();
 		if(position>=0 && position<data.size())
 			return data.get(position);
 		else
@@ -70,3 +69,4 @@ public abstract class BaseListAdapter<T> extends ArrayAdapter<T> {
 	public ArrayList<T> getDataList() { return data; }
 
 }
+ 

@@ -102,9 +102,12 @@ public class BookDataLoader extends BaseDataLoader<BookData> {
 	@Override
 	protected void updateView(int result) {
 		super.updateView(result);		
-		RefreshableListView rlv=(RefreshableListView)getView();
-		if(rlv.isRefreshing())
-			rlv.completeRefreshing();
+		try {
+			RefreshableListView rlv=(RefreshableListView)getView();
+			if(rlv.isRefreshing())
+				rlv.completeRefreshing();
+		} catch(ClassCastException e) {
+		}
 	}
 
 	private class BookListAdapter extends BaseListAdapter<BookData> {

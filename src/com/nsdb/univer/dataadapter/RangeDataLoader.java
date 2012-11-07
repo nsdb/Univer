@@ -68,7 +68,7 @@ public class RangeDataLoader extends BaseDataLoader<RangeData> {
 
 	public void updateView(String filterTitle) {
 		this.filterTitle=filterTitle;
-		super.updateView(RESULT_SUCCESS);
+		updateView(RESULT_SUCCESS);
 	}
 
 	@Override
