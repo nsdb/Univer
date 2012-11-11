@@ -33,7 +33,6 @@ public class RegisterUser extends Activity implements OnClickListener {
 
 	TextView region,univ,college,major;
 	Button regionbtn,univbtn,collegebtn,majorbtn;
-	RangeSet rangeSet;
 	private final static int REQUESTCODE_RANGE=1;
 	
 	Button apply;	
@@ -56,12 +55,11 @@ public class RegisterUser extends Activity implements OnClickListener {
         univbtn=(Button)findViewById(R.id.univbtn);
         collegebtn=(Button)findViewById(R.id.collegebtn);
         majorbtn=(Button)findViewById(R.id.majorbtn);
-        rangeSet=new RangeSet(AppPref.getRangeSet());
-    	regionbtn.setOnClickListener(new OnClickMover(this,new Intent("RangeSetting").putExtra("filter","region"),REQUESTCODE_RANGE));
-    	univbtn.setOnClickListener(new OnClickMover(this,new Intent("RangeSetting").putExtra("filter","univ"),REQUESTCODE_RANGE));
-    	collegebtn.setOnClickListener(new OnClickMover(this,new Intent("RangeSetting").putExtra("filter","college"),REQUESTCODE_RANGE));
-    	majorbtn.setOnClickListener(new OnClickMover(this,new Intent("RangeSetting").putExtra("filter","major"),REQUESTCODE_RANGE));
-    	rangeSet.applyDataToView(region,univ,college,major,regionbtn,univbtn,collegebtn,majorbtn);
+    	regionbtn.setOnClickListener(new OnClickMover(this,new Intent("RangeSetting").putExtra("range","region"),REQUESTCODE_RANGE));
+    	univbtn.setOnClickListener(new OnClickMover(this,new Intent("RangeSetting").putExtra("range","univ"),REQUESTCODE_RANGE));
+    	collegebtn.setOnClickListener(new OnClickMover(this,new Intent("RangeSetting").putExtra("range","college"),REQUESTCODE_RANGE));
+    	majorbtn.setOnClickListener(new OnClickMover(this,new Intent("RangeSetting").putExtra("range","major"),REQUESTCODE_RANGE));
+    	AppPref.getRangeSet().applyDataToView(region,univ,college,major,regionbtn,univbtn,collegebtn,majorbtn);
         
         apply=(Button)findViewById(R.id.apply);
         apply.setOnClickListener(this);
@@ -73,12 +71,7 @@ public class RegisterUser extends Activity implements OnClickListener {
 	public void onActivityResult(int requestCode, int resultCode, Intent data)
 	{
     	if(resultCode==RESULT_OK) {
-			String filter=data.getStringExtra("filter");
-			String title=data.getStringExtra("title");
-			String nick=data.getStringExtra("nick");
-			int id=data.getIntExtra("id",-1);
-			rangeSet.set(filter,new RangeData(title,nick,id));
-	    	rangeSet.applyDataToView(region,univ,college,major,regionbtn,univbtn,collegebtn,majorbtn);
+	    	AppPref.getRangeSet().applyDataToView(region,univ,college,major,regionbtn,univbtn,collegebtn,majorbtn);
     	}
 	}
     
@@ -88,15 +81,15 @@ public class RegisterUser extends Activity implements OnClickListener {
 		if(id.getText().toString().compareTo("")==0 ||
 			nickname.getText().toString().compareTo("")==0 ||
 			password.getText().toString().compareTo("")==0 ||
-			rangeSet.isFilled()==false ) {
+			AppPref.getRangeSet().isFilled()==false ) {
 			Toast.makeText(this, "모든 데이터를 입력하여야 합니다",Toast.LENGTH_SHORT).show();				
 		} else {
 			System.out.println("ID : "+id.getText().toString());
 			System.out.println("NickName : "+nickname.getText().toString());
 			System.out.println("Password : "+password.getText().toString());
-			System.out.println("region : "+rangeSet.get("region").id );
-			System.out.println("university : "+rangeSet.get("univ").id );
-			System.out.println("college : "+rangeSet.get("college").id );
+			System.out.println("region : "+AppPref.getRangeSet().get("region").id );
+			System.out.println("university : "+AppPref.getRangeSet().get("univ").id );
+			System.out.println("college : "+AppPref.getRangeSet().get("college").id );
 			new RegisterUserHelper().execute();
 		}
 
@@ -127,10 +120,10 @@ public class RegisterUser extends Activity implements OnClickListener {
 				postdata.add( new BasicNameValuePair("email",id.getText().toString()) );
 				postdata.add( new BasicNameValuePair("first_name",nickname.getText().toString()) );
 				postdata.add( new BasicNameValuePair("password",password.getText().toString()) );
-				postdata.add( new BasicNameValuePair("region",""+rangeSet.get("region").id) );
-				postdata.add( new BasicNameValuePair("university",""+rangeSet.get("univ").id) );
-				postdata.add( new BasicNameValuePair("college",""+rangeSet.get("college").id) );
-				//postdata.add( new BasicNameValuePair("major",""+rangeSet.get("major").id) );
+				postdata.add( new BasicNameValuePair("region",""+AppPref.getRangeSet().get("region").id) );
+				postdata.add( new BasicNameValuePair("university",""+AppPref.getRangeSet().get("univ").id) );
+				postdata.add( new BasicNameValuePair("college",""+AppPref.getRangeSet().get("college").id) );
+				//postdata.add( new BasicNameValuePair("major",""+AppPref.getRangeSet().get("major").id) );
 				postdata.add( new BasicNameValuePair("device_type",""+2) );
 				postdata.add( new BasicNameValuePair("deviceToken",""+123) );
 				UrlEncodedFormEntity ent = new UrlEncodedFormEntity(postdata,HTTP.UTF_8);
@@ -157,7 +150,6 @@ public class RegisterUser extends Activity implements OnClickListener {
 				Toast.makeText(RegisterUser.this,"가입 성공",Toast.LENGTH_SHORT).show();
 				AppPref.setString("id",id.getText().toString());
 				AppPref.setString("password",password.getText().toString());
-				AppPref.setRangeSet(rangeSet);
 				startActivity( new Intent("TabMain") );
 				setResult(RESULT_OK,getIntent());
 				finish();

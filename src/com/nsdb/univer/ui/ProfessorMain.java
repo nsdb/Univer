@@ -61,10 +61,10 @@ public class ProfessorMain extends ActiveFragment implements OnItemClickListener
     	univ=(Button)v.findViewById(R.id.univ);
     	college=(Button)v.findViewById(R.id.college);
     	major=(Button)v.findViewById(R.id.major);
-    	region.setOnClickListener(new OnClickMover(THIS,new Intent("RangeSetting").putExtra("filter","region"),REQUESTCODE_RANGE));
-    	univ.setOnClickListener(new OnClickMover(THIS,new Intent("RangeSetting").putExtra("filter","univ"),REQUESTCODE_RANGE));
-    	college.setOnClickListener(new OnClickMover(THIS,new Intent("RangeSetting").putExtra("filter","college"),REQUESTCODE_RANGE));
-    	major.setOnClickListener(new OnClickMover(THIS,new Intent("RangeSetting").putExtra("filter","major"),REQUESTCODE_RANGE));
+    	region.setOnClickListener(new OnClickMover(THIS,new Intent("RangeSetting").putExtra("range","region"),REQUESTCODE_RANGE));
+    	univ.setOnClickListener(new OnClickMover(THIS,new Intent("RangeSetting").putExtra("range","univ"),REQUESTCODE_RANGE));
+    	college.setOnClickListener(new OnClickMover(THIS,new Intent("RangeSetting").putExtra("range","college"),REQUESTCODE_RANGE));
+    	major.setOnClickListener(new OnClickMover(THIS,new Intent("RangeSetting").putExtra("range","major"),REQUESTCODE_RANGE));
 		AppPref.getRangeSet().applyDataToView(region, univ, college, major);
 
         // ListView
@@ -85,20 +85,17 @@ public class ProfessorMain extends ActiveFragment implements OnItemClickListener
 		if(resultCode != Activity.RESULT_OK) return;
 		
 		switch(requestCode) {
-		case REQUESTCODE_RANGE: {
-			String filter=data.getStringExtra("filter");
-			String title=data.getStringExtra("title");
-			String nick=data.getStringExtra("nick");
-			int id=data.getIntExtra("id",-1);
-			AppPref.getRangeSet().set(filter,new RangeData( title,nick,id ));
-			}
-			AppPref.getRangeSet().applyDataToView(region, univ, college, major);
-	    	adapter.updateData("",true);
-			break;
+		case REQUESTCODE_RANGE:
+			if(resultCode == Activity.RESULT_OK) {
+				AppPref.getRangeSet().applyDataToView(region, univ, college, major);
+		    	adapter.updateData("",true);
+			} break;
 			
 		case REQUESTCODE_REGISTERPROFESSOR:
-	    	adapter.updateData("",true);
-			break;
+			if(resultCode == Activity.RESULT_OK || data.getBooleanExtra("range_changed",false)==true) {
+				AppPref.getRangeSet().applyDataToView(region, univ, college, major);
+				adapter.updateData("",true);
+			} break;
 		}
 	}
 	

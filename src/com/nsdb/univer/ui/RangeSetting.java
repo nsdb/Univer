@@ -1,6 +1,8 @@
 package com.nsdb.univer.ui;
 
 import com.nsdb.univer.R;
+import com.nsdb.univer.common.AppPref;
+import com.nsdb.univer.common.RangeData;
 import com.nsdb.univer.dataadapter.RangeDataAdapter;
 import com.woozzu.android.widget.IndexableListView;
 
@@ -34,7 +36,7 @@ public class RangeSetting extends Activity implements OnItemClickListener, OnCli
         setContentView(R.layout.rangesetting);
                 
         // title
-        range=getIntent().getStringExtra("filter");
+        range=getIntent().getStringExtra("range");
         title=(TextView)findViewById(R.id.title);        
         if(range.compareTo("region")==0)
         	title.setText("지역선택");
@@ -76,10 +78,7 @@ public class RangeSetting extends Activity implements OnItemClickListener, OnCli
 	public void onItemClick(AdapterView<?> parent, View view, int position, long l_position) {
 		
 		if(adapter.getItem(position) != null) {
-			getIntent().putExtra("filter",range);
-			getIntent().putExtra("title",adapter.getItem(position).title);
-			getIntent().putExtra("nick",adapter.getItem(position).nick);
-			getIntent().putExtra("id",adapter.getItem(position).id);
+			AppPref.getRangeSet().set(range,adapter.getItem(position));
 			setResult(RESULT_OK,getIntent());
 			finish();
 		}
@@ -87,10 +86,7 @@ public class RangeSetting extends Activity implements OnItemClickListener, OnCli
 
 	public void onClick(View v) {
 		
-		getIntent().putExtra("filter",range);
-		getIntent().putExtra("title","");
-		getIntent().putExtra("nick","");
-		getIntent().putExtra("id",-1);
+		AppPref.getRangeSet().set(range,new RangeData());
 		setResult(RESULT_OK,getIntent());
 		finish();
 	}

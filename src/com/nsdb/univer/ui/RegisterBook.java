@@ -6,16 +6,12 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
-import org.apache.http.NameValuePair;
-import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.mime.HttpMultipartMode;
 import org.apache.http.entity.mime.MultipartEntity;
-import org.apache.http.entity.mime.content.ContentBody;
 import org.apache.http.entity.mime.content.FileBody;
-import org.apache.http.message.BasicNameValuePair;
-import org.apache.http.protocol.HTTP;
+import org.apache.http.entity.mime.content.StringBody;
 import org.jdom2.Element;
 import com.nsdb.univer.R;
 import com.nsdb.univer.common.AppPref;
@@ -35,6 +31,7 @@ import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.provider.MediaStore.Images;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.WindowManager;
@@ -55,7 +52,6 @@ public class RegisterBook extends Activity implements OnClickListener, OnChecked
 	int saleMode;
 	TextView region,univ,college,major;
 	Button regionbtn,univbtn,collegebtn,majorbtn;
-	RangeSet rangeSet;
 	private final static int REQUESTCODE_RANGE=4;
 	
 	Button barcode;
@@ -90,12 +86,11 @@ public class RegisterBook extends Activity implements OnClickListener, OnChecked
         univbtn=(Button)findViewById(R.id.univbtn);
         collegebtn=(Button)findViewById(R.id.collegebtn);
         majorbtn=(Button)findViewById(R.id.majorbtn);
-        rangeSet=new RangeSet(AppPref.getRangeSet());
-    	regionbtn.setOnClickListener(new OnClickMover(this,new Intent("RangeSetting").putExtra("filter","region"),REQUESTCODE_RANGE));
-    	univbtn.setOnClickListener(new OnClickMover(this,new Intent("RangeSetting").putExtra("filter","univ"),REQUESTCODE_RANGE));
-    	collegebtn.setOnClickListener(new OnClickMover(this,new Intent("RangeSetting").putExtra("filter","college"),REQUESTCODE_RANGE));
-    	majorbtn.setOnClickListener(new OnClickMover(this,new Intent("RangeSetting").putExtra("filter","major"),REQUESTCODE_RANGE));
-    	rangeSet.applyDataToView(region,univ,college,major,regionbtn,univbtn,collegebtn,majorbtn);
+    	regionbtn.setOnClickListener(new OnClickMover(this,new Intent("RangeSetting").putExtra("range","region"),REQUESTCODE_RANGE));
+    	univbtn.setOnClickListener(new OnClickMover(this,new Intent("RangeSetting").putExtra("range","univ"),REQUESTCODE_RANGE));
+    	collegebtn.setOnClickListener(new OnClickMover(this,new Intent("RangeSetting").putExtra("range","college"),REQUESTCODE_RANGE));
+    	majorbtn.setOnClickListener(new OnClickMover(this,new Intent("RangeSetting").putExtra("range","major"),REQUESTCODE_RANGE));
+    	AppPref.getRangeSet().applyDataToView(region,univ,college,major,regionbtn,univbtn,collegebtn,majorbtn);
         
         // second linear
         barcode=(Button)findViewById(R.id.barcode);
@@ -248,7 +243,7 @@ public class RegisterBook extends Activity implements OnClickListener, OnChecked
 			
 
 		case R.id.apply:
-			if(rangeSet.isFilled()==false ||
+			if(AppPref.getRangeSet().isFilled()==false ||
 			title.getText().toString().compareTo("")==0 ||
 			publisher.getText().toString().compareTo("")==0 ||
 			author.getText().toString().compareTo("")==0 ||
@@ -271,12 +266,8 @@ public class RegisterBook extends Activity implements OnClickListener, OnChecked
 		if(resultCode==RESULT_OK) {
 			switch(requestCode) {
 			case REQUESTCODE_RANGE: {
-				String filter=data.getStringExtra("filter");
-				String title=data.getStringExtra("title");
-				String nick=data.getStringExtra("nick");
-				int id=data.getIntExtra("id",-1);
-				rangeSet.set(filter,new RangeData(title,nick,id));
-		    	rangeSet.applyDataToView(region,univ,college,major,regionbtn,univbtn,collegebtn,majorbtn);
+				AppPref.getRangeSet().applyDataToView(region,univ,college,major,regionbtn,univbtn,collegebtn,majorbtn);
+				getIntent().putExtra("range_changed",true);
 				} break;
 			case REQUESTCODE_BARCODE:
 				isbn=data.getStringExtra("SCAN_RESULT");
@@ -323,32 +314,28 @@ public class RegisterBook extends Activity implements OnClickListener, OnChecked
 				// create http post for sending
 				HttpPost request=new HttpPost(url);
 				
-				ArrayList<NameValuePair> postdata=new ArrayList<NameValuePair>();
-				postdata.add(new BasicNameValuePair("title", title.getText().toString()));
-				postdata.add(new BasicNameValuePair("original_price", original_price.getText().toString()));
-				postdata.add(new BasicNameValuePair("discount_price", discount_price.getText().toString()));
-				postdata.add(new BasicNameValuePair("published", pubdate.getText().toString()));
-				postdata.add(new BasicNameValuePair("edition", edition.getText().toString()));
-				postdata.add(new BasicNameValuePair("publisher", publisher.getText().toString()));
-				postdata.add(new BasicNameValuePair("book_author", author.getText().toString()));
-				postdata.add(new BasicNameValuePair("content", description.getText().toString()));
-				postdata.add(new BasicNameValuePair("region",""+rangeSet.get("region").id) );
-				postdata.add(new BasicNameValuePair("university",""+rangeSet.get("univ").id) );
-				postdata.add(new BasicNameValuePair("college",""+rangeSet.get("college").id) );
-				//postdata.add( new BasicNameValuePair("major",""+rangeSet.get("major").id) );
-				postdata.add(new BasicNameValuePair("sale", ""+BookData.SALESTATE_ABLE));
-				postdata.add(new BasicNameValuePair("parcel", (parcel.isChecked())? "1":"0"));
-				postdata.add(new BasicNameValuePair("meet", (meet.isChecked())? "1":"0"));
-				postdata.add(new BasicNameValuePair("country", "1"));
-				postdata.add(new BasicNameValuePair("sell", ""+saleMode));
-				postdata.add(new BasicNameValuePair("isbn", ""+isbn));
-				UrlEncodedFormEntity ent = new UrlEncodedFormEntity(postdata,HTTP.UTF_8);
-				request.setEntity(ent);
-
-
-				// image file body ....? something is wrong
-				/*
-				ContentBody bin=null;
+				// multipart entity
+				MultipartEntity ment=new MultipartEntity(HttpMultipartMode.BROWSER_COMPATIBLE);
+				// base data
+				ment.addPart("title",new StringBody(title.getText().toString()));				
+				ment.addPart("original_price",new StringBody(original_price.getText().toString()));
+				ment.addPart("discount_price",new StringBody(discount_price.getText().toString()));
+				ment.addPart("published",new StringBody(pubdate.getText().toString()));
+				ment.addPart("edition",new StringBody(edition.getText().toString()));
+				ment.addPart("publisher",new StringBody(publisher.getText().toString()));
+				ment.addPart("book_author",new StringBody(author.getText().toString()));
+				ment.addPart("content",new StringBody(description.getText().toString()));
+				ment.addPart("region",new StringBody(""+AppPref.getRangeSet().get("region").id));
+				ment.addPart("university",new StringBody(""+AppPref.getRangeSet().get("univ").id));
+				ment.addPart("college",new StringBody(""+AppPref.getRangeSet().get("college").id));
+				//ment.addPart("major",new StringBody(""+AppPref.getRangeSet().get("major").id));
+				ment.addPart("sale",new StringBody(""+BookData.SALESTATE_ABLE));
+				ment.addPart("parcel",new StringBody((parcel.isChecked())? "1":"0"));
+				ment.addPart("meet",new StringBody((meet.isChecked())? "1":"0"));
+				ment.addPart("country",new StringBody("1"));
+				ment.addPart("sell",new StringBody(""+saleMode));
+				ment.addPart("isbn",new StringBody(""+isbn));
+				// image data
 				Bitmap bit=image.getDrawingCache();
 				if(bit != null) {
 					// create temp image file
@@ -360,12 +347,11 @@ public class RegisterBook extends Activity implements OnClickListener, OnChecked
 					out.flush();
 					out.close();
 					
-					bin=new FileBody(file);					
+					FileBody bin=new FileBody(file);					
+					ment.addPart("image",bin);
 				}
-				MultipartEntity ment=new MultipartEntity(HttpMultipartMode.BROWSER_COMPATIBLE);
-				ment.addPart("image",bin);
+				// set
 				request.setEntity(ment);
-				*/
 				
 				// get result
 				InputStreamReader isr=NetworkSupporter.getStreamFromRequest(request);
@@ -386,7 +372,6 @@ public class RegisterBook extends Activity implements OnClickListener, OnChecked
 
 			if(result.compareTo("200")==0) {
 				Toast.makeText(RegisterBook.this,"등록 성공",Toast.LENGTH_SHORT).show();
-				AppPref.setRangeSet(rangeSet);
 				setResult(RESULT_OK,getIntent());
 				finish();
 			} else {
@@ -395,4 +380,17 @@ public class RegisterBook extends Activity implements OnClickListener, OnChecked
 		}
 	}
 
+	@Override public boolean onKeyDown(int keyCode, KeyEvent event)
+	{
+		switch (keyCode)
+		{
+		case KeyEvent.KEYCODE_BACK:
+			// if you don't set result, returned Intent (when this activity is finished) is null.
+			setResult(RESULT_CANCELED,getIntent());
+			finish();
+			return true;
+		default:
+			return false;
+		}
+	}
 }
