@@ -120,9 +120,12 @@ public class BookDataAdapter extends DataLoadingArrayAdapter<BookData> {
 	@Override
 	protected void applyUpdate() {
 		super.applyUpdate();
-		RefreshableListView rlv=(RefreshableListView)getListView();
-		if(rlv.isRefreshing())
-			rlv.completeRefreshing();
+		try {
+			RefreshableListView rlv=(RefreshableListView)getListView();
+			if(rlv.isRefreshing())
+				rlv.completeRefreshing();
+		} catch(ClassCastException e) {			
+		}
 	}
 
 	@Override

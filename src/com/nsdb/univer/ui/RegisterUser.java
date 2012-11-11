@@ -11,8 +11,6 @@ import org.apache.http.protocol.HTTP;
 import com.nsdb.univer.R;
 import com.nsdb.univer.common.AppPref;
 import com.nsdb.univer.common.NetworkSupporter;
-import com.nsdb.univer.common.RangeData;
-import com.nsdb.univer.common.RangeSet;
 import com.nsdb.univer.common.ui.OnClickMover;
 
 import android.app.Activity;

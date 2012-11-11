@@ -25,6 +25,7 @@ public class RangeDataAdapter extends DataLoadingArrayAdapter<RangeData> impleme
 		
 		// because adapter is set before sectionArr is initialized
 		// and it is also same result : private String sectionArr="ㄱㄲㄴㄷㄸㄹㅁㅂㅃㅅㅆㅇㅈㅉㅊㅋㅌㅍㅎ";
+		view.setAdapter(null);
 		view.setAdapter(this);
 	}
 	

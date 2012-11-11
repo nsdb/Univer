@@ -3,7 +3,6 @@ package com.nsdb.univer.ui;
 import com.makeramen.segmented.SegmentedRadioGroup;
 import com.nsdb.univer.R;
 import com.nsdb.univer.common.AppPref;
-import com.nsdb.univer.common.RangeData;
 import com.nsdb.univer.common.ui.ActiveFragment;
 import com.nsdb.univer.common.ui.OnClickMover;
 import com.nsdb.univer.dataadapter.BookDataAdapter;

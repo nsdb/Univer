@@ -69,6 +69,7 @@ public class NetworkSupporter {
 		String result="";
 		String temp=br.readLine();
 		while(temp!=null) {
+			System.out.println(temp);
 			result=temp;
 			temp=br.readLine();
 		}

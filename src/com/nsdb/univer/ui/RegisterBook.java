@@ -5,6 +5,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.nio.charset.Charset;
 import java.util.ArrayList;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
@@ -17,8 +18,6 @@ import com.nsdb.univer.R;
 import com.nsdb.univer.common.AppPref;
 import com.nsdb.univer.common.BookData;
 import com.nsdb.univer.common.NetworkSupporter;
-import com.nsdb.univer.common.RangeData;
-import com.nsdb.univer.common.RangeSet;
 import com.nsdb.univer.common.ui.OnClickMover;
 import com.nsdb.univer.common.ui.ImageSetterNoCache;
 
@@ -317,14 +316,14 @@ public class RegisterBook extends Activity implements OnClickListener, OnChecked
 				// multipart entity
 				MultipartEntity ment=new MultipartEntity(HttpMultipartMode.BROWSER_COMPATIBLE);
 				// base data
-				ment.addPart("title",new StringBody(title.getText().toString()));				
+				ment.addPart("title",new StringBody(title.getText().toString(),Charset.forName("UTF-8")));				
 				ment.addPart("original_price",new StringBody(original_price.getText().toString()));
 				ment.addPart("discount_price",new StringBody(discount_price.getText().toString()));
 				ment.addPart("published",new StringBody(pubdate.getText().toString()));
 				ment.addPart("edition",new StringBody(edition.getText().toString()));
-				ment.addPart("publisher",new StringBody(publisher.getText().toString()));
-				ment.addPart("book_author",new StringBody(author.getText().toString()));
-				ment.addPart("content",new StringBody(description.getText().toString()));
+				ment.addPart("publisher",new StringBody(publisher.getText().toString(),Charset.forName("UTF-8")));
+				ment.addPart("book_author",new StringBody(author.getText().toString(),Charset.forName("UTF-8")));
+				ment.addPart("content",new StringBody(description.getText().toString(),Charset.forName("UTF-8")));
 				ment.addPart("region",new StringBody(""+AppPref.getRangeSet().get("region").id));
 				ment.addPart("university",new StringBody(""+AppPref.getRangeSet().get("univ").id));
 				ment.addPart("college",new StringBody(""+AppPref.getRangeSet().get("college").id));
@@ -339,15 +338,14 @@ public class RegisterBook extends Activity implements OnClickListener, OnChecked
 				Bitmap bit=image.getDrawingCache();
 				if(bit != null) {
 					// create temp image file
-					File file=new File("./temp.jpg");
-					if(file.exists()) file.delete();
-					file.createNewFile();
-					FileOutputStream out=new FileOutputStream(file);
+					FileOutputStream out = openFileOutput("temp.jpg",MODE_PRIVATE);
 					bit.compress(Bitmap.CompressFormat.JPEG,85,out);
 					out.flush();
 					out.close();
 					
-					FileBody bin=new FileBody(file);					
+					// create FileBody
+					File f=new File(getFilesDir().getPath()+"/temp.jpg");
+					FileBody bin=new FileBody(f);
 					ment.addPart("image",bin);
 				}
 				// set

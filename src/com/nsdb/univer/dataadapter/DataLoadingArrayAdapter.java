@@ -36,6 +36,8 @@ public abstract class DataLoadingArrayAdapter<T> extends BaseArrayAdapter<T> {
 		TextView t=(TextView)footerNoticeView.findViewById(R.id.text);
 		t.setText("FooterView");
 		// FooterView must add before set adapter, because of WrapperListAdapter
+		// unless, you will see a lot of exceptions...
+		view.setAdapter(null);
 		view.addFooterView(footerNoticeView);
 		view.setAdapter(this);
 		// Data Getting

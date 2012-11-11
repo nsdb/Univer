@@ -3,4 +3,5 @@
     <dimen name="bookdata_height">80dp</dimen>
     <dimen name="professordata_height">80dp</dimen>
     <dimen name="commentdata_height">80dp</dimen>
+    <dimen name="stringdata_height">60dp</dimen>
 </resources>

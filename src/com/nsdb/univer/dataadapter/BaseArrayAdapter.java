@@ -28,7 +28,6 @@ public abstract class BaseArrayAdapter<T> extends ArrayAdapter<T> {
 			v=((LayoutInflater)(getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE)))
 			.inflate(dataResourceId,null);
 		
-		position-=view.getHeaderViewsCount();		
 		if(position>=0 && position<getCount()) {
 			setView(position,v);
 		}
@@ -48,16 +47,20 @@ public abstract class BaseArrayAdapter<T> extends ArrayAdapter<T> {
 	private void tuneToScrollView() {
 		int totalHeight=0;
 		int desiredWidth=MeasureSpec.makeMeasureSpec(view.getWidth(),MeasureSpec.AT_MOST);
-		for(int i=0;i<getCount()+view.getHeaderViewsCount()+view.getFooterViewsCount();i++) {
+		// heights of items
+		for(int i=0;i<getCount();i++) {
 			View item=getView(i,null,view);
 			item.measure(desiredWidth,MeasureSpec.UNSPECIFIED);
 			totalHeight+=item.getMeasuredHeight();
 			System.out.println(""+i+" "+item.getMeasuredHeight()+" "+totalHeight);
 		}
+		// heights of header, footer views (because I can't get view, use template height)
+		totalHeight+=(view.getHeaderViewsCount()+view.getFooterViewsCount())*150;
+		// apply
 		ViewGroup.LayoutParams params=view.getLayoutParams();
 		params.height=totalHeight+(view.getDividerHeight()*(getCount()-1));
 		view.setLayoutParams(params);
-		view.requestLayout();		
+		view.requestLayout();
 	}
 	////
 	
