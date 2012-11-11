@@ -4,7 +4,6 @@ import com.nsdb.univer.R;
 import com.nsdb.univer.supporter.adapter.ProfessorDataAdapter;
 import com.nsdb.univer.supporter.data.AppPref;
 import com.nsdb.univer.supporter.ui.OnClickMover;
-import com.nsdb.univer.ui.parent.ActiveFragment;
 import com.woozzu.android.widget.RefreshableListView;
 import com.woozzu.android.widget.RefreshableListView.OnRefreshListener;
 

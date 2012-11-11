@@ -3,7 +3,6 @@ package com.nsdb.univer.ui.activity;
 import com.nsdb.univer.R;
 import com.nsdb.univer.ui.fragment.BookMarketMain;
 import com.nsdb.univer.ui.fragment.ProfessorMain;
-import com.nsdb.univer.ui.parent.ActiveFragmentHost;
 
 import android.os.Bundle;
 import android.widget.Button;
