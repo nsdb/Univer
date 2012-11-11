@@ -4,7 +4,7 @@ import com.fedorvlasov.lazylist.ImageLoader;
 import com.nsdb.univer.R;
 import com.nsdb.univer.common.AppPref;
 import com.nsdb.univer.common.BookData;
-import com.nsdb.univer.dataadapter.BookDataLoader;
+import com.nsdb.univer.dataadapter.BookDataAdapter;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -20,16 +20,20 @@ import android.widget.ListView;
 
 public class BookDetail extends Activity implements OnItemClickListener {
 
+    // data
 	BookData lastdata;
 	
+    // second linear
 	ImageView image;
 	EditText title,publisher,author,pubdate,edition,original_price,discount_price;
 
+    // third linear
 	EditText description;
 	CheckBox parcel,meet;
 	
+    // ListView
 	ListView lv;
-	BookDataLoader loader;
+	BookDataAdapter adapter;
 	
 	@Override
     public void onCreate(Bundle savedInstanceState) {
@@ -73,14 +77,15 @@ public class BookDetail extends Activity implements OnItemClickListener {
         
         // ListView
     	lv=(ListView)findViewById(R.id.booklist);
-    	loader=new BookDataLoader(this,lv,true);
+    	adapter=new BookDataAdapter(this,lv);
+    	adapter.setVariableHeight(true);
     	lv.setOnItemClickListener(this);
-    	loader.updateData("",BookDataLoader.RANGEMODE_OTHER,BookData.SALEMODE_ALL,1,lastdata.seller_id);
+    	adapter.updateData(lastdata.seller_id,true);
     }
 
 	public void onItemClick(AdapterView<?> parent, View view, int position, long l_position) {
-		if(loader.get(position) != null) {
-			AppPref.setLastBookData(loader.get(position));
+		if(adapter.getItem(position) != null) {
+			AppPref.setLastBookData(adapter.getItem(position));
 			startActivity( new Intent("BookDetail") );
 			finish();
 		}

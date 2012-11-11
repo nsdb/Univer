@@ -3,11 +3,10 @@ package com.nsdb.univer.ui;
 import com.makeramen.segmented.SegmentedRadioGroup;
 import com.nsdb.univer.R;
 import com.nsdb.univer.common.AppPref;
-import com.nsdb.univer.common.BookData;
 import com.nsdb.univer.common.RangeData;
 import com.nsdb.univer.common.ui.ActiveFragment;
 import com.nsdb.univer.common.ui.OnClickMover;
-import com.nsdb.univer.dataadapter.BookDataLoader;
+import com.nsdb.univer.dataadapter.BookDataAdapter;
 import com.woozzu.android.widget.RefreshableListView;
 import com.woozzu.android.widget.RefreshableListView.OnRefreshListener;
 
@@ -28,22 +27,25 @@ import android.widget.RadioGroup.OnCheckedChangeListener;
 
 public class BookMarketMain extends ActiveFragment implements OnItemClickListener, OnCheckedChangeListener, OnScrollListener, OnRefreshListener {
 	
+    // actionbar - search
 	Button search;	
 	EditText searchtxt;
 
-	SegmentedRadioGroup sale;
-	int saleMode;
+    // actionbar - category
+	SegmentedRadioGroup category;
+	int categoryState;
 	
+    // actionbar - register
 	Button register;
 	private final static int REQUESTCODE_REGISTERBOOK=1;
 	
+    // range setting
 	Button region, univ, college, major;
-	int rangeMode;
 	private final static int REQUESTCODE_RANGE=2;
 
+    // ListView
 	RefreshableListView lv;
-	BookDataLoader loader;
-	int pageNum;
+	BookDataAdapter adapter;
 	
 	BookMarketMain(Activity activity) {
 		super(activity,R.layout.bookmarketmain);
@@ -58,9 +60,9 @@ public class BookMarketMain extends ActiveFragment implements OnItemClickListene
         searchtxt=(EditText)v.findViewById(R.id.searchtxt);
 
         // actionbar - sale
-        sale=(SegmentedRadioGroup)v.findViewById(R.id.sale);
-        sale.setOnCheckedChangeListener(this);
-        saleMode=BookData.SALEMODE_SELL;
+        category=(SegmentedRadioGroup)v.findViewById(R.id.sale);
+        category.setOnCheckedChangeListener(this);
+        categoryState=0;
         
         // actionbar - register
         register=(Button)v.findViewById(R.id.register);
@@ -75,19 +77,16 @@ public class BookMarketMain extends ActiveFragment implements OnItemClickListene
     	univ.setOnClickListener(new OnClickMover(THIS,new Intent("RangeSetting").putExtra("filter","univ"),REQUESTCODE_RANGE));
     	college.setOnClickListener(new OnClickMover(THIS,new Intent("RangeSetting").putExtra("filter","college"),REQUESTCODE_RANGE));
     	major.setOnClickListener(new OnClickMover(THIS,new Intent("RangeSetting").putExtra("filter","major"),REQUESTCODE_RANGE));
-        rangeMode=BookDataLoader.getDefaultRangeMode();
-    	// Not yet
-    	major.setEnabled(false);
+		AppPref.getRangeSet().applyDataToView(region, univ, college, major);
 
         // ListView
     	lv=(RefreshableListView)v.findViewById(R.id.booklist);
-    	loader=new BookDataLoader(THIS,lv,false);
+    	adapter=new BookDataAdapter(THIS,lv);
     	lv.setOnItemClickListener(this);
     	lv.setOnScrollListener(this);
     	lv.setOnRefreshListener(this);
-    	pageNum=1;
-    	updateView();
-    	
+    	adapter.updateData("",categoryState,true);
+
     	return v;
 	}
 	
@@ -105,70 +104,43 @@ public class BookMarketMain extends ActiveFragment implements OnItemClickListene
 			int id=data.getIntExtra("id",-1);
 			AppPref.getRangeSet().set(filter,new RangeData( title,nick,id ));
 			}
-			pageNum=1;
-			updateView();
+			AppPref.getRangeSet().applyDataToView(region, univ, college, major);
+	    	adapter.updateData("",categoryState,true);
 			break;
 			
 		case REQUESTCODE_REGISTERBOOK:
-			// RangeData is changed by RegisterBook activity
-			pageNum=1;
-			updateView();
+	    	adapter.updateData("",categoryState,true);
 			break;
 		}
 	}
 	
 
 	public void onItemClick(AdapterView<?> parent, View view, int position, long l_position) {
-		if(loader.get(position)!=null) {
-			AppPref.setLastBookData(loader.get(position));
+		if(adapter.getItem(position)!=null) {
+			AppPref.setLastBookData(adapter.getItem(position));
 			THIS.startActivity(new Intent("BookDetail"));
 		}
 	}
 
 	public void onCheckedChanged(RadioGroup group, int checkedId) {
-		switch(checkedId) {
-		case R.id.sell:
-			saleMode=BookData.SALEMODE_SELL;
-			rangeMode=BookDataLoader.getDefaultRangeMode();
-			break;
-		case R.id.buy:
-			saleMode=BookData.SALEMODE_BUY;
-			rangeMode=BookDataLoader.getDefaultRangeMode();
-			break;
-		case R.id.mine:
-			saleMode=BookData.SALEMODE_ALL;
-			rangeMode=BookDataLoader.RANGEMODE_MINE;
-			break;
+		switch(checkedId) {		
+		case R.id.sell: categoryState=0; break;
+		case R.id.buy: categoryState=1; break;
+		case R.id.mine: categoryState=2; break;
 		}
-		updateView();
-	}
-
-	public void updateView() {
-				
-		// rangebutton
-		AppPref.getRangeSet().applyDataToView(region, univ, college, major);
-
-    	// rangemode
-		if(rangeMode != BookDataLoader.RANGEMODE_MINE)
-			rangeMode=BookDataLoader.getDefaultRangeMode();
-		
-    	// list
-    	loader.updateData("",rangeMode,saleMode,pageNum);
+    	adapter.updateData("",categoryState,true);
 	}
 
 	public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
-		if(firstVisibleItem+visibleItemCount==totalItemCount && loader.isLoadable()) {
-			pageNum++;
-			updateView();
+		if(firstVisibleItem+visibleItemCount==totalItemCount) {
+	    	adapter.updateData("",categoryState,false);
 		}
 	}
 
 	public void onScrollStateChanged(AbsListView view, int scrollState) {}
 
 	public void onRefresh(RefreshableListView listView) {
-		pageNum=1;
-		updateView();
-		
+    	adapter.updateData("",categoryState,true);
 	}
 
 }

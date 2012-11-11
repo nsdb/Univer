@@ -1,7 +1,7 @@
 package com.nsdb.univer.ui;
 
 import com.nsdb.univer.R;
-import com.nsdb.univer.dataadapter.RangeDataLoader;
+import com.nsdb.univer.dataadapter.RangeDataAdapter;
 import com.woozzu.android.widget.IndexableListView;
 
 import android.app.Activity;
@@ -19,12 +19,12 @@ import android.widget.TextView;
 
 public class RangeSetting extends Activity implements OnItemClickListener, OnClickListener {
 	
-	String filter;
+	String range;
 	TextView title;
 	EditText edit;
 
 	IndexableListView list;
-	RangeDataLoader loader;
+	RangeDataAdapter adapter;
 	
 	Button clear;
 
@@ -34,15 +34,15 @@ public class RangeSetting extends Activity implements OnItemClickListener, OnCli
         setContentView(R.layout.rangesetting);
                 
         // title
-        filter=getIntent().getStringExtra("filter");
+        range=getIntent().getStringExtra("filter");
         title=(TextView)findViewById(R.id.title);        
-        if(filter.compareTo("region")==0)
+        if(range.compareTo("region")==0)
         	title.setText("지역선택");
-        else if(filter.compareTo("univ")==0)
+        else if(range.compareTo("univ")==0)
         	title.setText("학교선택");
-        else if(filter.compareTo("college")==0)
+        else if(range.compareTo("college")==0)
         	title.setText("단과대선택");
-        else if(filter.compareTo("major")==0)
+        else if(range.compareTo("major")==0)
         	title.setText("학과선택");
         else {
         	finish();
@@ -56,16 +56,16 @@ public class RangeSetting extends Activity implements OnItemClickListener, OnCli
 			public void afterTextChanged(Editable arg0) {}
 			public void beforeTextChanged(CharSequence arg0, int arg1, int arg2, int arg3) {}
 			public void onTextChanged(CharSequence s, int start, int before, int count) {
-				loader.updateView( s.toString() );
+				adapter.filter( s.toString() );
 			}
         });
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
         	
         // listview
         list=(IndexableListView)findViewById(R.id.list);
-        loader=new RangeDataLoader(this,list,false);
+        adapter=new RangeDataAdapter(this,list);
         list.setOnItemClickListener(this);
-    	loader.updateData(filter);
+        adapter.updateData(range);
 
     	
     	// Button
@@ -75,11 +75,11 @@ public class RangeSetting extends Activity implements OnItemClickListener, OnCli
     
 	public void onItemClick(AdapterView<?> parent, View view, int position, long l_position) {
 		
-		if(loader.get(position) != null) {
-			getIntent().putExtra("filter",filter);
-			getIntent().putExtra("title",loader.get(position).title);
-			getIntent().putExtra("nick",loader.get(position).nick);
-			getIntent().putExtra("id",loader.get(position).id);
+		if(adapter.getItem(position) != null) {
+			getIntent().putExtra("filter",range);
+			getIntent().putExtra("title",adapter.getItem(position).title);
+			getIntent().putExtra("nick",adapter.getItem(position).nick);
+			getIntent().putExtra("id",adapter.getItem(position).id);
 			setResult(RESULT_OK,getIntent());
 			finish();
 		}
@@ -87,7 +87,7 @@ public class RangeSetting extends Activity implements OnItemClickListener, OnCli
 
 	public void onClick(View v) {
 		
-		getIntent().putExtra("filter",filter);
+		getIntent().putExtra("filter",range);
 		getIntent().putExtra("title","");
 		getIntent().putExtra("nick","");
 		getIntent().putExtra("id",-1);

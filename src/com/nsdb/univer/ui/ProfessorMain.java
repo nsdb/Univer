@@ -5,7 +5,7 @@ import com.nsdb.univer.common.AppPref;
 import com.nsdb.univer.common.RangeData;
 import com.nsdb.univer.common.ui.ActiveFragment;
 import com.nsdb.univer.common.ui.OnClickMover;
-import com.nsdb.univer.dataadapter.ProfessorDataLoader;
+import com.nsdb.univer.dataadapter.ProfessorDataAdapter;
 import com.woozzu.android.widget.RefreshableListView;
 import com.woozzu.android.widget.RefreshableListView.OnRefreshListener;
 
@@ -24,18 +24,21 @@ import android.widget.EditText;
 
 public class ProfessorMain extends ActiveFragment implements OnItemClickListener, OnScrollListener, OnRefreshListener {
 	
+    // actionbar - search
 	Button search;	
 	EditText searchtxt;
 	
+    // actionbar - register
 	Button register;
 	private final static int REQUESTCODE_REGISTERPROFESSOR=1;
 	
+    // range setting
 	Button region, univ, college, major;
 	private final static int REQUESTCODE_RANGE=2;
 
+    // ListView
 	RefreshableListView lv;
-	ProfessorDataLoader loader;
-	int pageNum;
+	ProfessorDataAdapter adapter;
 	
 	ProfessorMain(Activity activity) {
 		super(activity,R.layout.professormain);
@@ -62,17 +65,15 @@ public class ProfessorMain extends ActiveFragment implements OnItemClickListener
     	univ.setOnClickListener(new OnClickMover(THIS,new Intent("RangeSetting").putExtra("filter","univ"),REQUESTCODE_RANGE));
     	college.setOnClickListener(new OnClickMover(THIS,new Intent("RangeSetting").putExtra("filter","college"),REQUESTCODE_RANGE));
     	major.setOnClickListener(new OnClickMover(THIS,new Intent("RangeSetting").putExtra("filter","major"),REQUESTCODE_RANGE));
-    	// Not yet
-    	major.setEnabled(false);
+		AppPref.getRangeSet().applyDataToView(region, univ, college, major);
 
         // ListView
     	lv=(RefreshableListView)v.findViewById(R.id.professorlist);
-    	loader=new ProfessorDataLoader(THIS,lv,false);
+    	adapter=new ProfessorDataAdapter(THIS,lv);
     	lv.setOnItemClickListener(this);
     	lv.setOnScrollListener(this);
     	lv.setOnRefreshListener(this);
-    	pageNum=1;
-    	updateView();
+    	adapter.updateData("",true);
     	
     	return v;
 	}
@@ -91,46 +92,33 @@ public class ProfessorMain extends ActiveFragment implements OnItemClickListener
 			int id=data.getIntExtra("id",-1);
 			AppPref.getRangeSet().set(filter,new RangeData( title,nick,id ));
 			}
-			pageNum=1;
-			updateView();
+			AppPref.getRangeSet().applyDataToView(region, univ, college, major);
+	    	adapter.updateData("",true);
 			break;
 			
 		case REQUESTCODE_REGISTERPROFESSOR:
-			// RangeData is changed by RegisterProfessor activity
-			pageNum=1;
-			updateView();
+	    	adapter.updateData("",true);
 			break;
 		}
 	}
 	
 
 	public void onItemClick(AdapterView<?> parent, View view, int position, long l_position) {
-		if(loader.get(position)!=null) {
-			AppPref.setLastProfessorData(loader.get(position));
+		if(adapter.getItem(position)!=null) {
+			AppPref.setLastProfessorData(adapter.getItem(position));
 			THIS.startActivity( new Intent("ProfessorDetail") );
 		}		
 	}
 	
-	public void updateView() {
-		
-		// rangebutton
-		AppPref.getRangeSet().applyDataToView(region, univ, college, major);
-
-		// list
-    	loader.updateData("",pageNum);
-	}
-
 	public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
-		if(firstVisibleItem+visibleItemCount==totalItemCount && loader.isLoadable()) {
-			pageNum++;
-			updateView();
+		if(firstVisibleItem+visibleItemCount==totalItemCount) {
+			adapter.updateData("",false);
 		}
 	}
 
 	public void onScrollStateChanged(AbsListView view, int scrollState) {}
 
 	public void onRefresh(RefreshableListView listView) {
-		pageNum=1;
-		updateView();		
+    	adapter.updateData("",true);
 	}
 }

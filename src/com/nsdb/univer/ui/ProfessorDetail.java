@@ -4,7 +4,7 @@ import com.fedorvlasov.lazylist.ImageLoader;
 import com.nsdb.univer.R;
 import com.nsdb.univer.common.AppPref;
 import com.nsdb.univer.common.ProfessorData;
-import com.nsdb.univer.dataadapter.CommentDataLoader;
+import com.nsdb.univer.dataadapter.CommentDataAdapter;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -17,16 +17,18 @@ import android.widget.TextView;
 
 public class ProfessorDetail extends Activity implements OnScrollListener {
 
+    // data
 	ProfessorData lastdata;
 	
+    // first linear
 	ImageView image;
 	TextView title;
 	RatingBar quality,report,grade,attendance,personality,total;
 	TextView qualitytxt,reporttxt,gradetxt,attendancetxt,personalitytxt,totaltxt;
 	
+    // ListView
 	ListView lv;
-	CommentDataLoader loader;
-	int pageNum;
+	CommentDataAdapter adapter;
 	
 	@Override
     public void onCreate(Bundle savedInstanceState) {
@@ -86,16 +88,15 @@ public class ProfessorDetail extends Activity implements OnScrollListener {
         
         // ListView
     	lv=(ListView)findViewById(R.id.commentlist);
-    	loader=new CommentDataLoader(this,lv,true);
-    	pageNum=1;
+    	adapter=new CommentDataAdapter(this,lv);
+    	adapter.setVariableHeight(true);
     	lv.setOnScrollListener(this);
-    	loader.updateData(lastdata.id,pageNum);
+    	adapter.updateData(lastdata.id);
     }
 
 	public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
-		if(firstVisibleItem+visibleItemCount==totalItemCount && loader.isLoadable()) {
-			pageNum++;
-	    	loader.updateData(lastdata.id,pageNum);
+		if(firstVisibleItem+visibleItemCount==totalItemCount) {
+	    	adapter.updateData(lastdata.id);
 		}
 	}
 

@@ -36,6 +36,14 @@ public class BookData {
 	public final static int SALESTATE_BOOKED=2;
 	public final static int SALESTATE_DONE=3;
 	
+	public final static int RANGEMODE_ALL=0;
+	public final static int RANGEMODE_REGION=1;
+	public final static int RANGEMODE_UNIV=2;
+	public final static int RANGEMODE_COLLEGE=3;
+	public final static int RANGEMODE_MAJOR=4;
+	public final static int RANGEMODE_MINE=5;
+	public final static int RANGEMODE_OTHER=6;
+
 	public BookData(String title) {
 		this.title=title;
 		this.description="";

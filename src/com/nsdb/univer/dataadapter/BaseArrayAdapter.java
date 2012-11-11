@@ -1,7 +1,5 @@
 package com.nsdb.univer.dataadapter;
 
-import java.util.ArrayList;
-import android.app.Activity;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,41 +8,44 @@ import android.view.View.MeasureSpec;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
-
-// 아답터는 자신에게 주어진 데이터를 책임진다. 바르게 표시하고, 바른 데이터를 전달해야 한다.
-public abstract class BaseListAdapter<T> extends ArrayAdapter<T> {
+public abstract class BaseArrayAdapter<T> extends ArrayAdapter<T> {
 	
-	private Activity activity;
 	private int dataResourceId;
-	private ArrayList<T> data;
 	private ListView view;
+	private boolean variableHeight;
 
-	public BaseListAdapter(Activity activity, int dataResourceId, ArrayList<T> objects, ListView view) {
-		super(activity, dataResourceId, objects);
-		this.activity=activity;
+	public BaseArrayAdapter(Context context, int dataResourceId, ListView view) {
+		super(context, dataResourceId);
 		this.dataResourceId=dataResourceId;
-		this.data=objects;
 		this.view=view;
+		view.setAdapter(this);
 	}
 	
+	// View Setting
 	@Override
 	public View getView(int position,View v,ViewGroup Parent) {
 		if(v==null)
-			v=((LayoutInflater)(activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE)))
+			v=((LayoutInflater)(getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE)))
 			.inflate(dataResourceId,null);
 		
 		position-=view.getHeaderViewsCount();		
-		if(position>=0 && position<data.size()) {
+		if(position>=0 && position<getCount()) {
 			setView(position,v);
 		}
 		
-		return v;
-		
+		return v;	
 	}
 	protected abstract void setView(int position,View v);
-	
-	
-	public void tuneToScrollView() {
+	////
+
+	// Variable Height (For ListView in ScrollView)
+	public void setVariableHeight(boolean value) { variableHeight=value; }
+	@Override
+	public void notifyDataSetChanged() {
+		super.notifyDataSetChanged();
+		if(variableHeight) tuneToScrollView();
+	}
+	private void tuneToScrollView() {
 		int totalHeight=0;
 		int desiredWidth=MeasureSpec.makeMeasureSpec(view.getWidth(),MeasureSpec.AT_MOST);
 		for(int i=0;i<getCount()+view.getHeaderViewsCount()+view.getFooterViewsCount();i++) {
@@ -58,15 +59,16 @@ public abstract class BaseListAdapter<T> extends ArrayAdapter<T> {
 		view.setLayoutParams(params);
 		view.requestLayout();		
 	}
-
+	////
 	
-	public T get(int position) {
-		if(position>=0 && position<data.size())
-			return data.get(position);
-		else
+	@Override
+	public T getItem(int position) {
+		if(position>=getCount() || position<0) {
 			return null;
+		} else {
+			return super.getItem(position);
+		}
 	}
-	public ArrayList<T> getDataList() { return data; }
+	protected ListView getListView() { return view; }
 
 }
- 
