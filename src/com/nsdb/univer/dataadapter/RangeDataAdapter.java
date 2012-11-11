@@ -50,6 +50,9 @@ public class RangeDataAdapter extends DataLoadingArrayAdapter<RangeData> impleme
 	@Override
 	protected void applyUpdate() {
 		
+		// add default data
+		getOriginalData().add(new RangeData());
+		
 		// sort data
 		RangeData[] data=new RangeData[getOriginalData().size()];
 		data=getOriginalData().toArray(data);
@@ -97,7 +100,10 @@ public class RangeDataAdapter extends DataLoadingArrayAdapter<RangeData> impleme
 	@Override
 	protected void setView(int position, View v) {
 		TextView t=(TextView)v.findViewById(R.id.text);
-		t.setText( getItem(position).title );
+		if(getItem(position).title.compareTo("")!=0)
+			t.setText( getItem(position).title );
+		else
+			t.setText( "전체설정" );
 	}
 
 	public int getPositionForSection(int section) {

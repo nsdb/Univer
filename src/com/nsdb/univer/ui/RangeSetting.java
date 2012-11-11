@@ -2,7 +2,6 @@ package com.nsdb.univer.ui;
 
 import com.nsdb.univer.R;
 import com.nsdb.univer.common.AppPref;
-import com.nsdb.univer.common.RangeData;
 import com.nsdb.univer.dataadapter.RangeDataAdapter;
 import com.woozzu.android.widget.IndexableListView;
 
@@ -11,15 +10,13 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-public class RangeSetting extends Activity implements OnItemClickListener, OnClickListener {
+public class RangeSetting extends Activity implements OnItemClickListener {
 	
 	String range;
 	TextView title;
@@ -27,8 +24,6 @@ public class RangeSetting extends Activity implements OnItemClickListener, OnCli
 
 	IndexableListView list;
 	RangeDataAdapter adapter;
-	
-	Button clear;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -70,9 +65,6 @@ public class RangeSetting extends Activity implements OnItemClickListener, OnCli
         adapter.updateData(range);
 
     	
-    	// Button
-    	clear=(Button)findViewById(R.id.clear);
-    	clear.setOnClickListener(this);
     }
     
 	public void onItemClick(AdapterView<?> parent, View view, int position, long l_position) {
@@ -82,12 +74,5 @@ public class RangeSetting extends Activity implements OnItemClickListener, OnCli
 			setResult(RESULT_OK,getIntent());
 			finish();
 		}
-	}
-
-	public void onClick(View v) {
-		
-		AppPref.getRangeSet().set(range,new RangeData());
-		setResult(RESULT_OK,getIntent());
-		finish();
 	}
 }
