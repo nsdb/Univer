@@ -5,6 +5,7 @@ import com.nsdb.univer.R;
 import com.nsdb.univer.data.ProfessorData;
 import com.nsdb.univer.supporter.adapter.CommentDataAdapter;
 import com.nsdb.univer.supporter.data.AppPref;
+import com.nsdb.univer.ui.customview.ProfessorRatingGraph;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -25,6 +26,9 @@ public class ProfessorDetail extends Activity implements OnScrollListener {
 	TextView title;
 	RatingBar quality,report,grade,attendance,personality,total;
 	TextView qualitytxt,reporttxt,gradetxt,attendancetxt,personalitytxt,totaltxt;
+	
+	// graph
+	ProfessorRatingGraph graph;
 	
     // ListView
 	ListView lv;
@@ -84,6 +88,16 @@ public class ProfessorDetail extends Activity implements OnScrollListener {
 			d=Math.round(d*100)/100;
 			totaltxt.setText(""+d);
 			total.setRating( (float)d/2 );
+		}
+		
+		// graph
+		graph=(ProfessorRatingGraph)findViewById(R.id.graph);
+		if(graph != null) {
+			graph.setRating(quality.getRating()*2,
+					report.getRating()*2,
+					grade.getRating()*2,
+					attendance.getRating()*2,
+					personality.getRating()*2);
 		}
         
         // ListView

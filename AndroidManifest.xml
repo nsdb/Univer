@@ -13,56 +13,56 @@
         android:theme="@style/MyTheme"
         >
 
-        <activity android:name=".ui.IntroPage">
+        <activity android:name=".ui.activity.IntroPage">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         
-        <activity android:name=".ui.LoginPage">
+        <activity android:name=".ui.activity.LoginPage">
             <intent-filter>
                 <action android:name="LoginPage" />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
         
-        <activity android:name=".ui.RegisterUser">
+        <activity android:name=".ui.activity.RegisterUser">
             <intent-filter>
                 <action android:name="RegisterUser" />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
         
-        <activity android:name=".ui.RegisterBook">
+        <activity android:name=".ui.activity.RegisterBook">
             <intent-filter>
                 <action android:name="RegisterBook" />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
         
-        <activity android:name=".ui.RangeSetting">
+        <activity android:name=".ui.activity.RangeSetting">
             <intent-filter>
                 <action android:name="RangeSetting" />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
         
-        <activity android:name=".ui.TabMain">
+        <activity android:name=".ui.activity.TabMain">
             <intent-filter>
                 <action android:name="TabMain" />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
         
-        <activity android:name=".ui.BookDetail">
+        <activity android:name=".ui.activity.BookDetail">
             <intent-filter>
                 <action android:name="BookDetail" />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
         
-        <activity android:name=".ui.ProfessorDetail">
+        <activity android:name=".ui.activity.ProfessorDetail">
             <intent-filter>
                 <action android:name="ProfessorDetail" />
                 <category android:name="android.intent.category.DEFAULT" />
