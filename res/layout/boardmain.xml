@@ -4,10 +4,63 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
-    <TextView
-        android:id="@+id/textView1"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:id="@+id/actionbar"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="BoardMain" />
+        android:background="#999999" >        
+
+	    <LinearLayout
+	        android:id="@+id/titlelayout"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_weight="1"
+	        android:layout_gravity="center"
+	        android:orientation="vertical" >
+	
+	  	    <TextView
+		        android:id="@+id/title"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:layout_gravity="center"
+		        android:textSize="24dp"
+		        android:text="Title" />
+	    
+	    </LinearLayout>
+	
+	    <Button
+	        android:id="@+id/register"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:text="R" />
+        
+    </LinearLayout>
+    
+	
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" >
+
+	    <Button
+	        android:id="@+id/region"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_weight="1"
+	        android:text="지역" />
+	    <Button
+	        android:id="@+id/univ"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_weight="1"
+	        android:text="대학교" />
+	    		    		    
+	</LinearLayout>
+    	
+	<com.woozzu.android.widget.RefreshableListView  
+        android:id="@+id/boardlist"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+    </com.woozzu.android.widget.RefreshableListView>
 
 </LinearLayout>

@@ -11,6 +11,7 @@
     <string name="book_url">books</string>
     <string name="professor_url">professors</string>
     <string name="professorcomment_url">comments/professor</string>
+    <string name="board_url">entries</string>
     
     <string name="login_url">login</string>
     <string name="registeruser_url">register</string>

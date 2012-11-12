@@ -62,6 +62,22 @@ public class RangeSet {
 		}
 	}
 	
+	public void applyDataToView(Button r,Button u) {
+
+    	if(region.nick.compareTo("")==0) {
+        	r.setText("지역");
+    		u.setEnabled(false);
+    	} else {
+        	r.setText(region.nick);
+    		u.setEnabled(true);
+    	}
+    	if(univ.nick.compareTo("")==0) {
+        	u.setText("대학교");
+    	} else {
+        	u.setText(univ.nick);
+    	}
+		
+	}
 	public void applyDataToView(Button r,Button u,Button c,Button m) {
 
     	if(region.nick.compareTo("")==0) {
