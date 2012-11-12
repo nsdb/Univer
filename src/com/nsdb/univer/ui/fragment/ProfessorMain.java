@@ -80,7 +80,6 @@ public class ProfessorMain extends ActiveFragment implements OnItemClickListener
 	public void onActivityResult(int requestCode, int resultCode, Intent data)
 	{
 		super.onActivityResult(requestCode, resultCode, data);
-		if(resultCode != Activity.RESULT_OK) return;
 		
 		switch(requestCode) {
 		case REQUESTCODE_RANGE:

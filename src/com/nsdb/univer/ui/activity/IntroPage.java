@@ -1,5 +1,7 @@
 package com.nsdb.univer.ui.activity;
 
+import com.google.android.gcm.GCMRegistrar;
+import com.nsdb.univer.GCMIntentService;
 import com.nsdb.univer.R;
 import com.nsdb.univer.supporter.data.AppPref;
 import com.nsdb.univer.supporter.network.LoginChecker;
@@ -18,6 +20,18 @@ public class IntroPage extends Activity {
         AppPref.load(this);
         new AutoLoginer(this).execute();
         
+        GCMRegistrar.checkDevice(this);
+        GCMRegistrar.checkManifest(this);
+        String regId = GCMRegistrar.getRegistrationId(this);
+        if(regId.compareTo("")==0) {
+            GCMRegistrar.register(this, GCMIntentService.getProjectId());
+        	regId = GCMRegistrar.getRegistrationId(this);
+            System.out.println("Registered");
+            System.out.println("regId : "+regId);
+    	} else {
+        	System.out.println("GCM is Already Registered");
+            System.out.println("regId : "+regId);
+        }
     }
     
     private class AutoLoginer extends LoginChecker {

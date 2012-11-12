@@ -16,6 +16,8 @@ public class GCMIntentService extends GCMBaseIntentService {
     public GCMIntentService(){ this(PROJECT_ID); }
    
     public GCMIntentService(String project_id) { super(project_id); }
+    
+    public static String getProjectId() { return PROJECT_ID; }
  
     /** 푸시로 받은 메시지 */
     @Override

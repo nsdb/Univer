@@ -69,7 +69,8 @@ public class BoardMain extends ActiveFragment implements OnScrollListener, OnRef
 			} break;
 			
 		case REQUESTCODE_REGISTERBOARD:
-			if(resultCode == Activity.RESULT_OK) {
+			if(resultCode == Activity.RESULT_OK || data.getBooleanExtra("range_changed",false)==true) {
+				AppPref.getRangeSet().applyDataToView(region, univ);
 				adapter.updateData(true);
 			} break;
 		}
