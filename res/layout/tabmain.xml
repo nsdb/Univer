@@ -11,15 +11,26 @@
         android:orientation="horizontal" >
     
 	    <LinearLayout
-	        android:id="@+id/screen1"
+	        android:id="@+id/bookmarketscreen"
 	        android:layout_width="match_parent"
 	        android:layout_height="match_parent">
 	    </LinearLayout>
 	    <LinearLayout
-	        android:id="@+id/screen2"
+	        android:id="@+id/professorscreen"
 	        android:layout_width="match_parent"
 	        android:layout_height="match_parent">
 	    </LinearLayout>
+	    <LinearLayout
+	        android:id="@+id/chatroomscreen"
+	        android:layout_width="match_parent"
+	        android:layout_height="match_parent">
+	    </LinearLayout>
+	    <LinearLayout
+	        android:id="@+id/boardscreen"
+	        android:layout_width="match_parent"
+	        android:layout_height="match_parent">
+	    </LinearLayout>
+	    	    	    
 	</LinearLayout>
 
     <LinearLayout
@@ -29,25 +40,32 @@
         android:layout_gravity="center" >
 
         <Button
-            android:id="@+id/bookmarkettab"
+            android:id="@+id/bookmarketbtn"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="중고책" />
 
         <Button
-            android:id="@+id/professortab"
+            android:id="@+id/professorbtn"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="교수평가" />
 
         <Button
-            android:id="@+id/button3"
+            android:id="@+id/chatroombtn"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Button" />
+            android:text="채팅방" />
+        
+        <Button
+            android:id="@+id/boardbtn"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="게시판" />
 
 
     </LinearLayout>

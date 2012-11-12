@@ -9,45 +9,45 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="#999999" >
-
-    <LinearLayout
-        android:id="@+id/titlelayout"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:layout_gravity="center"
-        android:orientation="vertical" >
-
-  	    <TextView
-	        android:id="@+id/title"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:layout_gravity="center"
-	        android:textSize="24dp"
-	        android:text="Title" />
-    
-    </LinearLayout>
-
-
+        
     <Button
         android:id="@+id/search"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="S" />
 
-    <EditText
-        android:id="@+id/searchtxt"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:visibility="gone"
-        android:ems="10" />
-
-    <Button
-        android:id="@+id/register"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="R" />
+	    <EditText
+	        android:id="@+id/searchtxt"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_weight="1"
+	        android:visibility="gone"
+	        android:ems="10" />
+	        
+	
+	    <LinearLayout
+	        android:id="@+id/titlelayout"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_weight="1"
+	        android:layout_gravity="center"
+	        android:orientation="vertical" >
+	
+	  	    <TextView
+		        android:id="@+id/title"
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:layout_gravity="center"
+		        android:textSize="24dp"
+		        android:text="Title" />
+	    
+	    </LinearLayout>
+	
+	    <Button
+	        android:id="@+id/register"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:text="R" />
         
     </LinearLayout>
     
