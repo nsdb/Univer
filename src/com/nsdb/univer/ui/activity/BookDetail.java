@@ -55,7 +55,7 @@ public class BookDetail extends Activity implements OnItemClickListener {
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
         if(lastdata.image.compareTo("")!=0) {
         	ImageLoader loader=new ImageLoader(this);
-        	loader.DisplayImage(lastdata.image,image);
+        	loader.DisplayImage(getResources().getString(R.string.base_url)+lastdata.image,image);
         }
         title.setText(lastdata.title);
         publisher.setText(lastdata.publisher);

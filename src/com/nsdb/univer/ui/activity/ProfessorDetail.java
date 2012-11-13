@@ -59,7 +59,7 @@ public class ProfessorDetail extends Activity implements OnScrollListener {
         totaltxt=(TextView)findViewById(R.id.totaltxt); 
         if(lastdata.image.compareTo("")!=0) {
         	ImageLoader loader=new ImageLoader(this);
-        	loader.DisplayImage(lastdata.image,image);
+        	loader.DisplayImage(getResources().getString(R.string.base_url)+lastdata.image,image);
         }
         title.setText(lastdata.title);
 		if(lastdata.count > 0) {

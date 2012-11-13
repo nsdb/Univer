@@ -76,6 +76,7 @@ public class ProfessorMain extends ActiveFragment implements OnItemClickListener
     	return v;
 	}
 	
+	// Every Fragment's requestCode are linked! (REQUESTCODE_REGISTERBOARD==REQUESTCODE_REGISTERPROFESSOR...)
 	@Override
 	public void onActivityResult(int requestCode, int resultCode, Intent data)
 	{
