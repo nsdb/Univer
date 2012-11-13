@@ -1,6 +1,7 @@
 package com.nsdb.univer.ui.activity;
 
 import com.fedorvlasov.lazylist.ImageLoader;
+import com.makeramen.segmented.SegmentedRadioGroup;
 import com.nsdb.univer.R;
 import com.nsdb.univer.data.BookData;
 import com.nsdb.univer.supporter.adapter.BookDataAdapter;
@@ -24,6 +25,7 @@ public class BookDetail extends Activity implements OnItemClickListener {
 	BookData lastdata;
 	
     // second linear
+	SegmentedRadioGroup radio;
 	ImageView image;
 	EditText title,publisher,author,pubdate,edition,original_price,discount_price;
 
@@ -44,6 +46,7 @@ public class BookDetail extends Activity implements OnItemClickListener {
         lastdata=AppPref.getLastBookData();
         
         // second linear
+        radio=(SegmentedRadioGroup)findViewById(R.id.sale);
         image=(ImageView)findViewById(R.id.image);
         title=(EditText)findViewById(R.id.title);
         publisher=(EditText)findViewById(R.id.publisher);
@@ -53,6 +56,10 @@ public class BookDetail extends Activity implements OnItemClickListener {
         original_price=(EditText)findViewById(R.id.original_price);
         discount_price=(EditText)findViewById(R.id.discount_price);
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+        switch(lastdata.sell) {
+        case BookData.SALEMODE_BUY: radio.check(R.id.buy); break;
+        case BookData.SALEMODE_SELL: radio.check(R.id.sell); break;
+        }
         if(lastdata.image.compareTo("")!=0) {
         	ImageLoader loader=new ImageLoader(this);
         	loader.DisplayImage(getResources().getString(R.string.base_url)+lastdata.image,image);
