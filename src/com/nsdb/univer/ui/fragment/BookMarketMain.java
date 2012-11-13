@@ -44,6 +44,7 @@ public class BookMarketMain extends ActiveFragment implements OnItemClickListene
     // ListView
 	RefreshableListView lv;
 	BookDataAdapter adapter;
+	private final static int REQUESTCODE_BOOKDETAIL=3;
 	
 	public BookMarketMain(Activity activity) {
 		super(activity,R.layout.bookmarketmain);
@@ -106,6 +107,11 @@ public class BookMarketMain extends ActiveFragment implements OnItemClickListene
 				AppPref.getRangeSet().applyDataToView(region, univ, college, major);
 				adapter.updateData("",categoryState,true);
 			} break;
+			
+		case REQUESTCODE_BOOKDETAIL:
+			if(data.getBooleanExtra("edited",false)==true) {
+				adapter.updateData("",categoryState,true);
+			} break;
 		}
 	}
 	
@@ -113,7 +119,7 @@ public class BookMarketMain extends ActiveFragment implements OnItemClickListene
 	public void onItemClick(AdapterView<?> parent, View view, int position, long l_position) {
 		if(adapter.getItem(position)!=null) {
 			AppPref.setLastBookData(adapter.getItem(position));
-			THIS.startActivity(new Intent("BookDetail"));
+			THIS.startActivityForResult(new Intent("BookDetail").putExtra("mine",categoryState==2),REQUESTCODE_BOOKDETAIL);
 		}
 	}
 

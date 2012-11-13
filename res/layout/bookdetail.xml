@@ -3,281 +3,361 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" >
-    
-    <ScrollView
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content" >
 
-        <LinearLayout
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="vertical" >
+
+        <ScrollView
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical" >
-            
-    		<TextView
+            android:layout_height="wrap_content" >
+
+            <LinearLayout
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:background="#888888"
-                android:padding="10dp"
-                android:text="도서정보"
-                android:textColor="#ffffff" />
-    		
-    		
-		    <LinearLayout
-		        android:layout_width="match_parent"
-		        android:layout_height="wrap_content"
-		        android:padding="5dp" >
-		        <TextView
-		            android:layout_width="wrap_content"
-		            android:layout_height="wrap_content"
-			        android:layout_marginRight="10dp"
-			        android:layout_gravity="center"
-			        android:textSize="18dp"
-		            android:text="SaleMode" />
-		        
-        	    <com.makeramen.segmented.SegmentedRadioGroup
-                    android:id="@+id/sale"
+                android:orientation="vertical" >
+
+                <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:background="#888888"
+                    android:padding="10dp"
+                    android:text="도서정보"
+                    android:textColor="#ffffff" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="5dp" >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginRight="10dp"
+                        android:text="SaleMode"
+                        android:textSize="18dp" />
+
+                    <com.makeramen.segmented.SegmentedRadioGroup
+                        android:id="@+id/sale"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:orientation="horizontal" >
+
+                        <RadioButton
+                            android:id="@+id/sell"
+                            android:layout_width="80dp"
+                            android:layout_height="wrap_content"
+                            android:button="@null"
+                            android:checked="true"
+                            android:enabled="false"
+                            android:gravity="center"
+                            android:text="팝니다" />
+
+                        <RadioButton
+                            android:id="@+id/buy"
+                            android:layout_width="80dp"
+                            android:layout_height="wrap_content"
+                            android:button="@null"
+                            android:enabled="false"
+                            android:gravity="center"
+                            android:text="삽니다" />
+                    </com.makeramen.segmented.SegmentedRadioGroup>
+                </LinearLayout>
+
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-					android:orientation="horizontal"
-                    android:layout_gravity="center">
+                    android:orientation="horizontal"
+                    android:padding="10dp" >
 
-                    <RadioButton
-                        android:id="@+id/sell"
-                        android:layout_width="80dp"
+                    <TextView
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:checked="true"
-						android:button="@null"
-						android:gravity="center"
-                        android:text="팝니다"
-                        android:enabled="false" />
+                        android:layout_marginRight="10dp"
+                        android:text="Image"
+                        android:textSize="18dp" />
 
-                    <RadioButton
-                        android:id="@+id/buy"
-                        android:layout_width="80dp"
+                    <ImageView
+                        android:id="@+id/image"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-						android:button="@null"
-						android:gravity="center"
-                        android:text="삽니다"
-                        android:enabled="false" />
+                        android:layout_margin="10dp"
+                        android:layout_weight="1"
+                        android:src="@drawable/ic_launcher" />
+                </LinearLayout>
 
-                </com.makeramen.segmented.SegmentedRadioGroup>
-		        
-		    </LinearLayout>
-    				
-    		
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="5dp" >
 
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:padding="10dp"
-                android:orientation="horizontal" >
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="10dp"
+                        android:text="Title"
+                        android:textSize="18dp" />
 
-		        <TextView
-		            android:layout_width="wrap_content"
-		            android:layout_height="wrap_content"
-			        android:layout_marginRight="10dp"
-			        android:textSize="18dp"
-		            android:text="Image" />
-			    <ImageView
-			        android:id="@+id/image"
-			        android:src="@drawable/ic_launcher"
-			        android:layout_width="0dp"
-			        android:layout_weight="1"
-			        android:layout_height="wrap_content"
-			        android:layout_margin="10dp" />
+                    <EditText
+                        android:id="@+id/title"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:enabled="false"
+                        android:inputType="text" >
 
+                        <requestFocus />
+                    </EditText>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="5dp" >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="10dp"
+                        android:text="Publisher"
+                        android:textSize="18dp" />
+
+                    <EditText
+                        android:id="@+id/publisher"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:enabled="false"
+                        android:inputType="text" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="5dp" >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="10dp"
+                        android:text="Author"
+                        android:textSize="18dp" />
+
+                    <EditText
+                        android:id="@+id/author"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:enabled="false"
+                        android:inputType="text" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="5dp" >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="10dp"
+                        android:text="Publish Date"
+                        android:textSize="18dp" />
+
+                    <EditText
+                        android:id="@+id/pubdate"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:enabled="false"
+                        android:inputType="text" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="5dp" >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="10dp"
+                        android:text="Edition"
+                        android:textSize="18dp" />
+
+                    <EditText
+                        android:id="@+id/edition"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:enabled="false"
+                        android:inputType="text" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="5dp" >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="10dp"
+                        android:text="Original Price"
+                        android:textSize="18dp" />
+
+                    <EditText
+                        android:id="@+id/original_price"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:enabled="false"
+                        android:inputType="text" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="5dp" >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="10dp"
+                        android:text="Discount Price"
+                        android:textSize="18dp" />
+
+                    <EditText
+                        android:id="@+id/discount_price"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:enabled="false"
+                        android:inputType="text" />
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:background="#888888"
+                    android:padding="10dp"
+                    android:text="상세설명"
+                    android:textColor="#ffffff" />
+
+                <EditText
+                    android:id="@+id/description"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:ems="10"
+                    android:enabled="false"
+                    android:inputType="textMultiLine"
+                    android:lines="4" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:orientation="horizontal" >
+
+                    <CheckBox
+                        android:id="@+id/parcel"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="10dp"
+                        android:enabled="false"
+                        android:text="택배" />
+
+                    <CheckBox
+                        android:id="@+id/meet"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:enabled="false"
+                        android:text="직거래" />
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:background="#888888"
+                    android:padding="10dp"
+                    android:text="판매자의 다른 책"
+                    android:textColor="#ffffff" />
+
+                <ListView
+                    android:id="@+id/booklist"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" >
+                </ListView>
             </LinearLayout>
-            
-		    <LinearLayout
-		        android:layout_width="match_parent"
-		        android:layout_height="wrap_content"
-		        android:padding="5dp" >
-		        <TextView
-		            android:layout_width="wrap_content"
-		            android:layout_height="wrap_content"
-			        android:layout_marginRight="10dp"
-			        android:textSize="18dp"
-		            android:text="Title" />
-                <EditText
-                    android:id="@+id/title"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:enabled="false"
-                    android:inputType="text" />
-		    </LinearLayout>
+        </ScrollView>
 
-		    <LinearLayout
-		        android:layout_width="match_parent"
-		        android:layout_height="wrap_content"
-		        android:padding="5dp" >
-		        <TextView
-		            android:layout_width="wrap_content"
-		            android:layout_height="wrap_content"
-			        android:layout_marginRight="10dp"
-			        android:textSize="18dp"
-		            android:text="Publisher" />
-                <EditText
-                    android:id="@+id/publisher"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:enabled="false"
-                    android:inputType="text" />
-		    </LinearLayout>
+    </LinearLayout>
+    
+    
+    <LinearLayout
+        android:id="@+id/editbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="invisible"
+        android:background="#999999" >
+		
+	    <LinearLayout
+	        android:layout_width="0dp"
+	        android:layout_height="match_parent"
+	        android:layout_weight="1" >
+	    </LinearLayout>
+	    
+   	    <com.makeramen.segmented.SegmentedRadioGroup
+			android:id="@+id/state"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:orientation="horizontal"
+			android:layout_gravity="center" >
+			<RadioButton
+				android:id="@+id/able"
+				android:layout_width="80dp"
+				android:layout_height="wrap_content"
+				android:checked="true"
+				android:button="@null"
+				android:gravity="center"
+				android:text="판매중" />
+			<RadioButton
+				android:id="@+id/booked"
+				android:layout_width="80dp"
+				android:layout_height="wrap_content"
+				android:button="@null"
+				android:gravity="center"
+				android:text="예약중" />
+			<RadioButton
+				android:id="@+id/done"
+				android:layout_width="80dp"
+				android:layout_height="wrap_content"
+				android:button="@null"
+				android:gravity="center"
+				android:text="판매완료" />
+               
+		</com.makeramen.segmented.SegmentedRadioGroup>
+	    	    
 
-		    <LinearLayout
-		        android:layout_width="match_parent"
-		        android:layout_height="wrap_content"
-		        android:padding="5dp" >
-		        <TextView
-		            android:layout_width="wrap_content"
-		            android:layout_height="wrap_content"
-			        android:layout_marginRight="10dp"
-			        android:textSize="18dp"
-		            android:text="Author" />
-                <EditText
-                    android:id="@+id/author"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:enabled="false"
-                    android:inputType="text" />
-		    </LinearLayout>
-
-		    <LinearLayout
-		        android:layout_width="match_parent"
-		        android:layout_height="wrap_content"
-		        android:padding="5dp" >
-		        <TextView
-		            android:layout_width="wrap_content"
-		            android:layout_height="wrap_content"
-			        android:layout_marginRight="10dp"
-			        android:textSize="18dp"
-		            android:text="Publish Date" />
-                <EditText
-                    android:id="@+id/pubdate"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:enabled="false"
-                    android:inputType="text" />
-		    </LinearLayout>
-
-		    <LinearLayout
-		        android:layout_width="match_parent"
-		        android:layout_height="wrap_content"
-		        android:padding="5dp" >
-		        <TextView
-		            android:layout_width="wrap_content"
-		            android:layout_height="wrap_content"
-			        android:layout_marginRight="10dp"
-			        android:textSize="18dp"
-		            android:text="Edition" />
-                <EditText
-                    android:id="@+id/edition"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:enabled="false"
-                    android:inputType="text" />
-		    </LinearLayout>
-
-		    <LinearLayout
-		        android:layout_width="match_parent"
-		        android:layout_height="wrap_content"
-		        android:padding="5dp" >
-		        <TextView
-		            android:layout_width="wrap_content"
-		            android:layout_height="wrap_content"
-			        android:layout_marginRight="10dp"
-			        android:textSize="18dp"
-		            android:text="Original Price" />
-                <EditText
-                    android:id="@+id/original_price"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:enabled="false"
-                    android:inputType="text" />
-		    </LinearLayout>
-
-		    <LinearLayout
-		        android:layout_width="match_parent"
-		        android:layout_height="wrap_content"
-		        android:padding="5dp" >
-		        <TextView
-		            android:layout_width="wrap_content"
-		            android:layout_height="wrap_content"
-			        android:layout_marginRight="10dp"
-			        android:textSize="18dp"
-		            android:text="Discount Price" />
-                <EditText
-                    android:id="@+id/discount_price"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:enabled="false"
-                    android:inputType="text" />
-		    </LinearLayout>
-
-            <TextView
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:background="#888888"
-                android:padding="10dp"
-                android:text="상세설명"
-                android:textColor="#ffffff" />
-
-
-            <EditText
-                android:id="@+id/description"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:ems="10"
-                android:inputType="textMultiLine"
-                android:enabled="false"
-                android:lines="4" />
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:orientation="horizontal" >
-                
-                <CheckBox
-	                android:id="@+id/parcel"
-	                android:layout_width="wrap_content"
-	                android:layout_height="wrap_content"
-	                android:layout_marginRight="10dp"
-	                android:enabled="false"
-	                android:text="택배" />
-
-                <CheckBox
-	                android:id="@+id/meet"
-	                android:layout_width="wrap_content"
-	                android:layout_height="wrap_content"
-	                android:enabled="false"
-	                android:text="직거래" />
-                
-            </LinearLayout>
-            
-            <TextView
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:background="#888888"
-                android:padding="10dp"
-                android:text="판매자의 다른 책"
-                android:textColor="#ffffff" />
-            <ListView
-                android:id="@+id/booklist"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                />
-            
-            
-        </LinearLayout>
-    </ScrollView>
+	    <LinearLayout
+	        android:layout_width="0dp"
+	        android:layout_height="match_parent"
+	        android:layout_weight="1" >
+	    </LinearLayout>
+	    	    
+	    	
+	    <Button
+	        android:id="@+id/delete"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:text="삭제" />
+        
+    </LinearLayout>
+    
     
 </LinearLayout>

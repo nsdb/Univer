@@ -9,6 +9,9 @@
 
     <string name="get_url">feeds</string>    
     <string name="book_url">books</string>
+    <string name="editbook_url">edit_books</string>
+    <string name="deletebook_url">delete_books</string>
+    
     <string name="professor_url">professors</string>
     <string name="professorcomment_url">comments/professor</string>
     <string name="board_url">entries</string>

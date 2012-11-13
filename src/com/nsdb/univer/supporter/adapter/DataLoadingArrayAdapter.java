@@ -52,6 +52,9 @@ public abstract class DataLoadingArrayAdapter<T> extends BaseArrayAdapter<T> {
 		clear();
 		originalData.clear();
 		//notifyDataSetChanged();
+		if(getter != null)
+			getter.cancel(true);
+		getter=null;
 	}
 	public void updateData(String url) {
 		if(loadable==false) return;
@@ -64,9 +67,11 @@ public abstract class DataLoadingArrayAdapter<T> extends BaseArrayAdapter<T> {
 	private final class DataGetter extends AsyncTask<Void,Void,Integer> {
 		
 		private String url;
+		private ArrayList<T> gotData;
 
 		public DataGetter(String url) {
 			this.url=url;
+			gotData=new ArrayList<T>();
 		}
 
 		@Override
@@ -92,7 +97,7 @@ public abstract class DataLoadingArrayAdapter<T> extends BaseArrayAdapter<T> {
 				List<Element> items=NetworkSupporter.getXmlElementsFromStream(isr);
 				int count=0;
 				for(count=0 ; count<items.size() ; count++) {
-					originalData.add( convertElementToObject(items.get(count)) );
+					gotData.add( convertElementToObject(items.get(count)) );
 				}
 				isr.close();
 				
@@ -107,7 +112,8 @@ public abstract class DataLoadingArrayAdapter<T> extends BaseArrayAdapter<T> {
 			}
 			
 		}
-
+		
+		// when getter is cancelled, this method will be never invoked.
 		@Override
 		protected void onPostExecute(Integer result) {
 			
@@ -130,6 +136,11 @@ public abstract class DataLoadingArrayAdapter<T> extends BaseArrayAdapter<T> {
 			case RESULT_ERROR:
 				t.setText("에러 발생");
 				break;
+			}
+			
+			// move gotData to originalData
+			for(int i=0;i<gotData.size();i++) {
+				originalData.add(gotData.get(i));
 			}
 			
 			// apply original data

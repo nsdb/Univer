@@ -379,7 +379,8 @@ public class RegisterBook extends Activity implements OnClickListener, OnChecked
 		}
 	}
 
-	@Override public boolean onKeyDown(int keyCode, KeyEvent event)
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event)
 	{
 		switch (keyCode)
 		{
