@@ -276,7 +276,10 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:inputType="text" />
+                    android:inputType="number"
+                    android:hint="19930402"
+                    android:maxLength="8" />
+
 		    </LinearLayout>
 
 		    <LinearLayout
@@ -289,12 +292,14 @@
 			        android:layout_marginRight="10dp"
 			        android:textSize="18dp"
 		            android:text="Edition" />
+
                 <EditText
                     android:id="@+id/edition"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:inputType="text" />
+                    android:inputType="number" />
+
 		    </LinearLayout>
 
 		    <LinearLayout
@@ -307,12 +312,14 @@
 			        android:layout_marginRight="10dp"
 			        android:textSize="18dp"
 		            android:text="Original Price" />
+
                 <EditText
                     android:id="@+id/original_price"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:inputType="text" />
+                    android:inputType="number" />
+
 		    </LinearLayout>
 
 		    <LinearLayout
@@ -325,12 +332,14 @@
 			        android:layout_marginRight="10dp"
 			        android:textSize="18dp"
 		            android:text="Discount Price" />
+
                 <EditText
                     android:id="@+id/discount_price"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:inputType="text" />
+                    android:inputType="number" />
+
 		    </LinearLayout>
 
             <TextView
