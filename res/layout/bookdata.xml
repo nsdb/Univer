@@ -1,56 +1,111 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:minHeight="@dimen/bookdata_height"
-    android:maxHeight="@dimen/bookdata_height"
     android:layout_height="@dimen/bookdata_height"
-    android:orientation="horizontal" >
-
-    <ImageView
-        android:id="@+id/thumbnail"
-        android:src="@drawable/ic_launcher"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_gravity="center"
-        android:layout_margin="10dp" />
-
-    <TextView
-        android:id="@+id/title"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:layout_marginLeft="0dp"
-        android:layout_marginRight="0dp"
-        android:layout_gravity="center"
-        android:layout_weight="1"
-        android:textSize="20dp"
-        android:text="Title" />
-
+    android:minHeight="@dimen/bookdata_height" >
 
     <LinearLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:layout_gravity="center"
-        android:orientation="vertical" >
+        android:layout_height="match_parent" >
 
-        <TextView
-            android:id="@+id/discount_price"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="DPrice"
+        <ImageView
+            android:id="@+id/thumbnail"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_margin="10dp"
             android:layout_gravity="center"
-            android:textSize="20dp" />
+            android:src="@drawable/ic_launcher" />
 
-        <TextView
-            android:id="@+id/original_price"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:textSize="15dp"
-            android:textColor="#999999"
-            android:layout_gravity="center"
-            android:text="OPrice" />
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:padding="10dp" >
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="3dp" >
+
+                <TextView
+                    android:id="@+id/title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="10dp"
+                    android:text="Title"
+                    android:textSize="24dp" />
+
+                <TextView
+                    android:id="@+id/salemode"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="bottom"
+                    android:text="SaleMode" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="3dp" >
+
+                <TextView
+                    android:id="@+id/univ"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="10dp"
+                    android:text="Univ" />
+
+                <TextView
+                    android:id="@+id/college"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="College" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" >
+
+                <TextView
+                    android:id="@+id/discount_price"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginRight="10dp"
+                    android:text="DPrice" />
+
+                <TextView
+                    android:id="@+id/parcel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="10dp"
+                    android:background="#999999"
+                    android:padding="2dp"
+                    android:text="택배" />
+
+                <TextView
+                    android:id="@+id/meet"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="#999999"
+                    android:padding="2dp"
+                    android:text="직거래" />
+            </LinearLayout>
+        </LinearLayout>
     </LinearLayout>
 
-</LinearLayout>
+
+
+    <TextView
+        android:id="@+id/salestate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right|center_vertical"
+        android:layout_marginRight="20dp"
+        android:padding="3dp"
+        android:background="#999999"
+        android:textSize="20dp"
+        android:text="SaleState" />
+
+</FrameLayout>

@@ -131,14 +131,16 @@ public class BookDataAdapter extends DataLoadingArrayAdapter<BookData> {
 	@Override
 	protected void setView(int position, View v) {
 		
-		TextView t=(TextView)v.findViewById(R.id.title);
 		ImageView i=(ImageView)v.findViewById(R.id.thumbnail);
+		TextView t=(TextView)v.findViewById(R.id.title);
+		TextView sm=(TextView)v.findViewById(R.id.salemode);
+		TextView u=(TextView)v.findViewById(R.id.univ);
+		TextView c=(TextView)v.findViewById(R.id.college);
 		TextView dp=(TextView)v.findViewById(R.id.discount_price);
-		TextView op=(TextView)v.findViewById(R.id.original_price);
+		TextView p=(TextView)v.findViewById(R.id.parcel);
+		TextView m=(TextView)v.findViewById(R.id.meet);
+		TextView ss=(TextView)v.findViewById(R.id.salestate);
 
-		// title
-		t.setText( getItem(position).title );
-		
 		// imageview
 		if(getItem(position).thumbnail.compareTo("")!=0) {
 			System.out.println("thumbnail : "+getItem(position).thumbnail.substring(1));
@@ -147,18 +149,48 @@ public class BookDataAdapter extends DataLoadingArrayAdapter<BookData> {
 			i.setImageResource(R.drawable.ic_launcher);
 		}
 		
-		// discount price
-		if(getItem(position).discount_price!=-1) {
-			dp.setText( ""+getItem(position).discount_price );
-		} else {
-			dp.setText( "" );
+		// title
+		t.setText( getItem(position).title );
+		
+		// salemode
+		switch(getItem(position).sell) {
+		case BookData.SALEMODE_BUY: sm.setText("삽니다"); break;
+		case BookData.SALEMODE_SELL: sm.setText("팝니다"); break;
+		default: sm.setText("???"); break;
 		}
 		
-		// original price
-		if(getItem(position).original_price!=-1) {
-			op.setText( ""+getItem(position).original_price );			
+		// univ
+		u.setText( getItem(position).university );
+		
+		// college
+		c.setText( getItem(position).college );
+		
+		// discount price
+		if(getItem(position).discount_price!=-1) {
+			dp.setText( ""+getItem(position).discount_price+"원" );
 		} else {
-			op.setText( "" );
+			dp.setText( "???원" );
+		}
+		
+		// parcel
+		if(getItem(position).parcel==0)
+			p.setVisibility(View.GONE);
+
+		// meet
+		if(getItem(position).meet==0)
+			m.setVisibility(View.GONE);
+		
+		// salestate
+		switch(getItem(position).sale) {
+		case BookData.SALESTATE_ABLE: ss.setVisibility(View.INVISIBLE); break;
+		case BookData.SALESTATE_BOOKED:
+			ss.setVisibility(View.VISIBLE);
+			ss.setText("거래중");
+			break;
+		case BookData.SALESTATE_DONE:
+			ss.setVisibility(View.VISIBLE);
+			ss.setText("판매완료");
+			break;
 		}
 		
 	}
