@@ -12,14 +12,19 @@ import android.content.SharedPreferences;
 public class AppPref {
 	
 	private static RangeSet rangeSet;
+
 	private static String id;
 	private static String password;
+	
 	private static String cookieName;
 	private static String cookieValue;
 	private static String cookieDomain;
 	private static String cookiePath;
+	
 	private static BookData lastBookData;
 	private static ProfessorData lastProfessorData;
+	
+	private static int startTab;
 
 	public static void load(Activity activity) {
 		System.out.println("AppPref Loaded");
@@ -33,12 +38,16 @@ public class AppPref {
 
 		id=pref.getString("id","");
 		password=pref.getString("password","");
+
 		cookieName="";
 		cookieValue="";
 		cookieDomain="";
 		cookiePath="";
+		
 		lastBookData=null;
 		lastProfessorData=null;
+		
+		startTab=pref.getInt("startTab",0);
 	}
 	
 	public static void save(Activity activity) {
@@ -59,6 +68,7 @@ public class AppPref {
 		edit.putInt("major_id",rangeSet.get("major").id);
 		edit.putString("id",id);
 		edit.putString("password",password);
+		edit.putInt("startTab",startTab);
 		edit.commit();
 	}
 	
@@ -115,5 +125,18 @@ public class AppPref {
 	}
 	public static ProfessorData getLastProfessorData() {
 		return lastProfessorData;
+	}
+	
+	public static void setInt(String filter,int value) {
+		if(filter.compareTo("startTab")==0) {
+			startTab=value;
+		}
+	}
+	public static int getInt(String filter) {
+		if(filter.compareTo("startTab")==0) {
+			return startTab;
+		} else {
+			return -1;
+		}
 	}
 }

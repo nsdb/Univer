@@ -1,12 +1,14 @@
 package com.nsdb.univer.ui.activity;
 
 import com.nsdb.univer.R;
+import com.nsdb.univer.supporter.data.AppPref;
 import com.nsdb.univer.ui.fragment.BoardMain;
 import com.nsdb.univer.ui.fragment.BookMarketMain;
 import com.nsdb.univer.ui.fragment.ChatRoomMain;
 import com.nsdb.univer.ui.fragment.ProfessorMain;
 
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.widget.Button;
 
 public class TabMain extends ActiveFragmentHost {
@@ -31,7 +33,20 @@ public class TabMain extends ActiveFragmentHost {
         chatroombtn.setOnClickListener(new OnClickSwitcher(2));
         boardbtn.setOnClickListener(new OnClickSwitcher(3));
         
-    	switchScreen(0);
+    	switchScreen(AppPref.getInt("startTab"));
     }
-
+    
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event)
+	{
+		switch (keyCode)
+		{
+		case KeyEvent.KEYCODE_BACK:
+			AppPref.setInt("startTab",getCurrentPosition());
+			finish();
+			return true;
+		default:
+			return false;
+		}
+	}
 }

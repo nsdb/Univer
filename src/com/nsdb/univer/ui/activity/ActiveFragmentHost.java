@@ -42,6 +42,10 @@ public class ActiveFragmentHost extends FragmentActivity {
 		}
 		findViewById(idList.get(cPosition)).setVisibility(View.VISIBLE);
 	}
+	
+	protected int getCurrentPosition() {
+		return cPosition;
+	}
 
     protected class OnClickSwitcher implements OnClickListener {
 

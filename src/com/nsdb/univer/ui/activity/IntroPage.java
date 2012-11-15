@@ -17,15 +17,21 @@ public class IntroPage extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.intro);
-                
+        
+        // init
+        AppPref.load(this);
+
         // from Noti?
-        if(getIntent()!=null && getIntent().getBooleanExtra("noti",false)==true)
+        if(getIntent()!=null && getIntent().getBooleanExtra("noti",false)==true) {
         	NotificationHelper.removeNotification(this,0);
+        	AppPref.setInt("startTab",2);
+        }
         ////
         
-        AppPref.load(this);
+        // auto login
         new AutoLoginer(this).execute();
         
+        // gcm test
         GCMRegistrar.checkDevice(this);
         GCMRegistrar.checkManifest(this);
         String regId = GCMRegistrar.getRegistrationId(this);
