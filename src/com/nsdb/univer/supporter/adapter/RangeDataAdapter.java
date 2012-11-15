@@ -110,7 +110,9 @@ public class RangeDataAdapter extends DataLoadingArrayAdapter<RangeData> impleme
 		// If there is no item for current section, previous section will be selected
 		for (int i = section; i >= 0; i--) {
 			for (int j = 0; j < getCount(); j++) {
-				if (StringMatcher.match(
+				if (getItem(j).title.compareTo("")==0) {
+					continue;
+				} else if (StringMatcher.match(
 						String.valueOf(getItem(j).title.charAt(0)),
 						String.valueOf(sectionArr.charAt(i)) ) ) {
 					return j;
