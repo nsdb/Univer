@@ -3,6 +3,7 @@ package com.nsdb.univer.ui.activity;
 import com.google.android.gcm.GCMRegistrar;
 import com.nsdb.univer.GCMIntentService;
 import com.nsdb.univer.R;
+import com.nsdb.univer.supporter.NotificationHelper;
 import com.nsdb.univer.supporter.data.AppPref;
 import com.nsdb.univer.supporter.network.LoginChecker;
 
@@ -16,6 +17,11 @@ public class IntroPage extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.intro);
+                
+        // from Noti?
+        if(getIntent()!=null && getIntent().getBooleanExtra("noti",false)==true)
+        	NotificationHelper.removeNotification(this,0);
+        ////
         
         AppPref.load(this);
         new AutoLoginer(this).execute();

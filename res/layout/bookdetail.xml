@@ -281,6 +281,7 @@
                 </LinearLayout>
 
                 <TextView
+                    android:id="@+id/otherlinear"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:background="#888888"

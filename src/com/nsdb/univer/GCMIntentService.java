@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.util.Log;
 
 import com.google.android.gcm.GCMBaseIntentService;
+import com.nsdb.univer.supporter.NotificationHelper;
 
 public class GCMIntentService extends GCMBaseIntentService {
     private static final String tag = "GCMIntentService";
@@ -24,12 +25,27 @@ public class GCMIntentService extends GCMBaseIntentService {
     protected void onMessage(Context context, Intent intent) {
         Bundle b = intent.getExtras();
 
+        // get data
         Iterator<String> iterator = b.keySet().iterator();
+        String title=null;
+        String content=null;
         while(iterator.hasNext()) {
             String key = iterator.next();
             String value = b.get(key).toString();
             Log.d(tag, "onMessage. "+key+" : "+value);
+            
+            if(key.compareTo("param1")==0)
+            	title=value;
+            else if(key.compareTo("param2")==0)
+            	content=value;
         }
+        
+        // Noti
+        if(title==null || content==null) return;
+        NotificationHelper.addNotification(context,
+        	new Intent("IntroPage").putExtra("noti",true),
+        	0,R.drawable.ic_launcher,
+        	title+" : "+content,title,content);
     }
 
     /**에러 발생시*/

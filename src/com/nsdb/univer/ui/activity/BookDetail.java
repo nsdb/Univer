@@ -35,6 +35,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RadioGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.RadioGroup.OnCheckedChangeListener;
 
@@ -109,10 +110,17 @@ public class BookDetail extends Activity implements OnItemClickListener, OnCheck
         
         // ListView
     	lv=(ListView)findViewById(R.id.booklist);
-    	adapter=new BookDataAdapter(this,lv);
-    	adapter.setVariableHeight(true);
-    	lv.setOnItemClickListener(this);
-    	adapter.updateData(lastdata.seller_id,true);
+    	if(getIntent().getBooleanExtra("mine",false)==false) {
+	    	adapter=new BookDataAdapter(this,lv);
+	    	adapter.setVariableHeight(true);
+	    	lv.setOnItemClickListener(this);
+	    	adapter.updateData(lastdata.seller_id,true);
+    	} else {
+    		TextView otherlinear=(TextView)findViewById(R.id.otherlinear);
+    		otherlinear.setVisibility(View.GONE);    		
+	    	lv=(ListView)findViewById(R.id.booklist);
+    		lv.setVisibility(View.GONE);
+    	}
     	
     	// editbar
     	if(getIntent().getBooleanExtra("mine",false)==true) {

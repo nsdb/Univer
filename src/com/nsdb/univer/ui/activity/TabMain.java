@@ -31,7 +31,7 @@ public class TabMain extends ActiveFragmentHost {
         chatroombtn.setOnClickListener(new OnClickSwitcher(2));
         boardbtn.setOnClickListener(new OnClickSwitcher(3));
         
-        switchScreen(0);
+    	switchScreen(0);
     }
 
 }
