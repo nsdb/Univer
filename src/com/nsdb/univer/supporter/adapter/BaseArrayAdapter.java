@@ -52,7 +52,6 @@ public abstract class BaseArrayAdapter<T> extends ArrayAdapter<T> {
 			View item=getView(i,null,view);
 			item.measure(desiredWidth,MeasureSpec.UNSPECIFIED);
 			totalHeight+=item.getMeasuredHeight();
-			System.out.println(""+i+" "+item.getMeasuredHeight()+" "+totalHeight);
 		}
 		// heights of header, footer views (because I can't get view, use template height)
 		totalHeight+=(view.getHeaderViewsCount()+view.getFooterViewsCount())*150;
