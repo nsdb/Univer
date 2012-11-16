@@ -13,7 +13,9 @@
         android:theme="@style/MyTheme"
         >
 
-        <activity android:name=".ui.activity.IntroPage">
+        <activity android:name=".ui.activity.IntroPage"
+            android:screenOrientation="portrait"
+            android:configChanges="keyboardHidden|orientation">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -24,56 +26,82 @@
             </intent-filter>
         </activity>
         
-        <activity android:name=".ui.activity.LoginPage">
+        <activity android:name=".ui.activity.LoginPage"
+            android:screenOrientation="portrait"
+            android:configChanges="keyboardHidden|orientation">
             <intent-filter>
                 <action android:name="LoginPage" />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
         
-        <activity android:name=".ui.activity.RegisterUser">
+        <activity android:name=".ui.activity.RegisterUser"
+            android:screenOrientation="portrait"
+            android:configChanges="keyboardHidden|orientation">
             <intent-filter>
                 <action android:name="RegisterUser" />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
         
-        <activity android:name=".ui.activity.RegisterBook">
+        <activity android:name=".ui.activity.RegisterBook"
+            android:screenOrientation="portrait"
+            android:configChanges="keyboardHidden|orientation">
             <intent-filter>
                 <action android:name="RegisterBook" />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
+
+        <activity android:name=".ui.activity.RegisterProfessor"
+            android:screenOrientation="portrait"
+            android:configChanges="keyboardHidden|orientation">
+            <intent-filter>
+                <action android:name="RegisterProfessor" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
         
-        <activity android:name=".ui.activity.RangeSetting">
+        
+        <activity android:name=".ui.activity.RangeSetting"
+            android:screenOrientation="portrait"
+            android:configChanges="keyboardHidden|orientation">
             <intent-filter>
                 <action android:name="RangeSetting" />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
         
-        <activity android:name=".ui.activity.TabMain">
+        <activity android:name=".ui.activity.TabMain"
+            android:screenOrientation="portrait"
+            android:configChanges="keyboardHidden|orientation">
             <intent-filter>
                 <action android:name="TabMain" />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
         
-        <activity android:name=".ui.activity.BookDetail">
+        <activity android:name=".ui.activity.BookDetail"
+            android:screenOrientation="portrait"
+            android:configChanges="keyboardHidden|orientation">
             <intent-filter>
                 <action android:name="BookDetail" />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
         
-        <activity android:name=".ui.activity.ProfessorDetail">
+        <activity android:name=".ui.activity.ProfessorDetail"
+            android:screenOrientation="portrait"
+            android:configChanges="keyboardHidden|orientation">
             <intent-filter>
                 <action android:name="ProfessorDetail" />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
 
-        <activity android:name=".ui.activity.EvaluateProfessor">
+        <activity android:name=".ui.activity.EvaluateProfessor"
+            android:screenOrientation="portrait"
+            android:configChanges="keyboardHidden|orientation">
             <intent-filter>
                 <action android:name="EvaluateProfessor" />
                 <category android:name="android.intent.category.DEFAULT" />
@@ -115,6 +143,7 @@
     
     <!-- For zxing Capture Activity -->
     <uses-permission android:name="android.permission.CAMERA"/>
+    <!-- I think it makes bug..
 	<uses-feature android:name="android.hardware.camera"/>
 	<uses-feature android:name="android.hardware.camera.autofocus" android:required="false"/>
 	<uses-feature android:name="android.hardware.camera.flash" android:required="false"/>
@@ -124,7 +153,8 @@
 	                  android:normalScreens="true"
 	                  android:smallScreens="true"
 	                  android:anyDensity="true"/>
-	
+	-->
+	 
 	<!-- For LazyList -->
 	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
 

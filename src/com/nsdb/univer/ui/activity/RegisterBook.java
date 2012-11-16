@@ -40,7 +40,6 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RadioGroup;
 import android.widget.RadioGroup.OnCheckedChangeListener;
-import android.widget.TextView;
 import android.widget.Toast;
 
 public class RegisterBook extends IntentPreservingActivity implements OnClickListener, OnCheckedChangeListener {
@@ -48,19 +47,19 @@ public class RegisterBook extends IntentPreservingActivity implements OnClickLis
 	
 	RadioGroup sale;
 	int saleMode;
-	TextView region,univ,college,major;
-	Button regionbtn,univbtn,collegebtn,majorbtn;
+	Button region,univ,college,major;
 	private final static int REQUESTCODE_RANGE=4;
 	
 	Button barcode;
 	String isbn;
+	private final static int REQUESTCODE_BARCODE=1;
+
 	ImageButton imagesearch;
 	ImageView image;
 	private final static int REQUESTCODE_CAPTUREIMAGE=2;
 	private final static int REQUESTCODE_GETIMAGE=3;
+
 	EditText title,publisher,author,pubdate,edition,original_price,discount_price;
-	private final static int REQUESTCODE_BARCODE=1;
-	
 	EditText description;
 	CheckBox parcel,meet;
 	
@@ -76,19 +75,16 @@ public class RegisterBook extends IntentPreservingActivity implements OnClickLis
         sale=(RadioGroup)findViewById(R.id.sale);
         saleMode=BookData.SALEMODE_SELL;
         sale.setOnCheckedChangeListener(this);
-        region=(TextView)findViewById(R.id.region);
-        univ=(TextView)findViewById(R.id.univ);
-        college=(TextView)findViewById(R.id.college);
-        major=(TextView)findViewById(R.id.major);
-        regionbtn=(Button)findViewById(R.id.regionbtn);
-        univbtn=(Button)findViewById(R.id.univbtn);
-        collegebtn=(Button)findViewById(R.id.collegebtn);
-        majorbtn=(Button)findViewById(R.id.majorbtn);
-    	regionbtn.setOnClickListener(new OnClickMover(this,new Intent("RangeSetting").putExtra("range","region"),REQUESTCODE_RANGE));
-    	univbtn.setOnClickListener(new OnClickMover(this,new Intent("RangeSetting").putExtra("range","univ"),REQUESTCODE_RANGE));
-    	collegebtn.setOnClickListener(new OnClickMover(this,new Intent("RangeSetting").putExtra("range","college"),REQUESTCODE_RANGE));
-    	majorbtn.setOnClickListener(new OnClickMover(this,new Intent("RangeSetting").putExtra("range","major"),REQUESTCODE_RANGE));
-    	AppPref.getRangeSet().applyDataToView(region,univ,college,major,regionbtn,univbtn,collegebtn,majorbtn);
+        // range setting
+    	region=(Button)findViewById(R.id.region);
+    	univ=(Button)findViewById(R.id.univ);
+    	college=(Button)findViewById(R.id.college);
+    	major=(Button)findViewById(R.id.major);
+    	region.setOnClickListener(new OnClickMover(this,new Intent("RangeSetting").putExtra("range","region"),REQUESTCODE_RANGE));
+    	univ.setOnClickListener(new OnClickMover(this,new Intent("RangeSetting").putExtra("range","univ"),REQUESTCODE_RANGE));
+    	college.setOnClickListener(new OnClickMover(this,new Intent("RangeSetting").putExtra("range","college"),REQUESTCODE_RANGE));
+    	major.setOnClickListener(new OnClickMover(this,new Intent("RangeSetting").putExtra("range","major"),REQUESTCODE_RANGE));
+		AppPref.getRangeSet().applyDataToView(region, univ, college, major);
         
         // second linear
         barcode=(Button)findViewById(R.id.barcode);
@@ -121,6 +117,52 @@ public class RegisterBook extends IntentPreservingActivity implements OnClickLis
 		switch(checkedId) {
 		case R.id.sell: saleMode=BookData.SALEMODE_SELL; break;
 		case R.id.buy: saleMode=BookData.SALEMODE_BUY; break;
+		}
+	}
+
+	// for imagesearch, apply button
+	public void onClick(View v) {
+
+		switch(v.getId()) {
+		
+		case R.id.imagesearch: {
+			final String items[] = { "직접 찍기", "앨범에서 가져오기" };
+			AlertDialog.Builder ab = new AlertDialog.Builder(this);
+			ab.setTitle("이미지");
+			ab.setItems(items, new DialogInterface.OnClickListener() {
+				public void onClick(DialogInterface dialog, int whichButton) {
+
+					switch(whichButton) {
+					case 0:
+						startActivityForResult( new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE),
+												REQUESTCODE_CAPTUREIMAGE );
+						break;
+					case 1:
+						startActivityForResult( new Intent(Intent.ACTION_PICK)
+													.setType(android.provider.MediaStore.Images.Media.CONTENT_TYPE),
+												REQUESTCODE_GETIMAGE );
+						break;
+					}
+					dialog.cancel();
+				}
+			});
+			ab.show();			
+			} break;
+			
+
+		case R.id.apply:
+			if(AppPref.getRangeSet().isFilled()==false ||
+			title.getText().toString().compareTo("")==0 ||
+			publisher.getText().toString().compareTo("")==0 ||
+			author.getText().toString().compareTo("")==0 ||
+			pubdate.getText().toString().compareTo("")==0 ||
+			edition.getText().toString().compareTo("")==0 ||
+			original_price.getText().toString().compareTo("")==0 ||
+			discount_price.getText().toString().compareTo("")==0 ) {
+			Toast.makeText(this, "모든 데이터를 입력하여야 합니다.",Toast.LENGTH_SHORT).show();
+			} else {
+				new RegisterBookHelper().execute();
+			} break;
 		}
 	}
 
@@ -210,51 +252,6 @@ public class RegisterBook extends IntentPreservingActivity implements OnClickLis
 
 	}
 
-	// for imagesearch, apply button
-	public void onClick(View v) {
-
-		switch(v.getId()) {
-		
-		case R.id.imagesearch: {
-			final String items[] = { "직접 찍기", "앨범에서 가져오기" };
-			AlertDialog.Builder ab = new AlertDialog.Builder(this);
-			ab.setTitle("이미지");
-			ab.setItems(items, new DialogInterface.OnClickListener() {
-				public void onClick(DialogInterface dialog, int whichButton) {
-
-					switch(whichButton) {
-					case 0:
-						startActivityForResult( new Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE),
-												REQUESTCODE_CAPTUREIMAGE );
-						break;
-					case 1:
-						startActivityForResult( new Intent(Intent.ACTION_PICK)
-													.setType(android.provider.MediaStore.Images.Media.CONTENT_TYPE),
-												REQUESTCODE_GETIMAGE );
-						break;
-					}
-					dialog.cancel();
-				}
-			});
-			ab.show();			
-			} break;
-			
-
-		case R.id.apply:
-			if(AppPref.getRangeSet().isFilled()==false ||
-			title.getText().toString().compareTo("")==0 ||
-			publisher.getText().toString().compareTo("")==0 ||
-			author.getText().toString().compareTo("")==0 ||
-			pubdate.getText().toString().compareTo("")==0 ||
-			edition.getText().toString().compareTo("")==0 ||
-			original_price.getText().toString().compareTo("")==0 ||
-			discount_price.getText().toString().compareTo("")==0 ) {
-			Toast.makeText(this, "모든 데이터를 입력하여야 합니다.",Toast.LENGTH_SHORT).show();
-			} else {
-				new RegisterBookHelper().execute();
-			} break;
-		}
-	}
     
 	@Override
 	public void onActivityResult(int requestCode, int resultCode, Intent data)
@@ -263,26 +260,31 @@ public class RegisterBook extends IntentPreservingActivity implements OnClickLis
 		
 		if(resultCode==RESULT_OK) {
 			switch(requestCode) {
-			case REQUESTCODE_RANGE: {
-				AppPref.getRangeSet().applyDataToView(region,univ,college,major,regionbtn,univbtn,collegebtn,majorbtn);
+			case REQUESTCODE_RANGE:
+				AppPref.getRangeSet().applyDataToView(region,univ,college,major);
 				getIntent().putExtra("range_changed",true);
-				} break;
+				break;
 			case REQUESTCODE_BARCODE:
 				isbn=data.getStringExtra("SCAN_RESULT");
 				new BookInfoGetter().execute();
 				break;
 			case REQUESTCODE_CAPTUREIMAGE:
-				image.setImageBitmap( (Bitmap)data.getExtras().get("data") );			
+				image.setImageBitmap( (Bitmap)data.getExtras().get("data") );
+				image.setVisibility(View.VISIBLE);
 				break;
 			case REQUESTCODE_GETIMAGE:
 				try {
 					image.setImageBitmap( Images.Media.getBitmap( getContentResolver(),data.getData() ) );
+					image.setVisibility(View.VISIBLE);
 				} catch (FileNotFoundException e) {
 					Toast.makeText(this,"FileNotFoundException",Toast.LENGTH_SHORT).show();
 					e.printStackTrace();
 				} catch (IOException e) {
 					Toast.makeText(this,"IOException",Toast.LENGTH_SHORT).show();
 					e.printStackTrace();
+				} catch (Exception e) {
+					Toast.makeText(this,"Unknown Exception",Toast.LENGTH_SHORT).show();
+					e.printStackTrace();					
 				}
 				break;				
 			}
@@ -294,9 +296,9 @@ public class RegisterBook extends IntentPreservingActivity implements OnClickLis
 		@Override
 		protected void onPreExecute() {
 			pdl=ProgressDialog.show(RegisterBook.this,"Loading","Loading...",true,false);
+			image.setDrawingCacheEnabled(true);
 			super.onPreExecute();
 
-			image.setDrawingCacheEnabled(true);
 		}
 
 		@Override
@@ -366,6 +368,7 @@ public class RegisterBook extends IntentPreservingActivity implements OnClickLis
 		protected void onPostExecute(String result) {
 			
 			pdl.dismiss();
+			image.setDrawingCacheEnabled(false);
 
 			if(result.compareTo("200")==0) {
 				Toast.makeText(RegisterBook.this,"등록 성공",Toast.LENGTH_SHORT).show();

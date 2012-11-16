@@ -72,18 +72,11 @@
 			        android:layout_marginRight="10dp"
 			        android:textSize="18dp"
 		            android:text="Region" />
-		        <TextView
+		        <Button
 		            android:id="@+id/region"
 		            android:layout_width="wrap_content"
 		            android:layout_height="wrap_content"
-			        android:layout_marginRight="10dp"
-			        android:text="없음"
-			        android:textSize="18dp" />
-		        <Button
-		            android:id="@+id/regionbtn"
-		            android:layout_width="wrap_content"
-		            android:layout_height="wrap_content"
-		            android:text="변경" />	
+		            android:text="지역" />	
 		    </LinearLayout>
 		    
 		    <LinearLayout
@@ -96,18 +89,11 @@
 			        android:layout_marginRight="10dp"
 			        android:textSize="18dp"
 		            android:text="Univ" />
-		        <TextView
+		        <Button
 		            android:id="@+id/univ"
 		            android:layout_width="wrap_content"
 		            android:layout_height="wrap_content"
-			        android:layout_marginRight="10dp"
-			        android:text="없음"
-			        android:textSize="18dp" />
-		        <Button
-		            android:id="@+id/univbtn"
-		            android:layout_width="wrap_content"
-		            android:layout_height="wrap_content"
-		            android:text="변경" />	
+		            android:text="대학교" />	
 		    </LinearLayout>
 		    
 		    <LinearLayout
@@ -120,18 +106,11 @@
 			        android:layout_marginRight="10dp"
 			        android:textSize="18dp"
 		            android:text="College" />
-		        <TextView
+		        <Button
 		            android:id="@+id/college"
 		            android:layout_width="wrap_content"
 		            android:layout_height="wrap_content"
-			        android:layout_marginRight="10dp"
-			        android:text="없음"
-			        android:textSize="18dp" />
-		        <Button
-		            android:id="@+id/collegebtn"
-		            android:layout_width="wrap_content"
-		            android:layout_height="wrap_content"
-		            android:text="변경" />	
+		            android:text="단과대" />	
 		    </LinearLayout>
 		    		    
 		    <LinearLayout
@@ -144,18 +123,11 @@
 			        android:layout_marginRight="10dp"
 			        android:textSize="18dp"
 		            android:text="Major" />
-		        <TextView
+		        <Button
 		            android:id="@+id/major"
 		            android:layout_width="wrap_content"
 		            android:layout_height="wrap_content"
-			        android:layout_marginRight="10dp"
-			        android:text="없음"
-			        android:textSize="18dp" />
-		        <Button
-		            android:id="@+id/majorbtn"
-		            android:layout_width="wrap_content"
-		            android:layout_height="wrap_content"
-		            android:text="변경" />	
+		            android:text="학과" />	
 		    </LinearLayout>
 
             <TextView
@@ -201,9 +173,10 @@
 			    </LinearLayout>
                 <ImageView
                     android:id="@+id/image"
-                    android:layout_width="80dp"
-                    android:layout_height="80dp"
-                    android:layout_gravity="center" />
+                    android:layout_width="200dp"
+                    android:layout_height="200dp"
+                    android:scaleType="fitCenter"
+                    android:visibility="gone" />
 
             </LinearLayout>
             

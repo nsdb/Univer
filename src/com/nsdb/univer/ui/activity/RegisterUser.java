@@ -22,15 +22,13 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 public class RegisterUser extends Activity implements OnClickListener {
 	
 	EditText id,nickname,password;
 
-	TextView region,univ,college,major;
-	Button regionbtn,univbtn,collegebtn,majorbtn;
+	Button region,univ,college,major;
 	private final static int REQUESTCODE_RANGE=1;
 	
 	Button apply;	
@@ -45,19 +43,15 @@ public class RegisterUser extends Activity implements OnClickListener {
         nickname=(EditText)findViewById(R.id.nickname);
         password=(EditText)findViewById(R.id.password);
         
-        region=(TextView)findViewById(R.id.region);
-        univ=(TextView)findViewById(R.id.univ);
-        college=(TextView)findViewById(R.id.college);
-        major=(TextView)findViewById(R.id.major);
-        regionbtn=(Button)findViewById(R.id.regionbtn);
-        univbtn=(Button)findViewById(R.id.univbtn);
-        collegebtn=(Button)findViewById(R.id.collegebtn);
-        majorbtn=(Button)findViewById(R.id.majorbtn);
-    	regionbtn.setOnClickListener(new OnClickMover(this,new Intent("RangeSetting").putExtra("range","region"),REQUESTCODE_RANGE));
-    	univbtn.setOnClickListener(new OnClickMover(this,new Intent("RangeSetting").putExtra("range","univ"),REQUESTCODE_RANGE));
-    	collegebtn.setOnClickListener(new OnClickMover(this,new Intent("RangeSetting").putExtra("range","college"),REQUESTCODE_RANGE));
-    	majorbtn.setOnClickListener(new OnClickMover(this,new Intent("RangeSetting").putExtra("range","major"),REQUESTCODE_RANGE));
-    	AppPref.getRangeSet().applyDataToView(region,univ,college,major,regionbtn,univbtn,collegebtn,majorbtn);
+    	region=(Button)findViewById(R.id.region);
+    	univ=(Button)findViewById(R.id.univ);
+    	college=(Button)findViewById(R.id.college);
+    	major=(Button)findViewById(R.id.major);
+    	region.setOnClickListener(new OnClickMover(this,new Intent("RangeSetting").putExtra("range","region"),REQUESTCODE_RANGE));
+    	univ.setOnClickListener(new OnClickMover(this,new Intent("RangeSetting").putExtra("range","univ"),REQUESTCODE_RANGE));
+    	college.setOnClickListener(new OnClickMover(this,new Intent("RangeSetting").putExtra("range","college"),REQUESTCODE_RANGE));
+    	major.setOnClickListener(new OnClickMover(this,new Intent("RangeSetting").putExtra("range","major"),REQUESTCODE_RANGE));
+		AppPref.getRangeSet().applyDataToView(region, univ, college, major);
         
         apply=(Button)findViewById(R.id.apply);
         apply.setOnClickListener(this);
@@ -69,7 +63,7 @@ public class RegisterUser extends Activity implements OnClickListener {
 	public void onActivityResult(int requestCode, int resultCode, Intent data)
 	{
     	if(resultCode==RESULT_OK) {
-	    	AppPref.getRangeSet().applyDataToView(region,univ,college,major,regionbtn,univbtn,collegebtn,majorbtn);
+	    	AppPref.getRangeSet().applyDataToView(region,univ,college,major);
     	}
 	}
     
