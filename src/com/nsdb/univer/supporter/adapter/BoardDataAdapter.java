@@ -84,6 +84,11 @@ public class BoardDataAdapter extends DataLoadingArrayAdapter<BoardData> {
 
 		t.setText(getItem(position).title);
 		d.setText(getItem(position).description);
+		
 	}
+	
+	// this method makes ListView Item non-selectable
+	@Override
+	public boolean isEnabled(int position) { return false; }
 
 }

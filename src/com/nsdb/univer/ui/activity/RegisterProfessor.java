@@ -56,6 +56,7 @@ public class RegisterProfessor extends IntentPreservingActivity implements OnCli
         image=(ImageView)findViewById(R.id.image);
         imageAdded=false;
         title=(EditText)findViewById(R.id.title);
+        //getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
         image.setOnClickListener(this);
 		
     	region=(Button)findViewById(R.id.region);

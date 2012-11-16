@@ -28,6 +28,7 @@ import android.os.Bundle;
 import android.provider.MediaStore.Images;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -69,6 +70,7 @@ public class RegisterBoard extends IntentPreservingActivity implements OnClickLi
         image.setOnClickListener(this);
         // content
         content=(EditText)findViewById(R.id.content);
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE); // because background is null
         
 	}
 

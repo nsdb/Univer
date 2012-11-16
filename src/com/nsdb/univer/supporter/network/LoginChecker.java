@@ -88,7 +88,7 @@ public abstract class LoginChecker extends AsyncTask<Void, Void, Boolean> {
 			
 		} else {
 			
-			Toast.makeText(activity,"로그인 실패, 로그인 화면으로 이동합니다",Toast.LENGTH_SHORT).show();
+			Toast.makeText(activity,"로그인 실패",Toast.LENGTH_SHORT).show();
 			System.out.println("Login fail");
 			onFailLogin();
 		}
