@@ -4,7 +4,6 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.View.MeasureSpec;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
@@ -12,7 +11,6 @@ public abstract class BaseArrayAdapter<T> extends ArrayAdapter<T> {
 	
 	private int dataResourceId;
 	private ListView view;
-	private boolean variableHeight;
 
 	public BaseArrayAdapter(Context context, int dataResourceId, ListView view) {
 		super(context, dataResourceId);
@@ -37,14 +35,10 @@ public abstract class BaseArrayAdapter<T> extends ArrayAdapter<T> {
 	protected abstract void setView(int position,View v);
 	////
 
+	// ScrollView makes a lot of bug, so I will not use it, instead use HeaderView on ListView.
+	/*
 	// Variable Height (For ListView in ScrollView)
-	public void setVariableHeight(boolean value) { variableHeight=value; }
-	@Override
-	public void notifyDataSetChanged() {
-		super.notifyDataSetChanged();
-		if(variableHeight) tuneToScrollView();
-	}
-	private void tuneToScrollView() {
+	public void tuneToScrollView() {
 		int totalHeight=0;
 		int desiredWidth=MeasureSpec.makeMeasureSpec(view.getWidth(),MeasureSpec.AT_MOST);
 		// heights of items
@@ -62,7 +56,8 @@ public abstract class BaseArrayAdapter<T> extends ArrayAdapter<T> {
 		view.requestLayout();
 	}
 	////
-	
+	*/
+
 	@Override
 	public T getItem(int position) {
 		if(position>=getCount() || position<0) {

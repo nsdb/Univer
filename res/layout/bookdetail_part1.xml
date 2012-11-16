@@ -4,21 +4,6 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:orientation="vertical" >
-
-        <ScrollView
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content" >
-
-            <LinearLayout
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical" >
-
                 <TextView
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
@@ -289,76 +274,4 @@
                     android:text="판매자의 다른 책"
                     android:textColor="#ffffff" />
 
-                <ListView
-                    android:id="@+id/booklist"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" >
-                </ListView>
-            </LinearLayout>
-        </ScrollView>
-
-    </LinearLayout>
-    
-    
-    <LinearLayout
-        android:id="@+id/editbar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:visibility="gone"
-        android:background="#999999" >
-		
-	    <LinearLayout
-	        android:layout_width="0dp"
-	        android:layout_height="match_parent"
-	        android:layout_weight="1" >
-	    </LinearLayout>
-	    
-   	    <com.makeramen.segmented.SegmentedRadioGroup
-			android:id="@+id/state"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:orientation="horizontal"
-			android:layout_gravity="center" >
-			<RadioButton
-				android:id="@+id/able"
-				android:layout_width="80dp"
-				android:layout_height="wrap_content"
-				android:checked="true"
-				android:button="@null"
-				android:gravity="center"
-				android:text="판매중" />
-			<RadioButton
-				android:id="@+id/booked"
-				android:layout_width="80dp"
-				android:layout_height="wrap_content"
-				android:button="@null"
-				android:gravity="center"
-				android:text="예약중" />
-			<RadioButton
-				android:id="@+id/done"
-				android:layout_width="80dp"
-				android:layout_height="wrap_content"
-				android:button="@null"
-				android:gravity="center"
-				android:text="판매완료" />
-               
-		</com.makeramen.segmented.SegmentedRadioGroup>
-	    	    
-
-	    <LinearLayout
-	        android:layout_width="0dp"
-	        android:layout_height="match_parent"
-	        android:layout_weight="1" >
-	    </LinearLayout>
-	    	    
-	    	
-	    <Button
-	        android:id="@+id/delete"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:text="삭제" />
-        
-    </LinearLayout>
-    
-    
 </LinearLayout>

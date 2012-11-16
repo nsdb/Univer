@@ -5,21 +5,30 @@ import com.nsdb.univer.R;
 import com.nsdb.univer.data.ProfessorData;
 import com.nsdb.univer.supporter.adapter.CommentDataAdapter;
 import com.nsdb.univer.supporter.data.AppPref;
+import com.nsdb.univer.supporter.ui.OnClickMover;
 import com.nsdb.univer.ui.customview.ProfessorRatingGraph;
 
-import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
 import android.widget.AbsListView.OnScrollListener;
 import android.widget.AbsListView;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
-public class ProfessorDetail extends Activity implements OnScrollListener {
+public class ProfessorDetail extends IntentPreservingActivity implements OnScrollListener {
 
     // data
 	ProfessorData lastdata;
+	
+	// evaluation
+	Button evaluate;
+	private static int REQUESTCODE_EVALUATE=1;
 	
     // first linear
 	ImageView image;
@@ -37,10 +46,19 @@ public class ProfessorDetail extends Activity implements OnScrollListener {
 	@Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.professordetail);
+        
+        // combine layout
+        setContentView(R.layout.professordetail_part2);
+        View part1=((LayoutInflater)getSystemService(Context.LAYOUT_INFLATER_SERVICE))
+				.inflate(R.layout.professordetail_part1,null);
+        ((ListView)findViewById(R.id.commentlist)).addHeaderView(part1);
         
         // data
         lastdata=AppPref.getLastProfessorData();
+        
+        // evaluate
+        evaluate=(Button)findViewById(R.id.evaluate);
+        evaluate.setOnClickListener(new OnClickMover(this,new Intent("EvaluateProfessor"),REQUESTCODE_EVALUATE));
         
         // first linear
         image=(ImageView)findViewById(R.id.image);
@@ -103,16 +121,28 @@ public class ProfessorDetail extends Activity implements OnScrollListener {
         // ListView
     	lv=(ListView)findViewById(R.id.commentlist);
     	adapter=new CommentDataAdapter(this,lv);
-    	adapter.setVariableHeight(true);
+    	//adapter.setVariableHeight(true);
     	lv.setOnScrollListener(this);
-    	adapter.updateData(lastdata.id);
+    	adapter.updateData(lastdata.id,true);
     }
 
 	public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+		System.out.println(firstVisibleItem+" "+visibleItemCount+" "+totalItemCount);
 		if(firstVisibleItem+visibleItemCount==totalItemCount) {
-	    	adapter.updateData(lastdata.id);
+	    	adapter.updateData(lastdata.id,false);
 		}
 	}
 
 	public void onScrollStateChanged(AbsListView view, int scrollState) {}
+	
+	@Override
+	public void onActivityResult(int requestCode, int resultCode, Intent data) {
+		super.onActivityResult(requestCode, resultCode, data);
+		
+		if(requestCode==REQUESTCODE_EVALUATE && resultCode==RESULT_OK) {
+			getIntent().putExtra("edited",true);
+			finish();
+		}
+	}
+
 }

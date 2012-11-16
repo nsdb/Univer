@@ -20,6 +20,7 @@ import android.widget.TextView;
 public abstract class DataLoadingArrayAdapter<T> extends BaseArrayAdapter<T> {
 
 	private View footerNoticeView;
+	private boolean variableHeight;
 	// Data Getting
 	private DataGetter getter;
 	private ArrayList<T> originalData;
@@ -30,16 +31,18 @@ public abstract class DataLoadingArrayAdapter<T> extends BaseArrayAdapter<T> {
 
 	public DataLoadingArrayAdapter(Context context, int dataResourceId, ListView view) {
 		super(context, dataResourceId, view);
+
 		// footerNoticeView
+		// FooterView must add before set adapter, because of WrapperListAdapter
+		// unless, you will see a lot of exceptions...
 		this.footerNoticeView=((LayoutInflater)(context.getSystemService(Context.LAYOUT_INFLATER_SERVICE)))
 				.inflate(R.layout.stringdata,null);
 		TextView t=(TextView)footerNoticeView.findViewById(R.id.text);
 		t.setText("FooterView");
-		// FooterView must add before set adapter, because of WrapperListAdapter
-		// unless, you will see a lot of exceptions...
 		view.setAdapter(null);
-		view.addFooterView(footerNoticeView);
+		view.addFooterView(footerNoticeView,null,false);
 		view.setAdapter(this);
+		
 		// Data Getting
 		getter=null;
 		originalData=new ArrayList<T>();
@@ -156,6 +159,9 @@ public abstract class DataLoadingArrayAdapter<T> extends BaseArrayAdapter<T> {
 		}
 		//notifyDataSetChanged();				
 	}
+	
+	public void setVariableHeight(boolean value) { variableHeight=value; }
+	public boolean isVariableHeight() { return variableHeight; }	
 	
 	protected boolean isLoadable() { return loadable; }
 	protected ArrayList<T> getOriginalData() { return originalData; }

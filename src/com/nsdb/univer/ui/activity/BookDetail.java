@@ -17,12 +17,12 @@ import com.nsdb.univer.supporter.adapter.BookDataAdapter;
 import com.nsdb.univer.supporter.data.AppPref;
 import com.nsdb.univer.supporter.network.NetworkSupporter;
 
-import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.view.KeyEvent;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.WindowManager;
@@ -39,7 +39,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.RadioGroup.OnCheckedChangeListener;
 
-public class BookDetail extends Activity implements OnItemClickListener, OnCheckedChangeListener, OnClickListener {
+public class BookDetail extends IntentPreservingActivity implements OnItemClickListener, OnCheckedChangeListener, OnClickListener {
 
     // data
 	BookData lastdata;
@@ -66,8 +66,13 @@ public class BookDetail extends Activity implements OnItemClickListener, OnCheck
 	@Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.bookdetail);
         
+        // combine layout
+        setContentView(R.layout.bookdetail_part2);
+        View part1=((LayoutInflater)getSystemService(Context.LAYOUT_INFLATER_SERVICE))
+				.inflate(R.layout.bookdetail_part1,null);
+        ((ListView)findViewById(R.id.booklist)).addHeaderView(part1);
+
         // data
         lastdata=AppPref.getLastBookData();
         
@@ -244,18 +249,4 @@ public class BookDetail extends Activity implements OnItemClickListener, OnCheck
 		}
 	}
 
-	@Override
-	public boolean onKeyDown(int keyCode, KeyEvent event)
-	{
-		switch (keyCode)
-		{
-		case KeyEvent.KEYCODE_BACK:
-			// if you don't set result, returned Intent (when this activity is finished) is null.
-			setResult(RESULT_CANCELED,getIntent());
-			finish();
-			return true;
-		default:
-			return false;
-		}
-	}
 }

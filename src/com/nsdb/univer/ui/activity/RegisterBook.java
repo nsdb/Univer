@@ -22,7 +22,6 @@ import com.nsdb.univer.supporter.network.NetworkSupporter;
 import com.nsdb.univer.supporter.ui.ImageSetterNoCache;
 import com.nsdb.univer.supporter.ui.OnClickMover;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
@@ -31,7 +30,6 @@ import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.provider.MediaStore.Images;
-import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.WindowManager;
@@ -45,7 +43,7 @@ import android.widget.RadioGroup.OnCheckedChangeListener;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class RegisterBook extends Activity implements OnClickListener, OnCheckedChangeListener {
+public class RegisterBook extends IntentPreservingActivity implements OnClickListener, OnCheckedChangeListener {
 
 	
 	RadioGroup sale;
@@ -379,18 +377,4 @@ public class RegisterBook extends Activity implements OnClickListener, OnChecked
 		}
 	}
 
-	@Override
-	public boolean onKeyDown(int keyCode, KeyEvent event)
-	{
-		switch (keyCode)
-		{
-		case KeyEvent.KEYCODE_BACK:
-			// if you don't set result, returned Intent (when this activity is finished) is null.
-			setResult(RESULT_CANCELED,getIntent());
-			finish();
-			return true;
-		default:
-			return false;
-		}
-	}
 }

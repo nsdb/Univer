@@ -37,6 +37,7 @@ public class ProfessorMain extends ActiveFragment implements OnItemClickListener
     // ListView
 	RefreshableListView lv;
 	ProfessorDataAdapter adapter;
+	private final static int REQUESTCODE_PROFESSORDETAIL=3;
 	
 	public ProfessorMain(Activity activity) {
 		super(activity,R.layout.professormain);
@@ -94,6 +95,11 @@ public class ProfessorMain extends ActiveFragment implements OnItemClickListener
 				AppPref.getRangeSet().applyDataToView(region, univ, college, major);
 				adapter.updateData("",true);
 			} break;
+			
+		case REQUESTCODE_PROFESSORDETAIL:
+			if(data.getBooleanExtra("edited",false)==true) {
+				adapter.updateData("",true);
+			} break;
 		}
 	}
 	
@@ -101,7 +107,7 @@ public class ProfessorMain extends ActiveFragment implements OnItemClickListener
 	public void onItemClick(AdapterView<?> parent, View view, int position, long l_position) {
 		if(adapter.getItem(position)!=null) {
 			AppPref.setLastProfessorData(adapter.getItem(position));
-			THIS.startActivity( new Intent("ProfessorDetail") );
+			THIS.startActivityForResult( new Intent("ProfessorDetail"),REQUESTCODE_PROFESSORDETAIL );
 		}		
 	}
 	

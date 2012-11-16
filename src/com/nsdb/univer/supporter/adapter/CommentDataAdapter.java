@@ -26,7 +26,8 @@ public class CommentDataAdapter extends DataLoadingArrayAdapter<CommentData> {
 		super.init();
 		pageNum=0;
 	}
-	public void updateData(int professor_id) {
+	public void updateData(int professor_id,boolean init) {
+		if(init) init();
 		if(isLoadable()==false) return;
 		// {base_url}/feeds/comments/professors/professor_id=<professor_id>&page=<page>/
 		String url=getContext().getResources().getString(R.string.base_url)+'/'
