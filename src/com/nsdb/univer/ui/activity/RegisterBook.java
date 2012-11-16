@@ -54,8 +54,8 @@ public class RegisterBook extends IntentPreservingActivity implements OnClickLis
 	String isbn;
 	private final static int REQUESTCODE_BARCODE=1;
 
-	ImageButton imagesearch;
 	ImageView image;
+	boolean imageAdded;
 	private final static int REQUESTCODE_CAPTUREIMAGE=2;
 	private final static int REQUESTCODE_GETIMAGE=3;
 
@@ -89,8 +89,8 @@ public class RegisterBook extends IntentPreservingActivity implements OnClickLis
         // second linear
         barcode=(Button)findViewById(R.id.barcode);
         isbn="1";
-        imagesearch=(ImageButton)findViewById(R.id.imagesearch);
         image=(ImageView)findViewById(R.id.image);
+        imageAdded=false;
         title=(EditText)findViewById(R.id.title);
         publisher=(EditText)findViewById(R.id.publisher);
         author=(EditText)findViewById(R.id.author);
@@ -100,7 +100,7 @@ public class RegisterBook extends IntentPreservingActivity implements OnClickLis
         discount_price=(EditText)findViewById(R.id.discount_price);
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
         barcode.setOnClickListener(new OnClickMover(this,new Intent("com.google.zxing.client.android.SCAN"),REQUESTCODE_BARCODE));
-        imagesearch.setOnClickListener(this);
+        image.setOnClickListener(this);
         
         // third linear
         description=(EditText)findViewById(R.id.description);
@@ -125,7 +125,7 @@ public class RegisterBook extends IntentPreservingActivity implements OnClickLis
 
 		switch(v.getId()) {
 		
-		case R.id.imagesearch: {
+		case R.id.image: {
 			final String items[] = { "직접 찍기", "앨범에서 가져오기" };
 			AlertDialog.Builder ab = new AlertDialog.Builder(this);
 			ab.setTitle("이미지");
@@ -270,12 +270,12 @@ public class RegisterBook extends IntentPreservingActivity implements OnClickLis
 				break;
 			case REQUESTCODE_CAPTUREIMAGE:
 				image.setImageBitmap( (Bitmap)data.getExtras().get("data") );
-				image.setVisibility(View.VISIBLE);
+				imageAdded=true;
 				break;
 			case REQUESTCODE_GETIMAGE:
 				try {
 					image.setImageBitmap( Images.Media.getBitmap( getContentResolver(),data.getData() ) );
-					image.setVisibility(View.VISIBLE);
+					imageAdded=true;
 				} catch (FileNotFoundException e) {
 					Toast.makeText(this,"FileNotFoundException",Toast.LENGTH_SHORT).show();
 					e.printStackTrace();
@@ -336,9 +336,9 @@ public class RegisterBook extends IntentPreservingActivity implements OnClickLis
 				ment.addPart("sell",new StringBody(""+saleMode));
 				ment.addPart("isbn",new StringBody(""+isbn));
 				// image data
-				Bitmap bit=image.getDrawingCache();
-				if(bit != null) {
+				if(imageAdded) {
 					// create temp image file
+					Bitmap bit=image.getDrawingCache();
 					FileOutputStream out = openFileOutput("temp.jpg",MODE_PRIVATE);
 					bit.compress(Bitmap.CompressFormat.JPEG,85,out);
 					out.flush();

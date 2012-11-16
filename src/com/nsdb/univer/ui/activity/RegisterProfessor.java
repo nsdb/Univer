@@ -36,8 +36,8 @@ import android.widget.Toast;
 
 public class RegisterProfessor extends IntentPreservingActivity implements OnClickListener {
 
-	ImageButton imagesearch;
 	ImageView image;
+	boolean imageAdded;
 	private final static int REQUESTCODE_CAPTUREIMAGE=1;
 	private final static int REQUESTCODE_GETIMAGE=2;
 	
@@ -54,10 +54,10 @@ public class RegisterProfessor extends IntentPreservingActivity implements OnCli
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.registerprofessor);
 		
-        imagesearch=(ImageButton)findViewById(R.id.imagesearch);
         image=(ImageView)findViewById(R.id.image);
+        imageAdded=false;
         title=(EditText)findViewById(R.id.title);
-        imagesearch.setOnClickListener(this);
+        image.setOnClickListener(this);
 		
     	region=(Button)findViewById(R.id.region);
     	univ=(Button)findViewById(R.id.univ);
@@ -80,7 +80,7 @@ public class RegisterProfessor extends IntentPreservingActivity implements OnCli
 
 		switch(v.getId()) {
 		
-		case R.id.imagesearch: {
+		case R.id.image: {
 			final String items[] = { "직접 찍기", "앨범에서 가져오기" };
 			AlertDialog.Builder ab = new AlertDialog.Builder(this);
 			ab.setTitle("이미지");
@@ -128,13 +128,13 @@ public class RegisterProfessor extends IntentPreservingActivity implements OnCli
 				getIntent().putExtra("range_changed",true);
 				break;
 			case REQUESTCODE_CAPTUREIMAGE:
-				image.setImageBitmap( (Bitmap)data.getExtras().get("data") );			
-				image.setVisibility(View.VISIBLE);
+				image.setImageBitmap( (Bitmap)data.getExtras().get("data") );	
+				imageAdded=true;
 				break;
 			case REQUESTCODE_GETIMAGE:
 				try {
 					image.setImageBitmap( Images.Media.getBitmap( getContentResolver(),data.getData() ) );
-					image.setVisibility(View.VISIBLE);
+					imageAdded=true;
 				} catch (FileNotFoundException e) {
 					Toast.makeText(this,"FileNotFoundException",Toast.LENGTH_SHORT).show();
 					e.printStackTrace();
@@ -176,15 +176,15 @@ public class RegisterProfessor extends IntentPreservingActivity implements OnCli
 				// multipart entity
 				MultipartEntity ment=new MultipartEntity(HttpMultipartMode.BROWSER_COMPATIBLE);
 				// base data
-				ment.addPart("title",new StringBody(title.getText().toString(),Charset.forName("UTF-8")));				
+				ment.addPart("name",new StringBody(title.getText().toString(),Charset.forName("UTF-8")));				
 				ment.addPart("region",new StringBody(""+AppPref.getRangeSet().get("region").id));
 				ment.addPart("university",new StringBody(""+AppPref.getRangeSet().get("univ").id));
 				ment.addPart("college",new StringBody(""+AppPref.getRangeSet().get("college").id));
 				ment.addPart("major",new StringBody(""+AppPref.getRangeSet().get("major").id));
 				// image data
-				Bitmap bit=image.getDrawingCache();
-				if(bit != null) {
+				if(imageAdded) {
 					// create temp image file
+					Bitmap bit=image.getDrawingCache();
 					FileOutputStream out = openFileOutput("temp.jpg",MODE_PRIVATE);
 					bit.compress(Bitmap.CompressFormat.JPEG,85,out);
 					out.flush();
