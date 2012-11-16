@@ -19,8 +19,8 @@ import android.widget.TextView;
 
 public abstract class DataLoadingArrayAdapter<T> extends BaseArrayAdapter<T> {
 
+	// header view
 	private View footerNoticeView;
-	private boolean variableHeight;
 	// Data Getting
 	private DataGetter getter;
 	private ArrayList<T> originalData;
@@ -28,6 +28,8 @@ public abstract class DataLoadingArrayAdapter<T> extends BaseArrayAdapter<T> {
 	protected final static int RESULT_SUCCESS=1;
 	protected final static int RESULT_EMPTY=2;
 	protected final static int RESULT_ERROR=3;
+	// other setting
+	
 
 	public DataLoadingArrayAdapter(Context context, int dataResourceId, ListView view) {
 		super(context, dataResourceId, view);
@@ -142,9 +144,7 @@ public abstract class DataLoadingArrayAdapter<T> extends BaseArrayAdapter<T> {
 			}
 			
 			// move gotData to originalData
-			for(int i=0;i<gotData.size();i++) {
-				originalData.add(gotData.get(i));
-			}
+			originalData.addAll(gotData);
 			
 			// apply original data
 			applyUpdate();
@@ -154,14 +154,9 @@ public abstract class DataLoadingArrayAdapter<T> extends BaseArrayAdapter<T> {
 	protected abstract T convertElementToObject(Element item);
 	protected void applyUpdate() {
 		clear();
-		for(int i=0;i<originalData.size();i++) {
-			add(originalData.get(i));
-		}
+		addAll(originalData);
 		//notifyDataSetChanged();				
 	}
-	
-	public void setVariableHeight(boolean value) { variableHeight=value; }
-	public boolean isVariableHeight() { return variableHeight; }	
 	
 	protected boolean isLoadable() { return loadable; }
 	protected ArrayList<T> getOriginalData() { return originalData; }

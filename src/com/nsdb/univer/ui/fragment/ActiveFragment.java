@@ -13,6 +13,7 @@ public class ActiveFragment extends Fragment {
 	private int layoutId;
 	
 	public ActiveFragment(Activity activity,int layoutId) {
+		super();
 		THIS=activity;
 		this.layoutId=layoutId;
 	}

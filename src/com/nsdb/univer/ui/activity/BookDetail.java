@@ -117,7 +117,6 @@ public class BookDetail extends IntentPreservingActivity implements OnItemClickL
     	lv=(ListView)findViewById(R.id.booklist);
     	if(getIntent().getBooleanExtra("mine",false)==false) {
 	    	adapter=new BookDataAdapter(this,lv);
-	    	adapter.setVariableHeight(true);
 	    	lv.setOnItemClickListener(this);
 	    	adapter.updateData(lastdata.seller_id,true);
     	} else {
