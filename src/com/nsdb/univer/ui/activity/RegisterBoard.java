@@ -33,52 +33,57 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-public class RegisterProfessor extends IntentPreservingActivity implements OnClickListener {
-
-	ImageView image;
-	boolean imageAdded;
-	private final static int REQUESTCODE_CAPTUREIMAGE=1;
-	private final static int REQUESTCODE_GETIMAGE=2;
+public class RegisterBoard extends IntentPreservingActivity implements OnClickListener {
 	
-	EditText title;
-	Button region,univ,college,major;
-	private final static int REQUESTCODE_RANGE=3;
-	
+	// actionbar
 	Button apply;
 	ProgressDialog pdl;
+	// range
+	Button region,univ;
+	private final static int REQUESTCODE_RANGE=1;
+	// image
+	ImageView image;
+	boolean imageAdded;
+	private final static int REQUESTCODE_CAPTUREIMAGE=2;
+	private final static int REQUESTCODE_GETIMAGE=3;
+	// content
+	EditText content;
 	
-
 	@Override
-	public void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.registerprofessor);
-		
-        image=(ImageView)findViewById(R.id.image);
-        imageAdded=false;
-        title=(EditText)findViewById(R.id.title);
-        image.setOnClickListener(this);
-		
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.registerboard);
+        
+        // actionbar
+        apply=(Button)findViewById(R.id.apply);
+        apply.setOnClickListener(this);
+        // range
     	region=(Button)findViewById(R.id.region);
     	univ=(Button)findViewById(R.id.univ);
-    	college=(Button)findViewById(R.id.college);
-    	major=(Button)findViewById(R.id.major);
     	region.setOnClickListener(new OnClickMover(this,new Intent("RangeSetting").putExtra("range","region"),REQUESTCODE_RANGE));
     	univ.setOnClickListener(new OnClickMover(this,new Intent("RangeSetting").putExtra("range","univ"),REQUESTCODE_RANGE));
-    	college.setOnClickListener(new OnClickMover(this,new Intent("RangeSetting").putExtra("range","college"),REQUESTCODE_RANGE));
-    	major.setOnClickListener(new OnClickMover(this,new Intent("RangeSetting").putExtra("range","major"),REQUESTCODE_RANGE));
-		AppPref.getRangeSet().applyDataToView(region, univ, college, major);
-		
-        apply=(Button)findViewById(R.id.apply);
-        apply.setOnClickListener(this);		
+		AppPref.getRangeSet().applyDataToView(region, univ);
+		// image
+        image=(ImageView)findViewById(R.id.image);
+        imageAdded=false;
+        image.setOnClickListener(this);
+        // content
+        content=(EditText)findViewById(R.id.content);
         
 	}
 
-
-	// for imagesearch, apply button
 	public void onClick(View v) {
-
+		
 		switch(v.getId()) {
 		
+		case R.id.apply:
+			if( AppPref.getRangeSet().get("univ").id==-1 ||
+				(imageAdded==false && content.getText().toString().compareTo("")==0) ) {
+				Toast.makeText(this,"소속 또는 글이 입력되지 않았습니다.",Toast.LENGTH_SHORT).show();
+			} else {
+				new RegisterBoardHelper().execute();
+			} break;
+			
 		case R.id.image: {
 			final String items[] = { "직접 찍기", "앨범에서 가져오기" };
 			AlertDialog.Builder ab = new AlertDialog.Builder(this);
@@ -103,17 +108,9 @@ public class RegisterProfessor extends IntentPreservingActivity implements OnCli
 			ab.show();			
 			} break;
 			
-
-		case R.id.apply:
-			if(AppPref.getRangeSet().isFilled()==false ||
-			title.getText().toString().compareTo("")==0 ) {
-			Toast.makeText(this, "모든 데이터를 입력하여야 합니다.",Toast.LENGTH_SHORT).show();
-			} else {
-				new RegisterProfessorHelper().execute();
-			} break;
 		}
+		
 	}
-	
 	
 	@Override
 	public void onActivityResult(int requestCode, int resultCode, Intent data)
@@ -123,11 +120,11 @@ public class RegisterProfessor extends IntentPreservingActivity implements OnCli
 		if(resultCode==RESULT_OK) {
 			switch(requestCode) {
 			case REQUESTCODE_RANGE:
-				AppPref.getRangeSet().applyDataToView(region,univ,college,major);
+				AppPref.getRangeSet().applyDataToView(region,univ);
 				getIntent().putExtra("range_changed",true);
 				break;
 			case REQUESTCODE_CAPTUREIMAGE:
-				image.setImageBitmap( (Bitmap)data.getExtras().get("data") );	
+				image.setImageBitmap( (Bitmap)data.getExtras().get("data") );
 				imageAdded=true;
 				break;
 			case REQUESTCODE_GETIMAGE:
@@ -150,11 +147,11 @@ public class RegisterProfessor extends IntentPreservingActivity implements OnCli
 	}
 	
 	
-	private class RegisterProfessorHelper extends AsyncTask<Void,Void,String> {
+	private class RegisterBoardHelper extends AsyncTask<Void,Void,String> {
 		
 		@Override
 		protected void onPreExecute() {
-			pdl=ProgressDialog.show(RegisterProfessor.this,"Loading","Loading...",true,false);
+			pdl=ProgressDialog.show(RegisterBoard.this,"Loading","Loading...",true,false);
 			image.setDrawingCacheEnabled(true);
 			super.onPreExecute();
 
@@ -163,9 +160,9 @@ public class RegisterProfessor extends IntentPreservingActivity implements OnCli
 		@Override
 		protected String doInBackground(Void... params) {
 			
-			// create url : 1.234.23.142/~ypunval/professors/
+			// create url : 1.234.23.142/~ypunval/entry/
 			String url=getResources().getString(R.string.base_url)+'/'
-					+getResources().getString(R.string.professor_url)+'/';
+					+getResources().getString(R.string.registerboard_url)+'/';
 			System.out.println("XML URL : "+url);
 					
 			try {				
@@ -175,11 +172,9 @@ public class RegisterProfessor extends IntentPreservingActivity implements OnCli
 				// multipart entity
 				MultipartEntity ment=new MultipartEntity(HttpMultipartMode.BROWSER_COMPATIBLE);
 				// base data
-				ment.addPart("name",new StringBody(title.getText().toString(),Charset.forName("UTF-8")));				
 				ment.addPart("region",new StringBody(""+AppPref.getRangeSet().get("region").id));
 				ment.addPart("university",new StringBody(""+AppPref.getRangeSet().get("univ").id));
-				ment.addPart("college",new StringBody(""+AppPref.getRangeSet().get("college").id));
-				//ment.addPart("major",new StringBody(""+AppPref.getRangeSet().get("major").id));
+				ment.addPart("content",new StringBody(content.getText().toString(),Charset.forName("UTF-8")));
 				// image data
 				if(imageAdded) {
 					// create temp image file
@@ -216,13 +211,14 @@ public class RegisterProfessor extends IntentPreservingActivity implements OnCli
 			image.setDrawingCacheEnabled(false);
 
 			if(result.compareTo("200")==0) {
-				Toast.makeText(RegisterProfessor.this,"등록 성공",Toast.LENGTH_SHORT).show();
+				Toast.makeText(RegisterBoard.this,"등록 성공",Toast.LENGTH_SHORT).show();
 				setResult(RESULT_OK,getIntent());
 				finish();
 			} else {
-				Toast.makeText(RegisterProfessor.this,result,Toast.LENGTH_SHORT).show();				
+				Toast.makeText(RegisterBoard.this,result,Toast.LENGTH_SHORT).show();				
 			}
 		}
 	}
 	
+
 }

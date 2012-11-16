@@ -144,7 +144,7 @@ public class RangeSet {
 	}
 	
 	public boolean isFilled() {
-		return region.id!=-1 && univ.id!=-1 && college.id!=-1; // && major.id!=-1;
+		return college.id!=-1; // major.id!=-1;
 	}
 
 }
