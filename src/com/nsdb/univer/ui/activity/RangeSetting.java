@@ -19,7 +19,7 @@ import android.widget.TextView;
 public class RangeSetting extends Activity implements OnItemClickListener {
 	
 	String range;
-	TextView title;
+	TextView actionbartitle;
 	EditText edit;
 
 	IndexableListView list;
@@ -32,15 +32,15 @@ public class RangeSetting extends Activity implements OnItemClickListener {
                 
         // title
         range=getIntent().getStringExtra("range");
-        title=(TextView)findViewById(R.id.title);        
+        actionbartitle=(TextView)findViewById(R.id.actionbartitle);        
         if(range.compareTo("region")==0)
-        	title.setText("지역선택");
+        	actionbartitle.setText("지역선택");
         else if(range.compareTo("univ")==0)
-        	title.setText("학교선택");
+        	actionbartitle.setText("학교선택");
         else if(range.compareTo("college")==0)
-        	title.setText("단과대선택");
+        	actionbartitle.setText("단과대선택");
         else if(range.compareTo("major")==0)
-        	title.setText("학과선택");
+        	actionbartitle.setText("학과선택");
         else {
         	finish();
         	return;

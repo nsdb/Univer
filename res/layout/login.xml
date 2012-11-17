@@ -4,6 +4,19 @@
     android:layout_height="match_parent"
     android:padding="30dp"
     android:orientation="vertical" >
+    
+    <LinearLayout
+        android:id="@+id/actionbar" style="@style/ActionBarLinear">
+
+  	    <TextView
+	        android:id="@+id/actionbartitle" style="@style/ActionBarTitle"
+	        android:layout_width="0dp"
+	        android:layout_height="wrap_content"
+	        android:layout_weight="1"
+	        android:text="로그인" />
+        
+    </LinearLayout>
+    
 
     <LinearLayout
         android:layout_width="match_parent"

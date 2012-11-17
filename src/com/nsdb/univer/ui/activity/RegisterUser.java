@@ -142,7 +142,6 @@ public class RegisterUser extends Activity implements OnClickListener {
 				Toast.makeText(RegisterUser.this,"가입 성공",Toast.LENGTH_SHORT).show();
 				AppPref.setString("id",id.getText().toString());
 				AppPref.setString("password",password.getText().toString());
-				startActivity( new Intent("TabMain") );
 				setResult(RESULT_OK,getIntent());
 				finish();
 			} else {

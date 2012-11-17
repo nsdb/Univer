@@ -5,11 +5,7 @@
     android:orientation="vertical" >
 
     <LinearLayout
-        android:id="@+id/actionbar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="#999999" >
-	
+        android:id="@+id/actionbar" style="@style/ActionBarLinear">
 	
 	    <Button
 	        android:id="@+id/search"
@@ -25,18 +21,13 @@
 	        android:visibility="gone"
 	        android:ems="10" />
 
-	    <LinearLayout
-	        android:layout_width="0dp"
-	        android:layout_height="match_parent"
-	        android:layout_weight="1" >
-	    </LinearLayout>
-	    
    	    <com.makeramen.segmented.SegmentedRadioGroup
 			android:id="@+id/sale"
-			android:layout_width="wrap_content"
+			android:layout_width="0dp"
 			android:layout_height="wrap_content"
-			android:orientation="horizontal"
-			android:layout_gravity="center" >
+			android:layout_weight="1"
+			android:gravity="center"
+			android:orientation="horizontal">
 			<RadioButton
 				android:id="@+id/sell"
 				android:layout_width="40dp"
@@ -63,13 +54,6 @@
 		</com.makeramen.segmented.SegmentedRadioGroup>
 	    	    
 
-	    <LinearLayout
-	        android:layout_width="0dp"
-	        android:layout_height="match_parent"
-	        android:layout_weight="1" >
-	    </LinearLayout>
-	    	    
-	    	
 	    <Button
 	        android:id="@+id/register"
 	        android:layout_width="wrap_content"

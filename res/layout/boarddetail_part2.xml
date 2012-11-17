@@ -4,6 +4,18 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
+    <LinearLayout
+        android:id="@+id/actionbar" style="@style/ActionBarLinear">
+
+  	    <TextView
+	        android:id="@+id/actionbartitle" style="@style/ActionBarTitle"
+	        android:layout_width="0dp"
+	        android:layout_height="wrap_content"
+	        android:layout_weight="1"
+	        android:text="댓글달기" />
+	
+    </LinearLayout>
+    
     <ListView
         android:id="@+id/commentlist"
         android:layout_width="match_parent"

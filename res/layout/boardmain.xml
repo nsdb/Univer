@@ -5,28 +5,20 @@
     android:orientation="vertical" >
 
     <LinearLayout
-        android:id="@+id/actionbar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="#999999" >        
+        android:id="@+id/actionbar" style="@style/ActionBarLinear">
 
-	    <LinearLayout
-	        android:id="@+id/titlelayout"
+	    <Button
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
+	        android:visibility="invisible"
+	        android:text="X" />
+
+  	    <TextView
+	        android:id="@+id/actionbartitle" style="@style/ActionBarTitle"
+	        android:layout_width="0dp"
+	        android:layout_height="wrap_content"
 	        android:layout_weight="1"
-	        android:layout_gravity="center"
-	        android:orientation="vertical" >
-	
-	  	    <TextView
-		        android:id="@+id/title"
-		        android:layout_width="wrap_content"
-		        android:layout_height="wrap_content"
-		        android:layout_gravity="center"
-		        android:textSize="24dp"
-		        android:text="Title" />
-	    
-	    </LinearLayout>
+	        android:text="게시판" />
 	
 	    <Button
 	        android:id="@+id/register"

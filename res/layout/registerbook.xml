@@ -3,6 +3,19 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" >
+    
+    <LinearLayout
+        android:id="@+id/actionbar" style="@style/ActionBarLinear">
+        
+  	    <TextView
+	        android:id="@+id/actionbartitle" style="@style/ActionBarTitle"
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:text="교수평가" />
+        
+    </LinearLayout>
+    
+    
 
     <ScrollView
         android:layout_width="fill_parent"

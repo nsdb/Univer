@@ -5,16 +5,14 @@
     android:orientation="vertical" >
 
     <LinearLayout
-        android:id="@+id/actionbar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="#999999" >
-        
-    <Button
-        android:id="@+id/search"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="S" />
+        android:id="@+id/actionbar" style="@style/ActionBarLinear">
+
+	    <Button
+	        android:id="@+id/search"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:visibility="invisible"
+	        android:text="S" />
 
 	    <EditText
 	        android:id="@+id/searchtxt"
@@ -23,25 +21,13 @@
 	        android:layout_weight="1"
 	        android:visibility="gone"
 	        android:ems="10" />
-	        
-	
-	    <LinearLayout
-	        android:id="@+id/titlelayout"
-	        android:layout_width="wrap_content"
+
+  	    <TextView
+	        android:id="@+id/actionbartitle" style="@style/ActionBarTitle"
+	        android:layout_width="0dp"
 	        android:layout_height="wrap_content"
 	        android:layout_weight="1"
-	        android:layout_gravity="center"
-	        android:orientation="vertical" >
-	
-	  	    <TextView
-		        android:id="@+id/title"
-		        android:layout_width="wrap_content"
-		        android:layout_height="wrap_content"
-		        android:layout_gravity="center"
-		        android:textSize="24dp"
-		        android:text="Title" />
-	    
-	    </LinearLayout>
+	        android:text="교수평가" />
 	
 	    <Button
 	        android:id="@+id/register"
@@ -50,6 +36,8 @@
 	        android:text="R" />
         
     </LinearLayout>
+    
+    
     
 	<HorizontalScrollView
 	    android:layout_width="match_parent"
