@@ -5,6 +5,7 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.WindowManager;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
@@ -35,6 +36,7 @@ public class LoginPage extends Activity implements OnClickListener {
         id.setText(AppPref.getString("id"));
         login.setOnClickListener(this);
         signup.setOnClickListener(new OnClickMover(this,new Intent("RegisterUser")));
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
         
     }
 

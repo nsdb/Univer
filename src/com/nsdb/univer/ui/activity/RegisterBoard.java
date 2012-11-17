@@ -70,7 +70,7 @@ public class RegisterBoard extends IntentPreservingActivity implements OnClickLi
         image.setOnClickListener(this);
         // content
         content=(EditText)findViewById(R.id.content);
-        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE); // because background is null
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
         
 	}
 

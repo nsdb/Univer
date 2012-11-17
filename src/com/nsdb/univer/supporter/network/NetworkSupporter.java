@@ -44,10 +44,12 @@ public class NetworkSupporter {
 		InputStreamReader isr=new InputStreamReader(is,"utf-8");
 
 		// cookie save
-		AppPref.setString("cookieName",cookieList.get(0).getName());
-		AppPref.setString("cookieValue",cookieList.get(0).getValue());
-		AppPref.setString("cookieDomain",cookieList.get(0).getDomain());
-		AppPref.setString("cookiePath",cookieList.get(0).getPath());
+		if(cookieList.size()>0) {
+			AppPref.setString("cookieName",cookieList.get(0).getName());
+			AppPref.setString("cookieValue",cookieList.get(0).getValue());
+			AppPref.setString("cookieDomain",cookieList.get(0).getDomain());
+			AppPref.setString("cookiePath",cookieList.get(0).getPath());
+		}
 		
 		return isr;
 		
