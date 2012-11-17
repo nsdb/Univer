@@ -18,6 +18,7 @@
     <string name="evaluateprofessor_url">evaluations</string>
     <string name="board_url">entries</string>
     <string name="registerboard_url">entry</string>
+    <string name="likeboard_url">like/entry</string>
     
     <string name="login_url">login</string>
     <string name="registeruser_url">register</string>
