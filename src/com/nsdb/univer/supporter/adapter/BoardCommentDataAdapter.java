@@ -12,11 +12,13 @@ import android.view.View;
 import android.widget.ListView;
 import android.widget.TextView;
 
-public class CommentDataAdapter extends DataLoadingArrayAdapter<CommentData> {
+// almost same as ProfessorCommentDataAdapter.java
+
+public class BoardCommentDataAdapter extends DataLoadingArrayAdapter<CommentData> {
 	
 	private int pageNum;
 
-	public CommentDataAdapter(Context context, ListView view) {
+	public BoardCommentDataAdapter(Context context, ListView view) {
 		super(context, R.layout.commentdata, view);
 		pageNum=0;
 	}
@@ -26,15 +28,15 @@ public class CommentDataAdapter extends DataLoadingArrayAdapter<CommentData> {
 		super.init();
 		pageNum=0;
 	}
-	public void updateData(int professor_id,boolean init) {
+	public void updateData(int writer_id,boolean init) {
 		if(init) init();
 		if(isLoadable()==false) return;
-		// {base_url}/feeds/comments/professors/professor_id=<professor_id>&page=<page>/
+		// {base_url}/feeds/comments/entry/entry_id=<entry_id>&page=<page>/
 		String url=getContext().getResources().getString(R.string.base_url)+'/'
 				+getContext().getResources().getString(R.string.get_url)+'/'
-				+getContext().getResources().getString(R.string.professorcomment_url)+'/';
+				+getContext().getResources().getString(R.string.boardcomment_url)+'/';
 		ArrayList<String> getData=new ArrayList<String>();
-		getData.add("professor_id="+professor_id);
+		getData.add("entry_id="+writer_id);
 		getData.add("page="+(++pageNum));
 		for(int i=0;i<getData.size();i++) {
 			url=url+getData.get(i);

@@ -10,6 +10,7 @@ import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.protocol.HTTP;
 import org.jdom2.Element;
 
+import com.fedorvlasov.lazylist.ImageLoader;
 import com.nsdb.univer.R;
 import com.nsdb.univer.data.BoardData;
 import com.nsdb.univer.data.BookData;
@@ -23,16 +24,19 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 public class BoardDataAdapter extends DataLoadingArrayAdapter<BoardData> {
 
+	private ImageLoader loader;
 	private int pageNum;
 	
 	public BoardDataAdapter(Context context, ListView view) {
 		super(context, R.layout.boarddata, view);
+		loader=new ImageLoader(context);
 		pageNum=0;
 	}
 
@@ -98,6 +102,7 @@ public class BoardDataAdapter extends DataLoadingArrayAdapter<BoardData> {
 		TextView c=(TextView)v.findViewById(R.id.comment);
 		TextView ln=(TextView)v.findViewById(R.id.likenum);
 		TextView cn=(TextView)v.findViewById(R.id.commentnum);
+		ImageView i=(ImageView)v.findViewById(R.id.image);
 
 		t.setText(getItem(position).title);
 		p.setText(getItem(position).pubDate);
@@ -106,6 +111,11 @@ public class BoardDataAdapter extends DataLoadingArrayAdapter<BoardData> {
 		c.setOnClickListener(new CommentClickListener(getItem(position)));
 		ln.setText(""+getItem(position).like);
 		cn.setText(""+getItem(position).comment);
+		if(getItem(position).image.compareTo("")!=0) {
+			System.out.println("image : "+getItem(position).image);
+			loader.DisplayImage(getContext().getResources().getString(R.string.base_url)+"/"+getItem(position).image,i);
+			i.setVisibility(View.VISIBLE);
+		}
 		
 	}
 	
@@ -189,7 +199,7 @@ public class BoardDataAdapter extends DataLoadingArrayAdapter<BoardData> {
 		
 		public void onClick(View v) {
 			AppPref.setLastBoardData(lastData);
-			getContext().startActivity( new Intent("CommentBoard") );
+			getContext().startActivity( new Intent("BoardDetail") );
 		}
 		
 	}

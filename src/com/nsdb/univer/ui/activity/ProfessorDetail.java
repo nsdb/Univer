@@ -3,7 +3,7 @@ package com.nsdb.univer.ui.activity;
 import com.fedorvlasov.lazylist.ImageLoader;
 import com.nsdb.univer.R;
 import com.nsdb.univer.data.ProfessorData;
-import com.nsdb.univer.supporter.adapter.CommentDataAdapter;
+import com.nsdb.univer.supporter.adapter.ProfessorCommentDataAdapter;
 import com.nsdb.univer.supporter.data.AppPref;
 import com.nsdb.univer.supporter.ui.OnClickMover;
 import com.nsdb.univer.ui.customview.ProfessorRatingGraph;
@@ -41,7 +41,7 @@ public class ProfessorDetail extends IntentPreservingActivity implements OnScrol
 	
     // ListView
 	ListView lv;
-	CommentDataAdapter adapter;
+	ProfessorCommentDataAdapter adapter;
 	
 	@Override
     public void onCreate(Bundle savedInstanceState) {
@@ -120,14 +120,12 @@ public class ProfessorDetail extends IntentPreservingActivity implements OnScrol
         
         // ListView
     	lv=(ListView)findViewById(R.id.commentlist);
-    	adapter=new CommentDataAdapter(this,lv);
-    	//adapter.setVariableHeight(true);
+    	adapter=new ProfessorCommentDataAdapter(this,lv);
     	lv.setOnScrollListener(this);
     	adapter.updateData(lastdata.id,true);
     }
 
 	public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
-		System.out.println(firstVisibleItem+" "+visibleItemCount+" "+totalItemCount);
 		if(firstVisibleItem+visibleItemCount==totalItemCount) {
 	    	adapter.updateData(lastdata.id,false);
 		}
