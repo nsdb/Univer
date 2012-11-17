@@ -89,13 +89,12 @@ public class ProfessorDataAdapter extends DataLoadingArrayAdapter<ProfessorData>
 	@Override
 	protected void setView(int position, View v) {
 		
-		TextView t=(TextView)v.findViewById(R.id.title);
 		ImageView i=(ImageView)v.findViewById(R.id.thumbnail);
-		TextView rt=(TextView)v.findViewById(R.id.totaltxt);
+		TextView t=(TextView)v.findViewById(R.id.title);
 		RatingBar r=(RatingBar)v.findViewById(R.id.total);
+		TextView u=(TextView)v.findViewById(R.id.univ);
+		TextView c=(TextView)v.findViewById(R.id.college);
 		
-		// title
-		t.setText( getItem(position).title );
 		
 		// imageview
 		if(getItem(position).thumbnail.compareTo("")!=0) {
@@ -105,16 +104,23 @@ public class ProfessorDataAdapter extends DataLoadingArrayAdapter<ProfessorData>
 			i.setImageResource(R.drawable.ic_launcher);
 		}
 		
+		// title
+		t.setText( getItem(position).title );
+
 		// ratingbar
 		if(getItem(position).count > 0) {
 			double d=getItem(position).total/(getItem(position).count*5);
 			d=Math.round(d*100)/100;
-			rt.setText(""+d);
 			r.setRating( (float)d/2 );
 		} else {
-			rt.setText("0.0");
 			r.setRating(0.0f);				
 		}
+
+		// univ
+		u.setText( getItem(position).university );
+
+		// title
+		c.setText( getItem(position).college );
 	}
 	
 
