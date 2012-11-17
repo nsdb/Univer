@@ -10,6 +10,7 @@ public class IntentPreservingActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		// if you don't set result, returned Intent (when this activity is finished) is null.
 		setResult(RESULT_CANCELED,getIntent());		
+		
 	}
 
 }

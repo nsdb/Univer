@@ -25,12 +25,9 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
-import android.widget.CheckBox;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -44,14 +41,15 @@ public class BookDetail extends IntentPreservingActivity implements OnItemClickL
     // data
 	BookData lastdata;
 	
-    // second linear
-	SegmentedRadioGroup sale;
+	// first linear
+	TextView title, sale;
 	ImageView image;
-	EditText title,publisher,author,pubdate,edition,original_price,discount_price;
-
-    // third linear
-	EditText description;
-	CheckBox parcel,meet;
+	TextView original_price,discount_price;
+	TextView parcel,meet;
+	// second linear
+	TextView publisher,author,pubdate;
+	// third linear
+	TextView description;
 	
     // ListView
 	ListView lv;
@@ -76,43 +74,38 @@ public class BookDetail extends IntentPreservingActivity implements OnItemClickL
         // data
         lastdata=AppPref.getLastBookData();
         
-        // second linear
-        sale=(SegmentedRadioGroup)findViewById(R.id.sale);
+    	// first linear
+        title=(TextView)findViewById(R.id.title);
+        sale=(TextView)findViewById(R.id.sale);
         image=(ImageView)findViewById(R.id.image);
-        title=(EditText)findViewById(R.id.title);
-        publisher=(EditText)findViewById(R.id.publisher);
-        author=(EditText)findViewById(R.id.author);
-        pubdate=(EditText)findViewById(R.id.pubdate);
-        edition=(EditText)findViewById(R.id.edition);
-        original_price=(EditText)findViewById(R.id.original_price);
-        discount_price=(EditText)findViewById(R.id.discount_price);
-        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+        original_price=(TextView)findViewById(R.id.original_price);
+        discount_price=(TextView)findViewById(R.id.discount_price);
+        parcel=(TextView)findViewById(R.id.parcel);
+        meet=(TextView)findViewById(R.id.meet);
+        title.setText(lastdata.title);
         switch(lastdata.sell) {
-        case BookData.SALEMODE_BUY: sale.check(R.id.buy); break;
-        case BookData.SALEMODE_SELL: sale.check(R.id.sell); break;
+        case BookData.SALEMODE_BUY: sale.setText("삽니다"); break;
+        case BookData.SALEMODE_SELL: sale.setText("팝니다"); break;
         }
         if(lastdata.image.compareTo("")!=0) {
         	ImageLoader loader=new ImageLoader(this);
         	loader.DisplayImage(getResources().getString(R.string.base_url)+lastdata.image,image);
         }
-        title.setText(lastdata.title);
+        original_price.setText(""+lastdata.original_price+"원");
+        discount_price.setText(""+lastdata.discount_price+"원");
+        if(lastdata.parcel==0) parcel.setVisibility(View.INVISIBLE);
+        if(lastdata.meet==0) meet.setVisibility(View.INVISIBLE);
+    	// second linear
+        publisher=(TextView)findViewById(R.id.publisher);
+        author=(TextView)findViewById(R.id.author);
+        pubdate=(TextView)findViewById(R.id.pubdate);
         publisher.setText(lastdata.publisher);
         author.setText(lastdata.author);
         pubdate.setText(lastdata.pubdate);
-        edition.setText(""+lastdata.edition);
-        original_price.setText(""+lastdata.original_price);
-        discount_price.setText(""+lastdata.discount_price);
-        
-        // third linear
-        description=(EditText)findViewById(R.id.description);
-        parcel=(CheckBox)findViewById(R.id.parcel);
-        meet=(CheckBox)findViewById(R.id.meet);
+    	// third linear
+        description=(TextView)findViewById(R.id.description);
         description.setText(lastdata.description);
-        if(lastdata.parcel==1)
-        	parcel.setChecked(true);
-        if(lastdata.meet==1)
-        	meet.setChecked(true);
-        
+    	
         // ListView
     	lv=(ListView)findViewById(R.id.booklist);
     	if(getIntent().getBooleanExtra("mine",false)==false) {
@@ -120,8 +113,6 @@ public class BookDetail extends IntentPreservingActivity implements OnItemClickL
 	    	lv.setOnItemClickListener(this);
 	    	adapter.updateData(lastdata.seller_id,true);
     	} else {
-    		TextView otherlinear=(TextView)findViewById(R.id.otherlinear);
-    		otherlinear.setVisibility(View.GONE);    		
 	    	lv=(ListView)findViewById(R.id.booklist);
     		lv.setVisibility(View.GONE);
     	}
