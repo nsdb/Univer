@@ -17,11 +17,13 @@ import com.nsdb.univer.supporter.data.AppPref;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.view.View;
+import android.view.View.OnClickListener;
 import android.webkit.WebView;
 import android.widget.Button;
 import android.widget.EditText;
 
-public class ChatRoomDetail extends Activity {
+public class ChatRoomDetail extends Activity implements OnClickListener {
 
 	WebView view;
 	EditText text;
@@ -36,6 +38,7 @@ public class ChatRoomDetail extends Activity {
         text=(EditText)findViewById(R.id.text);
         send=(Button)findViewById(R.id.send);
         view.getSettings().setJavaScriptEnabled(true);
+        send.setOnClickListener(this);
         
         try {
 			ArrayList<NameValuePair> postdata=new ArrayList<NameValuePair>();
@@ -61,5 +64,13 @@ public class ChatRoomDetail extends Activity {
         	e.printStackTrace();
         }
     }
+
+	public void onClick(View v) {
+		
+		if(text.getText().toString().compareTo("")!=0) {
+			view.loadUrl("javascript:callJavascriptFromObjectiveC('"+text.getText().toString()+"')");
+			text.setText("");
+		}
+	}
 	
 }
