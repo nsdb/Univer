@@ -20,13 +20,14 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.RadioGroup;
 import android.widget.RadioGroup.OnCheckedChangeListener;
 
 public class BookMarketMain extends ActiveFragment implements OnItemClickListener, OnCheckedChangeListener, OnScrollListener, OnRefreshListener {
 	
     // actionbar - search
-	Button search;	
+	ImageButton search;	
 	EditText searchtxt;
 
     // actionbar - category
@@ -34,7 +35,7 @@ public class BookMarketMain extends ActiveFragment implements OnItemClickListene
 	int categoryState;
 	
     // actionbar - register
-	Button register;
+	ImageButton register;
 	private final static int REQUESTCODE_REGISTERBOOK=1;
 	
     // range setting
@@ -55,7 +56,7 @@ public class BookMarketMain extends ActiveFragment implements OnItemClickListene
 		View v=super.onCreateView(inflater, container, savedInstanceState);
         
         // actionbar - search
-        search=(Button)v.findViewById(R.id.search);
+        search=(ImageButton)v.findViewById(R.id.search);
         searchtxt=(EditText)v.findViewById(R.id.searchtxt);
 
         // actionbar - sale
@@ -64,7 +65,7 @@ public class BookMarketMain extends ActiveFragment implements OnItemClickListene
         categoryState=0;
         
         // actionbar - register
-        register=(Button)v.findViewById(R.id.register);
+        register=(ImageButton)v.findViewById(R.id.register);
         register.setOnClickListener(new OnClickMover(THIS,new Intent("RegisterBook"),REQUESTCODE_REGISTERBOOK));
         
         // range setting

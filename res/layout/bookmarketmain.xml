@@ -7,11 +7,8 @@
     <LinearLayout
         android:id="@+id/actionbar" style="@style/ActionBarLinear">
 	
-	    <Button
-	        android:id="@+id/search"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:text="S" />
+	    <ImageButton
+	        android:id="@+id/search" style="@style/ActionBarSearchButton" />
 	
 	    <EditText
 	        android:id="@+id/searchtxt"
@@ -54,12 +51,9 @@
 		</com.makeramen.segmented.SegmentedRadioGroup>
 	    	    
 
-	    <Button
-	        android:id="@+id/register"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:text="R" />
-        
+	    <ImageButton
+	        android:id="@+id/register" style="@style/ActionBarRegisterButton"/>
+	    
     </LinearLayout>
     
     <LinearLayout
@@ -89,7 +83,6 @@
 	    		    		    
 	</LinearLayout>
 
-	    	    
 	<com.woozzu.android.widget.RefreshableListView  
         android:id="@+id/booklist"
         android:layout_width="match_parent"

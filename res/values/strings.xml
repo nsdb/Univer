@@ -27,6 +27,9 @@
     <string name="professorcomment_url">comments/professor</string>
     <string name="evaluateprofessor_url">evaluations</string>
     
+    <!-- ChatRoom -->
+    <string name="chatroom_url">chatRooms</string>
+    
     <!-- Board -->
     <string name="board_url">entries</string>
     <string name="boardcomment_url">comments/entry</string>
