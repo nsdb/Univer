@@ -52,7 +52,10 @@ public class BoardDetail extends Activity implements OnScrollListener {
 		if(lastdata.image.compareTo("")!=0) {
 			System.out.println("image : "+lastdata.image);
         	ImageLoader loader=new ImageLoader(this);
-			loader.DisplayImage(getResources().getString(R.string.base_url)+"/"+lastdata.image,image);
+			loader.DisplayImage(
+					getResources().getString(R.string.base_url)+'/'
+					+getResources().getString(R.string.media_url)+'/'
+					+lastdata.image,image);
 			image.setVisibility(View.VISIBLE);
 		}
         // ListView

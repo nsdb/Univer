@@ -11,6 +11,9 @@ public class ProfessorData {
 	public double personality;
 	public double total;
 	public int count;
+	public int like;
+	public int dislike;
+	public int comment_count;
 	public String university;
 	public String college;
 	public String major;
@@ -27,6 +30,9 @@ public class ProfessorData {
 		this.personality=0.0;
 		this.total=0.0;
 		this.count=-1;
+		this.like=-1;
+		this.dislike=-1;
+		this.comment_count=-1;
 		this.university="";
 		this.college="";
 		this.major="";
@@ -43,6 +49,9 @@ public class ProfessorData {
 		this.personality=Double.parseDouble( item.getChildText("personality") );
 		this.total=Double.parseDouble( item.getChildText("total") );
 		this.count=Integer.parseInt( item.getChildText("count") );
+		this.like=Integer.parseInt( item.getChildText("like") );
+		this.dislike=Integer.parseInt( item.getChildText("dislike") );
+		this.comment_count=Integer.parseInt( item.getChildText("comment_count") );
 		this.university=item.getChildText("university");
 		this.college=item.getChildText("college");
 		this.major=item.getChildText("major");

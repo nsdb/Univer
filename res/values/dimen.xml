@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="bookdata_height">100dp</dimen>
-    <dimen name="professordata_height">80dp</dimen>
+    <dimen name="professordata_height">100dp</dimen>
     <dimen name="commentdata_height">80dp</dimen>
     <dimen name="stringdata_height">60dp</dimen>
 </resources>

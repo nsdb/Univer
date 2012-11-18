@@ -94,6 +94,9 @@ public class ProfessorDataAdapter extends DataLoadingArrayAdapter<ProfessorData>
 		RatingBar r=(RatingBar)v.findViewById(R.id.total);
 		TextView u=(TextView)v.findViewById(R.id.univ);
 		TextView c=(TextView)v.findViewById(R.id.college);
+		TextView l=(TextView)v.findViewById(R.id.like);
+		TextView dl=(TextView)v.findViewById(R.id.dislike);
+		TextView co=(TextView)v.findViewById(R.id.comment_count);
 		
 		
 		// imageview
@@ -121,6 +124,15 @@ public class ProfessorDataAdapter extends DataLoadingArrayAdapter<ProfessorData>
 
 		// title
 		c.setText( getItem(position).college );
+
+		// title
+		l.setText( ""+getItem(position).like );
+
+		// title
+		dl.setText( ""+getItem(position).dislike );
+		
+		// title
+		co.setText( ""+getItem(position).comment_count );
 	}
 	
 

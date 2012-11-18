@@ -31,7 +31,7 @@ public class ProfessorMain extends ActiveFragment implements OnItemClickListener
 	private final static int REQUESTCODE_REGISTERPROFESSOR=1;
 	
     // range setting
-	Button region, univ, college, major;
+	Button region, univ, college;
 	private final static int REQUESTCODE_RANGE=2;
 
     // ListView
@@ -59,12 +59,10 @@ public class ProfessorMain extends ActiveFragment implements OnItemClickListener
     	region=(Button)v.findViewById(R.id.region);
     	univ=(Button)v.findViewById(R.id.univ);
     	college=(Button)v.findViewById(R.id.college);
-    	major=(Button)v.findViewById(R.id.major);
     	region.setOnClickListener(new OnClickMover(THIS,new Intent("RangeSetting").putExtra("range","region"),REQUESTCODE_RANGE));
     	univ.setOnClickListener(new OnClickMover(THIS,new Intent("RangeSetting").putExtra("range","univ"),REQUESTCODE_RANGE));
     	college.setOnClickListener(new OnClickMover(THIS,new Intent("RangeSetting").putExtra("range","college"),REQUESTCODE_RANGE));
-    	major.setOnClickListener(new OnClickMover(THIS,new Intent("RangeSetting").putExtra("range","major"),REQUESTCODE_RANGE));
-		AppPref.getRangeSet().applyDataToView(region, univ, college, major);
+		AppPref.getRangeSet().applyDataToView(region, univ, college);
 
         // ListView
     	lv=(RefreshableListView)v.findViewById(R.id.professorlist);
@@ -86,13 +84,13 @@ public class ProfessorMain extends ActiveFragment implements OnItemClickListener
 		switch(requestCode) {
 		case REQUESTCODE_RANGE:
 			if(resultCode == Activity.RESULT_OK) {
-				AppPref.getRangeSet().applyDataToView(region, univ, college, major);
+				AppPref.getRangeSet().applyDataToView(region, univ, college);
 		    	adapter.updateData("",true);
 			} break;
 			
 		case REQUESTCODE_REGISTERPROFESSOR:
 			if(resultCode == Activity.RESULT_OK || data.getBooleanExtra("range_changed",false)==true) {
-				AppPref.getRangeSet().applyDataToView(region, univ, college, major);
+				AppPref.getRangeSet().applyDataToView(region, univ, college);
 				adapter.updateData("",true);
 			} break;
 			

@@ -113,8 +113,13 @@ public class BoardDataAdapter extends DataLoadingArrayAdapter<BoardData> {
 		cn.setText(""+getItem(position).comment);
 		if(getItem(position).image.compareTo("")!=0) {
 			System.out.println("image : "+getItem(position).image);
-			loader.DisplayImage(getContext().getResources().getString(R.string.base_url)+"/"+getItem(position).image,i);
+			loader.DisplayImage(
+					getContext().getResources().getString(R.string.base_url)+'/'
+					+getContext().getResources().getString(R.string.media_url)+'/'
+					+getItem(position).image,i);
 			i.setVisibility(View.VISIBLE);
+		} else {
+			i.setVisibility(View.GONE);			
 		}
 		
 	}
