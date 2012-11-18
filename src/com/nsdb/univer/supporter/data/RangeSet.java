@@ -3,7 +3,6 @@ package com.nsdb.univer.supporter.data;
 import com.nsdb.univer.data.RangeData;
 
 import android.widget.Button;
-import android.widget.TextView;
 
 public class RangeSet {
 	private RangeData region;
@@ -78,6 +77,29 @@ public class RangeSet {
     	}
 		
 	}
+	public void applyDataToView(Button r,Button u,Button c) {
+
+    	if(region.nick.compareTo("")==0) {
+        	r.setText("지역");
+    		u.setEnabled(false);
+    	} else {
+        	r.setText(region.nick);
+    		u.setEnabled(true);
+    	}
+    	if(univ.nick.compareTo("")==0) {
+        	u.setText("대학교");
+    		c.setEnabled(false);
+    	} else {
+        	u.setText(univ.nick);
+    		c.setEnabled(true);
+    	}
+    	if(college.nick.compareTo("")==0) {
+        	c.setText("단과대");
+    	} else {
+        	c.setText(college.nick);
+    	}
+		
+	}
 	public void applyDataToView(Button r,Button u,Button c,Button m) {
 
     	if(region.nick.compareTo("")==0) {
@@ -108,38 +130,6 @@ public class RangeSet {
     	}
     	////
     	m.setEnabled(false);
-		
-	}
-	public void applyDataToView(TextView r,TextView u,TextView c,TextView m,Button rb,Button ub,Button cb,Button mb) {
-		
-    	if(region.title.compareTo("")==0) {
-    		r.setText("없음");
-    		ub.setEnabled(false);
-    	} else {
-        	r.setText(region.title);
-    		ub.setEnabled(true);    		
-    	}
-    	if(univ.title.compareTo("")==0) {
-    		u.setText("없음");
-			cb.setEnabled(false);
-		} else {
-    		u.setText(univ.title);
-			cb.setEnabled(true);		
-		}
-    	if(college.title.compareTo("")==0) {
-    		c.setText("없음");
-			mb.setEnabled(false);
-		} else {
-    		c.setText(college.title);
-			mb.setEnabled(true);		
-		}
-    	if(major.title.compareTo("")==0) {
-    		m.setText("없음");
-		} else {
-    		m.setText(major.title);
-		}
-    	////
-    	mb.setEnabled(false);
 		
 	}
 	

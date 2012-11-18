@@ -21,6 +21,7 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
+import android.view.WindowManager;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
@@ -30,7 +31,7 @@ public class RegisterUser extends Activity implements OnClickListener {
 	
 	EditText id,nickname,password;
 
-	Button region,univ,college,major;
+	Button region,univ,college;
 	private final static int REQUESTCODE_RANGE=1;
 	
 	Button apply;	
@@ -44,16 +45,15 @@ public class RegisterUser extends Activity implements OnClickListener {
         id=(EditText)findViewById(R.id.id);
         nickname=(EditText)findViewById(R.id.nickname);
         password=(EditText)findViewById(R.id.password);
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
         
     	region=(Button)findViewById(R.id.region);
     	univ=(Button)findViewById(R.id.univ);
     	college=(Button)findViewById(R.id.college);
-    	major=(Button)findViewById(R.id.major);
     	region.setOnClickListener(new OnClickMover(this,new Intent("RangeSetting").putExtra("range","region"),REQUESTCODE_RANGE));
     	univ.setOnClickListener(new OnClickMover(this,new Intent("RangeSetting").putExtra("range","univ"),REQUESTCODE_RANGE));
     	college.setOnClickListener(new OnClickMover(this,new Intent("RangeSetting").putExtra("range","college"),REQUESTCODE_RANGE));
-    	major.setOnClickListener(new OnClickMover(this,new Intent("RangeSetting").putExtra("range","major"),REQUESTCODE_RANGE));
-		AppPref.getRangeSet().applyDataToView(region, univ, college, major);
+		AppPref.getRangeSet().applyDataToView(region, univ, college);
         
         apply=(Button)findViewById(R.id.apply);
         apply.setOnClickListener(this);
@@ -65,7 +65,7 @@ public class RegisterUser extends Activity implements OnClickListener {
 	public void onActivityResult(int requestCode, int resultCode, Intent data)
 	{
     	if(resultCode==RESULT_OK) {
-	    	AppPref.getRangeSet().applyDataToView(region,univ,college,major);
+	    	AppPref.getRangeSet().applyDataToView(region,univ,college);
     	}
 	}
     

@@ -7,176 +7,84 @@
     <LinearLayout
         android:id="@+id/actionbar" style="@style/ActionBarLinear">
 
+	    <Button
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:visibility="invisible"
+	        android:text="X" />
+        
   	    <TextView
 	        android:id="@+id/actionbartitle" style="@style/ActionBarTitle"
 	        android:layout_width="0dp"
 	        android:layout_height="wrap_content"
 	        android:layout_weight="1"
 	        android:text="회원가입" />
-	
+
+	    <Button
+	        android:id="@+id/apply"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:text="A" />
+  	    	    	
     </LinearLayout>
-    
 
-
-    <ScrollView
-        android:id="@+id/scrollView1"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1" >
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical" >
-
-            <TextView
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:background="#888888"
-                android:padding="10dp"
-                android:text="기본정보"
-                android:textColor="#ffffff" />
-		    
-		    <LinearLayout
-		        android:layout_width="match_parent"
-		        android:layout_height="wrap_content"
-		        android:padding="10dp" >
-		        <TextView
-		            android:layout_width="wrap_content"
-		            android:layout_height="wrap_content"
-			        android:textSize="18dp"
-			        android:layout_marginRight="10dp"
-		            android:text="ID" />
-		        <EditText
-		            android:id="@+id/id"
-		            android:layout_width="0dp"
-		            android:layout_height="wrap_content"
-		            android:layout_weight="1"
-		            android:inputType="textEmailAddress"
-		            android:ems="10" />
-		    </LinearLayout>
-		
-		    <LinearLayout
-		        android:layout_width="match_parent"
-		        android:layout_height="wrap_content"
-		        android:padding="10dp" >
-		        <TextView
-		            android:layout_width="wrap_content"
-		            android:layout_height="wrap_content"
-			        android:textSize="18dp"
-			        android:layout_marginRight="10dp"
-		            android:text="NickName" />
-		        <EditText
-		            android:id="@+id/nickname"
-		            android:layout_width="0dp"
-		            android:layout_height="wrap_content"
-		            android:layout_weight="1"
-		            android:inputType="textPersonName"
-		            android:ems="10" />
-		    </LinearLayout>
-		
-		    <LinearLayout
-		        android:layout_width="match_parent"
-		        android:layout_height="wrap_content"
-		        android:padding="10dp" >
-		        <TextView
-		            android:layout_width="wrap_content"
-		            android:layout_height="wrap_content"
-			        android:textSize="18dp"
-			        android:layout_marginRight="10dp"
-		            android:text="Password" />
-		        <EditText
-		            android:id="@+id/password"
-		            android:layout_width="0dp"
-		            android:layout_height="wrap_content"
-		            android:layout_weight="1"
-		            android:inputType="textPassword"
-		            android:ems="10" />
-		    </LinearLayout>
-		
-            <TextView
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:background="#888888"
-                android:padding="10dp"
-                android:text="대학정보"
-                android:textColor="#ffffff" />
-		                
-		    <LinearLayout
-		        android:layout_width="match_parent"
-		        android:layout_height="wrap_content"
-		        android:padding="10dp" >
-		        <TextView
-		            android:layout_width="wrap_content"
-		            android:layout_height="wrap_content"
-			        android:textSize="18dp"
-			        android:layout_marginRight="10dp"
-		            android:text="Region" />
-		        <Button
-		            android:id="@+id/region"
-		            android:layout_width="wrap_content"
-		            android:layout_height="wrap_content"
-		            android:text="지역" />	
-		    </LinearLayout>
-		    
-		    <LinearLayout
-		        android:layout_width="match_parent"
-		        android:layout_height="wrap_content"
-		        android:padding="10dp" >
-		        <TextView
-		            android:layout_width="wrap_content"
-		            android:layout_height="wrap_content"
-			        android:textSize="18dp"
-			        android:layout_marginRight="10dp"
-		            android:text="Univ" />
-		        <Button
-		            android:id="@+id/univ"
-		            android:layout_width="wrap_content"
-		            android:layout_height="wrap_content"
-		            android:text="대학교" />	
-		    </LinearLayout>
-		    
-		    <LinearLayout
-		        android:layout_width="match_parent"
-		        android:layout_height="wrap_content"
-		        android:padding="10dp" >
-		        <TextView
-		            android:layout_width="wrap_content"
-		            android:layout_height="wrap_content"
-			        android:textSize="18dp"
-			        android:layout_marginRight="10dp"
-		            android:text="College" />
-		        <Button
-		            android:id="@+id/college"
-		            android:layout_width="wrap_content"
-		            android:layout_height="wrap_content"
-		            android:text="단과대" />	
-		    </LinearLayout>
-		    		    
-		    <LinearLayout
-		        android:layout_width="match_parent"
-		        android:layout_height="wrap_content"
-		        android:padding="10dp" >
-		        <TextView
-		            android:layout_width="wrap_content"
-		            android:layout_height="wrap_content"
-			        android:textSize="18dp"
-			        android:layout_marginRight="10dp"
-		            android:text="Major" />
-		        <Button
-		            android:id="@+id/major"
-		            android:layout_width="wrap_content"
-		            android:layout_height="wrap_content"
-		            android:text="학과" />	
-		    </LinearLayout>
-		    
-		</LinearLayout>
-    </ScrollView>
-    
-
-    <Button
-        android:id="@+id/apply"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="결정" />
+        android:padding="40dp"
+        android:orientation="vertical" >
+
+        <EditText
+            android:id="@+id/id"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:hint="ID">
+
+            <requestFocus />
+        </EditText>
+
+        <EditText
+            android:id="@+id/nickname"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:hint="NickName"/>
+
+        <EditText
+            android:id="@+id/password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textPassword"
+            android:hint="Password"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+            <Button
+                android:id="@+id/region"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="지역" />
+
+            <Button
+                android:id="@+id/univ"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="대학교" />
+
+            <Button
+                android:id="@+id/college"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="단과대" />
+
+        </LinearLayout>
+
+    </LinearLayout>
 
 </LinearLayout>
