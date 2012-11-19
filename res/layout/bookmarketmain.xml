@@ -18,7 +18,7 @@
 	        android:visibility="gone"
 	        android:ems="10" />
 
-   	    <com.makeramen.segmented.SegmentedRadioGroup
+	  	<RadioGroup
 			android:id="@+id/sale"
 			android:layout_width="0dp"
 			android:layout_height="wrap_content"
@@ -26,35 +26,26 @@
 			android:gravity="center"
 			android:orientation="horizontal">
 			<RadioButton
-				android:id="@+id/sell"
-				android:layout_width="40dp"
-				android:layout_height="wrap_content"
+				android:id="@+id/sell" style="@style/BookMarketRadio"
 				android:checked="true"
-				android:button="@null"
-				android:gravity="center"
-				android:text="S" />
+				android:button="@drawable/bk_sale" />
 			<RadioButton
-				android:id="@+id/buy"
-				android:layout_width="40dp"
-				android:layout_height="wrap_content"
-				android:button="@null"
-				android:gravity="center"
-				android:text="B" />
+				android:id="@+id/buy"  style="@style/BookMarketRadio"
+				android:button="@drawable/bk_purchase" />
 			<RadioButton
-				android:id="@+id/mine"
-				android:layout_width="40dp"
-				android:layout_height="wrap_content"
-				android:button="@null"
-				android:gravity="center"
-				android:text="M" />
-               
-		</com.makeramen.segmented.SegmentedRadioGroup>
+				android:id="@+id/mine"  style="@style/BookMarketRadio"
+				android:button="@drawable/bk_my" />
+	              
+		</RadioGroup>
 	    	    
 
 	    <ImageButton
 	        android:id="@+id/register" style="@style/ActionBarRegisterButton"/>
 	    
     </LinearLayout>
+    
+    
+    
     
     <LinearLayout
         android:layout_width="match_parent"

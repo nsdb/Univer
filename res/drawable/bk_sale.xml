@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<animation-list xmlns:android="http://schemas.android.com/apk/res/android" >
+<selector xmlns:android="http://schemas.android.com/apk/res/android" >
     
     <item
 		android:state_checked="true"
-		android:state_pressed="true"
 		android:drawable="@drawable/bk_sale_selected"
 		 />
     <item
@@ -12,4 +11,4 @@
     
     
     
-</animation-list>
+</selector>

@@ -15,15 +15,20 @@
     <style name="ActionBarSearchButton">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_margin">7dp</item>
+        <item name="android:layout_margin">4.66dp</item>
         <item name="android:src">@drawable/cm_search</item>
         <item name="android:background">@null</item>
     </style>
     <style name="ActionBarRegisterButton">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_margin">7dp</item>
+        <item name="android:layout_margin">4.66dp</item>
         <item name="android:src">@drawable/cm_register</item>
+        <item name="android:background">@null</item>
+    </style>
+    <style name="BookMarketRadio">
+        <item name="android:width">66.62dp</item>
+        <item name="android:height">66.62dp</item>
         <item name="android:background">@null</item>
     </style>
     <style name="TabBarButton">

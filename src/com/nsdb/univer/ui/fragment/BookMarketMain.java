@@ -1,6 +1,5 @@
 package com.nsdb.univer.ui.fragment;
 
-import com.makeramen.segmented.SegmentedRadioGroup;
 import com.nsdb.univer.R;
 import com.nsdb.univer.supporter.adapter.BookDataAdapter;
 import com.nsdb.univer.supporter.data.AppPref;
@@ -31,7 +30,7 @@ public class BookMarketMain extends ActiveFragment implements OnItemClickListene
 	EditText searchtxt;
 
     // actionbar - category
-	SegmentedRadioGroup category;
+	RadioGroup category;
 	int categoryState;
 	
     // actionbar - register
@@ -60,7 +59,7 @@ public class BookMarketMain extends ActiveFragment implements OnItemClickListene
         searchtxt=(EditText)v.findViewById(R.id.searchtxt);
 
         // actionbar - sale
-        category=(SegmentedRadioGroup)v.findViewById(R.id.sale);
+        category=(RadioGroup)v.findViewById(R.id.sale);
         category.setOnCheckedChangeListener(this);
         categoryState=0;
         
