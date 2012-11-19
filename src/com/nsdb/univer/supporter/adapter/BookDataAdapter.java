@@ -133,37 +133,25 @@ public class BookDataAdapter extends DataLoadingArrayAdapter<BookData> {
 		
 		ImageView i=(ImageView)v.findViewById(R.id.thumbnail);
 		TextView t=(TextView)v.findViewById(R.id.title);
-		TextView sm=(TextView)v.findViewById(R.id.salemode);
-		TextView u=(TextView)v.findViewById(R.id.univ);
-		TextView c=(TextView)v.findViewById(R.id.college);
+		TextView r=(TextView)v.findViewById(R.id.range);
 		TextView dp=(TextView)v.findViewById(R.id.discount_price);
 		TextView p=(TextView)v.findViewById(R.id.parcel);
 		TextView m=(TextView)v.findViewById(R.id.meet);
-		TextView ss=(TextView)v.findViewById(R.id.salestate);
+		ImageView ss=(ImageView)v.findViewById(R.id.salestate);
 
 		// imageview
 		if(getItem(position).thumbnail.compareTo("")!=0) {
 			System.out.println("thumbnail : "+getItem(position).thumbnail.substring(1));
 			loader.DisplayImage(getContext().getResources().getString(R.string.base_url)+getItem(position).thumbnail,i);
 		} else {
-			i.setImageResource(R.drawable.ic_launcher);
+			i.setImageResource(R.drawable.bk_book);
 		}
 		
 		// title
 		t.setText( getItem(position).title );
 		
-		// salemode
-		switch(getItem(position).sell) {
-		case BookData.SALEMODE_BUY: sm.setText("삽니다"); break;
-		case BookData.SALEMODE_SELL: sm.setText("팝니다"); break;
-		default: sm.setText("???"); break;
-		}
-		
-		// univ
-		u.setText( getItem(position).university );
-		
-		// college
-		c.setText( getItem(position).college );
+		// range
+		r.setText( getItem(position).university+" / "+getItem(position).college );
 		
 		// discount price
 		if(getItem(position).discount_price!=-1) {
@@ -185,11 +173,11 @@ public class BookDataAdapter extends DataLoadingArrayAdapter<BookData> {
 		case BookData.SALESTATE_ABLE: ss.setVisibility(View.INVISIBLE); break;
 		case BookData.SALESTATE_BOOKED:
 			ss.setVisibility(View.VISIBLE);
-			ss.setText("거래중");
+			ss.setImageResource(R.drawable.bk_reserved);
 			break;
 		case BookData.SALESTATE_DONE:
 			ss.setVisibility(View.VISIBLE);
-			ss.setText("판매완료");
+			ss.setImageResource(R.drawable.bk_soldout);
 			break;
 		}
 		

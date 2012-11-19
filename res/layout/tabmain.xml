@@ -30,45 +30,45 @@
 	        android:layout_width="match_parent"
 	        android:layout_height="match_parent">
 	    </LinearLayout>
-	    	    	    
+	    <LinearLayout
+	        android:id="@+id/optionscreen"
+	        android:layout_width="match_parent"
+	        android:layout_height="match_parent">
+	    </LinearLayout>
+	    	    	    	    
 	</LinearLayout>
 	
+
+    
+    
+    
     
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#999999"
-        android:layout_gravity="center" >
+        android:gravity="center">
 
-        <Button
-            android:id="@+id/bookmarketbtn"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="중고책" />
+        <ImageButton
+            android:id="@+id/bookmarketbtn" style="@style/TabButton"
+            android:src="@drawable/cm_tab1"/>
 
-        <Button
-            android:id="@+id/professorbtn"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="교수평가" />
-
-        <Button
-            android:id="@+id/chatroombtn"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="채팅방" />
+        <ImageButton
+            android:id="@+id/professorbtn" style="@style/TabButton"
+            android:src="@drawable/cm_tab2"/>
         
-        <Button
-            android:id="@+id/boardbtn"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="게시판" />
-
-
+        <ImageButton
+            android:id="@+id/chatroombtn" style="@style/TabButton"
+            android:src="@drawable/cm_tab3"/>
+        
+        <ImageButton
+            android:id="@+id/boardbtn" style="@style/TabButton"
+            android:src="@drawable/cm_tab4"/>
+        
+        <ImageButton
+            android:id="@+id/optionbtn" style="@style/TabButton"
+            android:src="@drawable/cm_tab5"/>
+        
     </LinearLayout>
+    
 
 </LinearLayout>

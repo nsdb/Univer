@@ -56,26 +56,17 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-	    android:background="#DDDDDD"
+        android:gravity="center"
         android:orientation="horizontal" >
 
 	    <Button
-	        android:id="@+id/region"
-	        android:layout_width="0dp"
-	        android:layout_height="wrap_content"
-	        android:layout_weight="1"
+	        android:id="@+id/region" style="@style/RangeButton"
 	        android:text="지역" />
 	    <Button
-	        android:id="@+id/univ"
-	        android:layout_width="0dp"
-	        android:layout_height="wrap_content"
-	        android:layout_weight="1"
+	        android:id="@+id/univ" style="@style/RangeButton"
 	        android:text="대학교" />
 	    <Button
-	        android:id="@+id/college"
-	        android:layout_width="0dp"
-	        android:layout_height="wrap_content"
-	        android:layout_weight="1"
+	        android:id="@+id/college" style="@style/RangeButton"
 	        android:text="단과대" />
 	    		    		    
 	</LinearLayout>

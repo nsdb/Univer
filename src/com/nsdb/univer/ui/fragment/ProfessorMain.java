@@ -19,15 +19,16 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AbsListView;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 
 public class ProfessorMain extends ActiveFragment implements OnItemClickListener, OnScrollListener, OnRefreshListener {
 	
     // actionbar - search
-	Button search;	
+	ImageButton search;	
 	EditText searchtxt;
 	
     // actionbar - register
-	Button register;
+	ImageButton register;
 	private final static int REQUESTCODE_REGISTERPROFESSOR=1;
 	
     // range setting
@@ -48,11 +49,11 @@ public class ProfessorMain extends ActiveFragment implements OnItemClickListener
 		View v=super.onCreateView(inflater, container, savedInstanceState);
         
         // actionbar - search
-        search=(Button)v.findViewById(R.id.search);
+        search=(ImageButton)v.findViewById(R.id.search);
         searchtxt=(EditText)v.findViewById(R.id.searchtxt);
         
         // actionbar - register
-        register=(Button)v.findViewById(R.id.register);
+        register=(ImageButton)v.findViewById(R.id.register);
         register.setOnClickListener(new OnClickMover(THIS,new Intent("RegisterProfessor"),REQUESTCODE_REGISTERPROFESSOR));
         
         // range setting

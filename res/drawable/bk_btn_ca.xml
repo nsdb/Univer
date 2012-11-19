@@ -1,9 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <selector xmlns:android="http://schemas.android.com/apk/res/android" >
-    
 	<item android:state_pressed="true"
-			android:drawable="@drawable/cm_tab1_selected" />
-	<item
-			android:drawable="@drawable/cm_tab1_unselected" />
-    
+	      android:drawable="@drawable/bk_btn_ca_selected" /> <!-- pressed -->
+	<item android:drawable="@drawable/bk_btn_ca_unselected" /> <!-- default -->
 </selector>

@@ -27,8 +27,8 @@ public class IntroPage extends Activity {
         ////
         
         // auto login
-		startActivityForResult( new Intent("LoginPage"),0 );
-        //new AutoLoginer(this).execute();
+		//startActivityForResult( new Intent("LoginPage"),0 );
+        new AutoLoginer(this).execute();
         
     }
     

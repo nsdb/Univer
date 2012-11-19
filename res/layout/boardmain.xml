@@ -7,11 +7,9 @@
     <LinearLayout
         android:id="@+id/actionbar" style="@style/ActionBarLinear">
 
-	    <Button
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:visibility="invisible"
-	        android:text="X" />
+	    <ImageButton
+	        android:id="@+id/search" style="@style/ActionBarSearchButton" 
+            android:visibility="invisible"/>
 
   	    <TextView
 	        android:id="@+id/actionbartitle" style="@style/ActionBarTitle"
@@ -20,11 +18,8 @@
 	        android:layout_weight="1"
 	        android:text="게시판" />
 	
-	    <Button
-	        android:id="@+id/register"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:text="R" />
+	    <ImageButton
+	        android:id="@+id/register" style="@style/ActionBarRegisterButton"/>
         
     </LinearLayout>
     
@@ -32,19 +27,14 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:gravity="center"
         android:orientation="horizontal" >
 
 	    <Button
-	        android:id="@+id/region"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:layout_weight="1"
+	        android:id="@+id/region" style="@style/RangeButton"
 	        android:text="지역" />
 	    <Button
-	        android:id="@+id/univ"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:layout_weight="1"
+	        android:id="@+id/univ" style="@style/RangeButton"
 	        android:text="대학교" />
 	    		    		    
 	</LinearLayout>

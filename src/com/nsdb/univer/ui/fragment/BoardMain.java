@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.AbsListView.OnScrollListener;
 import android.widget.Button;
+import android.widget.ImageButton;
 
 import com.nsdb.univer.R;
 import com.nsdb.univer.supporter.adapter.BoardDataAdapter;
@@ -20,7 +21,7 @@ import com.woozzu.android.widget.RefreshableListView.OnRefreshListener;
 public class BoardMain extends ActiveFragment implements OnScrollListener, OnRefreshListener {
 	
 	// actionbar
-	Button register;
+	ImageButton register;
 	private final static int REQUESTCODE_REGISTERBOARD=1;
 	// range
 	Button region,univ;
@@ -38,7 +39,7 @@ public class BoardMain extends ActiveFragment implements OnScrollListener, OnRef
 		View v=super.onCreateView(inflater, container, savedInstanceState);
 		
 		// actionbar
-		register=(Button)v.findViewById(R.id.register);
+		register=(ImageButton)v.findViewById(R.id.register);
         register.setOnClickListener(new OnClickMover(THIS,new Intent("RegisterBoard"),REQUESTCODE_REGISTERBOARD));
         // range
     	region=(Button)v.findViewById(R.id.region);

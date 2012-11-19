@@ -24,14 +24,14 @@ public class ActiveFragmentHost extends FragmentActivity {
 		cPosition=-1;
 	}
 	
-	protected void addFragment(Fragment f,String t,int i) {
-		fragmentList.add(f);
-		tagList.add(t);
-		idList.add(i);
+	protected void addFragment(Fragment fragment,String tag,int layoutId) {
+		fragmentList.add(fragment);
+		tagList.add(tag);
+		idList.add(layoutId);
 
 		FragmentManager fm = getSupportFragmentManager();
     	FragmentTransaction ft = fm.beginTransaction();
-    	ft.replace(i,f,t);
+    	ft.replace(layoutId,fragment,tag);
     	ft.commit();
 	}
 
@@ -51,12 +51,12 @@ public class ActiveFragmentHost extends FragmentActivity {
 
     	int position;
     	
-    	public OnClickSwitcher(int position) {
-    		this.position=position;
-    	}
-    	
+		public OnClickSwitcher(int position) {
+			this.position=position;
+		}
+
 		public void onClick(View v) {
-			switchScreen(position);			
+			switchScreen(position);
 		}
     	
     }

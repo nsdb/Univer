@@ -7,7 +7,7 @@
     
     <style name="ActionBarLinear">
         <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">44dp</item>
+        <item name="android:layout_height">58.63dp</item>
         <item name="android:background">@drawable/cm_navigation_background</item>
         <item name="android:gravity">center</item>
         <item name="android:orientation">horizontal</item>
@@ -26,17 +26,29 @@
         <item name="android:src">@drawable/cm_register</item>
         <item name="android:background">@null</item>
     </style>
-    <style name="TabBarButton">
-        <item name="android:layout_width">0dp</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_weight">1</item>
-        <item name="android:background">@null</item>
-        <item name="android:scaleType">centerInside</item>
-    </style>
     <style name="ActionBarTitle">
         <item name="android:textSize">24dp</item>
         <item name="android:textColor">#FFFFFF</item>
         <item name="android:gravity">center</item>
+    </style>
+    <style name="CommonButton">
+        <item name="android:layout_width">47.97dp</item>
+        <item name="android:layout_height">41.31dp</item>
+        <item name="android:src">@drawable/btn1</item>
+        <item name="android:background">@null</item>
+    </style>
+    <style name="RangeButton">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">53.3dp</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:padding">0dp</item>
+        <item name="android:background">@drawable/bk_btn_ca</item>
+    </style>
+    <style name="TabButton">
+        <item name="android:layout_width">85.28dp</item>
+        <item name="android:layout_height">65.29dp</item>
+        <item name="android:background">@null</item>
+        <item name="android:scaleType">fitXY</item>
     </style>
     
 </resources>

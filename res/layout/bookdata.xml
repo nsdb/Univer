@@ -1,79 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/bookdata_height"
-    android:minHeight="@dimen/bookdata_height" >
+    android:layout_height="103.27dp">
 
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="match_parent" >
 
         <ImageView
             android:id="@+id/thumbnail"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_margin="10dp"
+            android:layout_width="76.62dp"
+            android:layout_height="76.62dp"
+            android:layout_margin="13.33dp"
             android:layout_gravity="center"
-            android:src="@drawable/ic_launcher" />
+            android:src="@drawable/bk_book" />
 
         <LinearLayout
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_weight="1"
             android:orientation="vertical"
-            android:padding="10dp" >
+            android:paddingTop="13.33dp"
+            android:paddingRight="13.33dp"
+            android:paddingBottom="13.33dp" >
 
-            <LinearLayout
-                android:layout_width="match_parent"
+            <TextView
+                android:id="@+id/title"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="3dp" >
+                android:singleLine="true"
+                android:text="TitleTitleTitleTitleTitleTitleTitleTitle"
+                android:textSize="24dp" />
 
-                <TextView
-                    android:id="@+id/title"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginRight="10dp"
-                    android:text="Title"
-                    android:textSize="24dp" />
-
-                <TextView
-                    android:id="@+id/salemode"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="bottom"
-                    android:text="SaleMode" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="3dp" >
-
-                <TextView
-                    android:id="@+id/univ"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginRight="10dp"
-                    android:text="Univ" />
-
-                <TextView
-                    android:id="@+id/college"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="College" />
-            </LinearLayout>
+            <TextView
+                android:id="@+id/range"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="RangeRangeRange" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" >
-
-                <TextView
-                    android:id="@+id/discount_price"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginRight="10dp"
-                    android:text="DPrice" />
 
                 <TextView
                     android:id="@+id/parcel"
@@ -88,24 +57,29 @@
                     android:id="@+id/meet"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginRight="10dp"
                     android:background="#999999"
                     android:padding="2dp"
                     android:text="직거래" />
+                
+                
+                <TextView
+                    android:id="@+id/discount_price"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="DPrice" />
+
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>
 
-
-
-    <TextView
+    <ImageView
         android:id="@+id/salestate"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="right|center_vertical"
-        android:layout_marginRight="20dp"
-        android:padding="3dp"
-        android:background="#999999"
-        android:textSize="20dp"
-        android:text="SaleState" />
+        android:layout_width="221.86dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="right"
+        android:src="@null"
+        />
 
 </FrameLayout>
