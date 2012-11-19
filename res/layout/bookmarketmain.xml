@@ -26,14 +26,20 @@
 			android:gravity="center"
 			android:orientation="horizontal">
 			<RadioButton
-				android:id="@+id/sell" style="@style/BookMarketRadio"
+				android:id="@+id/sell"
+				android:width="66.62dp"
+				android:height="41.31dp"
 				android:checked="true"
 				android:button="@drawable/bk_sale" />
 			<RadioButton
-				android:id="@+id/buy"  style="@style/BookMarketRadio"
+				android:id="@+id/buy"
+				android:width="67.96dp"
+				android:height="41.31dp"
 				android:button="@drawable/bk_purchase" />
 			<RadioButton
-				android:id="@+id/mine"  style="@style/BookMarketRadio"
+				android:id="@+id/mine"
+				android:width="66.62dp"
+				android:height="41.31dp"
 				android:button="@drawable/bk_my" />
 	              
 		</RadioGroup>
