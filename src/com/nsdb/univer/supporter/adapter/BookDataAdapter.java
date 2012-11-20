@@ -70,7 +70,7 @@ public class BookDataAdapter extends DataLoadingArrayAdapter<BookData> {
 			} break;
 		case 2:
 			getData.add("category="+BookData.RANGEMODE_MINE);
-			getData.add("id="+0);
+			getData.add("id="+AppPref.getInt("user_id"));
 			break;
 		}
 		// pagenum

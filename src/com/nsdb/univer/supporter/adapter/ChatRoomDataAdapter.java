@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import com.nsdb.univer.R;
 import com.nsdb.univer.data.ChatRoomData;
+import com.nsdb.univer.supporter.data.AppPref;
 
 public class ChatRoomDataAdapter extends DataLoadingArrayAdapter<ChatRoomData> {
 
@@ -19,7 +20,8 @@ public class ChatRoomDataAdapter extends DataLoadingArrayAdapter<ChatRoomData> {
 	public void updateData() {
 		String url=getContext().getResources().getString(R.string.base_url)+'/'
 				+getContext().getResources().getString(R.string.get_url)+'/'
-				+getContext().getResources().getString(R.string.chatroom_url);
+				+getContext().getResources().getString(R.string.chatroom_url)+'/'
+				+"user_id="+AppPref.getInt("user_id")+'/';
 		super.updateData(url);
 	}
 

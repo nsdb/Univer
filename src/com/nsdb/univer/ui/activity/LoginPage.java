@@ -1,8 +1,18 @@
 package com.nsdb.univer.ui.activity;
 
+import java.io.InputStreamReader;
+import java.util.ArrayList;
+
+import org.apache.http.NameValuePair;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.message.BasicNameValuePair;
+import org.apache.http.protocol.HTTP;
+
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.view.WindowManager;
@@ -13,7 +23,7 @@ import android.widget.Toast;
 
 import com.nsdb.univer.R;
 import com.nsdb.univer.supporter.data.AppPref;
-import com.nsdb.univer.supporter.network.LoginChecker;
+import com.nsdb.univer.supporter.network.NetworkSupporter;
 import com.nsdb.univer.supporter.ui.OnClickMover;
 
 public class LoginPage extends Activity implements OnClickListener {
@@ -48,36 +58,85 @@ public class LoginPage extends Activity implements OnClickListener {
 		} else if(password.getText().toString().compareTo("")==0) {
 			Toast.makeText(this, "비밀번호를 입력하세요.",Toast.LENGTH_SHORT).show();				
 		} else {
-			System.out.println("ID : "+id.getText().toString());
-			System.out.println("Password : "+password.getText().toString());
-			new LoginHelper(this).execute();
+			new LoginHelper().execute();
 		}
 	}
+	
+	
+	private class LoginHelper extends AsyncTask<Void,Void,String> {
 
-	private class LoginHelper extends LoginChecker {
-		
-		public LoginHelper(Activity activity) {
-			super(activity);
-		}
-		
 		@Override
-		protected void onStartLogin() {
-			pdl=ProgressDialog.show(LoginPage.this,"Loading","Loading...",true,false);
-			AppPref.setString("id",id.getText().toString());
-			AppPref.setString("password",password.getText().toString());			
-		}
-		
-		@Override
-		protected void onSuccessLogin() {
-			pdl.dismiss();
-			startActivity( new Intent("TabMain") );
-			finish();
-		}
-		
-		@Override
-		protected void onFailLogin() {			
-			pdl.dismiss();
+		protected final void onPreExecute() {
+			super.onPreExecute();
+			pdl=ProgressDialog.show(LoginPage.this,"Loading","Loading...",true,false);			
 		}
 
+		@Override
+		protected String doInBackground(Void... params) {
+
+			// login : 1.234.23.142/~ypunval/login/
+			String url=getResources().getString(R.string.base_url)+'/'
+					+getResources().getString(R.string.login_url)+'/';
+
+			try {
+				// create http post for sending
+				HttpPost request=new HttpPost(url);
+				ArrayList<NameValuePair> postdata=new ArrayList<NameValuePair>();
+				postdata.add( new BasicNameValuePair("username",AppPref.getString("id") ) );
+				postdata.add( new BasicNameValuePair("password",AppPref.getString("password") ) );
+				UrlEncodedFormEntity ent = new UrlEncodedFormEntity(postdata,HTTP.UTF_8);
+				request.setEntity(ent);
+
+				// get result
+				InputStreamReader isr=NetworkSupporter.getStreamFromRequest(request);
+				String result=NetworkSupporter.getStringFromStream(isr);
+				isr.close();
+				return result;
+				
+			} catch(Exception e) {
+				e.printStackTrace();
+				return null;
+			}
+		
+		}
+		
+		@Override
+		protected final void onPostExecute(String result) {
+			super.onPostExecute(result);			
+			pdl.dismiss();
+			if(result==null) {
+				Toast.makeText(LoginPage.this,"로그인 실패",Toast.LENGTH_SHORT).show();
+			} else try {		
+				System.out.println("result : "+result);
+				String[] splited=result.split("\\+");        // To avoid PatternSyntaxException
+				
+				AppPref.setString("id",id.getText().toString());
+				AppPref.setString("password",password.getText().toString());
+				AppPref.setInt("user_id",Integer.parseInt(splited[0]));
+				AppPref.setString("value",splited[1]);
+				
+				System.out.println("Login Success");
+				System.out.println("id : "+id.getText().toString());
+				System.out.println("password : "+password.getText().toString());
+				System.out.println("user_id : "+splited[0]);
+				System.out.println("value : "+splited[1]);
+				
+				Toast.makeText(LoginPage.this,"로그인 성공",Toast.LENGTH_SHORT).show();
+				startActivity( new Intent("TabMain") );
+				finish();
+				
+			} catch(Exception e) {
+				Toast.makeText(LoginPage.this,result,Toast.LENGTH_SHORT).show();
+				e.printStackTrace();
+			}
+			
+		}
+		
+		
 	}
+	
+	
+	
+	
+
 }

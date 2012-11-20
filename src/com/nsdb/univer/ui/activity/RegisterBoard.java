@@ -174,6 +174,8 @@ public class RegisterBoard extends IntentPreservingActivity implements OnClickLi
 				// multipart entity
 				MultipartEntity ment=new MultipartEntity(HttpMultipartMode.BROWSER_COMPATIBLE);
 				// base data
+				ment.addPart("user_id",new StringBody(""+AppPref.getInt("user_id")));				
+				ment.addPart("value",new StringBody(AppPref.getString("value")));				
 				ment.addPart("region",new StringBody(""+AppPref.getRangeSet().get("region").id));
 				ment.addPart("university",new StringBody(""+AppPref.getRangeSet().get("univ").id));
 				ment.addPart("content",new StringBody(content.getText().toString(),Charset.forName("UTF-8")));

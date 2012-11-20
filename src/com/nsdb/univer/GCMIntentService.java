@@ -29,23 +29,25 @@ public class GCMIntentService extends GCMBaseIntentService {
         Iterator<String> iterator = b.keySet().iterator();
         String title=null;
         String content=null;
+        String ticker=null;
         while(iterator.hasNext()) {
             String key = iterator.next();
             String value = b.get(key).toString();
             Log.d(tag, "onMessage. "+key+" : "+value);
             
-            if(key.compareTo("param1")==0)
+            if(key.compareTo("title")==0)
             	title=value;
-            else if(key.compareTo("param2")==0)
+            else if(key.compareTo("content")==0)
             	content=value;
+            else if(key.compareTo("ticker")==0)
+            	ticker=value;
         }
         
         // Noti
-        if(title==null || content==null) return;
+        if(title==null || content==null || ticker==null) return;
         NotificationHelper.addNotification(context,
         	new Intent("IntroPage").putExtra("noti",true),
-        	0,R.drawable.ic_launcher,
-        	title+" : "+content,title,content);
+        	0,R.drawable.ic_launcher,ticker,title,content);
     }
 
     /**에러 발생시*/

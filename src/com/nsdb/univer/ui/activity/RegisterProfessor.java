@@ -176,6 +176,8 @@ public class RegisterProfessor extends IntentPreservingActivity implements OnCli
 				// multipart entity
 				MultipartEntity ment=new MultipartEntity(HttpMultipartMode.BROWSER_COMPATIBLE);
 				// base data
+				ment.addPart("user_id",new StringBody(""+AppPref.getInt("user_id")));				
+				ment.addPart("value",new StringBody(AppPref.getString("value")));				
 				ment.addPart("name",new StringBody(title.getText().toString(),Charset.forName("UTF-8")));				
 				ment.addPart("region",new StringBody(""+AppPref.getRangeSet().get("region").id));
 				ment.addPart("university",new StringBody(""+AppPref.getRangeSet().get("univ").id));

@@ -43,16 +43,12 @@
         android:visibility="gone"
         android:background="#999999" >
 		
-	    <LinearLayout
-	        android:layout_width="0dp"
-	        android:layout_height="match_parent"
-	        android:layout_weight="1" >
-	    </LinearLayout>
-	    
    	    <com.makeramen.segmented.SegmentedRadioGroup
 			android:id="@+id/state"
-			android:layout_width="wrap_content"
+			android:layout_width="0dp"
 			android:layout_height="wrap_content"
+			android:layout_weight="1"
+			android:gravity="center"
 			android:orientation="horizontal"
 			android:layout_gravity="center" >
 			<RadioButton
@@ -81,13 +77,6 @@
 		</com.makeramen.segmented.SegmentedRadioGroup>
 	    	    
 
-	    <LinearLayout
-	        android:layout_width="0dp"
-	        android:layout_height="match_parent"
-	        android:layout_weight="1" >
-	    </LinearLayout>
-	    	    
-	    	
 	    <Button
 	        android:id="@+id/delete"
 	        android:layout_width="wrap_content"

@@ -39,8 +39,6 @@ public abstract class DataLoadingArrayAdapter<T> extends BaseArrayAdapter<T> {
 		// unless, you will see a lot of exceptions...
 		this.footerNoticeView=((LayoutInflater)(context.getSystemService(Context.LAYOUT_INFLATER_SERVICE)))
 				.inflate(R.layout.stringdata,null);
-		TextView t=(TextView)footerNoticeView.findViewById(R.id.text);
-		t.setText("FooterView");
 		view.setAdapter(null);
 		view.addFooterView(footerNoticeView,null,false);
 		view.setAdapter(this);

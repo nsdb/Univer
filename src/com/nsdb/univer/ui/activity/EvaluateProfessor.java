@@ -93,6 +93,8 @@ public class EvaluateProfessor extends Activity implements OnClickListener, OnCh
 				// create http post for sending
 				HttpPost request=new HttpPost(url);
 				ArrayList<NameValuePair> postdata=new ArrayList<NameValuePair>();
+				postdata.add( new BasicNameValuePair("user_id",""+AppPref.getInt("user_id")));				
+				postdata.add( new BasicNameValuePair("value",AppPref.getString("value")));				
 				postdata.add( new BasicNameValuePair("professor",""+lastdata.id) );
 				postdata.add( new BasicNameValuePair("quality",""+quality.getRating()*2) );
 				postdata.add( new BasicNameValuePair("report",""+report.getRating()*2) );

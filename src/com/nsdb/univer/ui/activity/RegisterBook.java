@@ -315,6 +315,8 @@ public class RegisterBook extends IntentPreservingActivity implements OnClickLis
 				// multipart entity
 				MultipartEntity ment=new MultipartEntity(HttpMultipartMode.BROWSER_COMPATIBLE);
 				// base data
+				ment.addPart("user_id",new StringBody(""+AppPref.getInt("user_id")));				
+				ment.addPart("value",new StringBody(AppPref.getString("value")));				
 				ment.addPart("title",new StringBody(title.getText().toString(),Charset.forName("UTF-8")));				
 				ment.addPart("original_price",new StringBody(original_price.getText().toString()));
 				ment.addPart("discount_price",new StringBody(discount_price.getText().toString()));

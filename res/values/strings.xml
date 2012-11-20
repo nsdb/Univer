@@ -9,6 +9,7 @@
     <!-- Common -->
     <string name="base_url">http://54.248.233.34</string> <!--http://1.234.23.142/~ypunval-->
     <string name="login_url">login</string>
+    <string name="logincheck_url">login_check</string>
     <string name="registeruser_url">register</string>
     
     <!-- GET -->

@@ -108,17 +108,17 @@ public class BookDetail extends IntentPreservingActivity implements OnItemClickL
     	
         // ListView
     	lv=(ListView)findViewById(R.id.booklist);
-    	if(getIntent().getBooleanExtra("mine",false)==false) {
-	    	adapter=new BookDataAdapter(this,lv);
-	    	lv.setOnItemClickListener(this);
-	    	adapter.updateData(lastdata.seller_id,true);
+    	adapter=new BookDataAdapter(this,lv);
+    	if(AppPref.getInt("user_id")==lastdata.seller_id) {
+    		TextView othertxt=(TextView)findViewById(R.id.othertxt);
+    		othertxt.setVisibility(View.GONE);
     	} else {
-	    	lv=(ListView)findViewById(R.id.booklist);
-    		lv.setVisibility(View.GONE);
+	    	lv.setOnItemClickListener(this);
+	    	adapter.updateData(lastdata.seller_id,true);	
     	}
     	
     	// editbar
-    	if(getIntent().getBooleanExtra("mine",false)==true) {
+    	if(AppPref.getInt("user_id")==lastdata.seller_id) {
     		editbar=(LinearLayout)findViewById(R.id.editbar);
     		editbar.setVisibility(View.VISIBLE);
     		System.out.println("EditBar Visible");
@@ -197,6 +197,8 @@ public class BookDetail extends IntentPreservingActivity implements OnItemClickL
 				HttpPost request=new HttpPost(url);
 				ArrayList<NameValuePair> postdata=new ArrayList<NameValuePair>();
 				if(method.compareTo("PUT")==0) {
+					postdata.add(new BasicNameValuePair("user_id",""+AppPref.getInt("user_id")));				
+					postdata.add(new BasicNameValuePair("value",AppPref.getString("value")));				
 					postdata.add(new BasicNameValuePair("id",""+lastdata.id));
 					postdata.add(new BasicNameValuePair("sale",""+value));
 				} else if(method.compareTo("DELETE")==0) {

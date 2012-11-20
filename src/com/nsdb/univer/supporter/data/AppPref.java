@@ -16,6 +16,8 @@ public class AppPref {
 
 	private static String id;
 	private static String password;
+	private static int user_id;
+	private static String value;
 	
 	private static String cookieName;
 	private static String cookieValue;
@@ -40,6 +42,8 @@ public class AppPref {
 
 		id=pref.getString("id","");
 		password=pref.getString("password","");
+		user_id=pref.getInt("user_id",-1);
+		value=pref.getString("value","");
 
 		cookieName="";
 		cookieValue="";
@@ -71,6 +75,8 @@ public class AppPref {
 		edit.putInt("major_id",rangeSet.get("major").id);
 		edit.putString("id",id);
 		edit.putString("password",password);
+		edit.putInt("user_id",user_id);
+		edit.putString("value",value);
 		edit.putInt("startTab",startTab);
 		edit.commit();
 	}
@@ -82,19 +88,21 @@ public class AppPref {
 		return rangeSet;
 	}
 	
-	public static void setString(String filter,String value) {
+	public static void setString(String filter,String filtervalue) {
 		if(filter.compareTo("id")==0) {
-			id=value;
+			id=filtervalue;
 		} else if(filter.compareTo("password")==0) {
-			password=value;
+			password=filtervalue;
+		} else if(filter.compareTo("value")==0) {
+			value=filtervalue;
 		} else if(filter.compareTo("cookieName")==0) {
-			cookieName=value;
+			cookieName=filtervalue;
 		} else if(filter.compareTo("cookieValue")==0) {
-			cookieValue=value;
+			cookieValue=filtervalue;
 		} else if(filter.compareTo("cookieDomain")==0) {
-			cookieDomain=value;
+			cookieDomain=filtervalue;
 		} else if(filter.compareTo("cookiePath")==0) {
-			cookiePath=value;
+			cookiePath=filtervalue;
 		}
 	}
 
@@ -103,6 +111,8 @@ public class AppPref {
 			return id;
 		} else if(filter.compareTo("password")==0) {
 			return password;
+		} else if(filter.compareTo("value")==0) {
+			return value;
 		} else if(filter.compareTo("cookieName")==0) {
 			return cookieName;
 		} else if(filter.compareTo("cookieValue")==0) {
@@ -137,14 +147,18 @@ public class AppPref {
 		return lastBoardData;
 	}
 
-	public static void setInt(String filter,int value) {
+	public static void setInt(String filter,int filtervalue) {
 		if(filter.compareTo("startTab")==0) {
-			startTab=value;
+			startTab=filtervalue;
+		} else if(filter.compareTo("user_id")==0) {
+			user_id=filtervalue;
 		}
 	}
 	public static int getInt(String filter) {
 		if(filter.compareTo("startTab")==0) {
 			return startTab;
+		} else if(filter.compareTo("user_id")==0) {
+			return user_id;
 		} else {
 			return -1;
 		}
