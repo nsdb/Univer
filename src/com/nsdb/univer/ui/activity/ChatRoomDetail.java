@@ -7,7 +7,6 @@ import java.util.ArrayList;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
-import org.apache.http.client.methods.HttpPost;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.protocol.HTTP;
 import org.apache.http.util.EncodingUtils;
@@ -42,8 +41,8 @@ public class ChatRoomDetail extends Activity implements OnClickListener {
         
         try {
 			ArrayList<NameValuePair> postdata=new ArrayList<NameValuePair>();
-			postdata.add(new BasicNameValuePair("user_id",""+AppPref.getInt("user_id")));				
-			postdata.add(new BasicNameValuePair("value",AppPref.getString("value")));				
+			postdata.add( new BasicNameValuePair("user_id",""+AppPref.getInt("user_id")));				
+			postdata.add( new BasicNameValuePair("value",AppPref.getString("value")));				
 			postdata.add( new BasicNameValuePair("roomName",""+3.2) );
 			postdata.add( new BasicNameValuePair("is_chatRoom",""+1) );
 			postdata.add( new BasicNameValuePair("chatRoom_id",""+1) );

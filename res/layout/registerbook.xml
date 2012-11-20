@@ -11,7 +11,7 @@
 	        android:id="@+id/actionbartitle" style="@style/ActionBarTitle"
 	        android:layout_width="match_parent"
 	        android:layout_height="wrap_content"
-	        android:text="교수평가" />
+	        android:text="책 등록" />
         
     </LinearLayout>
     
@@ -24,19 +24,15 @@
         <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:background="#999999"
+		    android:background="@drawable/cm_background_pattern_rp"
             android:orientation="vertical" >
 
             <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:padding="10dp"
-                android:background="#FFFFFF"
-                android:layout_gravity="center">
+                style="@style/WhiteBoxLinearTop">
 
                 <ImageView
                     android:id="@+id/image" style="@style/BookThumbnailButton"
-                    android:layout_marginRight="2.67dp"
+                    android:layout_marginRight="15dp"
                     android:scaleType="fitCenter" />
 
 
@@ -76,25 +72,26 @@
                 </LinearLayout>
 
             </LinearLayout>
+            
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:textSize="20dp"
+                android:text="카테고리" />
 
 		    <LinearLayout
-		        android:layout_width="wrap_content"
-		        android:layout_height="wrap_content"
-		        android:layout_gravity="center"
-		        android:padding="10dp"
-		        android:background="#FFFFFF"
-		        android:orientation="vertical" >
+                style="@style/WhiteBoxLinearMiddle"
+                android:orientation="vertical">
 
 		        <LinearLayout
-		            android:layout_width="wrap_content"
-		            android:layout_height="wrap_content" >
+		            android:layout_width="match_parent"
+		            android:layout_height="wrap_content"
+		            android:gravity="center">
 
 		            <TextView
-		                android:layout_width="wrap_content"
-		                android:layout_height="wrap_content"
-		                android:layout_marginRight="10dp"
-		                android:text="지    역"
-		                android:textSize="18dp" />
+		                style="@style/WhiteBoxText"
+		                android:text="지    역" />
 
 		            <Button
 		                android:id="@+id/region"
@@ -103,15 +100,13 @@
 		        </LinearLayout>
 
 		        <LinearLayout
-		            android:layout_width="wrap_content"
-		            android:layout_height="wrap_content" >
+		            android:layout_width="match_parent"
+		            android:layout_height="wrap_content"
+		            android:gravity="center">
 
 		            <TextView
-		                android:layout_width="wrap_content"
-		                android:layout_height="wrap_content"
-		                android:layout_marginRight="10dp"
-		                android:text="학    교"
-		                android:textSize="18dp" />
+		                style="@style/WhiteBoxText"
+		                android:text="학    교" />
 
 		            <Button
 		                android:id="@+id/univ"
@@ -120,15 +115,13 @@
 		        </LinearLayout>
 
 		        <LinearLayout
-		            android:layout_width="wrap_content"
-		            android:layout_height="wrap_content" >
+		            android:layout_width="match_parent"
+		            android:layout_height="wrap_content"
+		            android:gravity="center">
 
 		            <TextView
-		                android:layout_width="wrap_content"
-		                android:layout_height="wrap_content"
-		                android:layout_marginRight="10dp"
-		                android:text="단과대"
-		                android:textSize="18dp" />
+		                style="@style/WhiteBoxText"
+		                android:text="단과대" />
 
 		            <Button
 		                android:id="@+id/college"
@@ -137,25 +130,27 @@
 		        </LinearLayout>
 
 		    </LinearLayout>
-
+            
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:textSize="20dp"
+                android:text="도서명" />
+		    
 		    <LinearLayout
-		        android:layout_width="wrap_content"
-		        android:layout_height="wrap_content"
-		        android:layout_gravity="center"
-		        android:padding="10dp"
-		        android:background="#FFFFFF"
+                style="@style/WhiteBoxLinearMiddle"
 		        android:orientation="vertical" >
 
 		        <LinearLayout
 		            android:layout_width="match_parent"
-		            android:layout_height="wrap_content">
+		            android:layout_height="wrap_content"
+		            android:layout_margin="3dp"
+		            android:gravity="center">
 
 		            <TextView
-		                android:layout_width="wrap_content"
-		                android:layout_height="wrap_content"
-		                android:layout_marginRight="10dp"
-		                android:text="도서명"
-		                android:textSize="18dp" />
+		                style="@style/WhiteBoxText"
+		                android:text="도서명" />
 
 		            <EditText
 		                android:id="@+id/title" style="@style/StandardEditText"
@@ -164,30 +159,28 @@
 
 		        <LinearLayout
 		            android:layout_width="match_parent"
-		            android:layout_height="wrap_content">
+		            android:layout_height="wrap_content"
+		            android:layout_margin="3dp"
+		            android:gravity="center">
 
 		            <TextView
-		                android:layout_width="wrap_content"
-		                android:layout_height="wrap_content"
-		                android:layout_marginRight="10dp"
-		                android:text="출판사"
-		                android:textSize="18dp" />
+		                style="@style/WhiteBoxText"
+		                android:text="출판사" />
 
 		            <EditText
 		                android:id="@+id/publisher" style="@style/StandardEditText"
 		                android:inputType="text" />
 		        </LinearLayout>
-
+		        
 		        <LinearLayout
 		            android:layout_width="match_parent"
-		            android:layout_height="wrap_content">
+		            android:layout_height="wrap_content"
+		            android:layout_margin="3dp"
+		            android:gravity="center">
 
 		            <TextView
-		                android:layout_width="wrap_content"
-		                android:layout_height="wrap_content"
-		                android:layout_marginRight="10dp"
-		                android:text="저    자"
-		                android:textSize="18dp" />
+		                style="@style/WhiteBoxText"
+		                android:text="저    자" />
 
 		            <EditText
 		                android:id="@+id/author" style="@style/StandardEditText"
@@ -196,14 +189,13 @@
 
 		        <LinearLayout
 		            android:layout_width="match_parent"
-		            android:layout_height="wrap_content">
+		            android:layout_height="wrap_content"
+		            android:layout_margin="3dp"
+		            android:gravity="center">
 
 		            <TextView
-		                android:layout_width="wrap_content"
-		                android:layout_height="wrap_content"
-		                android:layout_marginRight="10dp"
-		                android:text="발행일"
-		                android:textSize="18dp" />
+		                style="@style/WhiteBoxText"
+		                android:text="발행일" />
 
 		            <EditText
 		                android:id="@+id/pubdate" style="@style/StandardEditText"
@@ -214,14 +206,13 @@
 
 		        <LinearLayout
 		            android:layout_width="match_parent"
-		            android:layout_height="wrap_content">
+		            android:layout_height="wrap_content"
+		            android:layout_margin="3dp"
+		            android:gravity="center">
 
 		            <TextView
-		                android:layout_width="wrap_content"
-		                android:layout_height="wrap_content"
-		                android:layout_marginRight="10dp"
-		                android:text="정    가"
-		                android:textSize="18dp" />
+		                style="@style/WhiteBoxText"
+		                android:text="정    가" />
 
 		            <EditText
 		                android:id="@+id/original_price" style="@style/StandardEditText"
@@ -230,14 +221,13 @@
 
 		        <LinearLayout
 		            android:layout_width="match_parent"
-		            android:layout_height="wrap_content">
+		            android:layout_height="wrap_content"
+		            android:layout_margin="3dp"
+		            android:gravity="center">
 
 		            <TextView
-		                android:layout_width="wrap_content"
-		                android:layout_height="wrap_content"
-		                android:layout_marginRight="10dp"
-		                android:text="판매가"
-		                android:textSize="18dp" />
+		                style="@style/WhiteBoxText"
+		                android:text="판매가" />
 
 		            <EditText
 		                android:id="@+id/discount_price" style="@style/StandardEditText"
@@ -246,32 +236,37 @@
 
 		    </LinearLayout>
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:textSize="20dp"
+                android:text="상태설명" />
+		    
 		    <LinearLayout
-		        android:layout_width="wrap_content"
-		        android:layout_height="wrap_content"
-		        android:layout_gravity="center"
-		        android:padding="10dp"
-		        android:background="#FFFFFF"
-		        android:orientation="vertical" >
+                style="@style/WhiteBoxLinearMiddle" >
 
 		        <EditText
 		            android:id="@+id/description"
 		            android:layout_width="match_parent"
 		            android:layout_height="wrap_content"
 		            android:inputType="textMultiLine"
-		            android:ems="20"
-		            android:lines="4" >
+		            android:lines="4"
+		            android:maxLines="4"
+		            android:background="@null" >
 		        </EditText>
 
 		    </LinearLayout>
-
-            <LinearLayout
+		    
+            <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:padding="10dp"
-                android:background="#FFFFFF"
-                android:orientation="horizontal" >
+                android:layout_marginLeft="30dp"
+                android:textSize="20dp"
+                android:text="거래방법" />
+
+            <LinearLayout
+                style="@style/WhiteBoxLinearBottom">
                 
                 <CheckBox
 	                android:id="@+id/parcel"
@@ -289,7 +284,7 @@
             </LinearLayout>
 
 		    <Button
-		        android:id="@+id/apply"
+		        android:id="@+id/apply" style="@style/CommonButton"
 		        android:layout_width="match_parent"
 		        android:layout_height="wrap_content"
 		        android:text="결정" />
