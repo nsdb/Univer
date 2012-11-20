@@ -13,9 +13,9 @@ import com.fedorvlasov.lazylist.ImageLoader;
 import com.makeramen.segmented.SegmentedRadioGroup;
 import com.nsdb.univer.R;
 import com.nsdb.univer.data.BookData;
+import com.nsdb.univer.supporter.NetworkSupporter;
 import com.nsdb.univer.supporter.adapter.BookDataAdapter;
 import com.nsdb.univer.supporter.data.AppPref;
-import com.nsdb.univer.supporter.network.NetworkSupporter;
 
 import android.app.ProgressDialog;
 import android.content.Context;

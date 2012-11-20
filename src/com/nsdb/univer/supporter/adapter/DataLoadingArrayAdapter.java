@@ -8,7 +8,7 @@ import org.apache.http.client.methods.HttpGet;
 import org.jdom2.Element;
 
 import com.nsdb.univer.R;
-import com.nsdb.univer.supporter.network.NetworkSupporter;
+import com.nsdb.univer.supporter.NetworkSupporter;
 
 import android.content.Context;
 import android.os.AsyncTask;

@@ -38,12 +38,8 @@
             android:layout_height="wrap_content" >
 
             <ImageView
-                android:id="@+id/image"
-                android:layout_width="80dp"
-                android:layout_height="80dp"
-                android:layout_marginRight="10dp"
-                android:src="@drawable/ic_action_search"
-                android:background="#999999" />
+                android:id="@+id/image" style="@style/BookThumbnailButton"
+                android:layout_marginRight="10dp" />
 
             <LinearLayout
                 android:layout_width="0dp"

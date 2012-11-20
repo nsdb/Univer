@@ -14,8 +14,8 @@ import org.apache.http.entity.mime.content.FileBody;
 import org.apache.http.entity.mime.content.StringBody;
 
 import com.nsdb.univer.R;
+import com.nsdb.univer.supporter.NetworkSupporter;
 import com.nsdb.univer.supporter.data.AppPref;
-import com.nsdb.univer.supporter.network.NetworkSupporter;
 import com.nsdb.univer.supporter.ui.OnClickMover;
 
 import android.app.AlertDialog;

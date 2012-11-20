@@ -10,9 +10,9 @@ import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.protocol.HTTP;
 
 import com.nsdb.univer.R;
+import com.nsdb.univer.supporter.NetworkSupporter;
 import com.nsdb.univer.supporter.NotificationHelper;
 import com.nsdb.univer.supporter.data.AppPref;
-import com.nsdb.univer.supporter.network.NetworkSupporter;
 
 import android.app.Activity;
 import android.content.Intent;

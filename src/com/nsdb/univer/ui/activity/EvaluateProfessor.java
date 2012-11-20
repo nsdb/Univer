@@ -12,8 +12,8 @@ import org.apache.http.protocol.HTTP;
 import com.makeramen.segmented.SegmentedRadioGroup;
 import com.nsdb.univer.R;
 import com.nsdb.univer.data.ProfessorData;
+import com.nsdb.univer.supporter.NetworkSupporter;
 import com.nsdb.univer.supporter.data.AppPref;
-import com.nsdb.univer.supporter.network.NetworkSupporter;
 
 import android.app.Activity;
 import android.app.ProgressDialog;

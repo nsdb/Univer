@@ -17,8 +17,8 @@ import org.jdom2.Element;
 
 import com.nsdb.univer.R;
 import com.nsdb.univer.data.BookData;
+import com.nsdb.univer.supporter.NetworkSupporter;
 import com.nsdb.univer.supporter.data.AppPref;
-import com.nsdb.univer.supporter.network.NetworkSupporter;
 import com.nsdb.univer.supporter.ui.ImageSetterNoCache;
 import com.nsdb.univer.supporter.ui.OnClickMover;
 
