@@ -36,29 +36,34 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RadioGroup;
 import android.widget.RadioGroup.OnCheckedChangeListener;
 import android.widget.Toast;
 
 public class RegisterBook extends IntentPreservingActivity implements OnClickListener, OnCheckedChangeListener {
-
 	
-	RadioGroup sale;
-	int saleMode;
-	Button region,univ,college,major;
-	private final static int REQUESTCODE_RANGE=4;
 	
-	Button barcode;
-	String isbn;
-	private final static int REQUESTCODE_BARCODE=1;
-
+	// first linear
 	ImageView image;
 	boolean imageAdded;
 	private final static int REQUESTCODE_CAPTUREIMAGE=2;
 	private final static int REQUESTCODE_GETIMAGE=3;
 
-	EditText title,publisher,author,pubdate,edition,original_price,discount_price;
+	RadioGroup sale;
+	int saleMode;
+	
+	ImageButton barcode;
+	String isbn;
+	private final static int REQUESTCODE_BARCODE=1;
+
+	// second linear
+	Button region,univ,college;
+	private final static int REQUESTCODE_RANGE=4;
+
+	// third, fourth, fifth linear
+	EditText title,publisher,author,pubdate,original_price,discount_price;
 	EditText description;
 	CheckBox parcel,meet;
 	
@@ -71,37 +76,35 @@ public class RegisterBook extends IntentPreservingActivity implements OnClickLis
         setContentView(R.layout.registerbook);
         
         // first linear
+        image=(ImageView)findViewById(R.id.image);
+        imageAdded=false;
+        image.setOnClickListener(this);
         sale=(RadioGroup)findViewById(R.id.sale);
         saleMode=BookData.SALEMODE_SELL;
         sale.setOnCheckedChangeListener(this);
-        // range setting
+        barcode=(ImageButton)findViewById(R.id.barcode);
+        isbn="1";
+        barcode.setOnClickListener(new OnClickMover(this,new Intent("com.google.zxing.client.android.SCAN"),REQUESTCODE_BARCODE));
+
+        // second linear
     	region=(Button)findViewById(R.id.region);
     	univ=(Button)findViewById(R.id.univ);
     	college=(Button)findViewById(R.id.college);
-    	major=(Button)findViewById(R.id.major);
     	region.setOnClickListener(new OnClickMover(this,new Intent("RangeSetting").putExtra("range","region"),REQUESTCODE_RANGE));
     	univ.setOnClickListener(new OnClickMover(this,new Intent("RangeSetting").putExtra("range","univ"),REQUESTCODE_RANGE));
     	college.setOnClickListener(new OnClickMover(this,new Intent("RangeSetting").putExtra("range","college"),REQUESTCODE_RANGE));
-    	major.setOnClickListener(new OnClickMover(this,new Intent("RangeSetting").putExtra("range","major"),REQUESTCODE_RANGE));
-		AppPref.getRangeSet().applyDataToView(region, univ, college, major);
+		AppPref.getRangeSet().applyDataToView(region, univ, college);
         
-        // second linear
-        barcode=(Button)findViewById(R.id.barcode);
-        isbn="1";
-        image=(ImageView)findViewById(R.id.image);
-        imageAdded=false;
+        // third linear
         title=(EditText)findViewById(R.id.title);
         publisher=(EditText)findViewById(R.id.publisher);
         author=(EditText)findViewById(R.id.author);
         pubdate=(EditText)findViewById(R.id.pubdate);
-        edition=(EditText)findViewById(R.id.edition);
         original_price=(EditText)findViewById(R.id.original_price);
         discount_price=(EditText)findViewById(R.id.discount_price);
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
-        barcode.setOnClickListener(new OnClickMover(this,new Intent("com.google.zxing.client.android.SCAN"),REQUESTCODE_BARCODE));
-        image.setOnClickListener(this);
-        
-        // third linear
+
+        // fourth...
         description=(EditText)findViewById(R.id.description);
         parcel=(CheckBox)findViewById(R.id.parcel);
         meet=(CheckBox)findViewById(R.id.meet);
@@ -155,7 +158,6 @@ public class RegisterBook extends IntentPreservingActivity implements OnClickLis
 			publisher.getText().toString().compareTo("")==0 ||
 			author.getText().toString().compareTo("")==0 ||
 			pubdate.getText().toString().compareTo("")==0 ||
-			edition.getText().toString().compareTo("")==0 ||
 			original_price.getText().toString().compareTo("")==0 ||
 			discount_price.getText().toString().compareTo("")==0 ) {
 			Toast.makeText(this, "모든 데이터를 입력하여야 합니다.",Toast.LENGTH_SHORT).show();
@@ -173,7 +175,6 @@ public class RegisterBook extends IntentPreservingActivity implements OnClickLis
 			public String publisher;
 			public String author;
 			public String pubdate;
-			public String edition;
 			public String price;
 		}
 		private BookInfo data;
@@ -216,7 +217,6 @@ public class RegisterBook extends IntentPreservingActivity implements OnClickLis
 				data.publisher=item.getChildText("publisher");
 				data.author=item.getChildText("author");
 				data.pubdate=item.getChildText("pubdate");
-				data.edition=""+1;
 				data.price=item.getChildText("price");
 				isr.close();
 				
@@ -243,7 +243,6 @@ public class RegisterBook extends IntentPreservingActivity implements OnClickLis
 			publisher.setText(data.publisher);
 			author.setText(data.author);
 			pubdate.setText(data.pubdate);
-			edition.setText(data.edition);
 			original_price.setText(data.price);
 			discount_price.requestFocus();
 			
@@ -260,7 +259,7 @@ public class RegisterBook extends IntentPreservingActivity implements OnClickLis
 		if(resultCode==RESULT_OK) {
 			switch(requestCode) {
 			case REQUESTCODE_RANGE:
-				AppPref.getRangeSet().applyDataToView(region,univ,college,major);
+				AppPref.getRangeSet().applyDataToView(region,univ,college);
 				getIntent().putExtra("range_changed",true);
 				break;
 			case REQUESTCODE_BARCODE:
@@ -320,7 +319,7 @@ public class RegisterBook extends IntentPreservingActivity implements OnClickLis
 				ment.addPart("original_price",new StringBody(original_price.getText().toString()));
 				ment.addPart("discount_price",new StringBody(discount_price.getText().toString()));
 				ment.addPart("published",new StringBody(pubdate.getText().toString()));
-				ment.addPart("edition",new StringBody(edition.getText().toString()));
+				ment.addPart("edition",new StringBody("1"));
 				ment.addPart("publisher",new StringBody(publisher.getText().toString(),Charset.forName("UTF-8")));
 				ment.addPart("book_author",new StringBody(author.getText().toString(),Charset.forName("UTF-8")));
 				ment.addPart("content",new StringBody(description.getText().toString(),Charset.forName("UTF-8")));

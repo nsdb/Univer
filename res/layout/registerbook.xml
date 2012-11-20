@@ -24,320 +24,253 @@
         <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
+            android:background="#999999"
             android:orientation="vertical" >
 
-
-            <TextView
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:background="#888888"
-                android:padding="10dp"
-                android:text="카테고리"
-                android:textColor="#ffffff" />
-
-		    <LinearLayout
-		        android:layout_width="match_parent"
-		        android:layout_height="wrap_content"
-		        android:padding="5dp" >
-		        <TextView
-		            android:layout_width="wrap_content"
-		            android:layout_height="wrap_content"
-			        android:layout_marginRight="10dp"
-			        android:layout_gravity="center"
-			        android:textSize="18dp"
-		            android:text="SaleMode" />
-		        
-        	    <com.makeramen.segmented.SegmentedRadioGroup
-                    android:id="@+id/sale"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-					android:orientation="horizontal"
-                    android:layout_gravity="center" >
-
-                    <RadioButton
-                        android:id="@+id/sell"
-                        android:layout_width="80dp"
-                        android:layout_height="wrap_content"
-                        android:checked="true"
-						android:button="@null"
-						android:gravity="center"
-                        android:text="팝니다" />
-
-                    <RadioButton
-                        android:id="@+id/buy"
-                        android:layout_width="80dp"
-                        android:layout_height="wrap_content"
-						android:button="@null"
-						android:gravity="center"
-                        android:text="삽니다" />
-
-                </com.makeramen.segmented.SegmentedRadioGroup>
-		        
-		    </LinearLayout>
-		    
-		    <LinearLayout
-		        android:layout_width="match_parent"
-		        android:layout_height="wrap_content"
-		        android:padding="5dp" >
-		        <TextView
-		            android:layout_width="wrap_content"
-		            android:layout_height="wrap_content"
-			        android:layout_marginRight="10dp"
-			        android:textSize="18dp"
-		            android:text="Region" />
-		        <Button
-		            android:id="@+id/region"
-		            android:layout_width="wrap_content"
-		            android:layout_height="wrap_content"
-		            android:text="지역" />	
-		    </LinearLayout>
-		    
-		    <LinearLayout
-		        android:layout_width="match_parent"
-		        android:layout_height="wrap_content"
-		        android:padding="5dp" >
-		        <TextView
-		            android:layout_width="wrap_content"
-		            android:layout_height="wrap_content"
-			        android:layout_marginRight="10dp"
-			        android:textSize="18dp"
-		            android:text="Univ" />
-		        <Button
-		            android:id="@+id/univ"
-		            android:layout_width="wrap_content"
-		            android:layout_height="wrap_content"
-		            android:text="대학교" />	
-		    </LinearLayout>
-		    
-		    <LinearLayout
-		        android:layout_width="match_parent"
-		        android:layout_height="wrap_content"
-		        android:padding="5dp" >
-		        <TextView
-		            android:layout_width="wrap_content"
-		            android:layout_height="wrap_content"
-			        android:layout_marginRight="10dp"
-			        android:textSize="18dp"
-		            android:text="College" />
-		        <Button
-		            android:id="@+id/college"
-		            android:layout_width="wrap_content"
-		            android:layout_height="wrap_content"
-		            android:text="단과대" />	
-		    </LinearLayout>
-		    		    
-		    <LinearLayout
-		        android:layout_width="match_parent"
-		        android:layout_height="wrap_content"
-		        android:padding="5dp" >
-		        <TextView
-		            android:layout_width="wrap_content"
-		            android:layout_height="wrap_content"
-			        android:layout_marginRight="10dp"
-			        android:textSize="18dp"
-		            android:text="Major" />
-		        <Button
-		            android:id="@+id/major"
-		            android:layout_width="wrap_content"
-		            android:layout_height="wrap_content"
-		            android:text="학과" />	
-		    </LinearLayout>
-
-            <TextView
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:background="#888888"
-                android:padding="10dp"
-                android:text="도서정보"
-                android:textColor="#ffffff" />
-
-            <Button
-                android:id="@+id/barcode"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_margin="10dp"
-                android:text="바코드로 등록" />
-
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="10dp"
-                android:orientation="horizontal" >
-		        
-		        <TextView
-		            android:layout_width="wrap_content"
-		            android:layout_height="wrap_content"
-		            android:layout_marginRight="10dp"
-			        android:textSize="18dp"
-		            android:text="Image" />
-		        <ImageView
-		            android:id="@+id/image"
-		            android:layout_width="100dp"
-		            android:layout_height="100dp"
-                    android:scaleType="fitCenter"
-                    android:background="#999999"
-                    android:src="@drawable/ic_action_search" />
+                android:background="#FFFFFF"
+                android:layout_gravity="center">
+
+                <ImageView
+                    android:id="@+id/image" style="@style/BookThumbnailButton"
+                    android:layout_marginRight="2.67dp"
+                    android:scaleType="fitCenter" />
+
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical" >
+
+                    <RadioGroup
+                        android:id="@+id/sale"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="2.67dp"
+                        android:orientation="horizontal" >
+
+                        <RadioButton
+                            android:id="@+id/sell"
+                            android:layout_width="92.61dp"
+                            android:layout_height="37.31dp"
+                            android:button="@drawable/bk_rg_sale"
+                            android:checked="true" />
+
+                        <RadioButton
+                            android:id="@+id/buy"
+                            android:layout_width="93.28dp"
+                            android:layout_height="37.31dp"
+                            android:button="@drawable/bk_rg_purchase" />
+                    </RadioGroup>
+
+                    <ImageButton
+                        android:id="@+id/barcode"
+                        android:layout_width="185.88dp"
+                        android:layout_height="36.64dp"
+                        android:src="@drawable/bk_rg_isbn"
+                        android:text="바코드로 등록" />
+
+                </LinearLayout>
 
             </LinearLayout>
-            
-		    <LinearLayout
-		        android:layout_width="match_parent"
-		        android:layout_height="wrap_content"
-		        android:padding="5dp" >
-		        <TextView
-		            android:layout_width="wrap_content"
-		            android:layout_height="wrap_content"
-			        android:layout_marginRight="10dp"
-			        android:textSize="18dp"
-		            android:text="Title" />
-                <EditText
-                    android:id="@+id/title"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:inputType="text" />
-		    </LinearLayout>
 
 		    <LinearLayout
-		        android:layout_width="match_parent"
+		        android:layout_width="wrap_content"
 		        android:layout_height="wrap_content"
-		        android:padding="5dp" >
-		        <TextView
-		            android:layout_width="wrap_content"
-		            android:layout_height="wrap_content"
-			        android:layout_marginRight="10dp"
-			        android:textSize="18dp"
-		            android:text="Publisher" />
-                <EditText
-                    android:id="@+id/publisher"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:inputType="text" />
-		    </LinearLayout>
+		        android:layout_gravity="center"
+		        android:padding="10dp"
+		        android:background="#FFFFFF"
+		        android:orientation="vertical" >
 
-		    <LinearLayout
-		        android:layout_width="match_parent"
-		        android:layout_height="wrap_content"
-		        android:padding="5dp" >
-		        <TextView
+		        <LinearLayout
 		            android:layout_width="wrap_content"
-		            android:layout_height="wrap_content"
-			        android:layout_marginRight="10dp"
-			        android:textSize="18dp"
-		            android:text="Author" />
-                <EditText
-                    android:id="@+id/author"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:inputType="text" />
-		    </LinearLayout>
+		            android:layout_height="wrap_content" >
 
-		    <LinearLayout
-		        android:layout_width="match_parent"
-		        android:layout_height="wrap_content"
-		        android:padding="5dp" >
-		        <TextView
+		            <TextView
+		                android:layout_width="wrap_content"
+		                android:layout_height="wrap_content"
+		                android:layout_marginRight="10dp"
+		                android:text="지    역"
+		                android:textSize="18dp" />
+
+		            <Button
+		                android:id="@+id/region"
+		                style="@style/LongRangeButton"
+		                android:text="지역" />
+		        </LinearLayout>
+
+		        <LinearLayout
 		            android:layout_width="wrap_content"
-		            android:layout_height="wrap_content"
-			        android:layout_marginRight="10dp"
-			        android:textSize="18dp"
-		            android:text="Publish Date" />
-                <EditText
-                    android:id="@+id/pubdate"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:inputType="number"
-                    android:hint="19930402"
-                    android:maxLength="8" />
+		            android:layout_height="wrap_content" >
+
+		            <TextView
+		                android:layout_width="wrap_content"
+		                android:layout_height="wrap_content"
+		                android:layout_marginRight="10dp"
+		                android:text="학    교"
+		                android:textSize="18dp" />
+
+		            <Button
+		                android:id="@+id/univ"
+		                style="@style/LongRangeButton"
+		                android:text="대학교" />
+		        </LinearLayout>
+
+		        <LinearLayout
+		            android:layout_width="wrap_content"
+		            android:layout_height="wrap_content" >
+
+		            <TextView
+		                android:layout_width="wrap_content"
+		                android:layout_height="wrap_content"
+		                android:layout_marginRight="10dp"
+		                android:text="단과대"
+		                android:textSize="18dp" />
+
+		            <Button
+		                android:id="@+id/college"
+		                style="@style/LongRangeButton"
+		                android:text="단과대" />
+		        </LinearLayout>
 
 		    </LinearLayout>
 
 		    <LinearLayout
-		        android:layout_width="match_parent"
+		        android:layout_width="wrap_content"
 		        android:layout_height="wrap_content"
-		        android:padding="5dp" >
-		        <TextView
-		            android:layout_width="wrap_content"
-		            android:layout_height="wrap_content"
-			        android:layout_marginRight="10dp"
-			        android:textSize="18dp"
-		            android:text="Edition" />
-
-                <EditText
-                    android:id="@+id/edition"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:inputType="number" />
+		        android:layout_gravity="center"
+		        android:padding="10dp"
+		        android:background="#FFFFFF"
+		        android:orientation="vertical" >
+
+		        <LinearLayout
+		            android:layout_width="match_parent"
+		            android:layout_height="wrap_content">
+
+		            <TextView
+		                android:layout_width="wrap_content"
+		                android:layout_height="wrap_content"
+		                android:layout_marginRight="10dp"
+		                android:text="도서명"
+		                android:textSize="18dp" />
+
+		            <EditText
+		                android:id="@+id/title" style="@style/StandardEditText"
+		                android:inputType="text" />
+		        </LinearLayout>
+
+		        <LinearLayout
+		            android:layout_width="match_parent"
+		            android:layout_height="wrap_content">
+
+		            <TextView
+		                android:layout_width="wrap_content"
+		                android:layout_height="wrap_content"
+		                android:layout_marginRight="10dp"
+		                android:text="출판사"
+		                android:textSize="18dp" />
+
+		            <EditText
+		                android:id="@+id/publisher" style="@style/StandardEditText"
+		                android:inputType="text" />
+		        </LinearLayout>
+
+		        <LinearLayout
+		            android:layout_width="match_parent"
+		            android:layout_height="wrap_content">
+
+		            <TextView
+		                android:layout_width="wrap_content"
+		                android:layout_height="wrap_content"
+		                android:layout_marginRight="10dp"
+		                android:text="저    자"
+		                android:textSize="18dp" />
+
+		            <EditText
+		                android:id="@+id/author" style="@style/StandardEditText"
+		                android:inputType="text" />
+		        </LinearLayout>
+
+		        <LinearLayout
+		            android:layout_width="match_parent"
+		            android:layout_height="wrap_content">
+
+		            <TextView
+		                android:layout_width="wrap_content"
+		                android:layout_height="wrap_content"
+		                android:layout_marginRight="10dp"
+		                android:text="발행일"
+		                android:textSize="18dp" />
+
+		            <EditText
+		                android:id="@+id/pubdate" style="@style/StandardEditText"
+		                android:hint="19930402"
+		                android:inputType="number"
+		                android:maxLength="8" />
+		        </LinearLayout>
+
+		        <LinearLayout
+		            android:layout_width="match_parent"
+		            android:layout_height="wrap_content">
+
+		            <TextView
+		                android:layout_width="wrap_content"
+		                android:layout_height="wrap_content"
+		                android:layout_marginRight="10dp"
+		                android:text="정    가"
+		                android:textSize="18dp" />
+
+		            <EditText
+		                android:id="@+id/original_price" style="@style/StandardEditText"
+		                android:inputType="number" />
+		        </LinearLayout>
+
+		        <LinearLayout
+		            android:layout_width="match_parent"
+		            android:layout_height="wrap_content">
+
+		            <TextView
+		                android:layout_width="wrap_content"
+		                android:layout_height="wrap_content"
+		                android:layout_marginRight="10dp"
+		                android:text="판매가"
+		                android:textSize="18dp" />
+
+		            <EditText
+		                android:id="@+id/discount_price" style="@style/StandardEditText"
+		                android:inputType="number" />
+		        </LinearLayout>
 
 		    </LinearLayout>
 
 		    <LinearLayout
-		        android:layout_width="match_parent"
+		        android:layout_width="wrap_content"
 		        android:layout_height="wrap_content"
-		        android:padding="5dp" >
-		        <TextView
-		            android:layout_width="wrap_content"
-		            android:layout_height="wrap_content"
-			        android:layout_marginRight="10dp"
-			        android:textSize="18dp"
-		            android:text="Original Price" />
+		        android:layout_gravity="center"
+		        android:padding="10dp"
+		        android:background="#FFFFFF"
+		        android:orientation="vertical" >
 
-                <EditText
-                    android:id="@+id/original_price"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:inputType="number" />
+		        <EditText
+		            android:id="@+id/description"
+		            android:layout_width="match_parent"
+		            android:layout_height="wrap_content"
+		            android:inputType="textMultiLine"
+		            android:ems="20"
+		            android:lines="4" >
+		        </EditText>
 
 		    </LinearLayout>
-
-		    <LinearLayout
-		        android:layout_width="match_parent"
-		        android:layout_height="wrap_content"
-		        android:padding="5dp" >
-		        <TextView
-		            android:layout_width="wrap_content"
-		            android:layout_height="wrap_content"
-			        android:layout_marginRight="10dp"
-			        android:textSize="18dp"
-		            android:text="Discount Price" />
-
-                <EditText
-                    android:id="@+id/discount_price"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:inputType="number" />
-
-		    </LinearLayout>
-
-            <TextView
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:background="#888888"
-                android:padding="10dp"
-                android:text="상세설명"
-                android:textColor="#ffffff" />
-
-
-            <EditText
-                android:id="@+id/description"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:ems="10"
-                android:inputType="textMultiLine"
-                android:lines="4" />
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:padding="10dp"
+                android:background="#FFFFFF"
                 android:orientation="horizontal" >
                 
                 <CheckBox

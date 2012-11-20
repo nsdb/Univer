@@ -31,12 +31,7 @@
         <item name="android:textColor">#FFFFFF</item>
         <item name="android:gravity">center</item>
     </style>
-    <style name="CommonButton">
-        <item name="android:layout_width">47.97dp</item>
-        <item name="android:layout_height">41.31dp</item>
-        <item name="android:src">@drawable/btn1</item>
-        <item name="android:background">@null</item>
-    </style>
+    
     <style name="RangeButton">
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">53.3dp</item>
@@ -44,11 +39,37 @@
         <item name="android:padding">0dp</item>
         <item name="android:background">@drawable/bk_btn_ca</item>
     </style>
+    <style name="LongRangeButton">
+        <item name="android:layout_width">187.22dp</item>
+        <item name="android:layout_height">40.64dp</item>
+        <item name="android:background">@drawable/bk_rg_btn_ca</item>
+    </style>
+    <style name="StandardEditText">
+        <item name="android:layout_width">187.22dp</item>
+        <item name="android:layout_height">40.64dp</item>
+    </style>
     <style name="TabButton">
         <item name="android:layout_width">85.28dp</item>
         <item name="android:layout_height">65.29dp</item>
         <item name="android:background">@null</item>
         <item name="android:scaleType">fitXY</item>
+    </style>
+    
+    <style name="ThumbnailButton">
+        <item name="android:layout_width">76.62dp</item>
+        <item name="android:layout_height">76.62dp</item>
+    </style>
+    <style name="BookThumbnailButton" parent="@style/ThumbnailButton">
+        <item name="android:src">@drawable/bk_book</item>
+    </style>
+    
+    
+    
+    <style name="CommonButton">
+        <item name="android:layout_width">47.97dp</item>
+        <item name="android:layout_height">41.31dp</item>
+        <item name="android:src">@drawable/btn1</item>
+        <item name="android:background">@null</item>
     </style>
     
 </resources>
