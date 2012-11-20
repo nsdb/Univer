@@ -2,6 +2,7 @@ package com.nsdb.univer.ui.fragment;
 
 import com.nsdb.univer.R;
 import com.nsdb.univer.supporter.adapter.ChatRoomDataAdapter;
+import com.nsdb.univer.supporter.data.AppPref;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -17,6 +18,7 @@ public class ChatRoomMain extends ActiveFragment implements OnItemClickListener 
 
 	ListView lv;
 	ChatRoomDataAdapter adapter;
+	private final static int REQUESTCODE_CHATROOMDETAIL=3;
 	
 	public ChatRoomMain(Activity activity) {
 		super(activity, R.layout.chatroommain);
@@ -34,8 +36,24 @@ public class ChatRoomMain extends ActiveFragment implements OnItemClickListener 
 		return v;
 	}
 
-	public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
-		startActivity( new Intent("ChatRoomDetail") );
+	public void onItemClick(AdapterView<?> parent, View view, int position, long l_position) {
+		AppPref.setLastChatRoomData(adapter.getItem(position));
+		startActivity( new Intent("ChatRoomDetail").putExtra("from","ChatRoomMain") );
 		
 	}
+	
+	// Every Fragment's requestCode are linked! (REQUESTCODE_REGISTERBOARD==REQUESTCODE_REGISTERPROFESSOR...)
+	@Override
+	public void onActivityResult(int requestCode, int resultCode, Intent data)
+	{
+		super.onActivityResult(requestCode, resultCode, data);
+		
+		switch(requestCode) {
+		case REQUESTCODE_CHATROOMDETAIL:
+			if(data.getBooleanExtra("edited",false)==true) {
+				adapter.updateData();
+			} break;			
+		}
+	}
+	
 }

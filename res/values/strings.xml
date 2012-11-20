@@ -30,6 +30,7 @@
     
     <!-- ChatRoom -->
     <string name="chatroom_url">chatRooms</string>
+    <string name="chatroomcheck_url">chatRoomCheck</string>
     
     <!-- Board -->
     <string name="board_url">entries</string>

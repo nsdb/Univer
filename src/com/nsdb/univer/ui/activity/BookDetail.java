@@ -16,7 +16,6 @@ import com.nsdb.univer.data.BookData;
 import com.nsdb.univer.supporter.NetworkSupporter;
 import com.nsdb.univer.supporter.adapter.BookDataAdapter;
 import com.nsdb.univer.supporter.data.AppPref;
-
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -46,6 +45,7 @@ public class BookDetail extends IntentPreservingActivity implements OnItemClickL
 	ImageView image;
 	TextView original_price,discount_price;
 	TextView parcel,meet;
+	Button contect;
 	// second linear
 	TextView publisher,author,pubdate;
 	// third linear
@@ -82,6 +82,7 @@ public class BookDetail extends IntentPreservingActivity implements OnItemClickL
         discount_price=(TextView)findViewById(R.id.discount_price);
         parcel=(TextView)findViewById(R.id.parcel);
         meet=(TextView)findViewById(R.id.meet);
+        contect=(Button)findViewById(R.id.contect);
         title.setText(lastdata.title);
         switch(lastdata.sell) {
         case BookData.SALEMODE_BUY: sale.setText("삽니다"); break;
@@ -95,6 +96,11 @@ public class BookDetail extends IntentPreservingActivity implements OnItemClickL
         discount_price.setText(""+lastdata.discount_price+"원");
         if(lastdata.parcel==0) parcel.setVisibility(View.INVISIBLE);
         if(lastdata.meet==0) meet.setVisibility(View.INVISIBLE);
+        if(AppPref.getInt("user_id")==lastdata.seller_id) {
+        	contect.setVisibility(View.GONE);
+        } else {
+        	contect.setOnClickListener(this); 
+        }
     	// second linear
         publisher=(TextView)findViewById(R.id.publisher);
         author=(TextView)findViewById(R.id.author);
@@ -153,7 +159,18 @@ public class BookDetail extends IntentPreservingActivity implements OnItemClickL
 	}
 
 	public void onClick(View v) {
-		new BookEditHelper("DELETE").execute();
+		switch(v.getId()) {
+		case R.id.delete:
+			new BookEditHelper("DELETE").execute();
+			break;
+		case R.id.contect:
+			getIntent().putExtra("edited",true);
+			startActivity( new Intent("ChatRoomDetail")
+							.putExtra("from","BookDetail")
+							.putExtra("seller_id",lastdata.seller_id) );
+			break;
+			
+		}
 	}
 	
 	

@@ -4,6 +4,7 @@ package com.nsdb.univer.supporter.data;
 
 import com.nsdb.univer.data.BoardData;
 import com.nsdb.univer.data.BookData;
+import com.nsdb.univer.data.ChatRoomData;
 import com.nsdb.univer.data.ProfessorData;
 import com.nsdb.univer.data.RangeData;
 
@@ -27,6 +28,7 @@ public class AppPref {
 	private static BookData lastBookData;
 	private static ProfessorData lastProfessorData;
 	private static BoardData lastBoardData;
+	private static ChatRoomData lastChatRoomData;
 	
 	private static int startTab;
 
@@ -53,6 +55,7 @@ public class AppPref {
 		lastBookData=null;
 		lastProfessorData=null;
 		lastBoardData=null;
+		lastChatRoomData=null;
 		
 		startTab=pref.getInt("startTab",0);
 	}
@@ -145,6 +148,13 @@ public class AppPref {
 	}
 	public static BoardData getLastBoardData() {
 		return lastBoardData;
+	}
+
+	public static void setLastChatRoomData(ChatRoomData data) {
+		lastChatRoomData=data;
+	}
+	public static ChatRoomData getLastChatRoomData() {
+		return lastChatRoomData;
 	}
 
 	public static void setInt(String filter,int filtervalue) {

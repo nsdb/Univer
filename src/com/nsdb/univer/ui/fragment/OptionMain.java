@@ -1,10 +1,5 @@
 package com.nsdb.univer.ui.fragment;
 
-import com.google.android.gcm.GCMRegistrar;
-import com.nsdb.univer.R;
-import com.nsdb.univer.supporter.data.AppPref;
-import com.nsdb.univer.ui.activity.RegisterUser;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,6 +8,10 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
+
+import com.google.android.gcm.GCMRegistrar;
+import com.nsdb.univer.R;
+import com.nsdb.univer.supporter.data.AppPref;
 
 public class OptionMain extends ActiveFragment implements OnClickListener {
 
