@@ -17,7 +17,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.WindowManager;
 import android.view.View.OnClickListener;
-import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -30,8 +30,8 @@ public class LoginPage extends Activity implements OnClickListener {
 	
 	EditText id;
 	EditText password;
-	Button login;
-	Button signup;
+	ImageButton login;
+	ImageButton signup;
 	ProgressDialog pdl;
 	
     @Override
@@ -41,8 +41,8 @@ public class LoginPage extends Activity implements OnClickListener {
         
         id=(EditText)findViewById(R.id.id);
         password=(EditText)findViewById(R.id.password);
-        login=(Button)findViewById(R.id.login);
-        signup=(Button)findViewById(R.id.signup);
+        login=(ImageButton)findViewById(R.id.login);
+        signup=(ImageButton)findViewById(R.id.signup);
         id.setText(AppPref.getString("id"));
         login.setOnClickListener(this);
         signup.setOnClickListener(new OnClickMover(this,new Intent("RegisterUser")));

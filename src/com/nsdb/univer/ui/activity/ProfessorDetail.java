@@ -51,7 +51,7 @@ public class ProfessorDetail extends IntentPreservingActivity implements OnScrol
         setContentView(R.layout.professordetail_part2);
         View part1=((LayoutInflater)getSystemService(Context.LAYOUT_INFLATER_SERVICE))
 				.inflate(R.layout.professordetail_part1,null);
-        ((ListView)findViewById(R.id.commentlist)).addHeaderView(part1);
+        ((ListView)findViewById(R.id.commentlist)).addHeaderView(part1,null,false);
         
         // data
         lastdata=AppPref.getLastProfessorData();

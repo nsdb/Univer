@@ -27,6 +27,7 @@ import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -45,7 +46,7 @@ public class BookDetail extends IntentPreservingActivity implements OnItemClickL
 	ImageView image;
 	TextView original_price,discount_price;
 	TextView parcel,meet;
-	Button contect;
+	ImageButton contect;
 	// second linear
 	TextView publisher,author,pubdate;
 	// third linear
@@ -69,7 +70,7 @@ public class BookDetail extends IntentPreservingActivity implements OnItemClickL
         setContentView(R.layout.bookdetail_part2);
         View part1=((LayoutInflater)getSystemService(Context.LAYOUT_INFLATER_SERVICE))
 				.inflate(R.layout.bookdetail_part1,null);
-        ((ListView)findViewById(R.id.booklist)).addHeaderView(part1);
+        ((ListView)findViewById(R.id.booklist)).addHeaderView(part1,null,false);
 
         // data
         lastdata=AppPref.getLastBookData();
@@ -82,7 +83,7 @@ public class BookDetail extends IntentPreservingActivity implements OnItemClickL
         discount_price=(TextView)findViewById(R.id.discount_price);
         parcel=(TextView)findViewById(R.id.parcel);
         meet=(TextView)findViewById(R.id.meet);
-        contect=(Button)findViewById(R.id.contect);
+        contect=(ImageButton)findViewById(R.id.contect);
         title.setText(lastdata.title);
         switch(lastdata.sell) {
         case BookData.SALEMODE_BUY: sale.setText("삽니다"); break;

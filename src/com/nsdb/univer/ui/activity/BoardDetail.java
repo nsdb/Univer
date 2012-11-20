@@ -36,7 +36,7 @@ public class BoardDetail extends Activity implements OnScrollListener {
         setContentView(R.layout.boarddetail_part2);
         View part1=((LayoutInflater)getSystemService(Context.LAYOUT_INFLATER_SERVICE))
 				.inflate(R.layout.boarddetail_part1,null);
-        ((ListView)findViewById(R.id.commentlist)).addHeaderView(part1);
+        ((ListView)findViewById(R.id.commentlist)).addHeaderView(part1,null,false);
 
         // data
         lastdata=AppPref.getLastBoardData();

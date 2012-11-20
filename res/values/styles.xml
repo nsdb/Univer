@@ -47,9 +47,14 @@
     <style name="StandardEditText">
         <item name="android:layout_width">183.22dp</item>
         <item name="android:layout_height">34.65dp</item>
-        <item name="android:padding">3dp</item>
+        <item name="android:paddingTop">3dp</item>
+        <item name="android:paddingBottom">3dp</item>
+        <item name="android:paddingLeft">10dp</item>
+        <item name="android:paddingRight">10dp</item>
         <item name="android:background">@drawable/bk_rg_textbox</item>
     </style>
+    
+    
     <style name="TabButton">
         <item name="android:layout_width">85.28dp</item>
         <item name="android:layout_height">65.29dp</item>
@@ -71,6 +76,12 @@
         <item name="android:background">@drawable/bk_rg_whitebox</item>
         <item name="android:padding">15dp</item>
         <item name="android:gravity">center</item>
+    </style>
+    <style name="WhiteBoxLinear" parent="@style/WhiteBoxLinearBase">
+        <item name="android:layout_marginLeft">10dp</item>
+        <item name="android:layout_marginRight">10dp</item>
+        <item name="android:layout_marginTop">10dp</item>
+        <item name="android:layout_marginBottom">10dp</item>
     </style>
     <style name="WhiteBoxLinearTop" parent="@style/WhiteBoxLinearBase">
         <item name="android:layout_marginLeft">10dp</item>
