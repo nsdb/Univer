@@ -12,6 +12,7 @@ import android.widget.Button;
 import com.google.android.gcm.GCMRegistrar;
 import com.nsdb.univer.R;
 import com.nsdb.univer.supporter.data.AppPref;
+import com.nsdb.univer.supporter.ui.FontSetter;
 
 public class OptionMain extends ActiveFragment implements OnClickListener {
 
@@ -24,6 +25,7 @@ public class OptionMain extends ActiveFragment implements OnClickListener {
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		View v=super.onCreateView(inflater, container, savedInstanceState);
+        FontSetter.setDefault(THIS,v);
 		
 		logout=(Button)v.findViewById(R.id.logout);
 		logout.setOnClickListener(this);

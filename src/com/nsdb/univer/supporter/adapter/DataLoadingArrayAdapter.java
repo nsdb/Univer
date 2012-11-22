@@ -9,6 +9,7 @@ import org.jdom2.Element;
 
 import com.nsdb.univer.R;
 import com.nsdb.univer.supporter.NetworkSupporter;
+import com.nsdb.univer.supporter.ui.FontSetter;
 
 import android.content.Context;
 import android.os.AsyncTask;
@@ -39,6 +40,7 @@ public abstract class DataLoadingArrayAdapter<T> extends BaseArrayAdapter<T> {
 		// unless, you will see a lot of exceptions...
 		this.footerNoticeView=((LayoutInflater)(context.getSystemService(Context.LAYOUT_INFLATER_SERVICE)))
 				.inflate(R.layout.stringdata,null);
+        FontSetter.setDefault(getContext(),footerNoticeView);
 		view.setAdapter(null);
 		view.addFooterView(footerNoticeView,null,false);
 		view.setAdapter(this);

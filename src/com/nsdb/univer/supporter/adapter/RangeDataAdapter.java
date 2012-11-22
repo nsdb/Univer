@@ -5,6 +5,7 @@ import org.jdom2.Element;
 import com.nsdb.univer.R;
 import com.nsdb.univer.data.RangeData;
 import com.nsdb.univer.supporter.data.AppPref;
+import com.nsdb.univer.supporter.ui.FontSetter;
 import com.woozzu.android.util.StringMatcher;
 
 import android.content.Context;
@@ -98,8 +99,10 @@ public class RangeDataAdapter extends DataLoadingArrayAdapter<RangeData> impleme
 
 
 	@Override
-	protected void setView(int position, View v) {
-		TextView t=(TextView)v.findViewById(R.id.text);
+	protected void setView(int position, View v, boolean initial) {
+        if(initial) FontSetter.setDefault(getContext(),v);
+
+        TextView t=(TextView)v.findViewById(R.id.text);
 		if(getItem(position).title.compareTo("")!=0)
 			t.setText( getItem(position).title );
 		else

@@ -22,17 +22,20 @@ public abstract class BaseArrayAdapter<T> extends ArrayAdapter<T> {
 	// View Setting
 	@Override
 	public View getView(int position,View v,ViewGroup Parent) {
-		if(v==null)
+		boolean initial=false;
+		if(v==null) {
 			v=((LayoutInflater)(getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE)))
 			.inflate(dataResourceId,null);
+			initial=true;
+		}
 		
 		if(position>=0 && position<getCount()) {
-			setView(position,v);
+			setView(position,v,initial);
 		}
 		
 		return v;	
 	}
-	protected abstract void setView(int position,View v);
+	protected abstract void setView(int position,View v,boolean initial);
 	////
 
 	// ScrollView makes a lot of bug, so I will not use it, instead use HeaderView on ListView.

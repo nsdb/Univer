@@ -28,7 +28,8 @@
             android:orientation="vertical" >
 
             <LinearLayout
-                style="@style/WhiteBoxLinearTop">
+                style="@style/WhiteBoxLinear"
+                android:layout_marginBottom="5dp">
 
                 <ImageView
                     android:id="@+id/image" style="@style/BookThumbnailButton"
@@ -81,7 +82,9 @@
                 android:text="카테고리" />
 
 		    <LinearLayout
-                style="@style/WhiteBoxLinearMiddle"
+                style="@style/WhiteBoxLinear"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
                 android:orientation="vertical">
 
 		        <LinearLayout
@@ -139,7 +142,9 @@
                 android:text="도서명" />
 		    
 		    <LinearLayout
-                style="@style/WhiteBoxLinearMiddle"
+                style="@style/WhiteBoxLinear"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
 		        android:orientation="vertical" >
 
 		        <LinearLayout
@@ -244,7 +249,9 @@
                 android:text="상태설명" />
 		    
 		    <LinearLayout
-                style="@style/WhiteBoxLinearMiddle" >
+                style="@style/WhiteBoxLinear"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp">
 
 		        <EditText
 		            android:id="@+id/description"
@@ -266,7 +273,8 @@
                 android:text="거래방법" />
 
             <LinearLayout
-                style="@style/WhiteBoxLinearBottom">
+                style="@style/WhiteBoxLinear"
+                android:layout_marginTop="5dp">
                 
                 <CheckBox
 	                android:id="@+id/parcel"

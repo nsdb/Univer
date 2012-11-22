@@ -6,6 +6,7 @@ import org.jdom2.Element;
 
 import com.nsdb.univer.R;
 import com.nsdb.univer.data.CommentData;
+import com.nsdb.univer.supporter.ui.FontSetter;
 
 import android.content.Context;
 import android.view.View;
@@ -55,7 +56,8 @@ public class BoardCommentDataAdapter extends DataLoadingArrayAdapter<CommentData
 	}
 
 	@Override
-	protected void setView(int position, View v) {
+	protected void setView(int position, View v, boolean initial) {
+        if(initial) FontSetter.setDefault(getContext(),v);
 		
 		TextView t=(TextView)v.findViewById(R.id.title);
 		TextView d=(TextView)v.findViewById(R.id.description);

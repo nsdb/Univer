@@ -2,6 +2,7 @@ package com.nsdb.univer.ui.activity;
 
 import com.nsdb.univer.R;
 import com.nsdb.univer.supporter.data.AppPref;
+import com.nsdb.univer.supporter.ui.FontSetter;
 import com.nsdb.univer.ui.fragment.BoardMain;
 import com.nsdb.univer.ui.fragment.BookMarketMain;
 import com.nsdb.univer.ui.fragment.ChatRoomMain;
@@ -23,6 +24,7 @@ public class TabMain extends ActiveFragmentHost {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.tabmain);
+        FontSetter.setDefault(this);
 
         // Tab Activate
         addFragment(new BookMarketMain(this),"BookMarketMain",R.id.bookmarketscreen);

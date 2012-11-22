@@ -13,6 +13,7 @@ import com.nsdb.univer.GCMIntentService;
 import com.nsdb.univer.R;
 import com.nsdb.univer.supporter.NetworkSupporter;
 import com.nsdb.univer.supporter.data.AppPref;
+import com.nsdb.univer.supporter.ui.FontSetter;
 import com.nsdb.univer.supporter.ui.OnClickMover;
 
 import android.app.Activity;
@@ -41,6 +42,7 @@ public class RegisterUser extends Activity implements OnClickListener {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.registeruser);
+        FontSetter.setDefault(this);
         
         id=(EditText)findViewById(R.id.id);
         nickname=(EditText)findViewById(R.id.nickname);

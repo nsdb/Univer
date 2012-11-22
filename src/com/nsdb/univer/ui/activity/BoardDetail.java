@@ -16,6 +16,7 @@ import com.nsdb.univer.R;
 import com.nsdb.univer.data.BoardData;
 import com.nsdb.univer.supporter.adapter.BoardCommentDataAdapter;
 import com.nsdb.univer.supporter.data.AppPref;
+import com.nsdb.univer.supporter.ui.FontSetter;
 
 public class BoardDetail extends Activity implements OnScrollListener {
 	
@@ -31,6 +32,7 @@ public class BoardDetail extends Activity implements OnScrollListener {
 	@Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        FontSetter.setDefault(this);
         
         // combine layout
         setContentView(R.layout.boarddetail_part2);

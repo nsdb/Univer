@@ -16,6 +16,7 @@ import com.nsdb.univer.R;
 import com.nsdb.univer.data.ChatRoomData;
 import com.nsdb.univer.supporter.NetworkSupporter;
 import com.nsdb.univer.supporter.data.AppPref;
+import com.nsdb.univer.supporter.ui.FontSetter;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
@@ -42,6 +43,7 @@ public class ChatRoomDetail extends Activity implements OnClickListener, OnFocus
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.chatroomdetail);
+        FontSetter.setDefault(this);
         
         view=(WebView)findViewById(R.id.view);
         text=(EditText)findViewById(R.id.text);

@@ -3,6 +3,7 @@ package com.nsdb.univer.ui.fragment;
 import com.nsdb.univer.R;
 import com.nsdb.univer.supporter.adapter.ProfessorDataAdapter;
 import com.nsdb.univer.supporter.data.AppPref;
+import com.nsdb.univer.supporter.ui.FontSetter;
 import com.nsdb.univer.supporter.ui.OnClickMover;
 import com.woozzu.android.widget.RefreshableListView;
 import com.woozzu.android.widget.RefreshableListView.OnRefreshListener;
@@ -47,6 +48,7 @@ public class ProfessorMain extends ActiveFragment implements OnItemClickListener
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		View v=super.onCreateView(inflater, container, savedInstanceState);
+        FontSetter.setDefault(THIS,v);
         
         // actionbar - search
         search=(ImageButton)v.findViewById(R.id.search);

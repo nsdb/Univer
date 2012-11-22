@@ -24,6 +24,7 @@ import android.widget.Toast;
 import com.nsdb.univer.R;
 import com.nsdb.univer.supporter.NetworkSupporter;
 import com.nsdb.univer.supporter.data.AppPref;
+import com.nsdb.univer.supporter.ui.FontSetter;
 import com.nsdb.univer.supporter.ui.OnClickMover;
 
 public class LoginPage extends Activity implements OnClickListener {
@@ -38,6 +39,7 @@ public class LoginPage extends Activity implements OnClickListener {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.login);
+        FontSetter.setDefault(this);
         
         id=(EditText)findViewById(R.id.id);
         password=(EditText)findViewById(R.id.password);

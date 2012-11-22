@@ -3,6 +3,7 @@ package com.nsdb.univer.ui.fragment;
 import com.nsdb.univer.R;
 import com.nsdb.univer.supporter.adapter.ChatRoomDataAdapter;
 import com.nsdb.univer.supporter.data.AppPref;
+import com.nsdb.univer.supporter.ui.FontSetter;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -27,6 +28,7 @@ public class ChatRoomMain extends ActiveFragment implements OnItemClickListener 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		View v=super.onCreateView(inflater, container, savedInstanceState);
+        FontSetter.setDefault(THIS,v);
 		
 		lv=(ListView)v.findViewById(R.id.chatlist);
 		adapter=new ChatRoomDataAdapter(THIS,lv);

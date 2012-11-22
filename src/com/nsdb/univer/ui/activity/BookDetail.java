@@ -16,6 +16,10 @@ import com.nsdb.univer.data.BookData;
 import com.nsdb.univer.supporter.NetworkSupporter;
 import com.nsdb.univer.supporter.adapter.BookDataAdapter;
 import com.nsdb.univer.supporter.data.AppPref;
+import com.nsdb.univer.supporter.ui.FontSetter;
+import com.nsdb.univer.supporter.ui.NullIntentPreventer;
+
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -36,7 +40,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.RadioGroup.OnCheckedChangeListener;
 
-public class BookDetail extends IntentPreservingActivity implements OnItemClickListener, OnCheckedChangeListener, OnClickListener {
+public class BookDetail extends Activity implements OnItemClickListener, OnCheckedChangeListener, OnClickListener {
 
     // data
 	BookData lastdata;
@@ -65,12 +69,13 @@ public class BookDetail extends IntentPreservingActivity implements OnItemClickL
 	@Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        
-        // combine layout
+        NullIntentPreventer.prevent(this);
         setContentView(R.layout.bookdetail_part2);
         View part1=((LayoutInflater)getSystemService(Context.LAYOUT_INFLATER_SERVICE))
 				.inflate(R.layout.bookdetail_part1,null);
         ((ListView)findViewById(R.id.booklist)).addHeaderView(part1,null,false);
+        FontSetter.setDefault(this,part1);
+        FontSetter.setDefault(this);
 
         // data
         lastdata=AppPref.getLastBookData();

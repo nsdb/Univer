@@ -70,37 +70,22 @@
         <item name="android:src">@drawable/bk_book</item>
     </style>
     
-    <style name="WhiteBoxLinearBase">
+    <style name="WhiteBoxLinear">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:background">@drawable/bk_rg_whitebox</item>
         <item name="android:padding">15dp</item>
         <item name="android:gravity">center</item>
-    </style>
-    <style name="WhiteBoxLinear" parent="@style/WhiteBoxLinearBase">
         <item name="android:layout_marginLeft">10dp</item>
         <item name="android:layout_marginRight">10dp</item>
         <item name="android:layout_marginTop">10dp</item>
         <item name="android:layout_marginBottom">10dp</item>
     </style>
-    <style name="WhiteBoxLinearTop" parent="@style/WhiteBoxLinearBase">
-        <item name="android:layout_marginLeft">10dp</item>
-        <item name="android:layout_marginRight">10dp</item>
-        <item name="android:layout_marginTop">10dp</item>
-        <item name="android:layout_marginBottom">5dp</item>
+    <style name="WhiteBoxLinearTop" parent="@style/WhiteBoxLinear">
+        <item name="android:background">@drawable/bk_rg_whitebox_top</item>
+        <item name="android:layout_marginBottom">0dp</item>
     </style>
-    <style name="WhiteBoxLinearMiddle" parent="@style/WhiteBoxLinearBase">
-        <item name="android:layout_marginLeft">10dp</item>
-        <item name="android:layout_marginRight">10dp</item>
-        <item name="android:layout_marginTop">5dp</item>
-        <item name="android:layout_marginBottom">5dp</item>
-    </style>
-    <style name="WhiteBoxLinearBottom" parent="@style/WhiteBoxLinearBase">
-        <item name="android:layout_marginLeft">10dp</item>
-        <item name="android:layout_marginRight">10dp</item>
-        <item name="android:layout_marginTop">5dp</item>
-        <item name="android:layout_marginBottom">10dp</item>
-    </style>
+        
     
     <style name="WhiteBoxText">
         <item name="android:layout_width">wrap_content</item>

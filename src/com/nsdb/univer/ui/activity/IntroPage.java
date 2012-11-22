@@ -13,6 +13,7 @@ import com.nsdb.univer.R;
 import com.nsdb.univer.supporter.NetworkSupporter;
 import com.nsdb.univer.supporter.NotificationHelper;
 import com.nsdb.univer.supporter.data.AppPref;
+import com.nsdb.univer.supporter.ui.FontSetter;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -25,6 +26,7 @@ public class IntroPage extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.intro);
+        FontSetter.setDefault(this);
         
         // init
         AppPref.load(this);

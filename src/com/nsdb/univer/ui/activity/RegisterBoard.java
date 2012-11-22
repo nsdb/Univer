@@ -16,8 +16,11 @@ import org.apache.http.entity.mime.content.StringBody;
 import com.nsdb.univer.R;
 import com.nsdb.univer.supporter.NetworkSupporter;
 import com.nsdb.univer.supporter.data.AppPref;
+import com.nsdb.univer.supporter.ui.FontSetter;
+import com.nsdb.univer.supporter.ui.NullIntentPreventer;
 import com.nsdb.univer.supporter.ui.OnClickMover;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
@@ -34,7 +37,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-public class RegisterBoard extends IntentPreservingActivity implements OnClickListener {
+public class RegisterBoard extends Activity implements OnClickListener {
 	
 	// actionbar
 	Button apply;
@@ -53,7 +56,9 @@ public class RegisterBoard extends IntentPreservingActivity implements OnClickLi
 	@Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        NullIntentPreventer.prevent(this);
         setContentView(R.layout.registerboard);
+        FontSetter.setDefault(this);
         
         // actionbar
         apply=(Button)findViewById(R.id.apply);

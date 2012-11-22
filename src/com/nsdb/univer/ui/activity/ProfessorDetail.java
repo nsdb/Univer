@@ -5,9 +5,12 @@ import com.nsdb.univer.R;
 import com.nsdb.univer.data.ProfessorData;
 import com.nsdb.univer.supporter.adapter.ProfessorCommentDataAdapter;
 import com.nsdb.univer.supporter.data.AppPref;
+import com.nsdb.univer.supporter.ui.FontSetter;
+import com.nsdb.univer.supporter.ui.NullIntentPreventer;
 import com.nsdb.univer.supporter.ui.OnClickMover;
 import com.nsdb.univer.ui.customview.ProfessorRatingGraph;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -21,7 +24,7 @@ import android.widget.ListView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
-public class ProfessorDetail extends IntentPreservingActivity implements OnScrollListener {
+public class ProfessorDetail extends Activity implements OnScrollListener {
 
     // data
 	ProfessorData lastdata;
@@ -46,12 +49,13 @@ public class ProfessorDetail extends IntentPreservingActivity implements OnScrol
 	@Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        
-        // combine layout
+        NullIntentPreventer.prevent(this);
         setContentView(R.layout.professordetail_part2);
         View part1=((LayoutInflater)getSystemService(Context.LAYOUT_INFLATER_SERVICE))
 				.inflate(R.layout.professordetail_part1,null);
         ((ListView)findViewById(R.id.commentlist)).addHeaderView(part1,null,false);
+        FontSetter.setDefault(this,part1);
+        FontSetter.setDefault(this);
         
         // data
         lastdata=AppPref.getLastProfessorData();

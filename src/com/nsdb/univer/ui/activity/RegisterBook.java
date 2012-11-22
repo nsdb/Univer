@@ -19,9 +19,12 @@ import com.nsdb.univer.R;
 import com.nsdb.univer.data.BookData;
 import com.nsdb.univer.supporter.NetworkSupporter;
 import com.nsdb.univer.supporter.data.AppPref;
+import com.nsdb.univer.supporter.ui.FontSetter;
 import com.nsdb.univer.supporter.ui.ImageSetterNoCache;
+import com.nsdb.univer.supporter.ui.NullIntentPreventer;
 import com.nsdb.univer.supporter.ui.OnClickMover;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
@@ -42,7 +45,7 @@ import android.widget.RadioGroup;
 import android.widget.RadioGroup.OnCheckedChangeListener;
 import android.widget.Toast;
 
-public class RegisterBook extends IntentPreservingActivity implements OnClickListener, OnCheckedChangeListener {
+public class RegisterBook extends Activity implements OnClickListener, OnCheckedChangeListener {
 	
 	
 	// first linear
@@ -73,7 +76,9 @@ public class RegisterBook extends IntentPreservingActivity implements OnClickLis
 	@Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        NullIntentPreventer.prevent(this);
         setContentView(R.layout.registerbook);
+        FontSetter.setDefault(this);
         
         // first linear
         image=(ImageView)findViewById(R.id.image);

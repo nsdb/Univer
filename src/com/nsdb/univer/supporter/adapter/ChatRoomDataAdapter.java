@@ -10,6 +10,7 @@ import android.widget.TextView;
 import com.nsdb.univer.R;
 import com.nsdb.univer.data.ChatRoomData;
 import com.nsdb.univer.supporter.data.AppPref;
+import com.nsdb.univer.supporter.ui.FontSetter;
 
 public class ChatRoomDataAdapter extends DataLoadingArrayAdapter<ChatRoomData> {
 
@@ -31,8 +32,10 @@ public class ChatRoomDataAdapter extends DataLoadingArrayAdapter<ChatRoomData> {
 	}
 
 	@Override
-	protected void setView(int position, View v) {
-		TextView t=(TextView)v.findViewById(R.id.text);
+	protected void setView(int position, View v, boolean initial) {
+        if(initial) FontSetter.setDefault(getContext(),v);
+
+        TextView t=(TextView)v.findViewById(R.id.text);
 		t.setText( getItem(position).title );
 	}
 }

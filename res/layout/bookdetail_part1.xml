@@ -100,13 +100,12 @@
 
             </LinearLayout>
 
-            <Button
+            <ImageButton
                 android:id="@+id/contect"
-                android:layout_width="80dp"
-                android:layout_height="80dp"
+                android:layout_width="79.28dp"
+                android:layout_height="80.62dp"
                 android:layout_marginLeft="10dp"
-                android:textSize="24dp"
-                android:text="대화" />
+                android:src="@drawable/bk_dt_talk"/>
 
         </LinearLayout>
 

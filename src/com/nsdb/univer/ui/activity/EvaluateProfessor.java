@@ -14,6 +14,7 @@ import com.nsdb.univer.R;
 import com.nsdb.univer.data.ProfessorData;
 import com.nsdb.univer.supporter.NetworkSupporter;
 import com.nsdb.univer.supporter.data.AppPref;
+import com.nsdb.univer.supporter.ui.FontSetter;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
@@ -46,6 +47,7 @@ public class EvaluateProfessor extends Activity implements OnClickListener, OnCh
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.evaluateprofessor);
+        FontSetter.setDefault(this);
         
         lastdata=AppPref.getLastProfessorData();
         quality=(RatingBar)findViewById(R.id.quality);

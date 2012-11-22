@@ -16,6 +16,7 @@ import com.nsdb.univer.data.BoardData;
 import com.nsdb.univer.data.BookData;
 import com.nsdb.univer.supporter.NetworkSupporter;
 import com.nsdb.univer.supporter.data.AppPref;
+import com.nsdb.univer.supporter.ui.FontSetter;
 import com.woozzu.android.widget.RefreshableListView;
 
 import android.app.ProgressDialog;
@@ -93,7 +94,8 @@ public class BoardDataAdapter extends DataLoadingArrayAdapter<BoardData> {
 	}
 
 	@Override
-	protected void setView(int position, View v) {
+	protected void setView(int position, View v, boolean initial) {
+        if(initial) FontSetter.setDefault(getContext(),v);
 		
 		TextView t=(TextView)v.findViewById(R.id.title);
 		TextView p=(TextView)v.findViewById(R.id.pubdate);
@@ -161,6 +163,8 @@ public class BoardDataAdapter extends DataLoadingArrayAdapter<BoardData> {
 				// create http post for sending
 				HttpPost request=new HttpPost(url);
 				ArrayList<NameValuePair> postdata=new ArrayList<NameValuePair>();
+				postdata.add( new BasicNameValuePair("user_id",""+AppPref.getInt("user_id")));				
+				postdata.add( new BasicNameValuePair("value",AppPref.getString("value")));				
 				postdata.add( new BasicNameValuePair("id",""+id) );
 				UrlEncodedFormEntity ent = new UrlEncodedFormEntity(postdata,HTTP.UTF_8);
 				request.setEntity(ent);

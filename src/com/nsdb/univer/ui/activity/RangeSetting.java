@@ -3,6 +3,7 @@ package com.nsdb.univer.ui.activity;
 import com.nsdb.univer.R;
 import com.nsdb.univer.supporter.adapter.RangeDataAdapter;
 import com.nsdb.univer.supporter.data.AppPref;
+import com.nsdb.univer.supporter.ui.FontSetter;
 import com.woozzu.android.widget.IndexableListView;
 
 import android.app.Activity;
@@ -29,6 +30,7 @@ public class RangeSetting extends Activity implements OnItemClickListener {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.rangesetting);
+        FontSetter.setDefault(this);
                 
         // title
         range=getIntent().getStringExtra("range");

@@ -16,6 +16,7 @@ import com.nsdb.univer.R;
 import com.nsdb.univer.data.BookData;
 import com.nsdb.univer.data.ProfessorData;
 import com.nsdb.univer.supporter.data.AppPref;
+import com.nsdb.univer.supporter.ui.FontSetter;
 import com.woozzu.android.widget.RefreshableListView;
 
 public class ProfessorDataAdapter extends DataLoadingArrayAdapter<ProfessorData> {
@@ -87,7 +88,8 @@ public class ProfessorDataAdapter extends DataLoadingArrayAdapter<ProfessorData>
 	}
 
 	@Override
-	protected void setView(int position, View v) {
+	protected void setView(int position, View v, boolean initial) {
+        if(initial) FontSetter.setDefault(getContext(),v);
 		
 		ImageView i=(ImageView)v.findViewById(R.id.thumbnail);
 		TextView t=(TextView)v.findViewById(R.id.title);
