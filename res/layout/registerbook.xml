@@ -93,7 +93,7 @@
 		            android:gravity="center">
 
 		            <TextView
-		                style="@style/WhiteBoxText"
+		                style="@style/WhiteBoxTextTitle"
 		                android:text="지    역" />
 
 		            <Button
@@ -108,7 +108,7 @@
 		            android:gravity="center">
 
 		            <TextView
-		                style="@style/WhiteBoxText"
+		                style="@style/WhiteBoxTextTitle"
 		                android:text="학    교" />
 
 		            <Button
@@ -123,7 +123,7 @@
 		            android:gravity="center">
 
 		            <TextView
-		                style="@style/WhiteBoxText"
+		                style="@style/WhiteBoxTextTitle"
 		                android:text="단과대" />
 
 		            <Button
@@ -154,7 +154,7 @@
 		            android:gravity="center">
 
 		            <TextView
-		                style="@style/WhiteBoxText"
+		                style="@style/WhiteBoxTextTitle"
 		                android:text="도서명" />
 
 		            <EditText
@@ -169,7 +169,7 @@
 		            android:gravity="center">
 
 		            <TextView
-		                style="@style/WhiteBoxText"
+		                style="@style/WhiteBoxTextTitle"
 		                android:text="출판사" />
 
 		            <EditText
@@ -184,7 +184,7 @@
 		            android:gravity="center">
 
 		            <TextView
-		                style="@style/WhiteBoxText"
+		                style="@style/WhiteBoxTextTitle"
 		                android:text="저    자" />
 
 		            <EditText
@@ -199,7 +199,7 @@
 		            android:gravity="center">
 
 		            <TextView
-		                style="@style/WhiteBoxText"
+		                style="@style/WhiteBoxTextTitle"
 		                android:text="발행일" />
 
 		            <EditText
@@ -216,7 +216,7 @@
 		            android:gravity="center">
 
 		            <TextView
-		                style="@style/WhiteBoxText"
+		                style="@style/WhiteBoxTextTitle"
 		                android:text="정    가" />
 
 		            <EditText
@@ -231,7 +231,7 @@
 		            android:gravity="center">
 
 		            <TextView
-		                style="@style/WhiteBoxText"
+		                style="@style/WhiteBoxTextTitle"
 		                android:text="판매가" />
 
 		            <EditText

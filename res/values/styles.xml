@@ -85,13 +85,24 @@
         <item name="android:background">@drawable/bk_rg_whitebox_top</item>
         <item name="android:layout_marginBottom">0dp</item>
     </style>
-        
+    <style name="WhiteBoxLinearBottom" parent="@style/WhiteBoxLinear">
+        <item name="android:background">@drawable/bk_rg_whitebox_bottom</item>
+        <item name="android:layout_marginTop">0dp</item>
+    </style>
+    <style name="GrayBoxLinearMiddle" parent="@style/WhiteBoxLinear">
+        <item name="android:background">@drawable/bk_dt_bg_gray</item>
+        <item name="android:layout_marginTop">0dp</item>
+        <item name="android:layout_marginBottom">0dp</item>
+    </style>
+    
     
     <style name="WhiteBoxText">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_marginRight">15dp</item>
         <item name="android:textSize">18dp</item>
+    </style>
+    <style name="WhiteBoxTextTitle" parent="@style/WhiteBoxText">
+        <item name="android:layout_marginRight">15dp</item>
     </style>
     
     <style name="CommonButton">

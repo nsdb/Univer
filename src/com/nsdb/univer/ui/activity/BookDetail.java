@@ -47,9 +47,9 @@ public class BookDetail extends Activity implements OnItemClickListener, OnCheck
 	
 	// first linear
 	TextView title, sale;
+	ImageView parcel,meet;
 	ImageView image;
 	TextView original_price,discount_price;
-	TextView parcel,meet;
 	ImageButton contect;
 	// second linear
 	TextView publisher,author,pubdate;
@@ -86,22 +86,36 @@ public class BookDetail extends Activity implements OnItemClickListener, OnCheck
         image=(ImageView)findViewById(R.id.image);
         original_price=(TextView)findViewById(R.id.original_price);
         discount_price=(TextView)findViewById(R.id.discount_price);
-        parcel=(TextView)findViewById(R.id.parcel);
-        meet=(TextView)findViewById(R.id.meet);
+        parcel=(ImageView)findViewById(R.id.parcel);
+        meet=(ImageView)findViewById(R.id.meet);
         contect=(ImageButton)findViewById(R.id.contect);
+        // title
         title.setText(lastdata.title);
+        // sell
         switch(lastdata.sell) {
         case BookData.SALEMODE_BUY: sale.setText("삽니다"); break;
         case BookData.SALEMODE_SELL: sale.setText("팝니다"); break;
         }
+        // image
         if(lastdata.image.compareTo("")!=0) {
         	ImageLoader loader=new ImageLoader(this);
         	loader.DisplayImage(getResources().getString(R.string.base_url)+lastdata.image,image);
         }
+        // price
         original_price.setText(""+lastdata.original_price+"원");
         discount_price.setText(""+lastdata.discount_price+"원");
-        if(lastdata.parcel==0) parcel.setVisibility(View.INVISIBLE);
-        if(lastdata.meet==0) meet.setVisibility(View.INVISIBLE);
+        // option
+		if(lastdata.parcel==0) {
+			parcel.setImageResource(R.drawable.bk_parcel_false);
+		} else {
+			parcel.setImageResource(R.drawable.bk_parcel_true);
+		}
+		if(lastdata.meet==0) {
+			meet.setImageResource(R.drawable.bk_meet_false);
+		} else {
+			meet.setImageResource(R.drawable.bk_meet_true);
+		}
+		// contect
         if(AppPref.getInt("user_id")==lastdata.seller_id) {
         	contect.setVisibility(View.GONE);
         } else {

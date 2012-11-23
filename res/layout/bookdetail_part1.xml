@@ -5,33 +5,55 @@
     android:orientation="vertical" >
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="10dp"
+        style="@style/WhiteBoxLinearTop"
         android:orientation="vertical" >
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="bottom"
             android:layout_marginBottom="10dp">
-            
+
             <TextView
                 android:id="@+id/title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="10dp"
                 android:text="Title"
                 android:textSize="28dp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:layout_marginBottom="10dp">
 
             <TextView
                 android:id="@+id/sale"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="16dp"
-                android:text="Sale" />
+                android:layout_marginRight="10dp"
+                android:text="Sale"
+                android:textSize="16dp" />
+            
+            <ImageView
+                android:id="@+id/parcel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="10dp"
+                android:src="@drawable/bk_parcel_false" />
+
+            <ImageView
+                android:id="@+id/meet"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/bk_meet_false"/>
+            
+            
 
         </LinearLayout>
+
+        
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -43,60 +65,28 @@
 
             <LinearLayout
                 android:layout_width="0dp"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:layout_gravity="center"
                 android:orientation="vertical" >
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="1"
-                    android:gravity="center" >
+                <TextView
+                    android:id="@+id/original_price"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp"
+                    android:textSize="12dp"
+                    android:textColor="#999999"
+                    android:text="OPrice" />
 
-                    <TextView
-                        android:id="@+id/original_price"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginRight="5dp"
-                        android:textSize="12dp"
-                        android:textColor="#999999"
-                        android:text="OPrice" />
-
-                    <TextView
-                        android:id="@+id/discount_price"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textStyle="bold"
-                        android:textSize="24dp"
-                        android:textColor="#60AAC2"
-                        android:text="DPrice" />
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" >
-
-                    <TextView
-                        android:id="@+id/parcel"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginRight="10dp"
-                        android:padding="3dp"
-                        android:background="#999999"
-                        android:textSize="16dp"
-                        android:text="택배" />
-
-                    <TextView
-                        android:id="@+id/meet"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:padding="3dp"
-                        android:background="#999999"
-                        android:textSize="16dp"
-                        android:text="직거래" />
-
-                </LinearLayout>
+                <TextView
+                    android:id="@+id/discount_price"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textStyle="bold"
+                    android:textSize="24dp"
+                    android:textColor="#60AAC2"
+                    android:text="DPrice" />
 
             </LinearLayout>
 
@@ -112,13 +102,7 @@
     </LinearLayout>
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingLeft="30dp"
-        android:paddingRight="30dp"
-        android:paddingTop="10dp"
-        android:paddingBottom="10dp"
-        android:background="#DDDDDD"
+        style="@style/GrayBoxLinearMiddle"
         android:orientation="vertical" >
 
         <LinearLayout
@@ -127,16 +111,12 @@
             android:layout_marginBottom="5dp" >
 
             <TextView
-                android:layout_width="60dp"
-                android:layout_height="wrap_content"
-                android:textSize="16dp"
+                style="@style/WhiteBoxTextTitle"
                 android:text="출판사" />
 
             <TextView
                 android:id="@+id/publisher"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="16dp"
+                style="@style/WhiteBoxText"
                 android:text="Pubbliser" />
 
         </LinearLayout>
@@ -147,16 +127,12 @@
             android:layout_marginBottom="5dp" >
 
             <TextView
-                android:layout_width="60dp"
-                android:layout_height="wrap_content"
-                android:textSize="16dp"
+                style="@style/WhiteBoxTextTitle"
                 android:text="저    자" />
 
             <TextView
                 android:id="@+id/author"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="16dp"
+                style="@style/WhiteBoxText"
                 android:text="Author" />
 
         </LinearLayout>
@@ -166,16 +142,12 @@
             android:layout_height="wrap_content" >
 
             <TextView
-                android:layout_width="60dp"
-                android:layout_height="wrap_content"
-                android:textSize="16dp"
+                style="@style/WhiteBoxTextTitle"
                 android:text="발행일" />
 
             <TextView
                 android:id="@+id/pubdate"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="16dp"
+                style="@style/WhiteBoxText"
                 android:text="PubDate" />
 
         </LinearLayout>
@@ -184,33 +156,26 @@
     </LinearLayout>
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingLeft="30dp"
-        android:paddingRight="30dp"
-        android:paddingTop="10dp"
-        android:paddingBottom="10dp"
+        style="@style/WhiteBoxLinearBottom"
+        android:gravity="left"
         android:orientation="vertical" >
 
         <TextView
             android:id="@+id/description"
             android:layout_width="wrap_content"
             android:layout_height="100dp"
-            android:gravity="center_vertical"
             android:textSize="16dp"
-            android:text="Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description Description " />
+            android:text="Description" />
 
     </LinearLayout>
     
-    <TextView
+	<TextView
         android:id="@+id/othertxt"
-        android:layout_width="fill_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="#DDDDDD"
-        android:padding="10dp"
-        android:textSize="16dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginBottom="10dp"
+        android:textSize="20dp"
         android:text="판매자의 다른 상품" />
-    
-
 
 </LinearLayout>
