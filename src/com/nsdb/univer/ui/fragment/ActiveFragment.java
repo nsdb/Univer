@@ -12,6 +12,7 @@ public class ActiveFragment extends Fragment {
 	protected Activity THIS;
 	private int layoutId;
 	
+	public ActiveFragment() { super(); }
 	public ActiveFragment(Activity activity,int layoutId) {
 		super();
 		THIS=activity;
