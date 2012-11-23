@@ -16,6 +16,7 @@ import android.os.AsyncTask;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 public abstract class DataLoadingArrayAdapter<T> extends BaseArrayAdapter<T> {
@@ -39,7 +40,7 @@ public abstract class DataLoadingArrayAdapter<T> extends BaseArrayAdapter<T> {
 		// FooterView must add before set adapter, because of WrapperListAdapter
 		// unless, you will see a lot of exceptions...
 		this.footerNoticeView=((LayoutInflater)(context.getSystemService(Context.LAYOUT_INFLATER_SERVICE)))
-				.inflate(R.layout.stringdata,null);
+				.inflate(R.layout.adapterfooter,null);
         FontSetter.setDefault(getContext(),footerNoticeView);
 		view.setAdapter(null);
 		view.addFooterView(footerNoticeView,null,false);
@@ -85,6 +86,8 @@ public abstract class DataLoadingArrayAdapter<T> extends BaseArrayAdapter<T> {
 			// footerView
 			TextView t=(TextView)footerNoticeView.findViewById(R.id.text);
 			t.setText("불러오는 중...");
+			ProgressBar p=(ProgressBar)footerNoticeView.findViewById(R.id.state);
+			p.setVisibility(View.VISIBLE);
 			
 			super.onPreExecute();
 		}
@@ -132,16 +135,12 @@ public abstract class DataLoadingArrayAdapter<T> extends BaseArrayAdapter<T> {
 			// footerView
 			TextView t=(TextView)footerNoticeView.findViewById(R.id.text);
 			switch(result) {
-			case RESULT_SUCCESS:
-				t.setText("");
-				break;
-			case RESULT_EMPTY:
-				t.setText("데이터 없음");
-				break;
-			case RESULT_ERROR:
-				t.setText("에러 발생");
-				break;
+			case RESULT_SUCCESS: t.setText(""); break;
+			case RESULT_EMPTY: t.setText("데이터 없음"); break;
+			case RESULT_ERROR: t.setText("에러 발생"); break;
 			}
+			ProgressBar p=(ProgressBar)footerNoticeView.findViewById(R.id.state);
+			p.setVisibility(View.GONE);
 			
 			// move gotData to originalData
 			originalData.addAll(gotData);
