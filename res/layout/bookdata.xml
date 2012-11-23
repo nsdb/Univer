@@ -48,23 +48,19 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" >
 
-                <TextView
+                <ImageView
                     android:id="@+id/parcel"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="10dp"
-                    android:background="#999999"
-                    android:padding="2dp"
-                    android:text="택배" />
+                    android:src="@drawable/bk_parcel_false"/>
 
-                <TextView
+                <ImageView
                     android:id="@+id/meet"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="10dp"
-                    android:background="#999999"
-                    android:padding="2dp"
-                    android:text="직거래" />
+                    android:src="@drawable/bk_meet_false"/>
                 
                 
                 <TextView

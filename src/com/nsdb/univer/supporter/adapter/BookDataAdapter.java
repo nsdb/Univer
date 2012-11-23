@@ -137,8 +137,8 @@ public class BookDataAdapter extends DataLoadingArrayAdapter<BookData> {
 		TextView t=(TextView)v.findViewById(R.id.title);
 		TextView r=(TextView)v.findViewById(R.id.range);
 		TextView dp=(TextView)v.findViewById(R.id.discount_price);
-		TextView p=(TextView)v.findViewById(R.id.parcel);
-		TextView m=(TextView)v.findViewById(R.id.meet);
+		ImageView p=(ImageView)v.findViewById(R.id.parcel);
+		ImageView m=(ImageView)v.findViewById(R.id.meet);
 		ImageView ss=(ImageView)v.findViewById(R.id.salestate);
 
 		// imageview
@@ -163,12 +163,18 @@ public class BookDataAdapter extends DataLoadingArrayAdapter<BookData> {
 		}
 		
 		// parcel
-		if(getItem(position).parcel==0)
-			p.setVisibility(View.GONE);
+		if(getItem(position).parcel==0) {
+			p.setImageResource(R.drawable.bk_parcel_false);
+		} else {
+			p.setImageResource(R.drawable.bk_parcel_true);
+		}
 
 		// meet
-		if(getItem(position).meet==0)
-			m.setVisibility(View.GONE);
+		if(getItem(position).meet==0) {
+			m.setImageResource(R.drawable.bk_meet_false);
+		} else {
+			m.setImageResource(R.drawable.bk_meet_true);
+		}
 		
 		// salestate
 		switch(getItem(position).sale) {
