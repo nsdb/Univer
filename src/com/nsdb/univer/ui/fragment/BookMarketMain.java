@@ -47,6 +47,9 @@ public class BookMarketMain extends ActiveFragment implements OnItemClickListene
 	BookDataAdapter adapter;
 	private final static int REQUESTCODE_BOOKDETAIL=3;
 	
+	public BookMarketMain() {
+		super();
+	}
 	public BookMarketMain(Activity activity) {
 		super(activity,R.layout.bookmarketmain);
 	}

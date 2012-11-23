@@ -21,6 +21,9 @@ public class ChatRoomMain extends ActiveFragment implements OnItemClickListener 
 	ChatRoomDataAdapter adapter;
 	private final static int REQUESTCODE_CHATROOMDETAIL=3;
 	
+	public ChatRoomMain() {
+		super();
+	}
 	public ChatRoomMain(Activity activity) {
 		super(activity, R.layout.chatroommain);
 	}

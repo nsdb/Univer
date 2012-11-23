@@ -31,6 +31,9 @@ public class BoardMain extends ActiveFragment implements OnScrollListener, OnRef
 	RefreshableListView lv;
 	BoardDataAdapter adapter;
 
+	public BoardMain() {
+		super();
+	}
 	public BoardMain(Activity activity) {
 		super(activity, R.layout.boardmain);
 	}

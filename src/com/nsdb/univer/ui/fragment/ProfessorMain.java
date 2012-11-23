@@ -41,6 +41,9 @@ public class ProfessorMain extends ActiveFragment implements OnItemClickListener
 	ProfessorDataAdapter adapter;
 	private final static int REQUESTCODE_PROFESSORDETAIL=3;
 	
+	public ProfessorMain() {
+		super();
+	}
 	public ProfessorMain(Activity activity) {
 		super(activity,R.layout.professormain);
 	}

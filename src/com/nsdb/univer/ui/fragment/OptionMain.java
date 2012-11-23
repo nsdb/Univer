@@ -18,6 +18,9 @@ public class OptionMain extends ActiveFragment implements OnClickListener {
 
 	Button logout;
 	
+	public OptionMain() {
+		super();
+	}
 	public OptionMain(Activity activity) {
 		super(activity,R.layout.optionmain);
 	}
