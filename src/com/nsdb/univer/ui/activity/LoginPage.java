@@ -22,6 +22,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.nsdb.univer.R;
+import com.nsdb.univer.supporter.GCMRegIdGetter;
 import com.nsdb.univer.supporter.NetworkSupporter;
 import com.nsdb.univer.supporter.data.AppPref;
 import com.nsdb.univer.supporter.ui.FontSetter;
@@ -81,11 +82,12 @@ public class LoginPage extends Activity implements OnClickListener {
 					+getResources().getString(R.string.login_url)+'/';
 
 			try {
-				// create http post for sending
 				HttpPost request=new HttpPost(url);
 				ArrayList<NameValuePair> postdata=new ArrayList<NameValuePair>();
 				postdata.add( new BasicNameValuePair("username",AppPref.getString("id") ) );
 				postdata.add( new BasicNameValuePair("password",AppPref.getString("password") ) );
+				postdata.add( new BasicNameValuePair("device_type",""+2) );
+				postdata.add( new BasicNameValuePair("deviceToken",GCMRegIdGetter.get(LoginPage.this)) );
 				UrlEncodedFormEntity ent = new UrlEncodedFormEntity(postdata,HTTP.UTF_8);
 				request.setEntity(ent);
 

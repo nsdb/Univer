@@ -9,7 +9,6 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.protocol.HTTP;
 
-import com.makeramen.segmented.SegmentedRadioGroup;
 import com.nsdb.univer.R;
 import com.nsdb.univer.data.ProfessorData;
 import com.nsdb.univer.supporter.NetworkSupporter;
@@ -23,7 +22,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.WindowManager;
 import android.view.View.OnClickListener;
-import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.EditText;
 import android.widget.RadioGroup;
 import android.widget.RadioGroup.OnCheckedChangeListener;
@@ -34,10 +33,10 @@ public class EvaluateProfessor extends Activity implements OnClickListener, OnCh
 
 	ProfessorData lastdata;
 	RatingBar quality,report,grade,attendance,personality;
-	SegmentedRadioGroup evaluate;
+	RadioGroup evaluate;
 	int checkState;
 	EditText comment;
-	Button apply;
+	ImageButton apply;
 	ProgressDialog pdl;
 	
 	private static int CHECK_GOOD=1;
@@ -55,10 +54,10 @@ public class EvaluateProfessor extends Activity implements OnClickListener, OnCh
         grade=(RatingBar)findViewById(R.id.grade);
         attendance=(RatingBar)findViewById(R.id.attendance);
         personality=(RatingBar)findViewById(R.id.personality);
-        evaluate=(SegmentedRadioGroup)findViewById(R.id.evaluate);
+        evaluate=(RadioGroup)findViewById(R.id.evaluate);
         checkState=CHECK_GOOD;
         comment=(EditText)findViewById(R.id.comment);
-        apply=(Button)findViewById(R.id.apply);
+        apply=(ImageButton)findViewById(R.id.apply);
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
         evaluate.setOnCheckedChangeListener(this);
         apply.setOnClickListener(this);

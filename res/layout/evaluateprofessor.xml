@@ -7,11 +7,9 @@
     <LinearLayout
         android:id="@+id/actionbar" style="@style/ActionBarLinear">
 
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:visibility="invisible"
-            android:text="X" />
+        <ImageButton
+            style="@style/ActionBarOkButton"
+            android:visibility="invisible"/>
         
         
   	    <TextView
@@ -21,11 +19,8 @@
 	        android:layout_weight="1"
 	        android:text="교수평가" />
   	    
-        <Button
-            android:id="@+id/apply"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="A" />
+        <ImageButton
+            android:id="@+id/apply" style="@style/ActionBarOkButton"/>
   	    	    
 	
     </LinearLayout>
@@ -35,138 +30,103 @@
     
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="20dp"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="@drawable/cm_background_pattern_rp"
         android:orientation="vertical" >
 
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="10dp">
+            style="@style/WhiteBoxLinear"
+            android:layout_marginBottom="5dp"
+            android:orientation="vertical">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center_vertical"
+                android:gravity="center"
                 android:padding="5dp" >
 
                 <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:textSize="20dp"
-                    android:text="강의 질" />
+                    style="@style/WhiteBoxTextTitle"
+                    android:text="강의  질" />
 
                 <RatingBar
                     android:id="@+id/quality"
-                    style="?android:attr/ratingBarStyleIndicator"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    style="@style/CustomRatingBar"
                     android:isIndicator="false"
-                    android:numStars="5"
-                    android:rating="5.0"
-                    android:stepSize="0.5" />
+                    android:rating="5.0" />
 
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center_vertical"
+                android:gravity="center"
                 android:padding="5dp" >
 
                 <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:textSize="20dp"
+                    style="@style/WhiteBoxTextTitle"
                     android:text="인     성" />
 
                 <RatingBar
                     android:id="@+id/report"
-                    style="?android:attr/ratingBarStyleIndicator"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    style="@style/CustomRatingBar"
                     android:isIndicator="false"
-                    android:numStars="5"
-                    android:rating="5.0"
-                    android:stepSize="0.5" />
+                    android:rating="5.0" />
 
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center_vertical"
+                android:gravity="center"
                 android:padding="5dp" >
 
                 <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:textSize="20dp"
-                    android:text="과     제 " />
-
-                <RatingBar
-                    android:id="@+id/grade"
-                    style="?android:attr/ratingBarStyleIndicator"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:isIndicator="false"
-                    android:numStars="5"
-                    android:rating="5.0"
-                    android:stepSize="0.5" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center_vertical"
-                android:padding="5dp" >
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:textSize="20dp"
-                    android:text="출     석" />
-
-                <RatingBar
-                    android:id="@+id/attendance"
-                    style="?android:attr/ratingBarStyleIndicator"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:isIndicator="false"
-                    android:numStars="5"
-                    android:rating="5.0"
-                    android:stepSize="0.5" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center_vertical"
-                android:padding="5dp" >
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:textSize="20dp"
+                    style="@style/WhiteBoxTextTitle"
                     android:text="학     점" />
 
                 <RatingBar
                     android:id="@+id/personality"
-                    style="?android:attr/ratingBarStyleIndicator"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    style="@style/CustomRatingBar"
                     android:isIndicator="false"
-                    android:numStars="5"
-                    android:rating="5.0"
-                    android:stepSize="0.5" />
+                    android:rating="5.0" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:padding="5dp" >
+
+                <TextView
+                    style="@style/WhiteBoxTextTitle"
+                    android:text="출     석" />
+
+                <RatingBar
+                    android:id="@+id/attendance"
+                    style="@style/CustomRatingBar"
+                    android:isIndicator="false"
+                    android:rating="5.0" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:padding="5dp" >
+
+                <TextView
+                    style="@style/WhiteBoxTextTitle"
+                    android:text="과     제" />
+
+                <RatingBar
+                    android:id="@+id/grade"
+                    style="@style/CustomRatingBar"
+                    android:isIndicator="false"
+                    android:rating="5.0" />
 
             </LinearLayout>
 
@@ -179,7 +139,7 @@
             android:gravity="center"
             android:padding="10dp" >
 
-            <com.makeramen.segmented.SegmentedRadioGroup
+            <RadioGroup
                 android:id="@+id/evaluate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -187,9 +147,9 @@
 
                 <RadioButton
                     android:id="@+id/good"
-                    android:layout_width="100dp"
-                    android:layout_height="50dp"
-                    android:button="@null"
+                    android:button="@drawable/pf_register_cc"
+                    android:layout_width="109.93dp"
+                    android:layout_height="51.2dp"
                     android:checked="true"
                     android:gravity="center"
                     android:text="추천"
@@ -197,35 +157,28 @@
 
                 <RadioButton
                     android:id="@+id/bad"
-                    android:layout_width="100dp"
-                    android:layout_height="50dp"
-                    android:button="@null"
+                    android:button="@drawable/pf_register_bcc"
+                    android:layout_width="109.93dp"
+                    android:layout_height="51.2dp"
                     android:gravity="center"
                     android:text="비추천"
                     android:textSize="20dp" />
-            </com.makeramen.segmented.SegmentedRadioGroup>
+            </RadioGroup>
         </LinearLayout>
+        
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:textSize="20dp"
+            android:text="한줄평가" />                
 
-        <LinearLayout
+        <EditText
+            android:id="@+id/comment" style="@style/WhiteBoxLinear"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="10dp" >
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="20dp"
-                android:text="한줄평가" />
-
-            <EditText
-                android:id="@+id/comment"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-                
-            </EditText>
-                
-        </LinearLayout>
+            android:gravity="center_vertical"
+            android:layout_marginTop="5dp"/>
 
     </LinearLayout>
 

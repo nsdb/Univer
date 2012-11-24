@@ -8,9 +8,8 @@ import org.apache.http.client.methods.HttpPost;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.protocol.HTTP;
 
-import com.google.android.gcm.GCMRegistrar;
-import com.nsdb.univer.GCMIntentService;
 import com.nsdb.univer.R;
+import com.nsdb.univer.supporter.GCMRegIdGetter;
 import com.nsdb.univer.supporter.NetworkSupporter;
 import com.nsdb.univer.supporter.data.AppPref;
 import com.nsdb.univer.supporter.ui.FontSetter;
@@ -112,23 +111,6 @@ public class RegisterUser extends Activity implements OnClickListener {
 					
 			try {
 				
-		        // get GCM regId
-		        GCMRegistrar.checkDevice(RegisterUser.this);
-		        GCMRegistrar.checkManifest(RegisterUser.this);
-		        String regId = GCMRegistrar.getRegistrationId(RegisterUser.this);
-		        if(regId.compareTo("")==0) {
-		            GCMRegistrar.register(RegisterUser.this, GCMIntentService.getProjectId());
-		            while(regId.compareTo("")==0) {
-		            	Thread.sleep(1000);
-		            	regId = GCMRegistrar.getRegistrationId(RegisterUser.this);		            	
-		            }
-		            System.out.println("GCM Register Success!");
-		    	} else {
-		        	System.out.println("GCM is Already Registered");
-		        }
-	            System.out.println("regId : "+regId);
-				
-				
 				// create http post for sending
 				HttpPost request=new HttpPost(url);
 				ArrayList<NameValuePair> postdata=new ArrayList<NameValuePair>();
@@ -140,7 +122,7 @@ public class RegisterUser extends Activity implements OnClickListener {
 				postdata.add( new BasicNameValuePair("college",""+AppPref.getRangeSet().get("college").id) );
 				//postdata.add( new BasicNameValuePair("major",""+AppPref.getRangeSet().get("major").id) );
 				postdata.add( new BasicNameValuePair("device_type",""+2) );
-				postdata.add( new BasicNameValuePair("deviceToken",regId) );
+				postdata.add( new BasicNameValuePair("deviceToken",GCMRegIdGetter.get(RegisterUser.this)) );
 				UrlEncodedFormEntity ent = new UrlEncodedFormEntity(postdata,HTTP.UTF_8);
 				request.setEntity(ent);
 
