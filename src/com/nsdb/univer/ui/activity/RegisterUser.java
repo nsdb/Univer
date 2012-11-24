@@ -26,6 +26,7 @@ import android.view.WindowManager;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 public class RegisterUser extends Activity implements OnClickListener {
@@ -35,7 +36,7 @@ public class RegisterUser extends Activity implements OnClickListener {
 	Button region,univ,college;
 	private final static int REQUESTCODE_RANGE=1;
 	
-	Button apply;	
+	ImageButton apply;	
 	ProgressDialog pdl;	
 	
     @Override
@@ -57,7 +58,7 @@ public class RegisterUser extends Activity implements OnClickListener {
     	college.setOnClickListener(new OnClickMover(this,new Intent("RangeSetting").putExtra("range","college"),REQUESTCODE_RANGE));
 		AppPref.getRangeSet().applyDataToView(region, univ, college);
         
-        apply=(Button)findViewById(R.id.apply);
+        apply=(ImageButton)findViewById(R.id.apply);
         apply.setOnClickListener(this);
         
         pdl=null;

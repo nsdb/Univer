@@ -26,7 +26,7 @@
 	        android:text="교수평가" />
 	
 	    <ImageButton
-	        android:id="@+id/register" style="@style/ActionBarRegisterButton"/>
+	        android:id="@+id/register" style="@style/ActionBarAddButton"/>
         
     </LinearLayout>
     

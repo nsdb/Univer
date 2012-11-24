@@ -31,35 +31,37 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_marginBottom="20dp" >
 
                 <LinearLayout
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:layout_marginRight="10dp"
                     android:orientation="vertical" >
 
                     <EditText
-                        android:id="@+id/id"
+                        android:id="@+id/id" style="@style/WhiteBoxEditText"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
                         android:layout_marginBottom="5dp"
                         android:hint="id" />
 
                     <EditText
-                        android:id="@+id/password"
+                        android:id="@+id/password"  style="@style/WhiteBoxEditText"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
                         android:hint="password"
                         android:inputType="textPassword" />
                 </LinearLayout>
 
                 <ImageButton
                     android:id="@+id/login"
-                    android:layout_width="87.42dp"
-                    android:layout_height="74.09dp"
+                    android:layout_width="98.35dp"
+                    android:layout_height="83.35dp"
                     android:src="@drawable/login_btn"
                     android:background="@null"
                     android:scaleType="fitXY" />"
@@ -67,8 +69,8 @@
 
             <ImageButton
                 android:id="@+id/signup"
-                android:layout_width="253.18dp"
-                android:layout_height="35.71dp"
+                android:layout_width="284.83dp"
+                android:layout_height="40.17dp"
                 android:src="@drawable/login_btn_join"
                 android:background="@null"
                 android:scaleType="fitXY" />

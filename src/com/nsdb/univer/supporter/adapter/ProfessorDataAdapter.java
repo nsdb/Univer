@@ -94,8 +94,7 @@ public class ProfessorDataAdapter extends DataLoadingArrayAdapter<ProfessorData>
 		ImageView i=(ImageView)v.findViewById(R.id.thumbnail);
 		TextView t=(TextView)v.findViewById(R.id.title);
 		RatingBar r=(RatingBar)v.findViewById(R.id.total);
-		TextView u=(TextView)v.findViewById(R.id.univ);
-		TextView c=(TextView)v.findViewById(R.id.college);
+		TextView ra=(TextView)v.findViewById(R.id.range);
 		TextView l=(TextView)v.findViewById(R.id.like);
 		TextView dl=(TextView)v.findViewById(R.id.dislike);
 		TextView co=(TextView)v.findViewById(R.id.comment_count);
@@ -106,7 +105,7 @@ public class ProfessorDataAdapter extends DataLoadingArrayAdapter<ProfessorData>
 			System.out.println("thumbnail : "+getItem(position).thumbnail.substring(1));
 			loader.DisplayImage(getContext().getResources().getString(R.string.base_url)+getItem(position).thumbnail,i);
 		} else {
-			i.setImageResource(R.drawable.ic_launcher);
+			i.setImageResource(R.drawable.pf_no);
 		}
 		
 		// title
@@ -121,11 +120,8 @@ public class ProfessorDataAdapter extends DataLoadingArrayAdapter<ProfessorData>
 			r.setRating(0.0f);				
 		}
 
-		// univ
-		u.setText( getItem(position).university );
-
-		// title
-		c.setText( getItem(position).college );
+		// range
+		ra.setText( getItem(position).university+" / "+getItem(position).college );
 
 		// title
 		l.setText( ""+getItem(position).like );
