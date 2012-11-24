@@ -18,7 +18,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AbsListView.OnScrollListener;
 import android.widget.AbsListView;
-import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RatingBar;
@@ -30,14 +30,16 @@ public class ProfessorDetail extends Activity implements OnScrollListener {
 	ProfessorData lastdata;
 	
 	// evaluation
-	Button evaluate;
+	ImageButton evaluate;
 	private static int REQUESTCODE_EVALUATE=1;
 	
     // first linear
 	ImageView image;
 	TextView title;
-	RatingBar quality,report,grade,attendance,personality,total;
-	TextView qualitytxt,reporttxt,gradetxt,attendancetxt,personalitytxt,totaltxt;
+	TextView count;
+	TextView like,dislike,comment_count;
+	
+	RatingBar quality,report,grade,attendance,personality;
 	
 	// graph
 	ProfessorRatingGraph graph;
@@ -61,55 +63,50 @@ public class ProfessorDetail extends Activity implements OnScrollListener {
         lastdata=AppPref.getLastProfessorData();
         
         // evaluate
-        evaluate=(Button)findViewById(R.id.evaluate);
+        evaluate=(ImageButton)findViewById(R.id.evaluate);
         evaluate.setOnClickListener(new OnClickMover(this,new Intent("EvaluateProfessor"),REQUESTCODE_EVALUATE));
         
         // first linear
         image=(ImageView)findViewById(R.id.image);
         title=(TextView)findViewById(R.id.title);
-        quality=(RatingBar)findViewById(R.id.quality);
-        report=(RatingBar)findViewById(R.id.report);
-        grade=(RatingBar)findViewById(R.id.grade);
-        attendance=(RatingBar)findViewById(R.id.attendance);
-        personality=(RatingBar)findViewById(R.id.personality);
-        total=(RatingBar)findViewById(R.id.total);
-        qualitytxt=(TextView)findViewById(R.id.qualitytxt);
-        reporttxt=(TextView)findViewById(R.id.reporttxt);
-        gradetxt=(TextView)findViewById(R.id.gradetxt);
-        attendancetxt=(TextView)findViewById(R.id.attendancetxt);
-        personalitytxt=(TextView)findViewById(R.id.personalitytxt);
-        totaltxt=(TextView)findViewById(R.id.totaltxt); 
+        count=(TextView)findViewById(R.id.count);
+        like=(TextView)findViewById(R.id.like);
+        dislike=(TextView)findViewById(R.id.dislike);
+        comment_count=(TextView)findViewById(R.id.comment_count);
         if(lastdata.image.compareTo("")!=0) {
         	ImageLoader loader=new ImageLoader(this);
         	loader.DisplayImage(getResources().getString(R.string.base_url)+lastdata.image,image);
         }
         title.setText(lastdata.title);
+        count.setText(""+lastdata.count);
+        like.setText(""+lastdata.like);
+        dislike.setText(""+lastdata.dislike);
+        comment_count.setText(""+lastdata.comment_count);
+        
+        
+        
+        quality=(RatingBar)findViewById(R.id.quality);
+        report=(RatingBar)findViewById(R.id.report);
+        grade=(RatingBar)findViewById(R.id.grade);
+        attendance=(RatingBar)findViewById(R.id.attendance);
+        personality=(RatingBar)findViewById(R.id.personality);
 		if(lastdata.count > 0) {
 			double d;
 			d=lastdata.quality/lastdata.count;
 			d=Math.round(d*100)/100;
-			qualitytxt.setText(""+d);
 			quality.setRating( (float)d/2 );
 			d=lastdata.report/lastdata.count;
 			d=Math.round(d*100)/100;
-			reporttxt.setText(""+d);
 			report.setRating( (float)d/2 );
 			d=lastdata.grade/lastdata.count;
 			d=Math.round(d*100)/100;
-			gradetxt.setText(""+d);
 			grade.setRating( (float)d/2 );
 			d=lastdata.attendance/lastdata.count;
 			d=Math.round(d*100)/100;
-			attendancetxt.setText(""+d);
 			attendance.setRating( (float)d/2 );
 			d=lastdata.personality/lastdata.count;
 			d=Math.round(d*100)/100;
-			personalitytxt.setText(""+d);
 			personality.setRating( (float)d/2 );
-			d=lastdata.total/(lastdata.count*5);
-			d=Math.round(d*100)/100;
-			totaltxt.setText(""+d);
-			total.setRating( (float)d/2 );
 		}
 		
 		// graph
@@ -121,7 +118,7 @@ public class ProfessorDetail extends Activity implements OnScrollListener {
 					attendance.getRating()*2,
 					personality.getRating()*2);
 		}
-        
+		
         // ListView
     	lv=(ListView)findViewById(R.id.commentlist);
     	adapter=new ProfessorCommentDataAdapter(this,lv);

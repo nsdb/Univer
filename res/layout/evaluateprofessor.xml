@@ -52,9 +52,9 @@
 
                 <RatingBar
                     android:id="@+id/quality"
-                    style="@style/CustomRatingBar"
+                    style="@style/CustomRatingBarLarge"
                     android:isIndicator="false"
-                    android:rating="5.0" />
+                    android:rating="0.0" />
 
             </LinearLayout>
 
@@ -70,9 +70,9 @@
 
                 <RatingBar
                     android:id="@+id/report"
-                    style="@style/CustomRatingBar"
+                    style="@style/CustomRatingBarLarge"
                     android:isIndicator="false"
-                    android:rating="5.0" />
+                    android:rating="0.0" />
 
             </LinearLayout>
 
@@ -88,9 +88,9 @@
 
                 <RatingBar
                     android:id="@+id/personality"
-                    style="@style/CustomRatingBar"
+                    style="@style/CustomRatingBarLarge"
                     android:isIndicator="false"
-                    android:rating="5.0" />
+                    android:rating="0.0" />
 
             </LinearLayout>
 
@@ -106,9 +106,9 @@
 
                 <RatingBar
                     android:id="@+id/attendance"
-                    style="@style/CustomRatingBar"
+                    style="@style/CustomRatingBarLarge"
                     android:isIndicator="false"
-                    android:rating="5.0" />
+                    android:rating="0.0" />
 
             </LinearLayout>
 
@@ -124,9 +124,9 @@
 
                 <RatingBar
                     android:id="@+id/grade"
-                    style="@style/CustomRatingBar"
+                    style="@style/CustomRatingBarLarge"
                     android:isIndicator="false"
-                    android:rating="5.0" />
+                    android:rating="0.0" />
 
             </LinearLayout>
 
@@ -150,7 +150,6 @@
                     android:button="@drawable/pf_register_cc"
                     android:layout_width="109.93dp"
                     android:layout_height="51.2dp"
-                    android:checked="true"
                     android:gravity="center"
                     android:text="추천"
                     android:textSize="20dp" />

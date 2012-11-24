@@ -7,11 +7,9 @@
     <LinearLayout
         android:id="@+id/actionbar" style="@style/ActionBarLinear">
 
-	    <Button
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:visibility="invisible"
-	        android:text="X" />
+	    <ImageButton
+	        style="@style/ActionBarEvaluationButton"
+	        android:visibility="invisible" />
 
   	    <TextView
 	        android:id="@+id/actionbartitle" style="@style/ActionBarTitle"
@@ -20,11 +18,8 @@
 	        android:layout_weight="1"
 	        android:text="교수 상세정보" />
 	
-	    <Button
-	        android:id="@+id/evaluate"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:text="E" />
+	    <ImageButton
+	        android:id="@+id/evaluate" style="@style/ActionBarEvaluationButton"/>
         
     </LinearLayout>
     
@@ -32,7 +27,8 @@
     <ListView
         android:id="@+id/commentlist"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" >
+        android:layout_height="match_parent"
+        android:background="#FFFFFF" >
     </ListView>
 
 </LinearLayout>

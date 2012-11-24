@@ -40,6 +40,13 @@
         <item name="android:src">@drawable/pf_ok</item>
         <item name="android:background">@null</item>
     </style>
+    <style name="ActionBarEvaluationButton">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_margin">4.66dp</item>
+        <item name="android:src">@drawable/pf_evaluation_btn</item>
+        <item name="android:background">@null</item>
+    </style>
     <style name="ActionBarTitle">
         <item name="android:textSize">24dp</item>
         <item name="android:textColor">#FFFFFF</item>
@@ -150,6 +157,15 @@
         <item name="android:rating">0.0</item>
         <item name="android:isIndicator">true</item>
         <item name="android:progressDrawable">@drawable/custom_rating_bar</item>
+    </style>
+    <style name="CustomRatingBarLarge" parent="@android:style/Widget.RatingBar">
+        <item name="android:layout_width">133.25dp</item>
+        <item name="android:layout_height">26.65dp</item>
+        <item name="android:numStars">5</item>
+        <item name="android:stepSize">0.5</item>
+        <item name="android:rating">0.0</item>
+        <item name="android:isIndicator">true</item>
+        <item name="android:progressDrawable">@drawable/custom_rating_bar_large</item>
     </style>
     
 </resources>

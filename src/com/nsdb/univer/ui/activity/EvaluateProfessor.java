@@ -55,7 +55,7 @@ public class EvaluateProfessor extends Activity implements OnClickListener, OnCh
         attendance=(RatingBar)findViewById(R.id.attendance);
         personality=(RatingBar)findViewById(R.id.personality);
         evaluate=(RadioGroup)findViewById(R.id.evaluate);
-        checkState=CHECK_GOOD;
+        checkState=-1;
         comment=(EditText)findViewById(R.id.comment);
         apply=(ImageButton)findViewById(R.id.apply);
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
@@ -69,7 +69,11 @@ public class EvaluateProfessor extends Activity implements OnClickListener, OnCh
 		case R.id.bad: checkState=CHECK_BAD; break;
 		}
 	}
-	public void onClick(View v) {		
+	public void onClick(View v) {
+		if(checkState==-1) {
+			Toast.makeText(this,"추천, 비추천 여부를 선택하세요.",Toast.LENGTH_SHORT).show();
+			return;
+		}
 		new EvaluateProfessorHelper().execute();
 	}
 	

@@ -2,251 +2,206 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/cm_background_pattern_rp"
     android:orientation="vertical" >
-    
-    		<TextView
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:background="#888888"
-                android:padding="10dp"
-                android:text="교수평가"
-                android:textColor="#ffffff" />
-
-    		<Button
-    		    android:id="@+id/evaluate"
-    		    android:layout_width="wrap_content"
-    		    android:layout_height="wrap_content"
-    		    android:layout_gravity="center"
-    		    android:text="평가" />
 
             <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:padding="10dp"
+                style="@style/WhiteBoxLinearTop"
                 android:orientation="horizontal" >
 
-		        <TextView
-		            android:layout_width="wrap_content"
-		            android:layout_height="wrap_content"
-			        android:layout_marginRight="10dp"
-			        android:textSize="18dp"
-		            android:text="Image" />
 			    <ImageView
-			        android:id="@+id/image"
-			        android:src="@drawable/ic_launcher"
+			        android:id="@+id/image" style="@style/ProfessorThumbnailButton"
+			        android:layout_marginRight="15dp" />
+
+			    <LinearLayout
 			        android:layout_width="0dp"
+			        android:layout_height="match_parent"
 			        android:layout_weight="1"
-			        android:layout_height="wrap_content"
-			        android:layout_margin="10dp" />
+			        android:orientation="vertical" >
+
+			        <TextView
+			            android:id="@+id/title"
+			            android:layout_width="wrap_content"
+			            android:layout_height="wrap_content"
+			            android:text="Title"
+			            android:textSize="24dp" />
+
+			        <LinearLayout
+			            android:layout_width="match_parent"
+			            android:layout_height="0dp"
+			            android:layout_weight="1"
+			            android:gravity="center_vertical"
+			            >
+
+			            <TextView
+			                android:layout_width="wrap_content"
+			                android:layout_height="wrap_content"
+			                android:textSize="16dp" 
+			                android:text="평가한 사람 : " />
+
+			            <TextView
+			                android:id="@+id/count"
+			                android:layout_width="wrap_content"
+			                android:layout_height="wrap_content"
+			                android:textSize="16dp" 
+			                android:text="N" />
+
+			            <TextView
+			                android:layout_width="wrap_content"
+			                android:layout_height="wrap_content"
+			                android:textSize="16dp" 
+			                android:text=" 명" />
+
+			        </LinearLayout>
+			        
+					<LinearLayout
+		                android:layout_width="match_parent"
+		                android:layout_height="wrap_content" >
+		
+		                <TextView
+		                    android:layout_width="wrap_content"
+		                    android:layout_height="wrap_content"
+		                    android:layout_marginRight="5dp"
+		                    android:text="추천"
+		                    android:textSize="16dp" />
+		
+		                <TextView
+		                    android:id="@+id/like"
+		                    android:layout_width="wrap_content"
+		                    android:layout_height="wrap_content"
+		                    android:layout_marginRight="5dp"
+		                    android:text="0"
+		                    android:textSize="16dp" />
+		
+		                <TextView
+		                    android:layout_width="wrap_content"
+		                    android:layout_height="wrap_content"
+		                    android:layout_marginRight="5dp"
+		                    android:text="비추천"
+		                    android:textSize="16dp" />
+		
+		                <TextView
+		                    android:id="@+id/dislike"
+		                    android:layout_width="wrap_content"
+		                    android:layout_height="wrap_content"
+		                    android:layout_marginRight="5dp"
+		                    android:text="0"
+		                    android:textSize="16dp" />
+		
+		                <TextView
+		                    android:layout_width="wrap_content"
+		                    android:layout_height="wrap_content"
+		                    android:layout_marginRight="5dp"
+		                    android:text="댓글"
+		                    android:textSize="16dp" />
+		
+		                <TextView
+		                    android:id="@+id/comment_count"
+		                    android:layout_width="wrap_content"
+		                    android:layout_height="wrap_content"
+		                    android:text="0"
+		                    android:textSize="16dp" />
+		            </LinearLayout>			        
+			        
+
+			    </LinearLayout>
 
             </LinearLayout>
-            
-		    <LinearLayout
-		        android:layout_width="match_parent"
-		        android:layout_height="wrap_content"
-		        android:padding="5dp" >
-		        <TextView
-		            android:layout_width="wrap_content"
-		            android:layout_height="wrap_content"
-			        android:layout_marginRight="10dp"
-			        android:textSize="18dp"
-		            android:text="Name" />
-		        <TextView
-		            android:id="@+id/title"
-		            android:layout_width="wrap_content"
-		            android:layout_height="wrap_content"
-			        android:textSize="18dp"
-		            android:text="" />	    
-		    </LinearLayout>
-            
-            
-		    <LinearLayout
-		        android:layout_width="match_parent"
-		        android:layout_height="wrap_content"
-		        android:padding="5dp" >
-		        <TextView
-		            android:layout_width="wrap_content"
-		            android:layout_height="wrap_content"
-			        android:layout_marginRight="10dp"
-			        android:textSize="18dp"
-		            android:text="Quality" />
-			    <RatingBar
-			        android:id="@+id/quality"
-			        style="?android:attr/ratingBarStyleIndicator"
-			        android:layout_width="wrap_content"
-			        android:layout_height="wrap_content"
-			        android:layout_marginRight="10dp"
-			        android:numStars="5"
-			        android:stepSize="0.5"
-			        android:rating="0.0" />
-		        <TextView
-		            android:id="@+id/qualitytxt"
-		            android:layout_width="wrap_content"
-		            android:layout_height="wrap_content"
-		            android:layout_gravity="bottom"
-			        android:textSize="18dp"
-		            android:text="0.0" />	    
-		    </LinearLayout>
 
-		    <LinearLayout
-		        android:layout_width="match_parent"
-		        android:layout_height="wrap_content"
-		        android:padding="5dp" >
-		        <TextView
-		            android:layout_width="wrap_content"
-		            android:layout_height="wrap_content"
-			        android:layout_marginRight="10dp"
-			        android:textSize="18dp"
-		            android:text="Report" />
-			    <RatingBar
-			        android:id="@+id/report"
-			        style="?android:attr/ratingBarStyleIndicator"
-			        android:layout_width="wrap_content"
-			        android:layout_height="wrap_content"
-			        android:layout_marginRight="10dp"
-			        android:numStars="5"
-			        android:stepSize="0.5"
-			        android:rating="0.0" />
-		        <TextView
-		            android:id="@+id/reporttxt"
-		            android:layout_width="wrap_content"
-		            android:layout_height="wrap_content"
-		            android:layout_gravity="bottom"
-			        android:textSize="18dp"
-		            android:text="0.0" />	    
-		    </LinearLayout>
-		    
-		    <LinearLayout
-		        android:layout_width="match_parent"
-		        android:layout_height="wrap_content"
-		        android:padding="5dp" >
-		        <TextView
-		            android:layout_width="wrap_content"
-		            android:layout_height="wrap_content"
-			        android:layout_marginRight="10dp"
-			        android:textSize="18dp"
-		            android:text="Grade" />
-			    <RatingBar
-			        android:id="@+id/grade"
-			        style="?android:attr/ratingBarStyleIndicator"
-			        android:layout_width="wrap_content"
-			        android:layout_height="wrap_content"
-			        android:layout_marginRight="10dp"
-			        android:numStars="5"
-			        android:stepSize="0.5"
-			        android:rating="0.0" />
-		        <TextView
-		            android:id="@+id/gradetxt"
-		            android:layout_width="wrap_content"
-		            android:layout_height="wrap_content"
-		            android:layout_gravity="bottom"
-			        android:textSize="18dp"
-		            android:text="0.0" />	    
-		    </LinearLayout>
-		    
-		    <LinearLayout
-		        android:layout_width="match_parent"
-		        android:layout_height="wrap_content"
-		        android:padding="5dp" >
-		        <TextView
-		            android:layout_width="wrap_content"
-		            android:layout_height="wrap_content"
-			        android:layout_marginRight="10dp"
-			        android:textSize="18dp"
-		            android:text="Attendance" />
-			    <RatingBar
-			        android:id="@+id/attendance"
-			        style="?android:attr/ratingBarStyleIndicator"
-			        android:layout_width="wrap_content"
-			        android:layout_height="wrap_content"
-			        android:layout_marginRight="10dp"
-			        android:numStars="5"
-			        android:stepSize="0.5"
-			        android:rating="0.0" />
-		        <TextView
-		            android:id="@+id/attendancetxt"
-		            android:layout_width="wrap_content"
-		            android:layout_height="wrap_content"
-		            android:layout_gravity="bottom"
-			        android:textSize="18dp"
-		            android:text="0.0" />	    
-		    </LinearLayout>
-		    		    
-		    <LinearLayout
-		        android:layout_width="match_parent"
-		        android:layout_height="wrap_content"
-		        android:padding="5dp" >
-		        <TextView
-		            android:layout_width="wrap_content"
-		            android:layout_height="wrap_content"
-			        android:layout_marginRight="10dp"
-			        android:textSize="18dp"
-		            android:text="Personality" />
-			    <RatingBar
-			        android:id="@+id/personality"
-			        style="?android:attr/ratingBarStyleIndicator"
-			        android:layout_width="wrap_content"
-			        android:layout_height="wrap_content"
-			        android:layout_marginRight="10dp"
-			        android:numStars="5"
-			        android:stepSize="0.5"
-			        android:rating="0.0" />
-		        <TextView
-		            android:id="@+id/personalitytxt"
-		            android:layout_width="wrap_content"
-		            android:layout_height="wrap_content"
-		            android:layout_gravity="bottom"
-			        android:textSize="18dp"
-		            android:text="0.0" />	    
-		    </LinearLayout>
-		    		    
-		    <LinearLayout
-		        android:layout_width="match_parent"
-		        android:layout_height="wrap_content"
-		        android:padding="5dp" >
-		        <TextView
-		            android:layout_width="wrap_content"
-		            android:layout_height="wrap_content"
-			        android:layout_marginRight="10dp"
-			        android:textSize="18dp"
-			        android:textColor="#999900"
-		            android:text="Total" />
-			    <RatingBar
-			        android:id="@+id/total"
-			        style="?android:attr/ratingBarStyleIndicator"
-			        android:layout_width="wrap_content"
-			        android:layout_height="wrap_content"
-			        android:layout_marginRight="10dp"
-			        android:numStars="5"
-			        android:stepSize="0.5"
-			        android:rating="0.0" />
-		        <TextView
-		            android:id="@+id/totaltxt"
-		            android:layout_width="wrap_content"
-		            android:layout_height="wrap_content"
-		            android:layout_gravity="bottom"
-			        android:textSize="18dp"
-		            android:text="0.0" />	    
-		    </LinearLayout>
-		    		    
-		    <LinearLayout
-		        android:layout_width="wrap_content"
-		        android:layout_height="wrap_content"
-		        android:layout_gravity="center"
-		        android:padding="5dp" >
+            <LinearLayout
+                style="@style/GrayBoxLinearMiddle">
+
 			    <com.nsdb.univer.ui.customview.ProfessorRatingGraph
 			        android:id="@+id/graph"
 			        android:layout_width="wrap_content"
-			        android:layout_height="wrap_content" />
-		    </LinearLayout>
-		    
-		    <TextView
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:background="#888888"
-                android:padding="10dp"
-                android:text="댓글평가"
-                android:textColor="#ffffff" />
-        
+			        android:layout_height="wrap_content"
+			        android:layout_gravity="center"
+			         />
+                
+                
+            </LinearLayout>
+            
+            <LinearLayout
+                style="@style/GrayBoxLinearMiddle"
+                android:padding="5dp">
+
+                <TextView
+                    style="@style/WhiteBoxTextTitle"
+                    android:text="강의  질" />
+
+                <RatingBar
+                    android:id="@+id/quality"
+                    style="@style/CustomRatingBar"
+                    android:isIndicator="false"
+                    android:rating="0.0" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                style="@style/GrayBoxLinearMiddle"
+                android:padding="5dp">
+
+                <TextView
+                    style="@style/WhiteBoxTextTitle"
+                    android:text="인     성" />
+
+                <RatingBar
+                    android:id="@+id/report"
+                    style="@style/CustomRatingBar"
+                    android:isIndicator="false"
+                    android:rating="0.0" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                style="@style/GrayBoxLinearMiddle"
+                android:padding="5dp">
+
+                <TextView
+                    style="@style/WhiteBoxTextTitle"
+                    android:text="학     점" />
+
+                <RatingBar
+                    android:id="@+id/personality"
+                    style="@style/CustomRatingBar"
+                    android:isIndicator="false"
+                    android:rating="0.0" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                style="@style/GrayBoxLinearMiddle"
+                android:padding="5dp">
+
+                <TextView
+                    style="@style/WhiteBoxTextTitle"
+                    android:text="출     석" />
+
+                <RatingBar
+                    android:id="@+id/attendance"
+                    style="@style/CustomRatingBar"
+                    android:isIndicator="false"
+                    android:rating="0.0" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                style="@style/GrayBoxLinearMiddle"
+                android:padding="5dp">
+
+                <TextView
+                    style="@style/WhiteBoxTextTitle"
+                    android:text="과     제" />
+
+                <RatingBar
+                    android:id="@+id/grade"
+                    style="@style/CustomRatingBar"
+                    android:isIndicator="false"
+                    android:rating="0.0" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                style="@style/WhiteBoxLinearBottom" />
     
 </LinearLayout>
