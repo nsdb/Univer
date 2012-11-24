@@ -6,7 +6,7 @@
     android:orientation="vertical" >
 
     <LinearLayout
-        style="@style/WhiteBoxLinear"
+        style="@style/WhiteBoxLinearTop"
         android:gravity="left"
         android:orientation="vertical" >
 
@@ -57,5 +57,43 @@
             android:textSize="16dp" />
 
     </LinearLayout>
+    
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="10dp"
+        android:padding="5dp"
+        android:background="#DDDDDD" >
+
+        <TextView
+            android:id="@+id/like"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="5dp"
+            android:padding="3dp"
+            android:textSize="16dp"
+            android:text="좋아요" />
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1" />
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="5dp"
+            android:src="@drawable/com_like"/>
+        <TextView
+            android:id="@+id/likenum"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="5dp"
+            android:padding="3dp"
+            android:textSize="16dp"
+            android:text="0" />
+        
+    </LinearLayout>
+    
 
 </LinearLayout>

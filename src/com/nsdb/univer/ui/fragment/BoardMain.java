@@ -30,6 +30,7 @@ public class BoardMain extends ActiveFragment implements OnScrollListener, OnRef
 	// listview
 	RefreshableListView lv;
 	BoardDataAdapter adapter;
+	private final static int REQUESTCODE_BOARDDETAIL=3;
 
 	public BoardMain() {
 		super();
@@ -78,6 +79,11 @@ public class BoardMain extends ActiveFragment implements OnScrollListener, OnRef
 		case REQUESTCODE_REGISTERBOARD:
 			if(resultCode == Activity.RESULT_OK || data.getBooleanExtra("range_changed",false)==true) {
 				AppPref.getRangeSet().applyDataToView(region, univ);
+				adapter.updateData(true);
+			} break;
+			
+		case REQUESTCODE_BOARDDETAIL:
+			if(data.getBooleanExtra("edited",false)==true) {
 				adapter.updateData(true);
 			} break;
 		}

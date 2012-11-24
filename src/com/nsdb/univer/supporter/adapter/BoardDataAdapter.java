@@ -126,6 +126,7 @@ public class BoardDataAdapter extends DataLoadingArrayAdapter<BoardData> {
 		r.setText(getItem(position).region+" / "+getItem(position).university);
 		
 		// image
+		CommentClickListener ccl=new CommentClickListener(i,getItem(position));
 		if(getItem(position).image.compareTo("")!=0) {
 			System.out.println("image : "+getItem(position).image);
 			loader.DisplayImage(
@@ -133,14 +134,15 @@ public class BoardDataAdapter extends DataLoadingArrayAdapter<BoardData> {
 					+getContext().getResources().getString(R.string.media_url)+'/'
 					+getItem(position).image,i);
 			i.setVisibility(View.VISIBLE);
+			i.setOnClickListener(ccl);
 		} else {
 			i.setVisibility(View.GONE);
 		}
 		
 		// other
 		d.setText(getItem(position).description);
-		l.setOnClickListener(new LikeClickListener(v,getItem(position).id));
-		cm.setOnClickListener(new CommentClickListener(v,getItem(position)));
+		l.setOnClickListener(new LikeClickListener(ln,getItem(position).id));
+		cm.setOnClickListener(ccl);
 		ln.setText(""+getItem(position).like);
 		cn.setText(""+getItem(position).comment);
 		
@@ -151,14 +153,14 @@ public class BoardDataAdapter extends DataLoadingArrayAdapter<BoardData> {
 	public boolean isEnabled(int position) { return false; }
 	
 	// OnClickListener for Like Button
-	private class LikeClickListener extends AsyncTask<Void,Void,String> implements OnClickListener {
+	public class LikeClickListener extends AsyncTask<Void,Void,String> implements OnClickListener {
 
-		private View item;
+		private TextView likenum;
 		private int id;
 		private ProgressDialog pdl;
 		
-		public LikeClickListener(View item,int id) {
-			this.item=item;
+		public LikeClickListener(TextView likenum,int id) {
+			this.likenum=likenum;
 			this.id=id;
 		}		
 		public void onClick(View v) {
@@ -209,27 +211,26 @@ public class BoardDataAdapter extends DataLoadingArrayAdapter<BoardData> {
 			
 			if(result.compareTo("200")==0) {
 				Toast.makeText(getContext(),"좋아요 성공",Toast.LENGTH_SHORT).show();
-				TextView ln=(TextView)item.findViewById(R.id.likenum);
-				ln.setText(""+(Integer.parseInt(String.valueOf(ln.getText()))+1));
+				likenum.setText(""+(Integer.parseInt(String.valueOf(likenum.getText()))+1));
 			} else {
 				Toast.makeText(getContext(),result,Toast.LENGTH_SHORT).show();
 			}
 			
 		}
 	}
+	
 	// OnClickListener for Comment Button
 	private class CommentClickListener implements OnClickListener {
 
-		private View item;
+		private ImageView image;
 		private BoardData lastData;
 		
-		public CommentClickListener(View item,BoardData lastData) {
-			this.item=item;
+		public CommentClickListener(ImageView image,BoardData lastData) {
+			this.image=image;
 			this.lastData=lastData;
 		}
 
 		public void onClick(View v) {
-			ImageView image=(ImageView)item.findViewById(R.id.image);
 			image.setDrawingCacheEnabled(true);
 			Bitmap bmp=image.getDrawingCache();
 			int width=bmp.getWidth();

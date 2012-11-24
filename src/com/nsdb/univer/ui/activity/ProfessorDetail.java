@@ -220,6 +220,7 @@ public class ProfessorDetail extends Activity implements OnScrollListener, OnCli
 				Toast.makeText(ProfessorDetail.this,"등록 성공",Toast.LENGTH_SHORT).show();
 				commenttxt.setText("");
 				adapter.updateData(lastdata.id,true);
+				getIntent().putExtra("edited",true);
 			} else {
 				Toast.makeText(ProfessorDetail.this,result,Toast.LENGTH_SHORT).show();				
 			}
