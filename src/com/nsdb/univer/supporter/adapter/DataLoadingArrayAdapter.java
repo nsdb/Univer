@@ -84,9 +84,9 @@ public abstract class DataLoadingArrayAdapter<T> extends BaseArrayAdapter<T> {
 		protected void onPreExecute() {
 			
 			// footerView
-			TextView t=(TextView)footerNoticeView.findViewById(R.id.text);
+			TextView t=(TextView)footerNoticeView.findViewById(R.id.footertext);
 			t.setText("불러오는 중...");
-			ProgressBar p=(ProgressBar)footerNoticeView.findViewById(R.id.state);
+			ProgressBar p=(ProgressBar)footerNoticeView.findViewById(R.id.footerstate);
 			p.setVisibility(View.VISIBLE);
 			
 			super.onPreExecute();
@@ -133,13 +133,13 @@ public abstract class DataLoadingArrayAdapter<T> extends BaseArrayAdapter<T> {
 			}
 			
 			// footerView
-			TextView t=(TextView)footerNoticeView.findViewById(R.id.text);
+			TextView t=(TextView)footerNoticeView.findViewById(R.id.footertext);
 			switch(result) {
 			case RESULT_SUCCESS: t.setText(""); break;
 			case RESULT_EMPTY: t.setText("데이터 없음"); break;
 			case RESULT_ERROR: t.setText("에러 발생"); break;
 			}
-			ProgressBar p=(ProgressBar)footerNoticeView.findViewById(R.id.state);
+			ProgressBar p=(ProgressBar)footerNoticeView.findViewById(R.id.footerstate);
 			p.setVisibility(View.GONE);
 			
 			// move gotData to originalData
