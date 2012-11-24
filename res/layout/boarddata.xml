@@ -6,6 +6,7 @@
     android:orientation="vertical" >
 
     <LinearLayout
+        android:id="@+id/boardlinear"
         style="@style/WhiteBoxLinearTop"
         android:gravity="left"
         android:layout_marginTop="5dp"

@@ -29,8 +29,6 @@ public class AppPref {
 	private static ProfessorData lastProfessorData;
 	private static BoardData lastBoardData;
 	private static ChatRoomData lastChatRoomData;
-	
-	private static int startTab;
 
 	public static void load(Activity activity) {
 		System.out.println("AppPref Loaded");
@@ -56,8 +54,6 @@ public class AppPref {
 		lastProfessorData=null;
 		lastBoardData=null;
 		lastChatRoomData=null;
-		
-		startTab=pref.getInt("startTab",0);
 	}
 	
 	public static void save(Activity activity) {
@@ -80,7 +76,6 @@ public class AppPref {
 		edit.putString("password",password);
 		edit.putInt("user_id",user_id);
 		edit.putString("value",value);
-		edit.putInt("startTab",startTab);
 		edit.commit();
 	}
 	
@@ -158,16 +153,12 @@ public class AppPref {
 	}
 
 	public static void setInt(String filter,int filtervalue) {
-		if(filter.compareTo("startTab")==0) {
-			startTab=filtervalue;
-		} else if(filter.compareTo("user_id")==0) {
+		if(filter.compareTo("user_id")==0) {
 			user_id=filtervalue;
 		}
 	}
 	public static int getInt(String filter) {
-		if(filter.compareTo("startTab")==0) {
-			return startTab;
-		} else if(filter.compareTo("user_id")==0) {
+		if(filter.compareTo("user_id")==0) {
 			return user_id;
 		} else {
 			return -1;

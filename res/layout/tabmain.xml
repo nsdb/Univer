@@ -56,10 +56,33 @@
         <ImageButton
             android:id="@+id/professorbtn" style="@style/TabButton"
             android:src="@drawable/cm_tab2"/>
-        
-        <ImageButton
-            android:id="@+id/chatroombtn" style="@style/TabButton"
-            android:src="@drawable/cm_tab3"/>
+
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" >
+                
+	            <ImageButton
+	                android:id="@+id/chatroombtn"
+	                style="@style/TabButton"
+	                android:src="@drawable/cm_tab3" />                
+
+            </LinearLayout>
+            
+            <TextView
+                android:id="@+id/tabbadge"
+                style="@style/BadgeView"
+                android:layout_gravity="right"
+                android:layout_margin="2dp"
+                android:text="999"
+                android:visibility="invisible" />
+
+            
+
+        </FrameLayout>
         
         <ImageButton
             android:id="@+id/boardbtn" style="@style/TabButton"

@@ -35,6 +35,7 @@ import com.nsdb.univer.supporter.NetworkSupporter;
 import com.nsdb.univer.supporter.adapter.BoardCommentDataAdapter;
 import com.nsdb.univer.supporter.data.AppPref;
 import com.nsdb.univer.supporter.ui.FontSetter;
+import com.nsdb.univer.supporter.ui.ImageSetterNoCache;
 
 public class BoardDetail extends Activity implements OnScrollListener, OnClickListener {
 	
@@ -100,10 +101,15 @@ public class BoardDetail extends Activity implements OnScrollListener, OnClickLi
 			image.setLayoutParams(params);
 			// load image
         	ImageLoader loader=new ImageLoader(this);
+        	new ImageSetterNoCache(getResources().getString(R.string.base_url)+'/'
+        							+getResources().getString(R.string.media_url)+'/'
+        							+lastdata.image,image).execute();
+        	/*
 			loader.DisplayImage(
 					getResources().getString(R.string.base_url)+'/'
 					+getResources().getString(R.string.media_url)+'/'
 					+lastdata.image,image);
+					*/
 			image.setVisibility(View.VISIBLE);
 		}
 

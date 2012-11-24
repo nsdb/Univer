@@ -14,12 +14,15 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
+import android.widget.TextView;
 
 public class ChatRoomMain extends ActiveFragment implements OnItemClickListener {
 
 	ListView lv;
 	ChatRoomDataAdapter adapter;
 	private final static int REQUESTCODE_CHATROOMDETAIL=3;
+	
+	TextView badge;
 	
 	public ChatRoomMain() {
 		super();
@@ -36,7 +39,10 @@ public class ChatRoomMain extends ActiveFragment implements OnItemClickListener 
 		lv=(ListView)v.findViewById(R.id.chatlist);
 		adapter=new ChatRoomDataAdapter(THIS,lv);
 		lv.setOnItemClickListener(this);
-		adapter.updateData();
+		
+		badge=(TextView)THIS.findViewById(R.id.tabbadge);
+		
+		adapter.updateData(badge);
 		
 		return v;
 	}
@@ -56,7 +62,7 @@ public class ChatRoomMain extends ActiveFragment implements OnItemClickListener 
 		switch(requestCode) {
 		case REQUESTCODE_CHATROOMDETAIL:
 			if(data.getBooleanExtra("edited",false)==true) {
-				adapter.updateData();
+				adapter.updateData(badge);
 			} break;			
 		}
 	}

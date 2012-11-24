@@ -19,7 +19,9 @@
             android:id="@+id/text"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1">
+            android:layout_weight="1"
+            android:hint="연결중입니다..."
+            android:enabled="false">
 
             <requestFocus />
         </EditText>
@@ -29,6 +31,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
+            android:enabled="false"
             android:text="Send" />
 
     </LinearLayout>

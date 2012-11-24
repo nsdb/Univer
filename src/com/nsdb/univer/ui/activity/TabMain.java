@@ -1,7 +1,6 @@
 package com.nsdb.univer.ui.activity;
 
 import com.nsdb.univer.R;
-import com.nsdb.univer.supporter.data.AppPref;
 import com.nsdb.univer.supporter.ui.FontSetter;
 import com.nsdb.univer.ui.fragment.BoardMain;
 import com.nsdb.univer.ui.fragment.BookMarketMain;
@@ -11,7 +10,6 @@ import com.nsdb.univer.ui.fragment.ProfessorMain;
 
 import android.os.Bundle;
 import android.view.Display;
-import android.view.KeyEvent;
 import android.view.WindowManager;
 import android.widget.ImageButton;
 import android.widget.LinearLayout.LayoutParams;
@@ -42,7 +40,7 @@ public class TabMain extends ActiveFragmentHost {
         chatroombtn.setOnClickListener(new OnClickSwitcher(2));
         boardbtn.setOnClickListener(new OnClickSwitcher(3));
         optionbtn.setOnClickListener(new OnClickSwitcher(4));
-    	switchScreen(AppPref.getInt("startTab"));
+    	switchScreen(0);
     	
     	// Tab Resize
     	Display display = ((WindowManager)getSystemService(WINDOW_SERVICE)).getDefaultDisplay();
@@ -72,17 +70,4 @@ public class TabMain extends ActiveFragmentHost {
     	case 4: optionbtn.setImageResource(R.drawable.cm_tab5_selected); break;
     	}
     }
-	@Override
-	public boolean onKeyDown(int keyCode, KeyEvent event)
-	{
-		switch (keyCode)
-		{
-		case KeyEvent.KEYCODE_BACK:
-			AppPref.setInt("startTab",getCurrentPosition());
-			finish();
-			return true;
-		default:
-			return false;
-		}
-	}
 }

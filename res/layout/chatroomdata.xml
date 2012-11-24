@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="103.27dp"
+    android:orientation="vertical" >
+
+
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/bk_normal"
+        android:scaleType="fitXY"
+        />
+    
+	<TextView
+	    android:id="@+id/badge" style="@style/BadgeView"
+		android:layout_gravity="right|center_vertical"
+		android:layout_margin="20dp"
+		android:text="999" />
+
+    
+   
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+	    android:padding="15dp"
+        android:orientation="vertical" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:gravity="bottom" >
+
+            <TextView
+                android:id="@+id/title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Title"
+                android:textSize="24dp" />
+            
+			<LinearLayout
+			    android:layout_width="0dp"
+			    android:layout_height="match_parent"
+			    android:layout_weight="1" >
+			</LinearLayout>
+
+            <TextView
+                android:id="@+id/seller"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="10dp"
+                android:text="Seller"
+                android:textSize="12dp" />
+
+            <TextView
+                android:id="@+id/edited"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Edited"
+                android:textSize="12dp" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/description"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:textSize="18dp"
+            android:text="Description" />
+
+    </LinearLayout>
+
+</FrameLayout>

@@ -38,6 +38,9 @@ public class ChatRoomDetail extends Activity implements OnClickListener, OnFocus
 	EditText text;
 	Button send;
 	ProgressDialog pdl;
+
+	// saved data
+	int is_chatRoom,chatRoom_id,seller,seller_id;
 	
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -49,24 +52,35 @@ public class ChatRoomDetail extends Activity implements OnClickListener, OnFocus
         text=(EditText)findViewById(R.id.text);
         send=(Button)findViewById(R.id.send);
         view.getSettings().setJavaScriptEnabled(true);
+        view.addJavascriptInterface(new AndroidBridge(),"android2");
         send.setOnClickListener(this);
         text.setOnFocusChangeListener(this);
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
         
+        is_chatRoom=-1;
+        chatRoom_id=-1;
+        seller=-1;
+        seller_id=-1;
+        
 		// if you come from ChatRoomMain
         if(getIntent().getStringExtra("from").compareTo("ChatRoomMain")==0) {
         	ChatRoomData lastdata=AppPref.getLastChatRoomData();
-        	updateView(1,lastdata.chatRoom_id,lastdata.seller,lastdata.to_id);
-
+        	is_chatRoom=1;
+        	chatRoom_id=lastdata.chatRoom_id;
+        	seller=lastdata.seller;
+        	seller_id=lastdata.to_id;
+        	requestConnect();
+        }
         // else if you come from BookDetail	
-        } else if(getIntent().getStringExtra("from").compareTo("BookDetail")==0) {
+        else if(getIntent().getStringExtra("from").compareTo("BookDetail")==0) {
         	new ChatRoomChecker().execute();
-        	
-        } else {
+        }	
+        else {
         	finish();
         }
     }
 
+    // send message
 	public void onClick(View v) {
 		
 		if(text.getText().toString().compareTo("")!=0) {
@@ -79,6 +93,8 @@ public class ChatRoomDetail extends Activity implements OnClickListener, OnFocus
 			view.loadUrl("javascript:callJavascriptTextViewResponse()");
 	}
 	
+	
+	// chect chat room
 	private class ChatRoomChecker extends AsyncTask<Void,Void,Integer> {
 		
 		@Override
@@ -123,22 +139,27 @@ public class ChatRoomDetail extends Activity implements OnClickListener, OnFocus
 			
 			pdl.dismiss();
 			if(result==-1) {
-				Toast.makeText(ChatRoomDetail.this,"채팅창 활성화 실패, 다시 시도하십시요",Toast.LENGTH_SHORT).show();				
-			} else if(result==0) {
-				updateView(0,result,0,getIntent().getIntExtra("seller_id",-1));				
-			} else {
-				updateView(1,result,0,getIntent().getIntExtra("seller_id",-1));
+				Toast.makeText(ChatRoomDetail.this,"채팅창 활성화 실패, 다시 시도하십시요",Toast.LENGTH_SHORT).show();
+				text.setHint("연결 실패");
+				return;
 			}
-
+			is_chatRoom=(result==0)? 0:1;
+			chatRoom_id=result;
+			seller=0;
+			seller_id=getIntent().getIntExtra("seller_id",-1);
+			requestConnect();
 		}
 	}
 	
-	public void updateView(int is_chatRoom,int chatRoom_id,int seller,int seller_id) {
+	
+	// update view
+	public void requestConnect() {
 		
         try {
 			ArrayList<NameValuePair> postdata=new ArrayList<NameValuePair>();
 			postdata.add( new BasicNameValuePair("user_id",""+AppPref.getInt("user_id")));				
 			postdata.add( new BasicNameValuePair("value",AppPref.getString("value")));				
+			postdata.add( new BasicNameValuePair("device_type",""+2));				
 			postdata.add( new BasicNameValuePair("roomName",""+
 					Math.max(AppPref.getInt("user_id"),seller_id)+"."
 					+Math.min(AppPref.getInt("user_id"),seller_id) ) );
@@ -163,6 +184,42 @@ public class ChatRoomDetail extends Activity implements OnClickListener, OnFocus
         catch(Exception e) {
         	e.printStackTrace();
         }
+	}
+	
+	
+	// javascript->android
+	private class AndroidBridge {
+		public void callAndroid(final String arg) {
+			System.out.println("arg : "+arg);
+			JsReceiver r=new JsReceiver(arg);
+			ChatRoomDetail.this.runOnUiThread(r);
+		}
+	}
+	
+	private class JsReceiver implements Runnable {
+
+		String arg;
+		public JsReceiver(String arg) { this.arg=arg; }
+		public void run() {
+			
+			if(arg.compareTo("1")==0) {
+				
+				System.out.println("Chat Connected");
+				text.setEnabled(true);
+				text.setHint("");
+				send.setEnabled(true);
+				
+			} else if(arg.compareTo("0")==0) {
+				
+				System.out.println("Chat Disconnected");
+				text.setEnabled(false);
+				text.setHint("연결중입니다");
+				send.setEnabled(false);
+				requestConnect();
+			}
+			
+		}
+		
 	}
 
 }

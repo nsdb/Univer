@@ -28,6 +28,7 @@ import android.os.AsyncTask;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -99,16 +100,20 @@ public class BoardDataAdapter extends DataLoadingArrayAdapter<BoardData> {
 	protected void setView(int position, View v, boolean initial) {
         if(initial) FontSetter.setDefault(getContext(),v);
 		
+        LinearLayout l=(LinearLayout)v.findViewById(R.id.boardlinear);
 		TextView t=(TextView)v.findViewById(R.id.title);
 		TextView c=(TextView)v.findViewById(R.id.created);
 		TextView r=(TextView)v.findViewById(R.id.range);
 		ImageView i=(ImageView)v.findViewById(R.id.image);
 		TextView d=(TextView)v.findViewById(R.id.description);
-		TextView l=(TextView)v.findViewById(R.id.like);
+		TextView li=(TextView)v.findViewById(R.id.like);
 		TextView cm=(TextView)v.findViewById(R.id.comment);
 		TextView ln=(TextView)v.findViewById(R.id.likenum);
 		TextView cn=(TextView)v.findViewById(R.id.commentnum);
-
+		CommentClickListener ccl=new CommentClickListener(i,getItem(position));
+		
+		
+		l.setOnClickListener(ccl);
 		t.setText(getItem(position).title);
 
 		// created
@@ -126,7 +131,6 @@ public class BoardDataAdapter extends DataLoadingArrayAdapter<BoardData> {
 		r.setText(getItem(position).region+" / "+getItem(position).university);
 		
 		// image
-		CommentClickListener ccl=new CommentClickListener(i,getItem(position));
 		if(getItem(position).image.compareTo("")!=0) {
 			System.out.println("image : "+getItem(position).image);
 			loader.DisplayImage(
@@ -141,7 +145,7 @@ public class BoardDataAdapter extends DataLoadingArrayAdapter<BoardData> {
 		
 		// other
 		d.setText(getItem(position).description);
-		l.setOnClickListener(new LikeClickListener(ln,getItem(position).id));
+		li.setOnClickListener(new LikeClickListener(ln,getItem(position).id));
 		cm.setOnClickListener(ccl);
 		ln.setText(""+getItem(position).like);
 		cn.setText(""+getItem(position).comment);

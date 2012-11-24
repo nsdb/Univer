@@ -47,6 +47,13 @@
         <item name="android:src">@drawable/pf_evaluation_btn</item>
         <item name="android:background">@null</item>
     </style>
+    <style name="ActionBarWriteButton">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_margin">4.66dp</item>
+        <item name="android:src">@drawable/com_wr_btn</item>
+        <item name="android:background">@null</item>
+    </style>
     <style name="ActionBarTitle">
         <item name="android:textSize">24dp</item>
         <item name="android:textColor">#FFFFFF</item>
@@ -101,6 +108,9 @@
     </style>
     <style name="ProfessorThumbnailButton" parent="@style/ThumbnailButton">
         <item name="android:src">@drawable/pf_no</item>
+    </style>
+    <style name="BoardThumbnailButton" parent="@style/ThumbnailButton">
+        <item name="android:src">@drawable/com_image</item>
     </style>
     <style name="RegisterProfessorThumbnailButton" parent="@style/ThumbnailButton">
         <item name="android:layout_width">61.30dp</item>
@@ -166,6 +176,13 @@
         <item name="android:rating">0.0</item>
         <item name="android:isIndicator">true</item>
         <item name="android:progressDrawable">@drawable/custom_rating_bar_large</item>
+    </style>
+    <style name="BadgeView">
+		<item name="android:layout_width">wrap_content</item>
+		<item name="android:layout_height">wrap_content</item>
+		<item name="android:background">@drawable/badge</item>
+		<item name="android:textColor">#FFFFFF</item>
+		<item name="android:textSize">18dp</item>
     </style>
     
 </resources>
