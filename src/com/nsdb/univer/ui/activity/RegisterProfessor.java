@@ -33,21 +33,23 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
 
 public class RegisterProfessor extends Activity implements OnClickListener {
 
+	EditText title;
+	Button region,univ,college;
+	private final static int REQUESTCODE_RANGE=3;
+	
 	ImageView image;
+	Button imagebtn;
 	boolean imageAdded;
 	private final static int REQUESTCODE_CAPTUREIMAGE=1;
 	private final static int REQUESTCODE_GETIMAGE=2;
 	
-	EditText title;
-	Button region,univ,college,major;
-	private final static int REQUESTCODE_RANGE=3;
-	
-	Button apply;
+	ImageButton apply;
 	ProgressDialog pdl;
 	
 
@@ -58,23 +60,22 @@ public class RegisterProfessor extends Activity implements OnClickListener {
 		setContentView(R.layout.registerprofessor);
         FontSetter.setDefault(this);
 		
-        image=(ImageView)findViewById(R.id.image);
-        imageAdded=false;
         title=(EditText)findViewById(R.id.title);
-        //getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
-        image.setOnClickListener(this);
-		
     	region=(Button)findViewById(R.id.region);
     	univ=(Button)findViewById(R.id.univ);
     	college=(Button)findViewById(R.id.college);
-    	major=(Button)findViewById(R.id.major);
     	region.setOnClickListener(new OnClickMover(this,new Intent("RangeSetting").putExtra("range","region"),REQUESTCODE_RANGE));
     	univ.setOnClickListener(new OnClickMover(this,new Intent("RangeSetting").putExtra("range","univ"),REQUESTCODE_RANGE));
     	college.setOnClickListener(new OnClickMover(this,new Intent("RangeSetting").putExtra("range","college"),REQUESTCODE_RANGE));
-    	major.setOnClickListener(new OnClickMover(this,new Intent("RangeSetting").putExtra("range","major"),REQUESTCODE_RANGE));
-		AppPref.getRangeSet().applyDataToView(region, univ, college, major);
+		AppPref.getRangeSet().applyDataToView(region, univ, college);
 		
-        apply=(Button)findViewById(R.id.apply);
+        image=(ImageView)findViewById(R.id.image);
+        imagebtn=(Button)findViewById(R.id.imagebtn);
+        imageAdded=false;
+        imagebtn.setOnClickListener(this);
+        //getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+		
+        apply=(ImageButton)findViewById(R.id.apply);
         apply.setOnClickListener(this);		
         
 	}
@@ -85,7 +86,7 @@ public class RegisterProfessor extends Activity implements OnClickListener {
 
 		switch(v.getId()) {
 		
-		case R.id.image: {
+		case R.id.imagebtn: {
 			final String items[] = { "직접 찍기", "앨범에서 가져오기" };
 			AlertDialog.Builder ab = new AlertDialog.Builder(this);
 			ab.setTitle("이미지");
@@ -129,7 +130,7 @@ public class RegisterProfessor extends Activity implements OnClickListener {
 		if(resultCode==RESULT_OK) {
 			switch(requestCode) {
 			case REQUESTCODE_RANGE:
-				AppPref.getRangeSet().applyDataToView(region,univ,college,major);
+				AppPref.getRangeSet().applyDataToView(region,univ,college);
 				getIntent().putExtra("range_changed",true);
 				break;
 			case REQUESTCODE_CAPTUREIMAGE:

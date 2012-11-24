@@ -95,6 +95,11 @@
     <style name="ProfessorThumbnailButton" parent="@style/ThumbnailButton">
         <item name="android:src">@drawable/pf_no</item>
     </style>
+    <style name="RegisterProfessorThumbnailButton" parent="@style/ThumbnailButton">
+        <item name="android:layout_width">61.30dp</item>
+        <item name="android:layout_height">61.30dp</item>
+        <item name="android:src">@drawable/pf_no</item>
+    </style>
     
     <style name="WhiteBoxLinear">
         <item name="android:layout_width">match_parent</item>
