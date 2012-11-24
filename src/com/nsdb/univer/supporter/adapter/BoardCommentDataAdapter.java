@@ -1,6 +1,7 @@
 package com.nsdb.univer.supporter.adapter;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 
 import org.jdom2.Element;
 
@@ -52,7 +53,7 @@ public class BoardCommentDataAdapter extends DataLoadingArrayAdapter<CommentData
 	protected CommentData convertElementToObject(Element item) {
 		return new CommentData( item.getChild("title").getText(),
           		item.getChild("description").getText(),
-          		item.getChild("pubDate").getText() );
+          		item.getChild("created").getText() );
 	}
 
 	@Override
@@ -61,11 +62,21 @@ public class BoardCommentDataAdapter extends DataLoadingArrayAdapter<CommentData
 		
 		TextView t=(TextView)v.findViewById(R.id.title);
 		TextView d=(TextView)v.findViewById(R.id.description);
-		//TextView p=(TextView)v.findViewById(R.id.pubdate);
+		TextView c=(TextView)v.findViewById(R.id.created);
 
 		t.setText(getItem(position).title);
 		d.setText(getItem(position).description);
-		//p.setText(dataVisible.get(position).pubDate);
+
+		// created
+		Calendar cal=Calendar.getInstance();
+		String[] splited=getItem(position).created.split(" ");
+		String[] splitedDay=splited[0].split("\\-");
+		String[] splitedTime=splited[1].split("\\:");
+		if(Integer.parseInt(splitedDay[0])==cal.get(Calendar.YEAR)) {
+			c.setText(splitedDay[1]+"월 "+splitedDay[2]+"일  "+splitedTime[0]+"시 "+splitedTime[1]+"분");
+		} else {
+			c.setText(splitedDay[0]+"년 "+splitedDay[1]+"월  "+splitedDay[2]+"일");
+		}
 	}
 
 }

@@ -1,32 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/commentdata_height"
-    android:minHeight="@dimen/commentdata_height"
-    android:orientation="horizontal" >
+    android:layout_height="80dp"
+    android:padding="15dp" 
+    android:orientation="vertical" >
 
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:padding="10dp"
-        android:orientation="vertical" >
-
-        <TextView
-            android:id="@+id/description"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Description"
-            android:singleLine="false"
-            android:textSize="18dp" />
+        android:layout_marginBottom="10dp"
+        android:orientation="horizontal"
+        android:gravity="bottom">
 
         <TextView
             android:id="@+id/title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Title"
+            android:textSize="20dp" />
+        <TextView
+            android:id="@+id/created"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Title"
-            android:textSize="14dp" />
-
+            android:text="created"
+            android:textSize="12dp" />
+        
+        
     </LinearLayout>
+
+    <TextView
+        android:id="@+id/description"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Description"
+        android:textSize="16dp" />
 
 </LinearLayout>

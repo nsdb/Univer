@@ -2,6 +2,7 @@ package com.nsdb.univer.supporter.adapter;
 
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
@@ -22,6 +23,7 @@ import com.woozzu.android.widget.RefreshableListView;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -98,21 +100,32 @@ public class BoardDataAdapter extends DataLoadingArrayAdapter<BoardData> {
         if(initial) FontSetter.setDefault(getContext(),v);
 		
 		TextView t=(TextView)v.findViewById(R.id.title);
-		TextView p=(TextView)v.findViewById(R.id.pubdate);
+		TextView c=(TextView)v.findViewById(R.id.created);
+		TextView r=(TextView)v.findViewById(R.id.range);
+		ImageView i=(ImageView)v.findViewById(R.id.image);
 		TextView d=(TextView)v.findViewById(R.id.description);
 		TextView l=(TextView)v.findViewById(R.id.like);
-		TextView c=(TextView)v.findViewById(R.id.comment);
+		TextView cm=(TextView)v.findViewById(R.id.comment);
 		TextView ln=(TextView)v.findViewById(R.id.likenum);
 		TextView cn=(TextView)v.findViewById(R.id.commentnum);
-		ImageView i=(ImageView)v.findViewById(R.id.image);
 
 		t.setText(getItem(position).title);
-		p.setText(getItem(position).pubDate);
-		d.setText(getItem(position).description);
-		l.setOnClickListener(new LikeClickListener(v,getItem(position).id));
-		c.setOnClickListener(new CommentClickListener(getItem(position)));
-		ln.setText(""+getItem(position).like);
-		cn.setText(""+getItem(position).comment);
+
+		// created
+		Calendar cal=Calendar.getInstance();
+		String[] splited=getItem(position).created.split(" ");
+		String[] splitedDay=splited[0].split("\\-");
+		String[] splitedTime=splited[1].split("\\:");
+		if(Integer.parseInt(splitedDay[0])==cal.get(Calendar.YEAR)) {
+			c.setText(splitedDay[1]+"월 "+splitedDay[2]+"일  "+splitedTime[0]+"시 "+splitedTime[1]+"분");
+		} else {
+			c.setText(splitedDay[0]+"년 "+splitedDay[1]+"월  "+splitedDay[2]+"일");
+		}
+		
+		// range
+		r.setText(getItem(position).region+" / "+getItem(position).university);
+		
+		// image
 		if(getItem(position).image.compareTo("")!=0) {
 			System.out.println("image : "+getItem(position).image);
 			loader.DisplayImage(
@@ -121,8 +134,15 @@ public class BoardDataAdapter extends DataLoadingArrayAdapter<BoardData> {
 					+getItem(position).image,i);
 			i.setVisibility(View.VISIBLE);
 		} else {
-			i.setVisibility(View.GONE);			
+			i.setVisibility(View.GONE);
 		}
+		
+		// other
+		d.setText(getItem(position).description);
+		l.setOnClickListener(new LikeClickListener(v,getItem(position).id));
+		cm.setOnClickListener(new CommentClickListener(v,getItem(position)));
+		ln.setText(""+getItem(position).like);
+		cn.setText(""+getItem(position).comment);
 		
 	}
 	
@@ -200,15 +220,23 @@ public class BoardDataAdapter extends DataLoadingArrayAdapter<BoardData> {
 	// OnClickListener for Comment Button
 	private class CommentClickListener implements OnClickListener {
 
+		private View item;
 		private BoardData lastData;
 		
-		public CommentClickListener(BoardData lastData) {
+		public CommentClickListener(View item,BoardData lastData) {
+			this.item=item;
 			this.lastData=lastData;
 		}
-		
+
 		public void onClick(View v) {
+			ImageView image=(ImageView)item.findViewById(R.id.image);
+			image.setDrawingCacheEnabled(true);
+			Bitmap bmp=image.getDrawingCache();
+			int width=bmp.getWidth();
+			int height=bmp.getHeight();
+			image.setDrawingCacheEnabled(false);
 			AppPref.setLastBoardData(lastData);
-			getContext().startActivity( new Intent("BoardDetail") );
+			getContext().startActivity( new Intent("BoardDetail").putExtra("width",width).putExtra("height",height) );
 		}
 		
 	}
