@@ -22,7 +22,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.WindowManager;
 import android.view.View.OnClickListener;
-import android.widget.ImageButton;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioGroup;
 import android.widget.RadioGroup.OnCheckedChangeListener;
@@ -36,7 +36,7 @@ public class EvaluateProfessor extends Activity implements OnClickListener, OnCh
 	RadioGroup evaluate;
 	int checkState;
 	EditText comment;
-	ImageButton apply;
+	Button apply;
 	ProgressDialog pdl;
 	
 	private static int CHECK_GOOD=1;
@@ -57,7 +57,7 @@ public class EvaluateProfessor extends Activity implements OnClickListener, OnCh
         evaluate=(RadioGroup)findViewById(R.id.evaluate);
         checkState=-1;
         comment=(EditText)findViewById(R.id.comment);
-        apply=(ImageButton)findViewById(R.id.apply);
+        apply=(Button)findViewById(R.id.apply);
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
         evaluate.setOnCheckedChangeListener(this);
         apply.setOnClickListener(this);

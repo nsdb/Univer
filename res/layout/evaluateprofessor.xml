@@ -7,11 +7,6 @@
     <LinearLayout
         android:id="@+id/actionbar" style="@style/ActionBarLinear">
 
-        <ImageButton
-            style="@style/ActionBarOkButton"
-            android:visibility="invisible"/>
-        
-        
   	    <TextView
 	        android:id="@+id/actionbartitle" style="@style/ActionBarTitle"
 	        android:layout_width="0dp"
@@ -19,10 +14,6 @@
 	        android:layout_weight="1"
 	        android:text="교수평가" />
   	    
-        <ImageButton
-            android:id="@+id/apply" style="@style/ActionBarOkButton"/>
-  	    	    
-	
     </LinearLayout>
     
     
@@ -178,6 +169,16 @@
             android:layout_height="wrap_content"
             android:gravity="center_vertical"
             android:layout_marginTop="5dp"/>
+        
+	    <Button
+	        android:id="@+id/apply" style="@style/CommonButton"
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:layout_marginLeft="15dp"
+	        android:layout_marginRight="15dp"
+	        android:layout_marginBottom="15dp"
+	        android:text="완료" />
+        
 
     </LinearLayout>
 

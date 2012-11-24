@@ -33,7 +33,6 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -49,7 +48,7 @@ public class RegisterProfessor extends Activity implements OnClickListener {
 	private final static int REQUESTCODE_CAPTUREIMAGE=1;
 	private final static int REQUESTCODE_GETIMAGE=2;
 	
-	ImageButton apply;
+	Button apply;
 	ProgressDialog pdl;
 	
 
@@ -75,7 +74,7 @@ public class RegisterProfessor extends Activity implements OnClickListener {
         imagebtn.setOnClickListener(this);
         //getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
 		
-        apply=(ImageButton)findViewById(R.id.apply);
+        apply=(Button)findViewById(R.id.apply);
         apply.setOnClickListener(this);		
         
 	}
