@@ -18,6 +18,7 @@ import com.nsdb.univer.data.BookData;
 import com.nsdb.univer.supporter.NetworkSupporter;
 import com.nsdb.univer.supporter.data.AppPref;
 import com.nsdb.univer.supporter.ui.FontSetter;
+import com.nsdb.univer.supporter.ui.ImageSetterNoCache;
 import com.woozzu.android.widget.RefreshableListView;
 
 import android.app.ProgressDialog;
@@ -133,10 +134,10 @@ public class BoardDataAdapter extends DataLoadingArrayAdapter<BoardData> {
 		// image
 		if(getItem(position).image.compareTo("")!=0) {
 			System.out.println("image : "+getItem(position).image);
-			loader.DisplayImage(
+			new ImageSetterNoCache(
 					getContext().getResources().getString(R.string.base_url)+'/'
 					+getContext().getResources().getString(R.string.media_url)+'/'
-					+getItem(position).image,i);
+					+getItem(position).image,i).execute();
 			i.setVisibility(View.VISIBLE);
 			i.setOnClickListener(ccl);
 		} else {
