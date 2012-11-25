@@ -70,7 +70,8 @@ public class GCMIntentService extends GCMBaseIntentService {
         // activity check
         ActivityManager.RunningTaskInfo taskInfo=activityManager.getRunningTasks(1).get(0);
         String packageName=taskInfo.topActivity.getPackageName();
-        if(packageName.compareTo("com.nsdb.univer.ui.activity.TabMain")==0 && powerManager.isScreenOn()==true) {
+        System.out.println("packageName : "+packageName);
+        if(packageName.compareTo("com.nsdb.univer")==0 && powerManager.isScreenOn()==true) {
 
         	Intent i=new Intent("com.nsdb.univer.GCMIntentService.requestUpdate");
         	sendBroadcast(i);
