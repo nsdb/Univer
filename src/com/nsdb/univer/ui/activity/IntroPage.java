@@ -22,6 +22,8 @@ import android.os.Bundle;
 
 public class IntroPage extends Activity {
 	
+	boolean noti;
+	
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,7 +36,9 @@ public class IntroPage extends Activity {
         // from Noti?
         if(getIntent()!=null && getIntent().getBooleanExtra("noti",false)==true) {
         	NotificationHelper.removeNotification(this,0);
-        	AppPref.setInt("startTab",2);
+        	noti=true;
+        } else {
+        	noti=false;
         }
         ////
         
@@ -79,7 +83,7 @@ public class IntroPage extends Activity {
 		@Override
 		protected void onPostExecute(String result) {
 			if(result.compareTo("200")==0) {
-				startActivityForResult( new Intent("TabMain"),0 );
+				startActivityForResult( new Intent("TabMain").putExtra("noti",noti),0 );
 			} else {
 				startActivityForResult( new Intent("LoginPage"),0 );				
 			}

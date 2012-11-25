@@ -40,7 +40,10 @@ public class TabMain extends ActiveFragmentHost {
         chatroombtn.setOnClickListener(new OnClickSwitcher(2));
         boardbtn.setOnClickListener(new OnClickSwitcher(3));
         optionbtn.setOnClickListener(new OnClickSwitcher(4));
-    	switchScreen(0);
+        if(getIntent().getBooleanExtra("noti",false)==true)
+        	switchScreen(2);
+        else
+        	switchScreen(0);
     	
     	// Tab Resize
     	Display display = ((WindowManager)getSystemService(WINDOW_SERVICE)).getDefaultDisplay();

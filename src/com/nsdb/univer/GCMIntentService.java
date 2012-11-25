@@ -5,19 +5,24 @@ import java.util.Iterator;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Vibrator;
 import android.util.Log;
 
 import com.google.android.gcm.GCMBaseIntentService;
 import com.nsdb.univer.supporter.NotificationHelper;
 
 public class GCMIntentService extends GCMBaseIntentService {
-    private static final String tag = "GCMIntentService";
-    // same as GCMRegIdGetter
-    private static final String PROJECT_ID = "543457066261";
+
+	private static final String tag = "GCMIntentService";    
+    private static final String PROJECT_ID = "543457066261";	// same as GCMRegIdGetter
+    private Vibrator vibrator;
    
     public GCMIntentService(){ this(PROJECT_ID); }
    
-    public GCMIntentService(String project_id) { super(project_id); }
+    public GCMIntentService(String project_id) {
+    	super(project_id);
+    	vibrator=(Vibrator)getSystemService(Context.VIBRATOR_SERVICE);
+    }
  
     /** 푸시로 받은 메시지 */
     @Override
@@ -41,12 +46,15 @@ public class GCMIntentService extends GCMBaseIntentService {
             else if(key.compareTo("ticker")==0)
             	ticker=value;
         }
-        
-        // Noti
         if(title==null || content==null || ticker==null) return;
+        
+        // Noti        
         NotificationHelper.addNotification(context,
         	new Intent("IntroPage").putExtra("noti",true),
-        	0,R.drawable.ic_launcher,ticker,title,content);
+        	0,R.drawable.icon,ticker,title,content);
+        
+        // Vib
+        vibrator.vibrate(1000);
     }
 
     /**에러 발생시*/
