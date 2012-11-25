@@ -1,10 +1,13 @@
 package com.nsdb.univer;
 
 import java.util.Iterator;
+import java.util.List;
 
+import android.app.ActivityManager;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.PowerManager;
 import android.os.Vibrator;
 import android.util.Log;
 
@@ -16,12 +19,21 @@ public class GCMIntentService extends GCMBaseIntentService {
 	private static final String tag = "GCMIntentService";    
     private static final String PROJECT_ID = "543457066261";	// same as GCMRegIdGetter
     private Vibrator vibrator;
+    private ActivityManager activityManager;
+    private PowerManager powerManager;
    
     public GCMIntentService(){ this(PROJECT_ID); }
    
     public GCMIntentService(String project_id) {
     	super(project_id);
-    	vibrator=(Vibrator)getSystemService(Context.VIBRATOR_SERVICE);
+    }
+    
+    @Override
+    public void onCreate() {
+    	super.onCreate();
+    	vibrator=(Vibrator)getSystemService(VIBRATOR_SERVICE);
+    	activityManager=(ActivityManager)getSystemService(ACTIVITY_SERVICE);
+    	powerManager=(PowerManager)getSystemService(POWER_SERVICE);
     }
  
     /** 푸시로 받은 메시지 */
@@ -46,15 +58,31 @@ public class GCMIntentService extends GCMBaseIntentService {
             else if(key.compareTo("ticker")==0)
             	ticker=value;
         }
-        if(title==null || content==null || ticker==null) return;
         
+        // check available
+        if(title==null || content==null || ticker==null) return;
+
         // Noti        
         NotificationHelper.addNotification(context,
         	new Intent("IntroPage").putExtra("noti",true),
         	0,R.drawable.icon,ticker,title,content);
+
+        // activity check
+        ActivityManager.RunningTaskInfo taskInfo=activityManager.getRunningTasks(1).get(0);
+        String packageName=taskInfo.topActivity.getPackageName();
+        if(packageName.compareTo("com.nsdb.univer.ui.activity.TabMain")==0 && powerManager.isScreenOn()==true) {
+
+        	Intent i=new Intent("com.nsdb.univer.GCMIntentService.requestUpdate");
+        	sendBroadcast(i);
+        	return;
+
+        } else {
+        	
+            // Vib
+            vibrator.vibrate(500);
+        }
         
-        // Vib
-        vibrator.vibrate(1000);
+        
     }
 
     /**에러 발생시*/

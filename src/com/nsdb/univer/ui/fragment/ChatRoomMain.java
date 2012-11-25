@@ -6,7 +6,10 @@ import com.nsdb.univer.supporter.data.AppPref;
 import com.nsdb.univer.supporter.ui.FontSetter;
 
 import android.app.Activity;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,9 +23,11 @@ public class ChatRoomMain extends ActiveFragment implements OnItemClickListener 
 
 	ListView lv;
 	ChatRoomDataAdapter adapter;
-	private final static int REQUESTCODE_CHATROOMDETAIL=3;
+	private final static int REQUESTCODE_CHATROOMDETAIL=3;	
 	
-	TextView badge;
+	TextView tabBadge;
+	
+	RequestUpdateReceiver receiver;	
 	
 	public ChatRoomMain() {
 		super();
@@ -40,9 +45,12 @@ public class ChatRoomMain extends ActiveFragment implements OnItemClickListener 
 		adapter=new ChatRoomDataAdapter(THIS,lv);
 		lv.setOnItemClickListener(this);
 		
-		badge=(TextView)THIS.findViewById(R.id.tabbadge);
+		tabBadge=(TextView)THIS.findViewById(R.id.tabbadge);
+
+		receiver=new RequestUpdateReceiver();
+		THIS.registerReceiver(receiver,new IntentFilter("com.nsdb.univer.GCMIntentService.requestUpdate"));
 		
-		adapter.updateData(badge);
+		adapter.updateData(tabBadge);
 		
 		return v;
 	}
@@ -62,9 +70,21 @@ public class ChatRoomMain extends ActiveFragment implements OnItemClickListener 
 		switch(requestCode) {
 		case REQUESTCODE_CHATROOMDETAIL:
 			if(data.getBooleanExtra("edited",false)==true) {
-				adapter.updateData(badge);
+				adapter.updateData(tabBadge);
 			} break;			
 		}
+	}
+	
+	private class RequestUpdateReceiver extends BroadcastReceiver {
+
+		@Override
+		public void onReceive(Context context, Intent intent) {
+			
+			System.out.println(intent.getAction());
+			adapter.updateData(tabBadge);
+			
+		}
+		
 	}
 	
 }

@@ -235,13 +235,18 @@ public class BoardDataAdapter extends DataLoadingArrayAdapter<BoardData> {
 		}
 
 		public void onClick(View v) {
-			image.setDrawingCacheEnabled(true);
-			Bitmap bmp=image.getDrawingCache();
-			int width=bmp.getWidth();
-			int height=bmp.getHeight();
-			image.setDrawingCacheEnabled(false);
+			Intent intent=new Intent("BoardDetail");
+			if(lastData.image.compareTo("")!=0) {
+				image.setDrawingCacheEnabled(true);
+				Bitmap bmp=image.getDrawingCache();
+				int width=bmp.getWidth();
+				int height=bmp.getHeight();
+				image.setDrawingCacheEnabled(false);
+				intent.putExtra("width",width);
+				intent.putExtra("height",height);
+			}
 			AppPref.setLastBoardData(lastData);
-			getContext().startActivity( new Intent("BoardDetail").putExtra("width",width).putExtra("height",height) );
+			getContext().startActivity( intent );
 		}
 		
 	}

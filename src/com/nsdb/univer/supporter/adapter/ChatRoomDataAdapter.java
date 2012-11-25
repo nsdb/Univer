@@ -23,6 +23,7 @@ public class ChatRoomDataAdapter extends DataLoadingArrayAdapter<ChatRoomData> {
 	}
 	
 	public void updateData(TextView badge) {
+		init(true);
 		this.badge=badge;
 		String url=getContext().getResources().getString(R.string.base_url)+'/'
 				+getContext().getResources().getString(R.string.get_url)+'/'

@@ -54,13 +54,16 @@ public abstract class DataLoadingArrayAdapter<T> extends BaseArrayAdapter<T> {
 	
 	// Data Getting
 	protected void init() {
+		init(false);
+	}
+	protected void init(boolean maintainLastdata) {
 		loadable=true;
-		clear();
+		if(maintainLastdata==false) clear();
 		originalData.clear();
 		//notifyDataSetChanged();
 		if(getter != null)
 			getter.cancel(true);
-		getter=null;
+		getter=null;		
 	}
 	public void updateData(String url) {
 		if(loadable==false) return;
